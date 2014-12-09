@@ -1,0 +1,21 @@
+{
+  "name": "findJob",
+  "version": "0.0.1",
+  "description": "fidn a job app",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shuhao wang",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.9.2",
+    "crypto": "0.0.3",
+    "express": "^4.10.2",
+    "jwt-simple": "^0.2.0",
+    "mongoose": "^3.8.19",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0"
+  }
+}
