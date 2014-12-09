@@ -1,0 +1,44 @@
+
+<div class="col-lg-9">
+    <form class="form-horizontal" action="/create-section?token=<%=couseToken%>" method="POST">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>创建section</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="sectionTitle">section名称</label>
+                <div class="col-md-8">
+                    <input id="sectionTitle" name="sectionTitle" type="text" placeholder="输入section名称" class="form-control input-md" required="">
+                </div>
+            </div>
+
+            <!-- Textarea -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="sectionDesc">section简介</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" id="sectionDesc" name="sectionDesc"  placeholder="输入section简介" required></textarea>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="sectionTags">section标签</label>
+                <div class="col-md-4">
+                    <input id="sectionTags" name="sectionTags" type="text" placeholder="section标签" class="form-control input-md">
+                </div>
+            </div>
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="submit"></label>
+                <div class="col-md-8">
+                    <button id="submit" type="submit" class="btn btn-success">创建section</button>
+                    <button id="reset" type="reset" class="btn btn-danger">重填</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

@@ -57,7 +57,17 @@ module.exports = {
 
         relased :{
         	type:"datetime"
-        }
+        },
+
+       level:{
+           type:"string",
+           enum:["beginer","medium","advanced"],
+           defaultsTo:"medium"
+       },
+
+       coursetype:{
+           type:"string"
+       }
     },
 
     seedData:[
@@ -71,6 +81,8 @@ module.exports = {
             "rate" : 5,
             "rank" : 3,
             "viewtimes": 1,
+            "coursetype":".net",
+            "level":"medium",
             "id":1
         },
         {
@@ -83,6 +95,8 @@ module.exports = {
             "rate" : 5,
             "rank" : 3,
             "viewtimes": 1,
+            "coursetype":"java",
+            "level":"medium",
             "id":2
         }
     ]

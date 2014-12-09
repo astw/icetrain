@@ -3,8 +3,8 @@ var moment = require("moment");
 var config = require("./config");
 var secret = config.VIDEO_TOKEN_SECRET;
 
-//var Hashids = require("hashids"),
-//    hashids = new Hashids(secret);
+var Hashids = require("hashids"),
+    hashids = new Hashids(secret);
 
 //var SecObfuscate = require("sec-obfuscate-nodejs"),
 //    secObfuscate = new SecObfuscate('secretPassword');

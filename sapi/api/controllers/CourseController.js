@@ -5,7 +5,17 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var courseidKey ="sec for construct course id";
+var Hashids = require("hashids"),
+    hashids = new Hashids(courseidKey);
+
 module.exports = {
+    createSection:function(req, res){
+        var couseToken = req.params.id;
+
+        res.view("create-section",{couseToken:couseToken});
+    },
+
     create : function  (req, res) {
         if (req.method === 'GET')
             return res.json({'status': 'GET not allowed'});
@@ -14,21 +24,37 @@ module.exports = {
 
         User.findOne({email:req.body.tutoremail}, function(err,user){
             if(err){
-                console.log(err);
+                throw err;
             }
             console.log(user);
+            if(user){
+               Course.create({
+                   name : req.body.courseName,
+                   desc:req.body.courseDesc,
+                   tutorid : user.id,
+                   coursetype: req.body.coursetype,
+                   tags:req.body.courseTags,
+                   leve:req.body.courseLevel
+               },function(err,data){
+                    if(err){
+                        res.writeHead(400,{"Location" : "/error"})
+                    };
+
+                     var shortId = hashids.encode([data.id, user.id]);
+
+                //   res.writeHead(301, {"Location" :"/courses/"+shortId +"/create-section" });
+                   res.redirect("/courses/"+ shortId +"/create-section" );
+                   res.end();
+               });
+            }
+            else
+            {
+              res.writeHead(400,{"Location" : "/error"});
+                res.end();
+            }
+
         });
 
-
-//        Course.create({
-//            name:req.body.name,
-//            desc:req.body.desc,
-//            tutor
-//        })
-
-//            Video.create({
-//
-//            })
     }
 };
 

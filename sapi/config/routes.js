@@ -44,6 +44,7 @@ module.exports.routes = {
 
 
    /*******************  below is for uploader  *******************************/
+
    "get /fupload-file" :{view:"fupload"},
    "post /upload" : "FancyUploadController.upload",
    "delete /uploaded/files/*/:name" : "FancyUploadController.delete",
@@ -54,9 +55,17 @@ module.exports.routes = {
       view :"course"
   },
   "get /create-course" : {view:"create-course"},
-  "post /create-course" : "CourseController.create"
+  "get /courses/:id/create-section" :  "CourseController.createSection",
 
-  /***************************************************************************
+  "post /create-course" : "CourseController.create",
+  "post /create-section" : "CourseSectionController.create",
+
+    /**********************below is for course *********************************/
+
+    "get /upload-video/:courseid/:sectionid" : "FancyUploadController.showUploadUI",
+    "post /upload-video/:courseid/:sectionid" :"FancyUploadController.uploadCourseVideo"
+
+    /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
   *                                                                          *
