@@ -69,7 +69,8 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-     bodyParser: require('body-parser')//require('skipper')body-parser
+     bodyParser: require('body-parser'),//require('skipper')body-parser
+     flash:require("connect-flash")
 
   // },
 

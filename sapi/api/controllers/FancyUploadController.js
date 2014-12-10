@@ -19,6 +19,8 @@ var Hashids = require("hashids"),
     couseHashids = new Hashids(courseidKey),
     sectionHashids = new Hashids(sectionKey);
 var urlQuery = require('url');
+var flash = require('connect-flash');
+
 
 var changeFilesName = function (obj) {
     obj.files.forEach(function (file) {
@@ -109,20 +111,23 @@ module.exports = {
     },
 
     uploadCourseVideo: function (req, res) {
-        var couseToken = req.param.courseid;  //urlQuery.parse(req.url, true).query.courseid;
-        var sectionToken = req.param.sectionid;  //urlQuery.parse(req.url, true).query.sectionid;
+        //var couseToken = req.param.courseid;  //urlQuery.parse(req.url, true).query.courseid;
+        //var sectionToken = req.param.sectionid;  //urlQuery.parse(req.url, true).query.sectionid;
 
-        var courseId = couseHashids.decode(couseToken)[0];
-        var sectionId = sectionHashids.decode(sectionToken)[0];
+      //var courseToken = req.body.courseToken;
+      var courseToken = req.param.courseToken;
+      courseToken = req.flash("courseInfoToken");
+      var ids = couseHashids.decode(courseToken[0]);
+      var tutorId = ids[0];
+      var courseId = ids[1];
+      var sectionId = ids[2];
 
-        var tutor = Course.findOne({id: courseId});
-
-        var folder = createMediaFolder(tutor.id, courseId);
+        var folder = createMediaFolder(tutorId, courseId);
 
         console.log(req.body);
         console.log(req.files);
 
-        var uploader = createUploader2(req, foler);
+        var uploader = createUploader2(req, folder);
         console.log("begin uploading....");
         uploader.post(req, res, function (obj) {
             console.log(req.body);
@@ -132,10 +137,8 @@ module.exports = {
     },
 
     showUploadUI: function (req, res) {
-        var courseToken = req.params.courseid;
-        var sectionToken = req.params.sectionid;
-
-        res.view("section-video-upload", {courseid: courseToken, sectionid: sectionToken});
+        var courseToken = req.params.courseToken;
+        req.flash("courseInfoToken",courseToken);
+        res.view("section-video-upload", {courseToken: courseToken});
     }
 };
-

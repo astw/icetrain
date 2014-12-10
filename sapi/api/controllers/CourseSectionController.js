@@ -13,29 +13,34 @@ var Hashids = require("hashids"),
 
 module.exports = {
 
-    create: function (req, res) {
+  showCreateSectionUI:function(req, res){
+    var courseToken = req.params.courseToken;
+    res.view("create-section",{courseToken:courseToken});
+  },
+
+  create: function (req, res) {
         if (req.method === 'GET')
             return res.json({'status': 'GET not allowed'});
 
         console.log(req.body);
         var token = urlQuery.parse(req.url,true).query.token;
-
-        var courseid = couseHashids.decode(token)[0];
-        var tutorid = couseHashids.decode(token)[1];
+        var ids = couseHashids.decode(token);
+        var courseId = ids[0];
+        var tutorId = ids[1];
 
         CourseSection.create({
             title: req.body.sectionTitle,
             desc: req.body.sectionDesc,
-            courseid: courseid,
-            tutorid:tutorid,
+            courseid: courseId,
+            tutorid:tutorId,
             tags: req.body.sectionTags
             }, function (err, data) {
                 if (err != null) {
                     res.writeHead(400, {"Location": "/error"})
                 };
-                var sectionToken = sectionHashids.encode(data.id);
-                var courseToken = sectionHashids.encode(courseid);
-                res.redirect("/upload-video/"+ courseToken +"/" + sectionToken );
+
+                token = couseHashids.encode([tutorId,courseId,data.id]);
+                res.redirect("/upload-video/"+ token );
                 res.end();
         });
     }

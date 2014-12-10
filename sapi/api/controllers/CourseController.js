@@ -10,11 +10,6 @@ var Hashids = require("hashids"),
     hashids = new Hashids(courseidKey);
 
 module.exports = {
-    createSection:function(req, res){
-        var couseToken = req.params.id;
-
-        res.view("create-section",{couseToken:couseToken});
-    },
 
     create : function  (req, res) {
         if (req.method === 'GET')
@@ -22,7 +17,7 @@ module.exports = {
 
         console.log(req.body);
 
-        User.findOne({email:req.body.tutoremail}, function(err,user){
+        User.findOne({email:req.body.tutorEmail}, function(err,user){
             if(err){
                 throw err;
             }
@@ -32,7 +27,7 @@ module.exports = {
                    name : req.body.courseName,
                    desc:req.body.courseDesc,
                    tutorid : user.id,
-                   coursetype: req.body.coursetype,
+                   coursetype: req.body.courseType,
                    tags:req.body.courseTags,
                    leve:req.body.courseLevel
                },function(err,data){
@@ -40,10 +35,10 @@ module.exports = {
                         res.writeHead(400,{"Location" : "/error"})
                     };
 
-                     var shortId = hashids.encode([data.id, user.id]);
+                     var shortToken = hashids.encode([data.id, user.id]);
 
                 //   res.writeHead(301, {"Location" :"/courses/"+shortId +"/create-section" });
-                   res.redirect("/courses/"+ shortId +"/create-section" );
+                   res.redirect("/courses/"+ shortToken +"/create-section" );
                    res.end();
                });
             }

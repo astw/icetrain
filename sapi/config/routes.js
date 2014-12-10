@@ -38,32 +38,32 @@ module.exports.routes = {
 
  '/upload-file':{
     view: 'uploadfile'  // view 'uploadfile' in views directory will loaded automatically
-  }, 
+  },
 
   'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo",
 
 
    /*******************  below is for uploader  *******************************/
-
-   "get /fupload-file" :{view:"fupload"},
-   "post /upload" : "FancyUploadController.upload",
-   "delete /uploaded/files/*/:name" : "FancyUploadController.delete",
-   "get /findex" :{view:"fuploadindex"},
+   //
+   //"get /fupload-file" :{view:"fupload"},
+   //"post /upload" : "FancyUploadController.upload",
+   //"delete /uploaded/files/*/:name" : "FancyUploadController.delete",
+   //"get /findex" :{view:"fuploadindex"},
 
   /**********************below is for course *********************************/
   "get /courses" : {
       view :"course"
   },
   "get /create-course" : {view:"create-course"},
-  "get /courses/:id/create-section" :  "CourseController.createSection",
-
   "post /create-course" : "CourseController.create",
+
+  "get /courses/:courseToken/create-section" :  "CourseSectionController.showCreateSectionUI",
   "post /create-section" : "CourseSectionController.create",
 
     /**********************below is for course *********************************/
 
-    "get /upload-video/:courseid/:sectionid" : "FancyUploadController.showUploadUI",
-    "post /upload-video/:courseid/:sectionid" :"FancyUploadController.uploadCourseVideo"
+    "get /upload-video/:courseToken" : "FancyUploadController.showUploadUI",
+    "post /upload-video/:courseToken" :"FancyUploadController.uploadCourseVideo"
 
     /***************************************************************************
   *                                                                          *
