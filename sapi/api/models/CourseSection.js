@@ -14,6 +14,10 @@ module.exports = {
           defaultsTo: -1
       },
 
+      nextsectionid:{
+        type:"integer"
+      },
+
       title:{
           type:"string",
           required:true,

@@ -63,8 +63,9 @@ module.exports.routes = {
     /**********************below is for course *********************************/
 
     "get /upload-video/:courseToken" : "FancyUploadController.showUploadUI",
-    "post /upload-video/:courseToken" :"FancyUploadController.uploadCourseVideo"
+    "post /upload-video/:courseToken" :"FancyUploadController.uploadCourseVideo",
 
+    "delete /delete-video/:videoToken" :"FancyUploadController.deleteCourseVideo"
     /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

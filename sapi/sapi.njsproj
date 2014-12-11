@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <SchemaVersion>2.0</SchemaVersion>
+        <ProjectGuid>{36c82775-e05d-4656-8190-b3cf7e807884}</ProjectGuid>
+        <ProjectHome />
+        <ProjectView>ShowAllFiles</ProjectView>
+        <StartupFile>app.js</StartupFile>
+        <WorkingDirectory>.</WorkingDirectory>
+        <OutputPath>.</OutputPath>
+        <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+        <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+        <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+    <ItemGroup>
+        <Content Include="package.json" />
+        <Content Include="README.md" />
+        <Compile Include="app.js" />
+        <Compile Include="Gruntfile.js" />
+        <Content Include="assets\robots.txt" />
+        <Content Include="assets\test.txt" />
+        <Content Include="assets\favicon.ico" />
+        <Compile Include="config\blueprints.js" />
+        <Compile Include="config\bootstrap.js" />
+        <Compile Include="config\connections.js" />
+        <Compile Include="config\cors.js" />
+        <Compile Include="config\csrf.js" />
+        <Compile Include="config\globals.js" />
+        <Compile Include="config\http.js" />
+        <Compile Include="config\i18n.js" />
+        <Compile Include="config\log.js" />
+        <Compile Include="config\models.js" />
+        <Compile Include="config\policies.js" />
+        <Compile Include="config\routes.js" />
+        <Compile Include="config\session.js" />
+        <Compile Include="config\sockets.js" />
+        <Compile Include="config\views.js" />
+        <Content Include="public\test.txt" />
+        <Content Include="tasks\README.md" />
+        <Compile Include="tasks\pipeline.js" />
+        <Content Include="views\403.ejs" />
+        <Content Include="views\404.ejs" />
+        <Content Include="views\500.ejs" />
+        <Content Include="views\courselist.ejs" />
+        <Content Include="views\create-course.ejs" />
+        <Content Include="views\create-section.ejs" />
+        <Content Include="views\fupload.ejs" />
+        <Content Include="views\fuploadindex.ejs" />
+        <Content Include="views\homepage.ejs" />
+        <Content Include="views\layout-bak.ejs" />
+        <Content Include="views\layout.ejs" />
+        <Content Include="views\section-video-upload.ejs" />
+        <Content Include="views\uploadfile.ejs" />
+        <Compile Include="api\controllers\AuthController.js" />
+        <Compile Include="api\controllers\CourseController.js" />
+        <Compile Include="api\controllers\CourseSectionController.js" />
+        <Compile Include="api\controllers\FancyUploadController.js" />
+        <Compile Include="api\controllers\FileController.js" />
+        <Compile Include="api\controllers\JobController.js" />
+        <Compile Include="api\controllers\PermissionController.js" />
+        <Compile Include="api\controllers\UserController.js" />
+        <Compile Include="api\controllers\VideoController.js" />
+        <Compile Include="api\models\Course.js" />
+        <Compile Include="api\models\CourseSection.js" />
+        <Compile Include="api\models\FancyUpload.js" />
+        <Compile Include="api\models\File.js" />
+        <Compile Include="api\models\Job.js" />
+        <Compile Include="api\models\Permission.js" />
+        <Compile Include="api\models\User.js" />
+        <Compile Include="api\models\Video.js" />
+        <Compile Include="api\policies\checkClientKey.js" />
+        <Compile Include="api\policies\checkWritePermission.js" />
+        <Compile Include="api\policies\jwtAuth.js" />
+        <Compile Include="api\policies\sessionAuth.js" />
+        <Compile Include="api\responses\badRequest.js" />
+        <Compile Include="api\responses\forbidden.js" />
+        <Compile Include="api\responses\notFound.js" />
+        <Compile Include="api\responses\ok.js" />
+        <Compile Include="api\responses\serverError.js" />
+        <Compile Include="api\services\config.js" />
+        <Compile Include="api\services\createSendToken.js" />
+        <Compile Include="api\services\facebookAuth.js" />
+        <Compile Include="api\services\googleAuth.js" />
+        <Compile Include="api\services\jobs.js" />
+        <Compile Include="api\services\manuAuth_Login.js" />
+        <Compile Include="api\services\manuAuth_Register.js" />
+        <Compile Include="api\services\mediaTokenHelper.js" />
+        <Compile Include="api\services\sessionTokenHelper.js" />
+        <Content Include="api\assets\uploaded\files\permission_picture2.png" />
+        <Content Include="api\assets\uploaded\files\IMG_1465.JPG" />
+        <Content Include="api\assets\uploaded\files\IMG_1466.JPG" />
+        <Content Include="api\assets\uploaded\files\thumbnail\IMAG1314.jpg" />
+        <Compile Include="api\controllers\settings\jqueryFileSetting.js" />
+        <Compile Include="api\services\mediaServer\mediaService.js" />
+        <Content Include="assets\images\loading.gif" />
+        <Content Include="assets\images\progressbar.gif" />
+        <Compile Include="assets\js\upload.js" />
+        <Content Include="assets\styles\demo-ie8.css" />
+        <Content Include="assets\styles\demo.css" />
+        <Content Include="assets\styles\jquery.fileupload-noscript.css" />
+        <Content Include="assets\styles\jquery.fileupload-ui-noscript.css" />
+        <Content Include="assets\styles\jquery.fileupload-ui.css" />
+        <Content Include="assets\styles\jquery.fileupload.css" />
+        <Content Include="assets\styles\style.css" />
+        <Content Include="assets\stylesheets\blueimp-gallery.min.css" />
+        <Content Include="assets\stylesheets\bootstrap.min.css" />
+        <Content Include="assets\stylesheets\jquery.fileupload-ui.css" />
+        <Content Include="assets\stylesheets\jquery.fileupload.css" />
+        <Content Include="assets\stylesheets\style.css" />
+        <Compile Include="assets\javascripts\cors\jquery.postmessage-transport.js" />
+        <Compile Include="assets\javascripts\cors\jquery.xdr-transport.js" />
+        <Compile Include="assets\javascripts\uploader\canvas-to-blob.min.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.blueimp-gallery.min.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload-audio.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload-image.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload-process.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload-ui.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload-validate.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload-video.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.fileupload.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.iframe-transport.js" />
+        <Compile Include="assets\javascripts\uploader\jquery.ui.widget.js" />
+        <Compile Include="assets\javascripts\uploader\load-image.min.js" />
+        <Compile Include="assets\javascripts\uploader\main.js" />
+        <Compile Include="assets\javascripts\uploader\tmpl.min.js" />
+        <Compile Include="assets\js\dependencies\sails.io.js" />
+        <Content Include="assets\styles\bootstrap\bootstrap.min.css" />
+        <Content Include="assets\styles\bootstrap\docs.min.css" />
+        <Compile Include="config\env\development.js" />
+        <Compile Include="config\env\production.js" />
+        <Content Include="config\locales\de.json" />
+        <Content Include="config\locales\en.json" />
+        <Content Include="config\locales\es.json" />
+        <Content Include="config\locales\fr.json" />
+        <Content Include="config\locales\_README.md" />
+        <Compile Include="tasks\config\clean.js" />
+        <Compile Include="tasks\config\coffee.js" />
+        <Compile Include="tasks\config\concat.js" />
+        <Compile Include="tasks\config\copy.js" />
+        <Compile Include="tasks\config\cssmin.js" />
+        <Compile Include="tasks\config\jst.js" />
+        <Compile Include="tasks\config\less.js" />
+        <Compile Include="tasks\config\sails-linker.js" />
+        <Compile Include="tasks\config\sync.js" />
+        <Compile Include="tasks\config\uglify.js" />
+        <Compile Include="tasks\config\watch.js" />
+        <Compile Include="tasks\register\build.js" />
+        <Compile Include="tasks\register\buildProd.js" />
+        <Compile Include="tasks\register\compileAssets.js" />
+        <Compile Include="tasks\register\default.js" />
+        <Compile Include="tasks\register\linkAssets.js" />
+        <Compile Include="tasks\register\linkAssetsBuild.js" />
+        <Compile Include="tasks\register\linkAssetsBuildProd.js" />
+        <Compile Include="tasks\register\prod.js" />
+        <Compile Include="tasks\register\syncAssets.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="api" />
+        <Folder Include="api\assets" />
+        <Folder Include="api\assets\uploaded" />
+        <Folder Include="api\assets\uploaded\files" />
+        <Folder Include="api\assets\uploaded\files\thumbnail" />
+        <Folder Include="api\controllers" />
+        <Folder Include="api\controllers\settings" />
+        <Folder Include="api\models" />
+        <Folder Include="api\policies" />
+        <Folder Include="api\responses" />
+        <Folder Include="api\services" />
+        <Folder Include="api\services\mediaServer" />
+        <Folder Include="assets" />
+        <Folder Include="assets\images" />
+        <Folder Include="assets\javascripts" />
+        <Folder Include="assets\javascripts\cors" />
+        <Folder Include="assets\javascripts\uploader" />
+        <Folder Include="assets\js" />
+        <Folder Include="assets\js\dependencies" />
+        <Folder Include="assets\styles" />
+        <Folder Include="assets\styles\bootstrap" />
+        <Folder Include="assets\stylesheets" />
+        <Folder Include="assets\templates" />
+        <Folder Include="assets\uploaded" />
+        <Folder Include="assets\uploaded\files" />
+        <Folder Include="assets\uploaded\files\tmp" />
+        <Folder Include="config" />
+        <Folder Include="config\env" />
+        <Folder Include="config\locales" />
+        <Folder Include="media" />
+        <Folder Include="media\tutors" />
+        <Folder Include="media\tutors\1" />
+        <Folder Include="media\tutors\1\courses" />
+        <Folder Include="media\tutors\1\courses\1" />
+        <Folder Include="media\tutors\1\courses\1\hres" />
+        <Folder Include="media\tutors\1\courses\1\lowres" />
+        <Folder Include="public" />
+        <Folder Include="tasks" />
+        <Folder Include="tasks\config" />
+        <Folder Include="tasks\register" />
+        <Folder Include="views" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+    <ProjectExtensions>
+        <VisualStudio>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+            <WebProjectProperties>
+              <UseIIS>False</UseIIS>
+              <AutoAssignPort>True</AutoAssignPort>
+              <DevelopmentServerPort>0</DevelopmentServerPort>
+              <DevelopmentServerVPath>/</DevelopmentServerVPath>
+              <IISUrl>http://localhost:48022/</IISUrl>
+              <NTLMAuthentication>False</NTLMAuthentication>
+              <UseCustomServer>True</UseCustomServer>
+              <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+              <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+            </WebProjectProperties>
+          </FlavorProperties>
+          <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+            <WebProjectProperties>
+              <StartPageUrl>
+              </StartPageUrl>
+              <StartAction>CurrentPage</StartAction>
+              <AspNetDebugging>True</AspNetDebugging>
+              <SilverlightDebugging>False</SilverlightDebugging>
+              <NativeDebugging>False</NativeDebugging>
+              <SQLDebugging>False</SQLDebugging>
+              <ExternalProgram>
+              </ExternalProgram>
+              <StartExternalURL>
+              </StartExternalURL>
+              <StartCmdLineArguments>
+              </StartCmdLineArguments>
+              <StartWorkingDirectory>
+              </StartWorkingDirectory>
+              <EnableENC>False</EnableENC>
+              <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+            </WebProjectProperties>
+          </FlavorProperties>
+        </VisualStudio>
+    </ProjectExtensions>
+</Project>

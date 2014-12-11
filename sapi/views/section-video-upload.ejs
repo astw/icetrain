@@ -17,7 +17,8 @@
         <!-- Select Basic -->
          <hr>
         <input type="hidden" name="courseToken" value="<%= courseToken %>" />
-        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <input type="hidden" name="TestFiled value="this is for test" />
+          <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
             <div class="col-lg-7">
                 <!-- The fileinput-button span is used to style the file input field as button -->
@@ -147,6 +148,20 @@
                 </button>
             {% } %}
         </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+            {% } %}
+        </td>
     </tr>
 {% } %}
 
@@ -213,6 +228,7 @@
                         "chapterTitle" :$("chapterTitle").val(),
                         'all' :$( ":input" ).serializeArray()
                     };
+
                 });
 
     });

@@ -21,6 +21,10 @@ var Hashids = require("hashids"),
 var urlQuery = require('url');
 var flash = require('connect-flash');
 
+var Busboy = require("busboy");
+var inspect = require('util').inspect;
+var formidable = require('formidable');
+
 
 var changeFilesName = function (obj) {
     obj.files.forEach(function (file) {
@@ -77,10 +81,12 @@ var createFolder = function (dir) {
 
 var createMediaFolder = function (tutorId, courseId) {
 
-    var tutorFolder = path.join(root, "media/tutors/", tutorId);
-    var courseFolder = path.join(root, "media/tutors/", tutorId, "/course/" + courseId);
-    var originFolder = path.join(root, "media/tutors/", tutorId, "/course/" + courseId + "/origin");
+    var tutorFolder =        path.join(root, "media/tutors/", tutorId +"");
+    var tutorCoursesFolder = path.join(tutorFolder,"/courses/");
+    var courseFolder =       path.join(tutorCoursesFolder, courseId+"");
+    var originFolder =       path.join(courseFolder, "/origin");
     createFolder(tutorFolder);
+    createFolder(tutorCoursesFolder);
     createFolder(courseFolder);
     createFolder(originFolder);
 
@@ -88,57 +94,83 @@ var createMediaFolder = function (tutorId, courseId) {
 };
 
 module.exports = {
-
-    delete: function (req, res) {
+    delete: function(req, res) {
 
         var uploader = createUploader(req);
-        uploader.delete(req, res, function (obj) {
+        uploader.delete(req, res, function(obj) {
             res.send(JSON.stringify(obj));
         });
     },
 
-    upload: function (req, res) {
+    upload: function(req, res) {
         if (req.method === 'GET')
-            return res.json({'status': 'GET not allowed'});
+            return res.json({ 'status': 'GET not allowed' });
         console.log(req.body);
         console.log(req.files);
         var uploader = createUploader(req);
         console.log("begin uploading....");
-        uploader.post(req, res, function (obj) {
+        uploader.post(req, res, function(obj) {
             console.log(req.body);
             res.send(JSON.stringify(obj));
         });
     },
 
-    uploadCourseVideo: function (req, res) {
+    uploadCourseVideo: function(req, res) {
         //var couseToken = req.param.courseid;  //urlQuery.parse(req.url, true).query.courseid;
         //var sectionToken = req.param.sectionid;  //urlQuery.parse(req.url, true).query.sectionid;
+        var token = req.params.courseToken;
 
-      //var courseToken = req.body.courseToken;
-      var courseToken = req.param.courseToken;
-      courseToken = req.flash("courseInfoToken");
-      var ids = couseHashids.decode(courseToken[0]);
-      var tutorId = ids[0];
-      var courseId = ids[1];
-      var sectionId = ids[2];
+        var ids = couseHashids.decode(token);
+        var tutorId = ids[0];
+        var courseId = ids[1];
+        var sectionId = ids[2];
 
         var folder = createMediaFolder(tutorId, courseId);
-
-        console.log(req.body);
-        console.log(req.files);
-
         var uploader = createUploader2(req, folder);
         console.log("begin uploading....");
-        uploader.post(req, res, function (obj) {
+        uploader.post(req, res, function(obj) {
             console.log(req.body);
+            Video.create(
+              {
+                name:obj.name || "  ",
+                tutorid:tutorId,
+                courseid:courseId,
+                sectionid:sectionId,
+                size:obj.files[0].size,
+                format:obj.files[0].type,
+                duration:-1,
+                path:folder
+              },
+              function(err,data){
+              if(!!err){
+                  console.log(JSON.stringify(err));
+              }
 
-            res.send(JSON.stringify(obj));
+              var ids = [tutorId,courseId,sectionId,data.id];
+              var idToken = couseHashids.encode(ids);
+                obj.url="/delete-video/" + idToken;
+                obj.deleteurl=obj.url;
+                obj.files[0].deleteUrl=obj.url;
+                obj.files[0].url = obj.url;
+
+                data.url = obj.url;
+                Video.update(data);
+              ///delete-video
+              res.send(JSON.stringify(obj));
+            })
         });
     },
 
-    showUploadUI: function (req, res) {
+    deleteCourseVideo : function(req, res){
+
+      var token = req.params.videoToken;
+
+
+    },
+
+    showUploadUI: function(req, res) {
         var courseToken = req.params.courseToken;
-        req.flash("courseInfoToken",courseToken);
-        res.view("section-video-upload", {courseToken: courseToken});
+        req.flash("courseInfoToken", courseToken);
+        res.view("section-video-upload", { courseToken: courseToken });
     }
 };

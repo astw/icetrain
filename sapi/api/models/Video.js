@@ -11,7 +11,8 @@ module.exports = {
   attributes: {
       name:{
           type:"string",
-          required:true
+          required:true,
+          defaultsTo:""
       },
       tutorid:{
           type:"string",
@@ -21,12 +22,22 @@ module.exports = {
          type:"string"
       },
       duration:{
-          type:"int",
-          required:true
+          type:"integer",
+          required:true,
+          defaultsTo:-1
       },
+
+      size:{
+        type:"integer"
+      },
+
       path:{
           type:"string",
           required:true
+      },
+
+      url:{
+        type:"integer"
       },
 
       courseid:{
