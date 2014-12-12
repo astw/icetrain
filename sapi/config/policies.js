@@ -24,10 +24,10 @@ module.exports.policies = {
     },
 
     "VideoController" :{
-        "find" :['checkClientKey','jwtAuth','checkWritePermission'],
-        "create":['checkClientKey','jwtAuth','checkWritePermission'],
-        "update":['checkClientKey','jwtAuth','checkWritePermission'],
-        "destroy":['checkClientKey','jwtAuth','checkWritePermission']
+        //"find" :['checkClientKey','jwtAuth','checkWritePermission'],
+        //"create":['checkClientKey','jwtAuth','checkWritePermission'],
+        //"update":['checkClientKey','jwtAuth','checkWritePermission'],
+        //"destroy":['checkClientKey','jwtAuth','checkWritePermission']
     }
 
 
