@@ -53,8 +53,7 @@ var createUploader = function (req) {
     var dir = path.join(options.uploadDir, req.session.id);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
-    }
-    ;
+    };
 
     dir = dir.replace(/\\/g, "/");
     options.uploadDir = dir;
@@ -96,7 +95,7 @@ var createMediaFolder = function (tutorId, courseId) {
   return originFolder;
 };
 
-var processVideoUploading = function (req, mediaFormData, sectionId, courseId, tutorId, videoFilePath) {
+var processVideoUploading = function (req, res,mediaFormData, sectionId, courseId, tutorId, videoFilePath) {
      Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
     console.dir(metadata);
     var duration = 0;
@@ -132,7 +131,8 @@ var processVideoUploading = function (req, mediaFormData, sectionId, courseId, t
 
         data.url = mediaFormData.url;
         Video.update(data);
-        ///delete-video
+
+        res.send(JSON.stringify(mediaFormData));
       })
   });
 };
@@ -154,6 +154,9 @@ module.exports = {
     console.log("begin uploading....");
     uploader.post(req, res, function (obj) {
       console.log(req.body);
+      // delete data from db
+      // reduce the duration from courseSection and course tables
+
       res.send(JSON.stringify(obj));
     });
   },
@@ -175,9 +178,11 @@ module.exports = {
 
       var videoFilePath = path.join(folder, obj.files[0].name);
       if (obj.files[0].type == "video/mp4") {
-        processVideoUploading(req.res, obj, sectionId, courseId, tutorId, videoFilePath);
+        processVideoUploading(req, res, obj, sectionId, courseId, tutorId, videoFilePath);
       }
-      res.send(JSON.stringify(obj));
+      else{
+        res.send(JSON.stringify(obj));
+      }
     });
   },
 
@@ -197,12 +202,14 @@ module.exports = {
         // delete data in database
         // delete  the duration time from section and course tables
         CourseSection.findOne({id: sectionId}, function (err, section) {
-          section.duration -= video.duration;
-          section.save();
-          Course.findOne({id: courseId}, function (err, course) {
-            course.duration -= video.duration;
-            course.save();
-          });
+          if(!!section) {
+            section.duration -= video.duration;
+            section.save();
+            Course.findOne({id: courseId}, function (err, course) {
+              course.duration -= video.duration;
+              course.save();
+            });
+          }
         });
         res.send(JSON.stringify(obj));
 
