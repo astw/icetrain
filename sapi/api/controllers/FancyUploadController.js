@@ -10,6 +10,8 @@ var options = require("./settings/jqueryFileSetting.js").options;
 var fs = require('fs');
 var path = require("path")
 var root = require('app-root-path') + "";
+var Ffmpeg = require('fluent-ffmpeg');
+
 
 var randomstring = require("randomstring");
 
@@ -78,7 +80,6 @@ var createFolder = function (dir) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
-  ;
 };
 
 var createMediaFolder = function (tutorId, courseId) {
@@ -93,6 +94,47 @@ var createMediaFolder = function (tutorId, courseId) {
   createFolder(originFolder);
 
   return originFolder;
+};
+
+var processVideoUploading = function (req, mediaFormData, sectionId, courseId, tutorId, videoFilePath) {
+     Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
+    console.dir(metadata);
+    var duration = 0;
+    metadata.streams.forEach(function (mediaInfo) {
+      if (mediaInfo.codec_type == "video") {
+        duration = mediaInfo.duration;
+        return;
+      }
+    });
+
+    Video.create(
+      {
+        name: mediaFormData.name || "  ",
+        tutorid: tutorId,
+        courseid: courseId,
+        sectionid: sectionId,
+        size: mediaFormData.files[0].size,
+        format: mediaFormData.files[0].type,
+        duration: duration,
+        path: videoFilePath
+      },
+      function (err, data) {
+        if (!!err) {
+          console.log(JSON.stringify(err));
+        }
+
+        var ids = [tutorId, courseId, sectionId, data.id];
+        var idToken = courseHashids.encode(ids);
+        mediaFormData.url = "/delete-video/" + idToken;
+        mediaFormData.deleteurl = mediaFormData.url;
+        mediaFormData.files[0].deleteUrl = mediaFormData.url;
+        mediaFormData.files[0].url = mediaFormData.url;
+
+        data.url = mediaFormData.url;
+        Video.update(data);
+        ///delete-video
+      })
+  });
 };
 
 module.exports = {
@@ -129,35 +171,13 @@ module.exports = {
     var uploader = createUploader2(req, folder);
     console.log("begin uploading....");
     uploader.post(req, res, function (obj) {
-      console.log(req.body);
-      Video.create(
-        {
-          name: obj.name || "  ",
-          tutorid: tutorId,
-          courseid: courseId,
-          sectionid: sectionId,
-          size: obj.files[0].size,
-          format: obj.files[0].type,
-          duration: 101,
-          path: path.join(folder,obj.files[0].name)
-        },
-        function (err, data) {
-          if (!!err) {
-            console.log(JSON.stringify(err));
-          }
+      console.dir(req.body);
 
-          var ids = [tutorId, courseId, sectionId, data.id];
-          var idToken = courseHashids.encode(ids);
-          obj.url = "/delete-video/" + idToken;
-          obj.deleteurl = obj.url;
-          obj.files[0].deleteUrl = obj.url;
-          obj.files[0].url = obj.url;
-
-          data.url = obj.url;
-          Video.update(data);
-          ///delete-video
-          res.send(JSON.stringify(obj));
-        })
+      var videoFilePath = path.join(folder, obj.files[0].name);
+      if (obj.files[0].type == "video/mp4") {
+        processVideoUploading(req.res, obj, sectionId, courseId, tutorId, videoFilePath);
+      }
+      res.send(JSON.stringify(obj));
     });
   },
 
@@ -171,7 +191,7 @@ module.exports = {
     var videoId = ids[3];
 
     Video.findOne({id: videoId}, function (err, video) {
-      var videoPath ="" ;// path.join(root, video.path);
+      var videoPath = "";// path.join(root, video.path);
       var uploader = createUploader2(req, videoPath);
       uploader.delete(req, res, function (obj) {
         // delete data in database
