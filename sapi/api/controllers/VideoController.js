@@ -9,7 +9,7 @@ var mediaService = require("../services/mediaServer/mediaService.js");
 var mediaTokenHelper = require("../services/mediaTokenHelper.js");
 
 module.exports = {
-	streamVideo:  mediaService.playVideo,
+	streamVideo:  mediaService.playVideo
 
 };
 

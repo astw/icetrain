@@ -8,7 +8,7 @@ var urlQuery = require('url');
 var courseidKey ="sec for construct course id";
 var sectionKey ="sec for construct couse section id";
 var Hashids = require("hashids"),
-    couseHashids = new Hashids(courseidKey),
+    courseHashids = new Hashids(courseidKey),
     sectionHashids = new Hashids(sectionKey);
 
 module.exports = {
@@ -24,7 +24,7 @@ module.exports = {
 
         console.log(req.body);
         var token = urlQuery.parse(req.url,true).query.token;
-        var ids = couseHashids.decode(token);
+        var ids = courseHashids.decode(token);
         var courseId = ids[0];
         var tutorId = ids[1];
 
@@ -39,9 +39,36 @@ module.exports = {
                     res.writeHead(400, {"Location": "/error"})
                 };
 
-                token = couseHashids.encode([tutorId,courseId,data.id]);
+                token = courseHashids.encode([tutorId,courseId,data.id]);
                 res.redirect("/upload-video/"+ token );
                 res.end();
         });
-    }
+    },
+
+  getCourseSections : function(req,res){
+    console.log(req.body);
+    var token = req.params.courseToken;
+    var ids = courseHashids.decode(token);
+    var tutorId = ids[0];
+    var courseId = ids[1];
+    var sectionId = ids[2];
+    var videoId = ids[3];
+
+    // find out course info
+    Course.findOne({id:courseId}, function(err, course){
+      if(!!course){
+        // find out sections
+        CourseSection.find({courseid:courseId}, function(err,sections){
+                console.dir(sections);
+          Video.find({courseid:courseId, sectionid:sectionId},function(err, videos){
+
+            res.view("getCourseSections", {courseToken: token, sections:sections, videos:videos});
+
+          });
+        });
+      }
+    });
+
+
+  }
 }
