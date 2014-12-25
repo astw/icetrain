@@ -1,5 +1,128 @@
-this is the file of get courseSections
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
+<style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 3px; padding: 0.4em; padding: 1.5em; font-size: 1.4em; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+
+</style>
+<script>
+  $(function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  });
+</script>
+
+
+<div class="container">
+
+  <form class="form-horizontal" >
+  <fieldset>
+
+    <!-- Form Name -->
+    <legend>Form Name</legend>
+
+    <!-- Text input-->
+    <div class="container">
+      <div class="control-group">
+        <label class="control-label" for="courseName">Course Name</label>
+        <div class="controls">
+          <input id="courseName" name="courseName" type="text" placeholder="<%= courseInfo.course.name %>" class="col-md-9">
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="container">
+      <div class="control-group">
+        <label class="control-label" for="courseLevel">Course Level</label>
+        <div class="controls">
+
+          <select id="courseLevel" name="courseLevel"  class="col-md-9">
+            <option>Beginner</option>
+            <option>Medium</option>
+            <option>Advanced</option>
+          </select>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="container">
+      <div class="control-group">
+        <label class="control-label" for="courseTags">Course Tags</label>
+        <div class="controls">
+          <input id="courseTags" name="courseTags" type="text" placeholder="<%= courseInfo.course.tags %>" class="col-md-9">
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="container">
+    <div class="control-group">
+      <label class="control-label" for="courseSectionName">Section Name</label>
+      <div class="controls">
+        <input id="courseSectionName" name="courseSectionName" type="text" placeholder="<%= courseInfo.section.title %>"  class="col-md-9">
+
+      </div>
+    </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="container">
+      <div class="control-group">
+        <label class="control-label" for="sectionTags">Section Tags</label>
+        <div class="controls">
+          <input id="sectionTags" name="sectionTags" type="text" placeholder="<%= courseInfo.section.tags %>" class="col-md-9">
+        </div>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="container">
+    <div class="control-group">
+      <label class="control-label" for="SectionDescription">Section Description</label>
+      <div class="controls">
+        <input id="SectionDescription" name="SectionDescription" type="text" placeholder=<%= courseInfo.section.description || "description"  %> class="col-md-9">
+      </div>
+    </div>
+    </div>
+
+    <!-- Select Multiple -->
+    <div class="container">
+    <div class="control-group">
+    <div class="col-md-8">
+      <label class="control-label" >Videos of this section </label>
+      <div class="controls">
+        <ul id="sortable">
+
+          <li class="ui-state-default">
+            <input id="videoName-1" name="videoName-1" type="text" placeholder="videoName" class="col-md-10" >
+            <br/>
+            <video  width="320" height="240" controls  src="http://localhost:1337/mediaServer/video/stream/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZWRpYUlkIjoxLCJ0dXRvcklkIjoiMSIsInBhdGgiOiIvbWVkaWEvdHV0b3JzLzEvY291cnNlcy8xL2hyZXMvbTEtczEubXA0In0.AvwkykyUsUh6zbTazKoaYHqmuqqbFHD4MVNfP7bQB6Q">
+            </video>
+          </li>
+
+          <li class="ui-state-default">
+            <input id="videoName-2" name="videoName-2" type="text" placeholder="videoName" class="col-md-10" >
+            <br/>
+            <video  width="320" height="240" controls  src="http://localhost:1337/mediaServer/video/stream/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZWRpYUlkIjoxLCJ0dXRvcklkIjoiMSIsInBhdGgiOiIvbWVkaWEvdHV0b3JzLzEvY291cnNlcy8xL2hyZXMvbTEtczEubXA0In0.AvwkykyUsUh6zbTazKoaYHqmuqqbFHD4MVNfP7bQB6Q">
+            </video>
+          </li>
+
+          </ul>
+      </div>
+      </div>
+    </div>
+</div>
+  </fieldset>
+</form>
+
+
+</div>
 <%
 //var courseInfo={
 //  courseToken:token,
@@ -12,4 +135,5 @@ this is the file of get courseSections
   %>
 
 
-<%=  courseInfo %>
+
+<%=  courseInfo.section.name %>

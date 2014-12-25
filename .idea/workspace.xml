@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c64e0de-fab6-4b90-bddd-38236dfbc087" name="Default" comment="fix when delete an video,  reduce the play duration of the section and that course">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js" />
-      <change type="MOVED" beforePath="C:\learn\peixun_website\peixun_website\sapi\views\getCourseSections.ejs" afterPath="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js" afterPath="$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/package.json" afterPath="$PROJECT_DIR$/sapi/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/config/routes.js" afterPath="$PROJECT_DIR$/sapi/config/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" afterPath="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" />
     </list>
     <list id="770d8a94-b04c-4cd4-b935-71fdfc8e3305" name="Rejected commit: Default" comment="fix when delete an video,  reduce the play duration of the section and that course" />
     <ignored path="ps_jwt.iws" />
@@ -35,12 +30,11 @@
       <file leaf-file-name="FancyUploadController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sapi/api/controllers/FancyUploadController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2960" max-vertical-offset="3382">
-              <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1709" max-vertical-offset="3819">
+              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding>
                 <element signature="e#859#1391#0" expanded="false" />
                 <element signature="e#2311#2720#0" expanded="false" />
-                <element signature="e#4642#5495#0" expanded="false" />
                 <element signature="e#5957#5983#0" expanded="false" />
               </folding>
             </state>
@@ -50,8 +44,8 @@
       <file leaf-file-name="CourseSectionController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1520">
-              <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="721" max-vertical-offset="1520">
+              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -77,21 +71,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editCourseSections.ejs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="editCourseSections.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sapi/views/editCourseSections.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.5" vertical-offset="0" max-vertical-offset="399">
-              <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+            <state vertical-scroll-proportion="-4.0766425" vertical-offset="1706" max-vertical-offset="2755">
+              <caret line="31" column="106" selection-start-line="31" selection-start-column="106" selection-end-line="31" selection-end-column="106" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="courseRepository.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CourseController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="626" max-vertical-offset="1159">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="courseRepository.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3601896" vertical-offset="513" max-vertical-offset="1007">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1007">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,16 +116,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="2543" max-vertical-offset="18563">
               <caret line="141" column="0" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="promisify.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sapi/node_modules/bluebird/js/main/promisify.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5370" max-vertical-offset="6346">
-              <caret line="290" column="14" selection-start-line="290" selection-start-column="14" selection-end-line="290" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -168,9 +162,9 @@
         <option value="$PROJECT_DIR$/sapi/views/getCourseSections.ejs" />
         <option value="$PROJECT_DIR$/sapi/config/routes.js" />
         <option value="$PROJECT_DIR$/sapi/api/services/CoursesRepository/courseRepository.js" />
-        <option value="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" />
         <option value="$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js" />
         <option value="$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js" />
+        <option value="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" />
       </list>
     </option>
   </component>
@@ -559,15 +553,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1616" height="916" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32655653" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924694" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24952501" sideWeight="0.4344569" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42929935" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2929368" sideWeight="0.4344569" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5656051" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3011436" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29962826" sideWeight="0.56179774" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -582,6 +576,28 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32768363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32655653" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.380035" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24868652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29962826" sideWeight="0.56179774" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39754817" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Grunt" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32909784" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924694" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24981412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2929368" sideWeight="0.4344569" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3011436" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -746,29 +762,9 @@
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js</url>
-          <line>44</line>
-          <option name="timeStamp" value="124" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/sapi/api/controllers/FancyUploadController.js</url>
           <line>146</line>
           <option name="timeStamp" value="148" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js</url>
-          <line>30</line>
-          <option name="timeStamp" value="157" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js</url>
-          <line>40</line>
-          <option name="timeStamp" value="160" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js</url>
-          <line>45</line>
-          <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/sapi/api/models/Video.js</url>
@@ -799,16 +795,6 @@
           <url>file://$PROJECT_DIR$/sapi/api/controllers/FancyUploadController.js</url>
           <line>126</line>
           <option name="timeStamp" value="223" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js</url>
-          <line>62</line>
-          <option name="timeStamp" value="244" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js</url>
-          <line>36</line>
-          <option name="timeStamp" value="245" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="246" />
@@ -995,14 +981,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="1159">
-          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sapi/views/create-section.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0555556" vertical-offset="0" max-vertical-offset="950">
@@ -1146,14 +1124,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/views/editCourseSections.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.5" vertical-offset="0" max-vertical-offset="399">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sapi/node_modules/bluebird/js/main/promise.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2543" max-vertical-offset="18563">
@@ -1194,31 +1164,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/api/controllers/FancyUploadController.js">
+    <entry file="file://$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2960" max-vertical-offset="3382">
-          <caret line="225" column="0" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
-          <folding>
-            <element signature="e#859#1391#0" expanded="false" />
-            <element signature="e#2311#2720#0" expanded="false" />
-            <element signature="e#4642#5495#0" expanded="false" />
-            <element signature="e#5957#5983#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1007">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="626" max-vertical-offset="1159">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1520">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="721" max-vertical-offset="1520">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js">
+    <entry file="file://$PROJECT_DIR$/sapi/api/controllers/FancyUploadController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3601896" vertical-offset="513" max-vertical-offset="1007">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1709" max-vertical-offset="3819">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <folding>
+            <element signature="e#859#1391#0" expanded="false" />
+            <element signature="e#2311#2720#0" expanded="false" />
+            <element signature="e#5957#5983#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/views/editCourseSections.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.0766425" vertical-offset="1706" max-vertical-offset="2755">
+          <caret line="31" column="106" selection-start-line="31" selection-start-column="106" selection-end-line="31" selection-end-column="106" />
           <folding />
         </state>
       </provider>
