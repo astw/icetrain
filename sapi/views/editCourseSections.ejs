@@ -37,6 +37,15 @@
     <!-- Text input-->
     <div class="container">
       <div class="control-group">
+        <label class="control-label" for="courseDescription">Course Name</label>
+        <div class="controls">
+          <textarea id="courseDescription" name="courseDescription" class="col-md-9"><%= courseInfo.course.description %></textarea>
+        </div>
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="container">
+      <div class="control-group">
         <label class="control-label" for="courseLevel">Course Level</label>
         <div class="controls">
 
@@ -45,7 +54,6 @@
             <option>Medium</option>
             <option>Advanced</option>
           </select>
-
         </div>
       </div>
     </div>
@@ -86,7 +94,7 @@
     <div class="control-group">
       <label class="control-label" for="SectionDescription">Section Description</label>
       <div class="controls">
-        <input id="SectionDescription" name="SectionDescription" type="text" placeholder=<%= courseInfo.section.description || "description"  %> class="col-md-9">
+        <textarea id="SectionDescription" name="SectionDescription" class="col-md-9"><%= courseInfo.section.description || "description"  %></textarea>
       </div>
     </div>
     </div>
