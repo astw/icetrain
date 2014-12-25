@@ -4,6 +4,9 @@
  * @description :: Server-side logic for managing coursesections
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
+
+var courseRepository = require("../services/courseRepository/courseRepository.js");
+
 var urlQuery = require('url');
 var courseidKey ="sec for construct course id";
 var sectionKey ="sec for construct couse section id";
@@ -45,7 +48,7 @@ module.exports = {
         });
     },
 
-  getCourseSections : function(req,res){
+  editCourseSections : function(req,res){
     console.log(req.body);
     var token = req.params.courseToken;
     var ids = courseHashids.decode(token);
@@ -54,21 +57,18 @@ module.exports = {
     var sectionId = ids[2];
     var videoId = ids[3];
 
-    // find out course info
-    Course.findOne({id:courseId}, function(err, course){
-      if(!!course){
-        // find out sections
-        CourseSection.find({courseid:courseId}, function(err,sections){
-                console.dir(sections);
-          Video.find({courseid:courseId, sectionid:sectionId},function(err, videos){
-
-            res.view("getCourseSections", {courseToken: token, sections:sections, videos:videos});
-
-          });
+    if (req.method === 'GET') {
+    courseRepository.getCourseSectionInfo(courseId, sectionId)
+      .then(function(courseInfo){
+       res.view("editCourseSections", {token:token, courseInfo:courseInfo});
         });
-      }
-    });
+    }
+    else if(req.method == 'POST'){
 
+    }
+  },
+
+  postCourseSections : function(req, res){
 
   }
 }

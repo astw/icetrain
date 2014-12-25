@@ -57,7 +57,8 @@ module.exports.routes = {
   "get /create-course" : {view:"create-course"},
   "post /create-course" : "CourseController.create",
 
-  "get /courses-section/:courseToken" : "CourseSectionController.getCourseSections",
+  "get /courses-section/edit/:courseToken" : "CourseSectionController.editCourseSections",
+  "post /courses-section/edit/:courseToken" : "CourseSectionController.postCourseSections",
 
   "get /courses/:courseToken/create-section" :  "CourseSectionController.showCreateSectionUI",
   "post /create-section" : "CourseSectionController.create",
