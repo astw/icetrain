@@ -106,6 +106,7 @@ var processVideoUploading = function (req, res,mediaFormData, sectionId, courseI
       }
     });
 
+       var relativeVideoPath = videoFilePath.replace(root,"");
     Video.create(
       {
         name: mediaFormData.name || "  ",
@@ -115,7 +116,7 @@ var processVideoUploading = function (req, res,mediaFormData, sectionId, courseI
         size: mediaFormData.files[0].size,
         format: mediaFormData.files[0].type,
         duration: duration,
-        path: videoFilePath
+        path: relativeVideoPath
       },
       function (err, data) {
         if (!!err) {

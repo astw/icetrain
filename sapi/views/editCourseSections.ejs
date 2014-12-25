@@ -1,6 +1,8 @@
+<head>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+</head>
 
 <style>
   #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
@@ -8,6 +10,7 @@
   #sortable li span { position: absolute; margin-left: -1.3em; }
 
 </style>
+
 <script>
   $(function() {
     $( "#sortable" ).sortable();
@@ -15,14 +18,11 @@
   });
 </script>
 
-
 <div class="container">
-
-  <form class="form-horizontal" >
+   <form class="form-horizontal" >
   <fieldset>
-
     <!-- Form Name -->
-    <legend>Form Name</legend>
+    <legend>Edit course / section / video information</legend>
 
     <!-- Text input-->
     <div class="container">
@@ -39,7 +39,7 @@
       <div class="control-group">
         <label class="control-label" for="courseDescription">Course Name</label>
         <div class="controls">
-          <textarea id="courseDescription" name="courseDescription" class="col-md-9"><%= courseInfo.course.description %></textarea>
+          <textarea id="courseDescription" name="courseDescription" class="col-md-9"  height="150px"><%= courseInfo.course.description %></textarea>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
         <label class="control-label" for="courseLevel">Course Level</label>
         <div class="controls">
 
-          <select id="courseLevel" name="courseLevel"  class="col-md-9">
+          <select id="courseLevel" name="courseLevel"  class="col-md-9" >
             <option>Beginner</option>
             <option>Medium</option>
             <option>Advanced</option>
@@ -94,7 +94,7 @@
     <div class="control-group">
       <label class="control-label" for="SectionDescription">Section Description</label>
       <div class="controls">
-        <textarea id="SectionDescription" name="SectionDescription" class="col-md-9"><%= courseInfo.section.description || "description"  %></textarea>
+        <textarea id="SectionDescription" name="SectionDescription" class="col-md-9" height="150px"><%= courseInfo.section.description || "description"  %></textarea>
       </div>
     </div>
     </div>
@@ -106,20 +106,22 @@
       <label class="control-label" >Videos of this section </label>
       <div class="controls">
         <ul id="sortable">
-
+          <% courseInfo.videos.forEach(function(video){ %>
+          <% console.dir(video.toJSON()); %>
+          <% console.dir(video.playtoken()); %>
           <li class="ui-state-default">
-            <input id="videoName-1" name="videoName-1" type="text" placeholder="videoName" class="col-md-10" >
+            <input id="videoId" name="videoId" type="text" text=<%= video.id %>  hidden="true"  disabled class="col-md-10" >
+            <input id="videoName" name="videoName" type="text" text=<%= video.name %> placeholder="videoName" class="col-md-10" >
             <br/>
-            <video  width="320" height="240" controls  src="http://localhost:1337/mediaServer/video/stream/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZWRpYUlkIjoxLCJ0dXRvcklkIjoiMSIsInBhdGgiOiIvbWVkaWEvdHV0b3JzLzEvY291cnNlcy8xL2hyZXMvbTEtczEubXA0In0.AvwkykyUsUh6zbTazKoaYHqmuqqbFHD4MVNfP7bQB6Q">
-            </video>
-          </li>
+            <video  width="320" height="240" controls  src=<%="/mediaServer/video/stream/" + video.playtoken()   %>
 
-          <li class="ui-state-default">
-            <input id="videoName-2" name="videoName-2" type="text" placeholder="videoName" class="col-md-10" >
-            <br/>
-            <video  width="320" height="240" controls  src="http://localhost:1337/mediaServer/video/stream/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZWRpYUlkIjoxLCJ0dXRvcklkIjoiMSIsInBhdGgiOiIvbWVkaWEvdHV0b3JzLzEvY291cnNlcy8xL2hyZXMvbTEtczEubXA0In0.AvwkykyUsUh6zbTazKoaYHqmuqqbFHD4MVNfP7bQB6Q">
-            </video>
+             </video>
+              <!--
+                         "http://localhost:1337/mediaServer/video/stream/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZWRpYUlkIjoxLCJ0dXRvcklkIjoiMSIsInBhdGgiOiIvbWVkaWEvdHV0b3JzLzEvY291cnNlcy8xL2hyZXMvbTEtczEubXA0In0.AvwkykyUsUh6zbTazKoaYHqmuqqbFHD4MVNfP7bQB6Q">
+
+              -->
           </li>
+          <% }) %>
 
           </ul>
       </div>

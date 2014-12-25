@@ -1,5 +1,5 @@
 var mediaTokenHelper = require("../mediaTokenHelper.js");
- 
+
 var fs = require('fs'),
     util = require('util');
 
@@ -9,6 +9,7 @@ var root = require('app-root-path')+"";
 var cache = Object();  // {}
 
 module.exports =  {
+
      playVideo :function(req, res){
 
         var token = req.params.token;
@@ -16,7 +17,7 @@ module.exports =  {
         if(!mediaInfo){
             res.end("");
         }
-        
+
         var url = mediaInfo.path;
 
         var data = cache[url];

@@ -24,6 +24,7 @@ var getCourseSectionInfoStub = function (courseId, sectionId) {
           gsection = courseSection;
           Video.find({courseid: courseId, sectionid: sectionId})
             .then(function (videos) {
+              console.dir(videos);
               var courseInfo = {
                 course: gcourse,
                 section: gsection,
