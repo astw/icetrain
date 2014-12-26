@@ -12,38 +12,96 @@
 </style>
 
 <script>
+
+//  var validCourseInfo = function(courseInfo){
+//    var couseInfo ={
+//      "courseName" : couseName,
+//      "couseDescription" : courseDescription,
+//      "couseLevel" : courseLevel,
+//      "courseTags" : courseTags,
+//      "sectionName": sectionName,
+//      "sectionTags": sectionTags,
+//      "sectionDescription": sectionDescription,
+//      "videoOrders" : videoOrders,
+//      "videoNames" :videoNames
+//    };
+//
+//  }
+
   $(function() {
     $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
+
+    $("#submit").click(function(){
+      alert( "/course-section/edit/<%= token %>");
+      var videoOrders  = $("input[name='videoId[]'").serializeArray();
+      var videoNames =  $("input[name='videoName[]'").serializeArray();
+
+      var courseName= $("input[name='courseName']").val();
+      var courseDescription = $("#courseDescription").val();
+      var courseLevel =  $("input[name='courseLevel']").val();
+
+      var courseTags= $("input[name='courseTags']").val();
+      var sectionName= $("input[name='sectionName']").val();
+      var sectionTags= $("input[name='sectionTags']").val();
+      var sectionDescription= $("#sectionDescription").val();
+
+      var courseInfo ={
+        "token" :"<%= token%>",
+       "courseInfo":
+       {
+        "courseName" : courseName ||"",
+        "courseDescription" : courseDescription  ||"",
+        "courseLevel" : courseLevel,
+        "courseTags" : courseTags ||"",
+        "sectionName": sectionName ||"",
+        "sectionTags": sectionTags ||"",
+        "sectionDescription": sectionDescription ||"",
+        "videoOrders" : videoOrders,
+        "videoNames" :videoNames
+      }};
+
+      alert(JSON.stringify(courseInfo));
+
+      $.ajax({
+        type:'POST',
+        url:"http://localhost:1337/courses-section/edit/<%= token %>",
+        data:JSON.stringify(courseInfo),
+        success : function(data){},
+        contentType:"application/json",
+        dataType:"json"
+        });
+
+    });
   });
 </script>
 
 <div class="container">
-   <form class="form-horizontal" >
+  <!--<form class="form-horizontal"  method="POST" >-->
   <fieldset>
     <!-- Form Name -->
     <legend>Edit course / section / video information</legend>
 
-    <!-- Text input-->
+    <!-- Text input Course Name -->
     <div class="container">
       <div class="control-group">
         <label class="control-label" for="courseName">Course Name</label>
         <div class="controls">
-          <input id="courseName" name="courseName" type="text" placeholder="<%= courseInfo.course.name %>" class="col-md-9">
+          <input id="courseName" name="courseName" type="text" required minlength="10" placeholder="course name" value="<%= courseInfo.course.name %>" class="col-md-9">
         </div>
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Text input  Course Description -->
     <div class="container">
       <div class="control-group">
-        <label class="control-label" for="courseDescription">Course Name</label>
+        <label class="control-label" for="courseDescription">Course Description</label>
         <div class="controls">
-          <textarea id="courseDescription" name="courseDescription" class="col-md-9"  height="150px"><%= courseInfo.course.description %></textarea>
+          <textarea id="courseDescription" name="courseDescription" required minlength="20" class="col-md-9" placeholder="Course description"  height="150px"><%= courseInfo.course.description ||"" %></textarea>
         </div>
       </div>
     </div>
-    <!-- Text input-->
+    <!-- Text input course level-->
     <div class="container">
       <div class="control-group">
         <label class="control-label" for="courseLevel">Course Level</label>
@@ -58,43 +116,43 @@
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Text input course tags-->
     <div class="container">
       <div class="control-group">
         <label class="control-label" for="courseTags">Course Tags</label>
         <div class="controls">
-          <input id="courseTags" name="courseTags" type="text" placeholder="<%= courseInfo.course.tags %>" class="col-md-9">
+          <input id="courseTags" name="courseTags" type="text" required minlength="5" placeholder="Course tags" value="<%= courseInfo.course.tags %>" class="col-md-9">
         </div>
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Text input section name-->
     <div class="container">
     <div class="control-group">
-      <label class="control-label" for="courseSectionName">Section Name</label>
+      <label class="control-label" for="sectionName">Section Name</label>
       <div class="controls">
-        <input id="courseSectionName" name="courseSectionName" type="text" placeholder="<%= courseInfo.section.title %>"  class="col-md-9">
+        <input id="sectionName" name="sectionName" type="text"  required minlength="10" placeholder="section title" value="<%= courseInfo.section.title %>"  class="col-md-9">
 
       </div>
     </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Text input section tags-->
     <div class="container">
       <div class="control-group">
         <label class="control-label" for="sectionTags">Section Tags</label>
         <div class="controls">
-          <input id="sectionTags" name="sectionTags" type="text" placeholder="<%= courseInfo.section.tags %>" class="col-md-9">
+          <input id="sectionTags" name="sectionTags" type="text" required minlength="6" placeholder="section tags" value="<%= courseInfo.section.tags %>" class="col-md-9">
         </div>
       </div>
     </div>
 
-    <!-- Text input-->
+    <!-- Text input section description-->
     <div class="container">
     <div class="control-group">
-      <label class="control-label" for="SectionDescription">Section Description</label>
+      <label class="control-label" for="sectionDescription">Section Description</label>
       <div class="controls">
-        <textarea id="SectionDescription" name="SectionDescription" class="col-md-9" height="150px"><%= courseInfo.section.description || "description"  %></textarea>
+        <textarea id="sectionDescription" name="sectionDescription" required minlength="20" class="col-md-9" height="150px"><%= courseInfo.section.description || "description"  %></textarea>
       </div>
     </div>
     </div>
@@ -110,16 +168,10 @@
           <% console.dir(video.toJSON()); %>
           <% console.dir(video.playtoken()); %>
           <li class="ui-state-default">
-            <input id="videoId" name="videoId" type="text" text=<%= video.id %>  hidden="true"  disabled class="col-md-10" >
-            <input id="videoName" name="videoName" type="text" text=<%= video.name %> placeholder="videoName" class="col-md-10" >
+            <input name="videoId[]" type="text" value="<%= video.enId() %>"  hidden="true" class="col-md-10" >
+            <input name="videoName[]" type="text" value="<%= video.name.trim()||"" %>" required minlength="5" placeholder="<%=video.name.trim()||'videoName'%>" class="col-md-10" >
             <br/>
-            <video  width="320" height="240" controls  src=<%="/mediaServer/video/stream/" + video.playtoken()   %>
-
-             </video>
-              <!--
-                         "http://localhost:1337/mediaServer/video/stream/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZWRpYUlkIjoxLCJ0dXRvcklkIjoiMSIsInBhdGgiOiIvbWVkaWEvdHV0b3JzLzEvY291cnNlcy8xL2hyZXMvbTEtczEubXA0In0.AvwkykyUsUh6zbTazKoaYHqmuqqbFHD4MVNfP7bQB6Q">
-
-              -->
+            <video  width="320" height="240" controls  src=<%="/mediaServer/video/stream/" + video.playtoken() %> />
           </li>
           <% }) %>
 
@@ -129,7 +181,10 @@
     </div>
 </div>
   </fieldset>
-</form>
+     <div class="controls">
+       <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+     </div>
+<!--</form>-->
 
 
 </div>

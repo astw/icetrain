@@ -60,6 +60,10 @@ module.exports = {
     playtoken:function(){
       var obj = this.toObject();
       return mediaTokenHelper.createVideoToken(obj.id, obj.tutorid, obj.path);
+    },
+    enId :function(){
+      var obj = this.toObject();
+      return mediaTokenHelper.getEnId(obj.id);
     }
   },
 

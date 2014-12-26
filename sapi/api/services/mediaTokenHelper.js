@@ -41,5 +41,14 @@ module.exports = {
 
         var payload = hashids.decode(mediaId);
         return payload ;
+    },
+
+    getEnId : function(mediaId){
+      return hashids.encode(mediaId);
+    },
+
+    getId : function(encodeId){
+      return hashids.decode(mediaId);
     }
+
 };

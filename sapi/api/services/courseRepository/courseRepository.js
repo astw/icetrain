@@ -38,11 +38,32 @@ var getCourseSectionInfoStub = function (courseId, sectionId) {
   return defer.promise;
 };
 
+
+var updateCourseSectionVideoInfo = function (courseInfo, courseId, sectionId){
+  var defer = Q.defer();
+
+
+  var courseInfo ={
+    "token" :"<%= token%>",
+    "courseInfo":
+    {
+      "courseName" : courseName ||"",
+      "courseDescription" : courseDescription  ||"",
+      "courseLevel" : courseLevel,
+      "courseTags" : courseTags ||"",
+      "sectionName": sectionName ||"",
+      "sectionTags": sectionTags ||"",
+      "sectionDescription": sectionDescription ||"",
+      "videoOrders" : videoOrders,
+      "videoNames" :videoNames
+    }};
+}
+
 module.exports = {
   // return all course information, like course info, section info, video info, by course Id
   getCourseSectionInfo: getCourseSectionInfo,
 
-  saveOrUpdateAllCourse: function (courseInfo) {
+  saveOrUpdateAllCourse: function (courseInfo, courseId, sectionId) {
 
   }
 }
