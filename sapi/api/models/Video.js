@@ -52,9 +52,22 @@ module.exports = {
       defaultsTo: -1
     },
 
+    sequence:{
+      type: "integer",
+      required: true,
+      defaultsTo: -1
+    },
+
+    nextid: {
+      type: "integer",
+      required: true,
+      defaultsTo: -1
+    },
+
     toJSON: function () {
       var obj = this.toObject();
       obj.id = mediaTokenHelper.createVideoToken(obj.id, obj.tutorid, obj.path);
+      obj.nextid = mediaTokenHelper.createVideoToken(obj.nextid, obj.tutorid, obj.path);
       return obj;
     },
     playtoken:function(){
@@ -132,6 +145,8 @@ module.exports = {
       "duration": "130",
       "path": "/media/tutors/1/courses/1/hres/m1-s1.mp4",
       "id": 1,
+      "sequence":0,
+      "nextid":2,
       "createdAt": "2014-12-06T21:48:31.816Z",
       "updatedAt": "2014-12-06T21:48:31.816Z"
     },
@@ -142,6 +157,8 @@ module.exports = {
       "duration": "50",
       "path": "/media/tutors/1/courses/1/hres/m1-s2.mp4",
       "id": 2,
+      "sequence":1,
+      "nextid":-1,
       "createdAt": "2014-12-06T21:49:08.458Z",
       "updatedAt": "2014-12-06T21:49:08.458Z"
     }

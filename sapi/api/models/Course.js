@@ -4,21 +4,22 @@
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
+var Q = require("q");
 
 module.exports = {
 
    attributes: {
 
         name:{
-            type:"string", 
+            type:"string",
             required:true,
             minLength:10,
             maxLength:100
         },
-        
+
         desc:{
         	type:"string"
-        }, 
+        },
 
         tutorid:{
             type: "integer",
@@ -29,7 +30,7 @@ module.exports = {
         duration:{
         	type:"integer",
         	defaultsTo:-1
-        }, 
+        },
 
         tags:{
         	type:"string"
@@ -61,15 +62,29 @@ module.exports = {
 
        level:{
            type:"string",
-           enum:["beginer","medium","advanced"],
+           enum:["beginner","medium","advanced"],
            defaultsTo:"medium"
        },
 
        coursetype:{
            type:"string"
-       }
-    },
+       },
 
+       sections:{
+         model :"array"
+       },
+
+     getSections: function () {
+       var obj = this.toObject();
+       var defer = Q.defer();
+       CourseSection.find({courseid:obj.id})
+         .then(function (sections) {
+           defer.resolve(sections);
+         });
+       return defer.promise;
+     }
+
+    },
     seedData:[
         {
            "name": "c# WCP starter",

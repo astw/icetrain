@@ -39,7 +39,7 @@
 
       var courseName= $("input[name='courseName']").val();
       var courseDescription = $("#courseDescription").val();
-      var courseLevel =  $("input[name='courseLevel']").val();
+      var courseLevel =  $("#courseLevel").val();
 
       var courseTags= $("input[name='courseTags']").val();
       var sectionName= $("input[name='sectionName']").val();
@@ -108,9 +108,9 @@
         <div class="controls">
 
           <select id="courseLevel" name="courseLevel"  class="col-md-9" >
-            <option>Beginner</option>
-            <option>Medium</option>
-            <option>Advanced</option>
+            <option>beginner</option>
+            <option>medium</option>
+            <option>advanced</option>
           </select>
         </div>
       </div>
@@ -167,9 +167,11 @@
           <% courseInfo.videos.forEach(function(video){ %>
           <% console.dir(video.toJSON()); %>
           <% console.dir(video.playtoken()); %>
+          <% console.log("-----------------") %>
+          <% console.dir(video.enId()); %>
           <li class="ui-state-default">
-            <input name="videoId[]" type="text" value="<%= video.enId() %>"  hidden="true" class="col-md-10" >
-            <input name="videoName[]" type="text" value="<%= video.name.trim()||"" %>" required minlength="5" placeholder="<%=video.name.trim()||'videoName'%>" class="col-md-10" >
+            <input name="videoId[]" type="text" text="<%= video.enId() %>" value="<%= video.enId() %>"   hidden="true" class="col-md-10" >
+            <input name="videoName[]" type="text" text="<%= video.name.trim()||"" %>" required minlength="5" placeholder="<%=video.name.trim()||'videoName'%>" class="col-md-10" >
             <br/>
             <video  width="320" height="240" controls  src=<%="/mediaServer/video/stream/" + video.playtoken() %> />
           </li>

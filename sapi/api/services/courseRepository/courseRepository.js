@@ -5,11 +5,14 @@ var fs = require('fs'),
 var path = require("path")
 var root = require('app-root-path') + "";
 
+var mediaTokenHelper = require("../mediaTokenHelper.js");
+
 var cache = Object();  //place hold of cache
 
 var getCourseSectionInfo = function (courseId, sectionId) {
   return getCourseSectionInfoStub(courseId, sectionId);
 };
+
 var getCourseSectionInfoStub = function (courseId, sectionId) {
   var defer = Q.defer();
 
@@ -38,32 +41,137 @@ var getCourseSectionInfoStub = function (courseId, sectionId) {
   return defer.promise;
 };
 
-
-var updateCourseSectionVideoInfo = function (courseInfo, courseId, sectionId){
+var updateCourseInfo = function (courseInfo, courseId, name, desc, level, tags) {
   var defer = Q.defer();
+  Course.findOne({id: courseId})
+    .then(function (course) {
+      //course.name = courseInfo.courseInfo.courseName;
+      //course.description = courseInfo.courseInfo.courseDescription;
+      //course.level = courseInfo.courseInfo.courseLevel;
+      //course.tag = courseInfo.courseInfo.courseTags;
 
+      course.name = name;
+      course.desc = desc;
+      course.level = level;
+      course.tags = tags;
+      course.save( defer.resolve);
+      defer.resolve(course);
+    });
 
-  var courseInfo ={
-    "token" :"<%= token%>",
-    "courseInfo":
-    {
-      "courseName" : courseName ||"",
-      "courseDescription" : courseDescription  ||"",
-      "courseLevel" : courseLevel,
-      "courseTags" : courseTags ||"",
-      "sectionName": sectionName ||"",
-      "sectionTags": sectionTags ||"",
-      "sectionDescription": sectionDescription ||"",
-      "videoOrders" : videoOrders,
-      "videoNames" :videoNames
-    }};
-}
+  return defer.promise;
+};
+
+var updateCourseSectionInfo = function (courseInfo, courseId, sectionId, name, desc, tags) {
+  var defer = Q.defer();
+  CourseSection.findOne({courseid: courseId, id: sectionId})
+    .then(function (section) {
+      section.title = name;
+      section.description = desc;
+      section.tags = tags;
+      section.save();
+      defer.resolve(section);
+    });
+
+  return defer.promise;
+};
+
+var updateVideoInfo = function (courseInfo, courseId, sectionId, videoOrders, videoNames) {
+  var promises = [];
+  // for videos
+  var videoCount = videoOrders.length;
+  var videoInfoArray =[];
+
+  for (var i = 0; i < videoCount; i++) {
+    var videoInfo = {};
+
+    videoOrders[i] =  mediaTokenHelper.getId(videoOrders[i].value)[0];
+    videoInfo.id = videoOrders[i];
+
+    videoInfo.sequence = i ;
+    videoInfo.videoName = videoNames[i].value;
+
+    var nextId = -1;
+    if (i < videoCount - 1) {
+      nextId =  mediaTokenHelper.getId(videoOrders[i+ 1].value)[0];
+    };
+    videoInfo.nextId = nextId ;
+    videoInfoArray.push(videoInfo);
+  }
+
+  videoInfoArray.forEach(function(videoInfo){
+    var deferred = Q.defer();
+
+    Video.findOne({id: videoInfo.id})
+      .then(function (video) {
+        console.dir(video);
+
+        video.name = videoInfo.videoName;
+        video.sequence = videoInfo.sequence;
+        video.nextid = videoInfo.nextId;
+        video.save();
+
+        deferred.resolve(video);
+      });
+    promises.push(deferred.promise);
+  })
+
+  return Q.all(promises);
+};
+
+var updateCourseSectionVideoInfo = function (courseInfo, courseId, sectionId) {
+
+  var course = courseInfo;
+
+  return updateCourseInfo(courseInfo, courseId,
+    course.courseName,
+    course.courseDescription,
+    course.courseLevel,
+    course.courseTags
+  ).then(function(data){
+      console.log("update course infor finished");
+    })
+    .then(function(data) {
+      updateCourseSectionInfo(courseInfo, courseId, sectionId,
+        course.sectionName,
+        course.sectionDescription,
+        course.sectionTags
+      ).then(function(data){
+
+          console.log("update course section finished");
+
+          return updateVideoInfo(courseInfo, courseId, sectionId, course.videoOrders, course.videoNames);
+        }) ;
+    }
+   );
+};
+
+var getCourseByTutor = function(tutorId){
+  var defer = Q.defer();
+  Course.find({tutorid: tutorId})
+    .then(function (courses) {
+       var item_defer = Q.defer();
+        courses.forEach(function(course){
+          course.getSections()
+            .then(function(sections){
+              course.sections = sections;
+              item_defer.resolve(course);
+            });
+          dependents.push(item_defer);
+      });
+      Q.all(dependents)
+        .then(function(){
+          defer.resolve(courses);
+        })
+    });
+
+  return defer.promise;
+};
 
 module.exports = {
   // return all course information, like course info, section info, video info, by course Id
   getCourseSectionInfo: getCourseSectionInfo,
 
-  saveOrUpdateAllCourse: function (courseInfo, courseId, sectionId) {
+  saveOrUpdateAllCourse: updateCourseSectionVideoInfo,
 
-  }
+  getCourseByTutor:getCourseByTutor
 }

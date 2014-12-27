@@ -61,6 +61,8 @@ module.exports = {
     if (req.method === 'GET') {
       courseRepository.getCourseSectionInfo(courseId, sectionId)
         .then(function (courseInfo) {
+          console.dir("-------courseInfo-------------");
+          console.dir(courseInfo);
           res.view("editCourseSections", {token: token, courseInfo: courseInfo});
         });
     }
@@ -68,12 +70,9 @@ module.exports = {
       var courseInfo = req.body.courseInfo;
         courseRepository.saveOrUpdateAllCourse(courseInfo, courseId,sectionId)
         .then(function (courseInfo) {
-          res.view("editCourseSections", {token: token, courseInfo: courseInfo});
+          //res.view("courseslist", {token: token, courseInfo: courseInfo});
+          res.redirect("/courses/" + token);
         });
     }
-  },
-
-  postCourseSections: function (req, res) {
-
   }
-}
+};

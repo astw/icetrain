@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="col-lg-9">
+
+    <!-- Form Name -->
+    <legend>My courses</legend>
+
+    <% courses.forEach( function(course) { %>
+    <%
+        var sections = course.getSections();
+            sections = sections;
+            console.log("-----");
+           console.dir( course.getSections());
+      console.dir( course.sections.length);
+    %>
+
+
+    <div class="columns large-12">
+      <div class="row">
+        <div class="columns">
+          <strong>
+            <a href="/courses/dotnet-reflector-by-example"> <%= course.name %> </a>
+          </strong>
+
+          <div class="well well-lg">
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Course Description: </strong>
+              </div>
+              <div class="col-md-6">
+                  <%= course.desc %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Course tags: </strong>
+              </div>
+              <div class="col-md-6">
+                <%= course.tags %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Duration: </strong>
+              </div>
+              <div class="col-md-6">
+                <%=  parseInt(course.duration/60) %> Minutes <%= course.duration % 60 %> seconds
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Level: </strong>
+              </div>
+              <div class="col-md-6">
+                <%= course.level %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Status: </strong>
+              </div>
+              <div class="col-md-6">
+                <%= course.status %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Rank: </strong>
+              </div>
+              <div class="col-md-6">
+                <%= course.rank %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>View Times: </strong>
+              </div>
+              <div class="col-md-6">
+                <%= course.viewtimes %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Course Type: </strong>
+              </div>
+              <div class="col-md-6">
+                <%= course.coursetype %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 text-right">
+                <strong>Sections: </strong>
+              </div>
+              <div class="col-md-6">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% }); %>
+</div>
+</div>

@@ -48,7 +48,7 @@ module.exports = {
     },
 
     getId : function(encodeId){
-      return hashids.decode(mediaId);
+      return hashids.decode(encodeId);
     }
 
 };
