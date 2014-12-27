@@ -5,6 +5,7 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 var Q = require("q");
+var tokenHelper = require("../services/tokenHelper.js");
 
 module.exports = {
 
@@ -82,6 +83,11 @@ module.exports = {
            defer.resolve(sections);
          });
        return defer.promise;
+     },
+
+     enId :function(){
+       var obj = this.toObject();
+       return tokenHelper.getEnId(obj.id);
      }
 
     },

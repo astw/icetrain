@@ -70,9 +70,19 @@ module.exports = {
       var courseInfo = req.body.courseInfo;
         courseRepository.saveOrUpdateAllCourse(courseInfo, courseId,sectionId)
         .then(function (courseInfo) {
-          //res.view("courseslist", {token: token, courseInfo: courseInfo});
-          res.redirect("/courses/" + token);
+            // redirect to user's course page
+            res.contentType("application/json");
+            var data = JSON.stringify("/courses/byuser/" + token);
+            res.header('Content-Length',data.length);
+            res.end(data);
+            //res.redirect("/courses/byuser/" + token);
         });
     }
+  },
+
+  getCourseSections : function(req, res){
+    res.view("course");
   }
+
+
 };

@@ -13,21 +13,6 @@
 
 <script>
 
-//  var validCourseInfo = function(courseInfo){
-//    var couseInfo ={
-//      "courseName" : couseName,
-//      "couseDescription" : courseDescription,
-//      "couseLevel" : courseLevel,
-//      "courseTags" : courseTags,
-//      "sectionName": sectionName,
-//      "sectionTags": sectionTags,
-//      "sectionDescription": sectionDescription,
-//      "videoOrders" : videoOrders,
-//      "videoNames" :videoNames
-//    };
-//
-//  }
-
   $(function() {
     $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
@@ -67,7 +52,8 @@
         type:'POST',
         url:"http://localhost:1337/courses-section/edit/<%= token %>",
         data:JSON.stringify(courseInfo),
-        success : function(data){},
+        success : function(data){  window.location = data ; },
+        error:function(data){ alert("error " + JSON.stringify(data)) ;},
         contentType:"application/json",
         dataType:"json"
         });

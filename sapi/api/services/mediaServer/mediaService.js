@@ -1,4 +1,4 @@
-var mediaTokenHelper = require("../mediaTokenHelper.js");
+var mediaTokenHelper = require("../tokenHelper.js");
 
 var fs = require('fs'),
     util = require('util');

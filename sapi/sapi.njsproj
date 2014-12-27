@@ -87,7 +87,7 @@
         <Compile Include="api\services\jobs.js" />
         <Compile Include="api\services\manuAuth_Login.js" />
         <Compile Include="api\services\manuAuth_Register.js" />
-        <Compile Include="api\services\mediaTokenHelper.js" />
+        <Compile Include="api\services\tokenHelper.js" />
         <Compile Include="api\services\sessionTokenHelper.js" />
         <Content Include="api\assets\uploaded\files\permission_picture2.png" />
         <Content Include="api\assets\uploaded\files\IMG_1465.JPG" />

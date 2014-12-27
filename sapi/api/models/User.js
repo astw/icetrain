@@ -5,7 +5,7 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var bcrypt = require('bcrypt-nodejs');
-var mediaTokenHelper = require('../services/mediaTokenHelper.js');
+var mediaTokenHelper = require('../services/tokenHelper.js');
 
 module.exports = {
      attributes: {

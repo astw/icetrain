@@ -5,6 +5,8 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
+var tokenHelper = require("../services/tokenHelper.js");
+
 module.exports = {
 
   attributes: {
@@ -75,7 +77,12 @@ module.exports = {
 
       Course:{
         model:"Course"
-      }
+      },
+
+    enId :function(){
+      var obj = this.toObject();
+      return tokenHelper.getEnId(obj.id);
+    }
   },
 
     seedData:

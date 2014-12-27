@@ -35,13 +35,9 @@ module.exports = {
           leve: req.body.courseLevel
         }, function (err, data) {
           if (err) {
-            res.writeHead(400, {"Location": "/error"})
-          }
-          ;
+            res.writeHead(400, {"Location": "/error"}) } ;
 
           var shortToken = hashids.encode([data.id, user.id]);
-
-          //   res.writeHead(301, {"Location" :"/courses/"+shortId +"/create-section" });
           res.redirect("/courses/" + shortToken + "/create-section");
           res.end();
         });
@@ -50,9 +46,7 @@ module.exports = {
         res.writeHead(400, {"Location": "/error"});
         res.end();
       }
-
     });
-
   },
 
   getUserCourses: function (req, res) {
@@ -68,6 +62,11 @@ module.exports = {
 
         res.view("courseslist", {tutorId: tutorId, courses: courses});
       });
+  },
+
+  getCourseById : function(req, res){
+    res.view("course");
   }
+
 };
 

@@ -5,7 +5,7 @@ var fs = require('fs'),
 var path = require("path")
 var root = require('app-root-path') + "";
 
-var mediaTokenHelper = require("../mediaTokenHelper.js");
+var mediaTokenHelper = require("../tokenHelper.js");
 
 var cache = Object();  //place hold of cache
 
