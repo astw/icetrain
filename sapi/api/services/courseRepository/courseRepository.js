@@ -45,10 +45,6 @@ var updateCourseInfo = function (courseInfo, courseId, name, desc, level, tags) 
   var defer = Q.defer();
   Course.findOne({id: courseId})
     .then(function (course) {
-      //course.name = courseInfo.courseInfo.courseName;
-      //course.description = courseInfo.courseInfo.courseDescription;
-      //course.level = courseInfo.courseInfo.courseLevel;
-      //course.tag = courseInfo.courseInfo.courseTags;
 
       course.name = name;
       course.desc = desc;
@@ -146,25 +142,19 @@ var updateCourseSectionVideoInfo = function (courseInfo, courseId, sectionId) {
 };
 
 var getCourseByTutor = function(tutorId){
-  var defer = Q.defer();
-  Course.find({tutorid: tutorId})
-    .then(function (courses) {
-       var item_defer = Q.defer();
-        courses.forEach(function(course){
-          course.getSections()
-            .then(function(sections){
-              course.sections = sections;
-              item_defer.resolve(course);
-            });
-          dependents.push(item_defer);
-      });
-      Q.all(dependents)
-        .then(function(){
-          defer.resolve(courses);
-        })
-    });
 
-  return defer.promise;
+  var result = [];
+  return Course.find({tutorid: tutorId})
+    .then(function (courses) {
+      courses.forEach(function (course) {
+        result.push(
+          course.getSections().then(function (sections) {
+            course.sections = sections;
+            return course;
+          }));
+      });
+      return Q.all(result);
+    });
 };
 
 module.exports = {

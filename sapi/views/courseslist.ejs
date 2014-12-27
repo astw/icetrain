@@ -6,13 +6,12 @@
 
     <% courses.forEach( function(course) { %>
     <%
-        var sections = course.getSections();
-            sections = sections;
-            console.log("-----");
-           console.dir( course.getSections());
-      console.dir( course.sections.length);
+      var sections = course.getSections();
+      sections = sections;
+      console.log("-----");
+      console.dir(course.getSections());
+      console.dir(course.sections.length);
     %>
-
 
     <div class="columns large-12">
       <div class="row">
@@ -27,7 +26,7 @@
                 <strong>Course Description: </strong>
               </div>
               <div class="col-md-6">
-                  <%= course.desc %>
+                <%= course.desc %>
               </div>
             </div>
 
@@ -45,7 +44,7 @@
                 <strong>Duration: </strong>
               </div>
               <div class="col-md-6">
-                <%=  parseInt(course.duration/60) %> Minutes <%= course.duration % 60 %> seconds
+                <%= parseInt(course.duration / 60) %> Minutes <%= course.duration % 60 %> seconds
               </div>
             </div>
 
@@ -95,11 +94,52 @@
             </div>
 
             <div class="row">
+
               <div class="col-md-3 text-right">
                 <strong>Sections: </strong>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-9">
+                <div class="well">
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section Number: </strong>
+                    </div>
+                    <div class="col-md-8 info">
+                      <%= course.sections.length %>
+                    </div>
+                  </div>
 
+                  <%
+                    var sections = course.sections;
+
+                    if(sections != null){
+                      sections.forEach(function(section){
+                  %>
+
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section Name: </strong>
+                    </div>
+                    <div class="col-md-8">
+                      <%= section.title %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section Tags: </strong>
+                    </div>
+                    <div class="col-md-8">
+                      <%= section.tags %>
+                    </div>
+                  </div>
+
+                  <%
+                    });
+                    }
+                  %>
+
+                </div>
               </div>
             </div>
 
@@ -107,8 +147,7 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <% }); %>
+ <% }); %>
 </div>
 </div>

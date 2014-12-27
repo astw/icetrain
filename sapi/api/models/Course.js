@@ -69,9 +69,9 @@ module.exports = {
        coursetype:{
            type:"string"
        },
-
        sections:{
-         model :"array"
+         collection :"CourseSection",
+         via:"Course"
        },
 
      getSections: function () {

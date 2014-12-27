@@ -71,6 +71,10 @@ module.exports = {
       opentoall:{
           type:"boolean",
           defaultsTo:true
+      },
+
+      Course:{
+        model:"Course"
       }
   },
 
