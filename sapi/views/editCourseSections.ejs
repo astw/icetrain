@@ -83,7 +83,7 @@
       <div class="control-group">
         <label class="control-label" for="courseDescription">Course Description</label>
         <div class="controls">
-          <textarea id="courseDescription" name="courseDescription" required minlength="20" class="col-md-9" placeholder="Course description"  height="150px"><%= courseInfo.course.description ||"" %></textarea>
+          <textarea id="courseDescription" name="courseDescription" required minlength="20" class="col-md-9" placeholder="Course description"  height="150px"><%= courseInfo.course.desc ||"" %></textarea>
         </div>
       </div>
     </div>
@@ -138,7 +138,7 @@
     <div class="control-group">
       <label class="control-label" for="sectionDescription">Section Description</label>
       <div class="controls">
-        <textarea id="sectionDescription" name="sectionDescription" required minlength="20" class="col-md-9" height="150px"><%= courseInfo.section.description || "description"  %></textarea>
+        <textarea id="sectionDescription" name="sectionDescription" required minlength="20" class="col-md-9" height="150px"><%= courseInfo.section.desc || "description"  %></textarea>
       </div>
     </div>
     </div>
