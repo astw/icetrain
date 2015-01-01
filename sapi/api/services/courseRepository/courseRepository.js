@@ -6,6 +6,7 @@ var path = require("path")
 var root = require('app-root-path') + "";
 
 var mediaTokenHelper = require("../tokenHelper.js");
+var userRepository = require("../Repository/userRepository");
 
 var cache = Object();  //place hold of cache
 
@@ -156,6 +157,22 @@ var getCourseByTutor = function(tutorId){
       return Q.all(result);
     });
 };
+var getCourseById = function(courseId){
+
+  var defer = Q.defer();
+  Course.findOne({id:courseId}).exec(function(err, course){
+    if(!!err){
+      defer.reject(new Error(err));
+    }
+    else {
+      userRepository.getUserById(course.tutorid).then(function(tutor){
+        course.tutor = tutor;
+        defer.resolve(course);
+      });
+    }
+  });
+  return defer.promise;
+};
 
 module.exports = {
   // return all course information, like course info, section info, video info, by course Id
@@ -163,5 +180,7 @@ module.exports = {
 
   saveOrUpdateAllCourse: updateCourseSectionVideoInfo,
 
-  getCourseByTutor:getCourseByTutor
+  getCourseByTutor:getCourseByTutor,
+
+  getCourseById:getCourseById
 }

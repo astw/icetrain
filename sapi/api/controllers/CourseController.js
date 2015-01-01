@@ -10,6 +10,7 @@ var Hashids = require("hashids"),
   hashids = new Hashids(courseidKey),
   courseHashids = new Hashids(courseidKey);
 
+var tokenHelper = require("../services/tokenHelper.js");
 var courseRepository = require("../services/courseRepository/courseRepository.js");
 
 module.exports = {
@@ -65,7 +66,17 @@ module.exports = {
   },
 
   getCourseById : function(req, res){
-    res.view("course");
+    var enId = req.params.enId ;
+    var courseId = tokenHelper.getId(enId)[0];
+    if(courseId != null) {
+      courseRepository.getCourseById(courseId).then(function (course) {
+          res.view("course", {course: course});
+        }
+      );
+    }
+    else{
+      res.view("error");
+    }
   }
 
 };
