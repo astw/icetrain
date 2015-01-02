@@ -5,6 +5,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var mediaTokenHelper = require("../services/tokenHelper.js");
+var tools = require("../services/common/tools.js");
+
 
 module.exports = {
 
@@ -137,6 +139,13 @@ module.exports = {
 
     next();
   },
+
+  formattedTime : function(){
+    var obj = this.toObject();
+    var value = obj.duration;
+    return tools.formattedTime(value);
+  },
+
   seedData: [
     {
       "name": "linux start",

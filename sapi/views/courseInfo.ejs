@@ -77,13 +77,8 @@ else
         <label class="col-md-4 control-label text-right" for="courseTags">课程总时间</label>
 
         <div class="col-md-4">
-          <%
-          var duration = 0;
-          if (course.duration > 0) {
-            duration = course.duration / 60;
-          }
-          %>
-          <label class="col-md-8"><%= duration + " minutes " %></label>
+          <% var time =course.formattedTime() %>
+          <%= time.minutes %> Minutes <%= time.seconds %> Seconds  
         </div>
       </div>
       <!-- Text input-->
@@ -164,13 +159,8 @@ else
                     <strong>Section duration: </strong>
                   </div>
                   <div class="col-md-8">
-                    <%
-                        var duration = 0;
-                       if(section.duration > 0){
-                         duration = section / 60;
-                       }
-                    %>
-                    <%= duration + " minutes" %>
+                    <% var time =section.formattedTime() %>
+                    <%= time.minutes %> Minutes <%= time.seconds %> Seconds
                   </div>
                 </div>
               </div>

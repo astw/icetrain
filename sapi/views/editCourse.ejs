@@ -13,10 +13,7 @@ console.dir(course);
 <script>
 
   $(function () {
-
-
-    $("#submit").click(function () {
-      alert("/course/byid/<%= course.enId() %>");
+     $("#submit").click(function () {
 
       var courseName = $("input[name='courseName']").val();
       var courseDescription = $("#courseDescription").val();
@@ -74,7 +71,6 @@ console.dir(course);
           <!-- Form Name -->
           <legend>课程信息</legend>
 
-          <!-- Text input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseName">课程名称</label>
 
@@ -84,7 +80,6 @@ console.dir(course);
             </div>
           </div>
 
-          <!-- Textarea -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseDesc">课程简介</label>
 
@@ -94,7 +89,6 @@ console.dir(course);
             </div>
           </div>
 
-          <!-- Select Basic -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseType">课程类别</label>
 
@@ -107,7 +101,6 @@ console.dir(course);
             </div>
           </div>
 
-          <!-- Text input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseLevel">课程级别</label>
 
@@ -120,8 +113,7 @@ console.dir(course);
             </div>
           </div>
 
-          <!-- Text input-->
-          <div class="form-group">
+         <div class="form-group">
             <label class="col-md-4 control-label" for="courseTags">课程标签</label>
 
             <div class="col-md-4">
@@ -130,16 +122,15 @@ console.dir(course);
             </div>
           </div>
 
-          <!-- Text input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseTags">课程总时间</label>
 
             <div class="col-md-4">
-              <label class="col-md-8"><%= course.duration / 60 + " minutes " %></label>
+              <% var time =course.formattedTime() %>
+              <%= time.minutes %> Minutes <%= time.seconds %> Seconds
             </div>
           </div>
 
-          <!-- Text input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="tutorEmail">讲师电子邮件</label>
 
@@ -173,7 +164,7 @@ console.dir(course);
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseTags">课程sections</label>
 
-            <div class="col-md-8">
+           <div class="col-md-8">
               <div class="well well-lg">
 
                 <%
@@ -216,7 +207,8 @@ console.dir(course);
                       <strong>Section duration: </strong>
                     </div>
                     <div class="col-md-8">
-                      <%= section.duration / 60 + " minutes" %>
+                        <% var time =section.formattedTime() %>
+                        <%= time.minutes %> Minutes <%= time.seconds %> Seconds
                     </div>
                   </div>
                 </div>
@@ -227,9 +219,9 @@ console.dir(course);
                 %>
               </div>
             </div>
+           </div>
 
-            <!-- Button (Double) -->
-            <div class="form-group">
+          <div class="form-group">
               <label class="col-md-4 control-label" for="submit"></label>
 
               <div class="col-md-8">
@@ -239,6 +231,7 @@ console.dir(course);
             </div>
 
         </fieldset>
+
       </form>
     </div>
 
