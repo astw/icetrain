@@ -60,7 +60,6 @@ module.exports = {
 
     courseRepository.getCourseByTutor(tutorId)
       .then(function (courses) {
-
         res.view("courseslist", {tutorId: tutorId, courses: courses});
       });
   },
@@ -70,12 +69,42 @@ module.exports = {
     var courseId = tokenHelper.getId(enId)[0];
     if(courseId != null) {
       courseRepository.getCourseById(courseId).then(function (course) {
-          res.view("course", {course: course});
+          res.view("courseInfo", {course: course});
         }
       );
     }
     else{
       res.view("error");
+    }
+  },
+
+  updateCourseById : function(req,res){
+
+    var enId = req.params.enId;
+    var courseId = tokenHelper.getId(enId)[0];
+
+    if (req.method === 'GET')
+    {
+      courseRepository.getCourseById(courseId).then(function (course) {
+          res.view("editCourse", {course: course});
+        }
+      );
+    }
+    else if(req.method==='POST') {
+
+      var courseInfo = req.body.courseInfo;
+      if (courseId != null) {
+        courseRepository.updateCourseById(courseId, courseInfo).then(function (course) {
+            res.contentType("application/json");
+            var data = JSON.stringify("/courses/byid/" + course.enId());
+            res.header('Content-Length', data.length);
+            res.end(data);
+          }
+        );
+      }
+      else {
+        res.view("error");
+      }
     }
   }
 

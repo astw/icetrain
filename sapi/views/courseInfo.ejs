@@ -1,0 +1,174 @@
+<%
+console.dir(course);
+var couseLevel = "Beginner";
+
+if (course.level == "beginner")
+  couseLevel = "Beginner";
+else if (course.level == "medium")
+  couseLevel = "Medium";
+else
+  couseLevel = "Advanced";
+%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">
+      <!-- Form Name -->
+      <legend>课程信息</legend>
+
+      <!-- Text input-->
+       <div class="row">
+          <label class="col-md-4 control-label text-right" for="courseName">课程名称</label>
+          <div class="col-md-8">
+            <%= course.name %>
+          </div>
+        </div>
+        <!-- Textarea -->
+        <div class="row">
+            <label class="col-md-4 control-label text-right" for="courseDesc">课程简介</label>
+            <div class="col-md-8">
+              <%= course.desc %>
+            </div>
+        </div>
+
+
+        <!-- Select Basic -->
+        <div class="row">
+            <label class="col-md-4 control-label  text-right" for="courseType">课程类别</label>
+
+            <div class="col-md-4">
+              <%= course.coursetype %>
+            </div>
+          </div>
+        <!-- Text input-->
+
+        <div class="row">
+            <label class="col-md-4 control-label text-right" for="courseLevel">课程级别</label>
+            <div class="col-md-4">
+              <%= couseLevel %>
+            </div>
+        </div>
+
+        <div class="row">
+          <!-- Text input-->
+
+            <label class="col-md-4 control-label text-right" for="courseTags">课程标签</label>
+
+            <div class="col-md-4">
+              <%= course.tags %>
+            </div>
+
+        </div>
+
+        <div class="row">
+          <!-- Text input-->
+            <label class="col-md-4 control-label text-right" for="courseTags">课程总时间</label>
+
+            <div class="col-md-4">
+              <label class="col-md-8"><%= course.duration / 60 + " minutes " %></label>
+            </div>
+
+
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label text-right" for="tutorEmail">讲师电子邮件</label>
+
+          <div class="col-md-8">
+            <div class="well well-lg">
+
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <strong>Tutor Name: </strong>
+                </div>
+                <div class="col-md-8">
+                  <a href="/tutor/<%= course.tutor.id %> ">
+                    <%= course.tutor.email %>
+                  </a>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <strong>Tutor Name: </strong>
+                </div>
+                <div class="col-md-8">
+                  <%= course.tutor.displayName %>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label text-right" for="courseTags">课程sections</label>
+
+          <div class="col-md-8">
+
+            <%
+            var sections = course.sections;
+            if(sections != null){
+              sections.forEach(function(section, index){
+            %>
+            <div class="well well-lg">
+
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <strong>Section #: </strong>
+                </div>
+                <div class="col-md-8">
+                  <a href="/courses/<%= section.enId() %>/sections/<%= section.enId() %>">
+                    <%= index + 1 %>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <strong>Section Name: </strong>
+                </div>
+                <div class="col-md-8">
+                  <a href="/courses/<%= course.enId() %>/sections/<%= section.enId() %>">
+                    <%= section.title %>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <strong>Section Tags: </strong>
+                </div>
+                <div class="col-md-8">
+                  <%= section.tags %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 text-right">
+                  <strong>Section duration: </strong>
+                </div>
+                <div class="col-md-8">
+                  <%= section.duration / 60 + " minutes" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%
+        });
+        }
+        %>
+
+        <!-- Button (Double) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="submit"></label>
+
+          <div class="col-md-8">
+            <a href="/courses/edit/<%= course.enId() %>">
+            <div class="btn btn-info" >Edit 课程</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

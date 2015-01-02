@@ -158,7 +158,6 @@ var getCourseByTutor = function(tutorId){
     });
 };
 var getCourseById = function(courseId){
-
   var defer = Q.defer();
   Course.findOne({id:courseId}).exec(function(err, course){
     if(!!err){
@@ -167,12 +166,38 @@ var getCourseById = function(courseId){
     else {
       userRepository.getUserById(course.tutorid).then(function(tutor){
         course.tutor = tutor;
-        defer.resolve(course);
+        CourseSection.find({courseid:course.id}).then(function(sections){
+          course.sections = sections;
+          defer.resolve(course);
+        })
       });
     }
   });
   return defer.promise;
 };
+
+var updateCourseById = function (courseId, courseInfo) {
+  var defer = Q.defer();
+  Course.findOne({id:courseId}).then(function(course){
+    course.name = courseInfo.name;
+    course.desc = courseInfo.desc;
+    course.level = courseInfo.level;
+    course.coursetype = courseInfo.courseType;
+    //course.save(function (err) {deferred.resolve();});
+    course.save().then(function(err){
+        userRepository.getUserById(course.tutorid).then(function(tutor){
+        course.tutor = tutor;
+        CourseSection.find({courseid:course.id}).then(function(sections){
+          course.sections = sections;
+          defer.resolve(course);
+        })
+      });
+    });
+    defer.resolve(course);
+  });
+
+  return defer.promise;
+}
 
 module.exports = {
   // return all course information, like course info, section info, video info, by course Id
@@ -182,5 +207,7 @@ module.exports = {
 
   getCourseByTutor:getCourseByTutor,
 
-  getCourseById:getCourseById
+  getCourseById:getCourseById,
+
+  updateCourseById: updateCourseById
 }

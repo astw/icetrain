@@ -53,6 +53,10 @@ module.exports.routes = {
   /**********************below is for course *********************************/
   "get /courses/byuser/:enId" : "CourseController.getUserCourses",
   "get /courses/byid/:enId": "CourseController.getCourseById",
+
+  "get /courses/edit/:enId" : "CourseController.updateCourseById",
+  "post /courses/edit/:enId" : "CourseController.updateCourseById",
+
   "get /courses/:courseToken/sections/:sectionToken" : "CourseSectionController.getCourseSections",
 
   "get /create-course" : {view:"create-course"},
