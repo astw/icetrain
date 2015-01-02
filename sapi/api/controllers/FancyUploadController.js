@@ -27,6 +27,9 @@ var Busboy = require("busboy");
 var inspect = require('util').inspect;
 var formidable = require('formidable');
 
+var tokenHelper = require("../services/tokenHelper.js");
+
+
 
 var changeFilesName = function (obj) {
   obj.files.forEach(function (file) {
@@ -163,10 +166,11 @@ module.exports = {
   },
 
   uploadCourseVideo: function (req, res) {
-    //var couseToken = req.param.courseid;  //urlQuery.parse(req.url, true).query.courseid;
-    //var sectionToken = req.param.sectionid;  //urlQuery.parse(req.url, true).query.sectionid;
-    var token = req.params.courseToken;
-    var ids = courseHashids.decode(token);
+
+    var token = req.params.token;
+   // var ids = courseHashids.decode(token);
+    var ids = tokenHelper.getSectionId(token);
+
     var tutorId = ids[0];
     var courseId = ids[1];
     var sectionId = ids[2];
@@ -219,8 +223,17 @@ module.exports = {
   },
 
   showUploadUI: function (req, res) {
-    var courseToken = req.params.courseToken;
-    req.flash("courseInfoToken", courseToken);
-    res.view("section-video-upload", {courseToken: courseToken});
+    var token = req.params.token;
+    var ids = tokenHelper.getSectionId(token);
+    //[tutorId, courseId, data.id]
+    var tutorId = ids[0];
+    var courseId = ids[1];
+    var sectionId = ids[2] ;
+
+    var courseToken = tokenHelper.getCourseToken([sectionId, tutorId]);
+    var sectionToken = tokenHelper.getSectionToken(sectionId);
+
+    req.flash("courseInfoToken", token);
+    res.view("section-video-upload", {token: token, courseToken:courseToken, sectionToken:sectionToken, tutorId: tutorId});
   }
 };

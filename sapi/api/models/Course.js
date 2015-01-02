@@ -14,8 +14,8 @@ module.exports = {
         name:{
             type:"string",
             required:true,
-            minLength:10,
-            maxLength:100
+            minLength:5,
+            maxLength:200
         },
 
         desc:{
@@ -87,7 +87,7 @@ module.exports = {
 
      enId :function(){
        var obj = this.toObject();
-       return tokenHelper.getEnId(obj.id);
+       return tokenHelper.getCourseToken(obj.id);
      }
 
     },

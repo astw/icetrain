@@ -1,44 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div id="breadcrumb">
+      <ul class="crumbs">
+        <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+        <li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>
+        <li><a class="current" href="/courses/<%=courseToken%>/create-section<%= 10000001 %>" style="z-index:7;">Create A New Section</a></li>
+      </ul>
+    </div>
+  </div>
 
-<div class="col-lg-9">
-    <form class="form-horizontal" action="/create-section?token=<%=courseToken%>" method="POST">
+  <div class="row">
+    <div class="col-lg-9">
+      <form class="form-horizontal" action="/create-section?token=<%= courseToken %>" method="POST">
         <fieldset>
 
-            <!-- Form Name -->
-            <legend>创建section</legend>
+          <!-- Form Name -->
+          <legend><br/></legend>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="sectionTitle">section名称</label>
-                <div class="col-md-8">
-                    <input id="sectionTitle" name="sectionTitle" type="text" placeholder="输入section名称" class="form-control input-md" required="">
-                </div>
-            </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="sectionTitle">section名称</label>
 
-            <!-- Textarea -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="sectionDesc">section简介</label>
-                <div class="col-md-8">
-                    <textarea class="form-control" id="sectionDesc" name="sectionDesc"  placeholder="输入section简介" required></textarea>
-                </div>
+            <div class="col-md-8">
+              <input id="sectionTitle" name="sectionTitle" type="text" placeholder="输入section名称"
+                     class="form-control input-md" required minlength="5">
             </div>
+          </div>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="sectionTags">section标签</label>
-                <div class="col-md-4">
-                    <input id="sectionTags" name="sectionTags" type="text" placeholder="section标签" class="form-control input-md">
-                </div>
-            </div>
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="sectionDesc">section简介</label>
 
-            <!-- Button (Double) -->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="submit"></label>
-                <div class="col-md-8">
-                    <button id="submit" type="submit" class="btn btn-success">创建section</button>
-                    <button id="reset" type="reset" class="btn btn-danger">重填</button>
-                </div>
+            <div class="col-md-8">
+              <textarea class="form-control" id="sectionDesc" name="sectionDesc" placeholder="输入section简介"
+                        minlength="5"   required></textarea>
             </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="sectionTags">section标签</label>
+
+            <div class="col-md-4">
+              <input id="sectionTags" name="sectionTags" type="text" placeholder="section标签"
+                     class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+
+            <div class="col-md-8">
+              <button id="submit" type="submit" class="btn btn-success">创建section</button>
+              <button id="reset" type="reset" class="btn btn-danger">重填</button>
+            </div>
+          </div>
 
         </fieldset>
-    </form>
+      </form>
+    </div>
+
+  </div>
+
 </div>

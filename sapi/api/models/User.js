@@ -36,7 +36,7 @@ module.exports = {
                 if (err) return next(err);
 
                 attributes.password = hash;
-                attributes.id = 10000000 + attributes.id;
+                //attributes.id = 10000000 + attributes.id;
                 next();
             })
         })

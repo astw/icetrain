@@ -23,8 +23,8 @@ module.exports = {
       title:{
           type:"string",
           required:true,
-          minLength:10,
-          maxLength:100
+          minLength:5,
+          maxLength:200
       },
 
       videoid:{
@@ -81,7 +81,7 @@ module.exports = {
 
     enId :function(){
       var obj = this.toObject();
-      return tokenHelper.getEnId(obj.id);
+      return tokenHelper.getSectionToken(obj.id);
     }
   },
 

@@ -1,4 +1,3 @@
-
 <%
 console.dir(course);
 %>
@@ -13,39 +12,41 @@ console.dir(course);
 
 <script>
 
-  $(function() {
+  $(function () {
 
 
-    $("#submit").click(function(){
-      alert( "/course/byid/<%= course.enId() %>");
+    $("#submit").click(function () {
+      alert("/course/byid/<%= course.enId() %>");
 
-      var courseName= $("input[name='courseName']").val();
+      var courseName = $("input[name='courseName']").val();
       var courseDescription = $("#courseDescription").val();
-      var courseLevel =  $("#courseLevel").val();
-      var courseTags= $("input[name='courseTags']").val();
-      var courseType= $("#courseType").val();
+      var courseLevel = $("#courseLevel").val();
+      var courseTags = $("input[name='courseTags']").val();
+      var courseType = $("#courseType").val();
 
-      var courseInfo ={
-        "courseInfo":
-        {
-          "name" : courseName ||"",
-          "desc" : courseDescription  ||"",
-          "level" : courseLevel,
-          "tags" : courseTags ||"",
-          "courseType" : courseType
-        }};
+      var courseInfo = {
+        "courseInfo": {
+          "name": courseName || "",
+          "desc": courseDescription || "",
+          "level": courseLevel,
+          "tags": courseTags || "",
+          "courseType": courseType
+        }
+      };
 
       alert(JSON.stringify(courseInfo));
       $.ajax({
-        type:'POST',
-        url:"/courses/edit/<%= course.enId() %>",
-        data:JSON.stringify(courseInfo),
-        success : function(data){
-          window.location = data ;
+        type: 'POST',
+        url: "/courses/edit/<%= course.enId() %>",
+        data: JSON.stringify(courseInfo),
+        success: function (data) {
+          window.location = data;
         },
-        error:function(data){ alert("error " + JSON.stringify(data)) ;},
-        contentType:"application/json",
-        dataType:"json"
+        error: function (data) {
+          alert("error " + JSON.stringify(data));
+        },
+        contentType: "application/json",
+        dataType: "json"
       });
     });
   });
@@ -56,13 +57,14 @@ console.dir(course);
   <div id="breadcrumb">
     <ul class="crumbs">
       <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
-      <li><a href="/courses/byuser/<%=  10000001%>" style="z-index:8;">My Courses</a></li>
+      <li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>
       <li><a class="current" href="/courses/edit/<%= course.enId() %>" style="z-index:7;">Edit Course</a></li>
       <li><a href="/courses/byid/<%= course.enId() %>" style="z-index:6;">Course Information</a></li>
     </ul>
   </div>
 
   <br/>
+
   <div class="row">
 
     <div class="col-lg-9">
@@ -98,9 +100,9 @@ console.dir(course);
 
             <div class="col-md-4">
               <select id="courseType" name="courseType" class="form-control">
-                <option value="1" <%= course.coursetype =="1" ? "selected" : "" %>>Nodejs</option>
-                <option value="2" <%= course.coursetype =="2" ? "selected" : "" %>>javascript</option>
-                <option value="3" <%= course.coursetype =="3" ? "selected" : "" %> >java</option>
+                <option value="1" <%= course.coursetype == "1" ? "selected" : "" %>>Nodejs</option>
+                <option value="2" <%= course.coursetype == "2" ? "selected" : "" %>>javascript</option>
+                <option value="3" <%= course.coursetype == "3" ? "selected" : "" %> >java</option>
               </select>
             </div>
           </div>
@@ -111,9 +113,9 @@ console.dir(course);
 
             <div class="col-md-4">
               <select id="courseLevel" name="courseLevel" class="form-control">
-                <option value="beginner"  <%= course.level =="beginner" ? "selected" : "" %> >初级</option>
-                <option value="medium" <%= course.level =="medium" ? "selected" : "" %>  >中级</option>
-                <option value="advanced" <%= course.level =="advanced" ? "selected" : "" %>  >高级</option>
+                <option value="beginner"  <%= course.level == "beginner" ? "selected" : "" %> >初级</option>
+                <option value="medium" <%= course.level == "medium" ? "selected" : "" %>  >中级</option>
+                <option value="advanced" <%= course.level == "advanced" ? "selected" : "" %>  >高级</option>
               </select>
             </div>
           </div>
@@ -172,72 +174,73 @@ console.dir(course);
             <label class="col-md-4 control-label" for="courseTags">课程sections</label>
 
             <div class="col-md-8">
-
-              <%
-              var sections = course.sections;
-              if(sections != null){
-                sections.forEach(function(section, index){
-              %>
               <div class="well well-lg">
 
-                <div class="row">
-                  <div class="col-md-4 text-right">
-                    <strong>Section #: </strong>
+                <%
+                var sections = course.sections;
+                if(sections != null){
+                  sections.forEach(function(section, index){
+                %>
+                <div class="well well-lg">
+
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section #: </strong>
+                    </div>
+                    <div class="col-md-8">
+                      <a href="/courses/<%= section.enId() %>/sections/<%= section.enId() %>">
+                        <%= index + 1 %>
+                      </a>
+                    </div>
                   </div>
-                  <div class="col-md-8">
-                    <a href="/courses/<%= section.enId() %>/sections/<%= section.enId() %>">
-                      <%= index + 1 %>
-                    </a>
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section Name: </strong>
+                    </div>
+                    <div class="col-md-8">
+                      <a href="/courses/<%= course.enId() %>/sections/<%= section.enId() %>">
+                        <%= section.title %>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section Tags: </strong>
+                    </div>
+                    <div class="col-md-8">
+                      <%= section.tags %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 text-right">
+                      <strong>Section duration: </strong>
+                    </div>
+                    <div class="col-md-8">
+                      <%= section.duration / 60 + " minutes" %>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-4 text-right">
-                    <strong>Section Name: </strong>
-                  </div>
-                  <div class="col-md-8">
-                    <a href="/courses/<%= course.enId() %>/sections/<%= section.enId() %>">
-                      <%= section.title %>
-                    </a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 text-right">
-                    <strong>Section Tags: </strong>
-                  </div>
-                  <div class="col-md-8">
-                    <%= section.tags %>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 text-right">
-                    <strong>Section duration: </strong>
-                  </div>
-                  <div class="col-md-8">
-                    <%= section.duration /60 + " minutes" %>
-                  </div>
-                </div>
+
+                <%
+                });
+                }
+                %>
               </div>
             </div>
-          </div>
 
-    <%
-    });
-    }
-    %>
+            <!-- Button (Double) -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="submit"></label>
 
-    <!-- Button (Double) -->
-    <div class="form-group">
-      <label class="col-md-4 control-label" for="submit"></label>
+              <div class="col-md-8">
+                <button id="submit" type="submit" class="btn btn-success">Update课程</button>
+                <button id="reset" type="reset" class="btn btn-danger">Reset</button>
+              </div>
+            </div>
 
-      <div class="col-md-8">
-        <button id="submit" type="submit" class="btn btn-success">Update课程</button>
-        <button id="reset" type="reset" class="btn btn-danger">Reset</button>
-      </div>
+        </fieldset>
+      </form>
     </div>
 
-    </fieldset>
-    </form>
   </div>
-
-</div>
 </div>

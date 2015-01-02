@@ -38,7 +38,8 @@ module.exports = {
           if (err) {
             res.writeHead(400, {"Location": "/error"}) } ;
 
-          var shortToken = hashids.encode([data.id, user.id]);
+          //var shortToken = hashids.encode([data.id, user.id]);
+          var shortToken = tokenHelper.getCourseToken([data.id, user.id]);
           res.redirect("/courses/" + shortToken + "/create-section");
           res.end();
         });
@@ -60,13 +61,13 @@ module.exports = {
 
     courseRepository.getCourseByTutor(userId)
       .then(function (courses) {
-        res.view("courseslist", {tutorId: tutorId, courses: courses});
+        res.view("myCoursesList", {tutorId: userId, courses: courses});
       });
   },
 
   getCourseById : function(req, res){
     var enId = req.params.enId ;
-    var courseId = tokenHelper.getId(enId)[0];
+    var courseId = tokenHelper.getCourseId(enId)[0];
     if(courseId != null) {
       courseRepository.getCourseById(courseId).then(function (course) {
           res.view("courseInfo", {course: course});
@@ -81,7 +82,7 @@ module.exports = {
   updateCourseById : function(req,res){
 
     var enId = req.params.enId;
-    var courseId = tokenHelper.getId(enId)[0];
+    var courseId = tokenHelper.getCourseId(enId)[0];
 
     if (req.method === 'GET')
     {

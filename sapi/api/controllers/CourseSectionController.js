@@ -1,11 +1,7 @@
-/**
- * CourseSectionController
- *
- * @description :: Server-side logic for managing coursesections
- * @help        :: See http://links.sailsjs.org/docs/controllers
- */
+'use strict';
 
 var courseRepository = require("../services/courseRepository/courseRepository.js");
+var tokenHelper = require("../services/tokenHelper.js");
 
 var urlQuery = require('url');
 var courseidKey = "sec for construct course id";
@@ -27,7 +23,7 @@ module.exports = {
 
     console.log(req.body);
     var token = urlQuery.parse(req.url, true).query.token;
-    var ids = courseHashids.decode(token);
+    var ids = tokenHelper.getCourseId(token);    // courseHashids.decode(token);
     var courseId = ids[0];
     var tutorId = ids[1];
 
@@ -41,8 +37,8 @@ module.exports = {
       if (err != null) {
         res.writeHead(400, {"Location": "/error"})
       } ;
-
-      token = courseHashids.encode([tutorId, courseId, data.id]);
+      //token = courseHashids.encode([tutorId, courseId, data.id]);
+      token = tokenHelper.getSectionToken([tutorId, courseId, data.id]);
       res.redirect("/upload-video/" + token);
       res.end();
     });
@@ -52,7 +48,9 @@ module.exports = {
     console.log(req.body);
 
     var token = req.params.courseToken;
-    var ids = courseHashids.decode(token);
+    //var ids = courseHashids.decode(token);
+    var ids = tokenHelper.getSectionId(token);
+
     var tutorId = ids[0];
     var courseId = ids[1];
     var sectionId = ids[2];
@@ -68,11 +66,13 @@ module.exports = {
     }
     else if (req.method == 'POST') {
       var courseInfo = req.body.courseInfo;
+      var tutorId = courseInfo.tutorId;
+
         courseRepository.saveOrUpdateAllCourse(courseInfo, courseId,sectionId)
         .then(function (courseInfo) {
             // redirect to user's course page
             res.contentType("application/json");
-            var data = JSON.stringify("/courses/byuser/" + token);
+            var data = JSON.stringify("/courses/byuser/" + tutorId);
             res.header('Content-Length',data.length);
             res.end(data);
             //res.redirect("/courses/byuser/" + token);
@@ -83,6 +83,4 @@ module.exports = {
   getCourseSections : function(req, res){
     res.view("course");
   }
-
-
 };

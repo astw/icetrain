@@ -133,9 +133,7 @@ var updateCourseSectionVideoInfo = function (courseInfo, courseId, sectionId) {
         course.sectionDescription,
         course.sectionTags
       ).then(function(data){
-
           console.log("update course section finished");
-
           return updateVideoInfo(courseInfo, courseId, sectionId, course.videoOrders, course.videoNames);
         }) ;
     }

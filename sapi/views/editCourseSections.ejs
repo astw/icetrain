@@ -18,7 +18,7 @@
     $( "#sortable" ).disableSelection();
 
     $("#submit").click(function(){
-      alert( "/course-section/edit/<%= token %>");
+      alert( "/course-section/edit/<%= courseInfo.course.tutorid %>");
       var videoOrders  = $("input[name='videoId[]'").serializeArray();
       var videoNames =  $("input[name='videoName[]'").serializeArray();
 
@@ -43,7 +43,8 @@
         "sectionTags": sectionTags ||"",
         "sectionDescription": sectionDescription ||"",
         "videoOrders" : videoOrders,
-        "videoNames" :videoNames
+        "videoNames" :videoNames,
+         "tutorId"  : "<%= courseInfo.course.tutorid%>"
       }};
 
       alert(JSON.stringify(courseInfo));
@@ -63,10 +64,24 @@
 </script>
 
 <div class="container">
-  <!--<form class="form-horizontal"  method="POST" >-->
+
+  <div class="row">
+    <div id="breadcrumb">
+      <ul class="crumbs">
+        <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+        <li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>
+        <li><a href="/courses/<%= token %>/create-section" style="z-index:7;">Create
+            A New Section</a></li>
+        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To New Created Section</a></li>
+        <li><a class="current" href="/courses-section/edit/<%= token%>" style="z-index:5;">Edit Course/Section/Videos information</a></li>
+      </ul>
+    </div>
+  </div>
+
   <fieldset>
     <!-- Form Name -->
-    <legend>Edit course / section / video information</legend>
+    <!--<legend>Edit course / section / video information</legend>-->
+    <legend><br/></legend>
 
     <!-- Text input Course Name -->
     <div class="container">
@@ -172,21 +187,4 @@
      <div class="controls">
        <button id="submit" name="submit" class="btn btn-primary">Submit</button>
      </div>
-<!--</form>-->
-
-
 </div>
-<%
-//var courseInfo={
-//  courseToken:token,
-//  course:course,
-//  sections:sections,
-//  videos:videos
-//};
-//
-//  courseInfo.course.name
-  %>
-
-
-
-<%=  courseInfo.section.name %>

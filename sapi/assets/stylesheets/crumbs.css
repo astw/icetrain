@@ -11,5 +11,4 @@ html { height: 101%; font-family: Arial, Tahoma, Verdana, sans-serif; }
 .crumbs li a:hover { color: #770000; background-position: 100% -48px; cursor: pointer; }
 .crumbs li a:active { color:#770000; background-position: 100% -96px; }
 .crumbs li a.current { color: red; background-position: 100% -96px; }
- 
-.crumbs li.first a span { height: 29px; width: 3px; border-left: 1px solid #d9d9d9;}
+.crumbs li.first a span { height: 29px; width: 3px; border-left: 1px solid #d9d9d9; position: absolute; top: 0px; left: 0px; }

@@ -51,7 +51,7 @@ module.exports.routes = {
    //"get /findex" :{view:"fuploadindex"},
 
   /**********************below is for course *********************************/
-  "get /courses/byuser/userId" : "CourseController.getUserCourses",
+  "get /courses/byuser/:userId" : "CourseController.getUserCourses",
   "get /courses/byid/:enId": "CourseController.getCourseById",
 
   "get /courses/edit/:enId" : "CourseController.updateCourseById",
@@ -69,9 +69,8 @@ module.exports.routes = {
   "post /create-section" : "CourseSectionController.create",
 
     /**********************below is for course *********************************/
-
-    "get /upload-video/:courseToken" : "FancyUploadController.showUploadUI",
-    "post /upload-video/:courseToken" :"FancyUploadController.uploadCourseVideo",
+    "get /upload-video/:token" : "FancyUploadController.showUploadUI",
+    "post /upload-video/:token" :"FancyUploadController.uploadCourseVideo",
 
     "delete /delete-video/:videoToken" :"FancyUploadController.deleteCourseVideo"
     /***************************************************************************

@@ -1,10 +1,17 @@
 var jwt = require("jwt-simple");
 var moment = require("moment");
 var config = require("./config");
-var secret = config.VIDEO_TOKEN_SECRET;
+var videoSecret = config.VIDEO_TOKEN_SECRET;
+var courseSecret = config.COURSE_TOKEN_SECRET;
+var sectionSecret = config.SECTION_TOKEN_SECRETE;
+var userSecret = config.USER_TOKEN_SECRETE;
+
 
 var Hashids = require("hashids"),
-    hashids = new Hashids(secret);
+  videoHasher = new Hashids(videoSecret),
+  courseHasher = new Hashids(courseSecret),
+  sectionHasher = new Hashids(sectionSecret),
+  userHasher = new Hashids(userSecret);
 
 //var SecObfuscate = require("sec-obfuscate-nodejs"),
 //    secObfuscate = new SecObfuscate('secretPassword');
@@ -15,40 +22,55 @@ var Hashids = require("hashids"),
 
 
 module.exports = {
-    // mediaId,
-    // tutorId,
-    // resolution:high:low
-    // path,
+  // mediaId,
+  // tutorId,
+  // resolution:high:low
+  // path,
 
-    createVideoToken: function (mediaId, tutorId, path) {
+  createVideoToken: function (mediaId, tutorId, path) {
 
-        var payload ={
-            mediaId : mediaId,
-            tutorId:tutorId,
-            path:path
-        }
-        var token = jwt.encode(payload, secret);
-        return token;
-
-        var shortId = hashids.encode(mediaId);
-        return shortId;
-
-    },
-
-    getVideoInfo: function(mediaToken){
-        var token = jwt.decode(mediaToken, secret);
-        return token;
-
-        var payload = hashids.decode(mediaId);
-        return payload ;
-    },
-
-    getEnId : function(mediaId){
-      return hashids.encode(mediaId);
-    },
-
-    getId : function(encodeId){
-      return hashids.decode(encodeId);
+    var payload = {
+      mediaId: mediaId,
+      tutorId: tutorId,
+      path: path
     }
+    var token = jwt.encode(payload, secret);
+    return token;
 
+    var shortId = videoHasher.encode(mediaId);
+    return shortId;
+
+  },
+
+  getVideoInfo: function (mediaToken) {
+    var token = jwt.decode(mediaToken, secret);
+    return token;
+
+    var payload = videoHasher.decode(mediaId);
+    return payload;
+  },
+
+  getCourseToken: function (id) {
+    return courseHasher.encode(id);
+  },
+
+  getSectionToken: function (id) {
+    return sectionHasher.encode(id);
+  },
+
+  getUserToken: function (id) {
+    return userHasher.encode(id);
+  },
+
+  getCourseId: function (token) {
+    return courseHasher.decode(token);
+  },
+
+  getSectionId: function (token) {
+    return sectionHasher.decode(token);
+  },
+
+  getUserId: function (token) {
+    return userHasher.decode(token);
+  }
 };
