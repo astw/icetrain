@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="row  col-md-8">
+    <div class="well">
+      <!-- Text input course name-->
+      <div class="container">
+        <div class="col-md-8 ">
+
+          <div class="col-md-4">
+            <label class="control-label">Course Name</label>
+          </div>
+          <div class="col-md-4">
+            <div class="controls">
+              <%= course.name %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row col-md-8">
+    <div class="well">
+      <div class="row">
+        <!-- Text input section name-->
+        <div class="container">
+          <div class="col-md-8">
+            <div class="col-md-4">
+              <label class="control-label" for="sectionName">Section Name</label>
+            </div>
+            <div class="col-md-4">
+              <div class="controls">
+                <%= section.title %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <!-- Text input section tags-->
+      <div class="container">
+        <div class="col-md-8">
+          <div class="col-md-4">
+            <label class="control-label" for="sectionTags">Section Tags</label>
+          </div>
+          <div class="col-md-4">
+            <%= section.tags %>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <!-- Text input section description-->
+      <div class="container">
+        <div class="col-md-8">
+          <div class="col-md-4">
+            <label class="control-label" for="sectionDescription">Section Description</label>
+          </div>
+          <div class="col-md-4">
+            <%= section.desc || "description" %>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <!-- Select Multiple -->
+      <div class="container">
+        <div class="control-group">
+          <div class="col-md-8">
+            <label class="control-label">Videos of this section </label>
+
+            <div class="controls">
+              <ul id="sortable">
+                <% videos.forEach(function(video){ %>
+                <% console.dir(video.toJSON()); %>
+                <% console.dir(video.playtoken()); %>
+                <% console.log("-----------------") %>
+                <% console.dir(video.enId()); %>
+                <li class="ui-state-default">
+                  <%= video.name.trim() || "" %>
+                  <br/>
+                  <video width="320" height="240" controls src=<%= "/mediaServer/video/stream/" + video.playtoken() %>/>
+                </li>
+                <% }) %>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

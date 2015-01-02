@@ -81,6 +81,15 @@ module.exports = {
   },
 
   getCourseSections : function(req, res){
-    res.view("course");
+    var courseToken = req.params.courseToken;
+    var sectionToken = req.params.sectionToken;
+
+    var courseId = tokenHelper.getCourseId(courseToken);
+    var sectionId = tokenHelper.getSectionId(sectionToken);
+
+    courseRepository.getCourseSectionInfo(courseId, sectionId)
+      .then(function (courseInfo) {
+        res.view("sectionInfo", {courseToken: courseToken, sectionToken: sectionToken, courseInfo: courseInfo});
+      });
   }
 };

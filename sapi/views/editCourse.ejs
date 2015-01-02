@@ -54,7 +54,7 @@ console.dir(course);
   <div id="breadcrumb">
     <ul class="crumbs">
       <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
-      <li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>
+      <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
       <li><a class="current" href="/courses/edit/<%= course.enId() %>" style="z-index:7;">Edit Course</a></li>
       <li><a href="/courses/byid/<%= course.enId() %>" style="z-index:6;">Course Information</a></li>
     </ul>
@@ -156,7 +156,6 @@ console.dir(course);
                     <%= course.tutor.displayName %>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -165,59 +164,7 @@ console.dir(course);
             <label class="col-md-4 control-label" for="courseTags">课程sections</label>
 
            <div class="col-md-8">
-              <div class="well well-lg">
-
-                <%
-                var sections = course.sections;
-                if(sections != null){
-                  sections.forEach(function(section, index){
-                %>
-                <div class="well well-lg">
-
-                  <div class="row">
-                    <div class="col-md-4 text-right">
-                      <strong>Section #: </strong>
-                    </div>
-                    <div class="col-md-8">
-                      <a href="/courses/<%= section.enId() %>/sections/<%= section.enId() %>">
-                        <%= index + 1 %>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4 text-right">
-                      <strong>Section Name: </strong>
-                    </div>
-                    <div class="col-md-8">
-                      <a href="/courses/<%= course.enId() %>/sections/<%= section.enId() %>">
-                        <%= section.title %>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4 text-right">
-                      <strong>Section Tags: </strong>
-                    </div>
-                    <div class="col-md-8">
-                      <%= section.tags %>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-4 text-right">
-                      <strong>Section duration: </strong>
-                    </div>
-                    <div class="col-md-8">
-                        <% var time =section.formattedTime() %>
-                        <%= time.minutes %> Minutes <%= time.seconds %> Seconds
-                    </div>
-                  </div>
-                </div>
-
-                <%
-                });
-                }
-                %>
-              </div>
+              <%- partial("partials/showSectionsInfo",course) %>
             </div>
            </div>
 
