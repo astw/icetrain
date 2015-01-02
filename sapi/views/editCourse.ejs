@@ -1,3 +1,4 @@
+
 <%
 console.dir(course);
 %>
@@ -6,6 +7,7 @@ console.dir(course);
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/stylesheets/crumbs.css">
 </head>
 
 
@@ -38,7 +40,7 @@ console.dir(course);
         type:'POST',
         url:"/courses/edit/<%= course.enId() %>",
         data:JSON.stringify(courseInfo),
-        success : function(data){ 
+        success : function(data){
           window.location = data ;
         },
         error:function(data){ alert("error " + JSON.stringify(data)) ;},
@@ -50,6 +52,17 @@ console.dir(course);
 </script>
 
 <div class="container">
+
+  <div id="breadcrumb">
+    <ul class="crumbs">
+      <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+      <li><a href="/courses/byuser/<%=  10000001%>" style="z-index:8;">My Courses</a></li>
+      <li><a class="current" href="/courses/edit/<%= course.enId() %>" style="z-index:7;">Edit Course</a></li>
+      <li><a href="/courses/byid/<%= course.enId() %>" style="z-index:6;">Course Information</a></li>
+    </ul>
+  </div>
+
+  <br/>
   <div class="row">
 
     <div class="col-lg-9">

@@ -51,14 +51,14 @@ module.exports = {
   },
 
   getUserCourses: function (req, res) {
-    var token = req.params.courseToken;
-    var ids = courseHashids.decode(token);
-    var tutorId = ids[0];
-    var courseId = ids[1];
-    var sectionId = ids[2];
-    var videoId = ids[3];
+    var userId = req.params.userId;
+    //var ids = courseHashids.decode(token);
+    //var tutorId = ids[0];
+    //var courseId = ids[1];
+    //var sectionId = ids[2];
+    //var videoId = ids[3];
 
-    courseRepository.getCourseByTutor(tutorId)
+    courseRepository.getCourseByTutor(userId)
       .then(function (courses) {
         res.view("courseslist", {tutorId: tutorId, courses: courses});
       });

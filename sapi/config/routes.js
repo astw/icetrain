@@ -51,7 +51,7 @@ module.exports.routes = {
    //"get /findex" :{view:"fuploadindex"},
 
   /**********************below is for course *********************************/
-  "get /courses/byuser/:enId" : "CourseController.getUserCourses",
+  "get /courses/byuser/userId" : "CourseController.getUserCourses",
   "get /courses/byid/:enId": "CourseController.getCourseById",
 
   "get /courses/edit/:enId" : "CourseController.updateCourseById",
