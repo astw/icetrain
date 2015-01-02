@@ -164,7 +164,13 @@ else
                     <strong>Section duration: </strong>
                   </div>
                   <div class="col-md-8">
-                    <%= section.duration / 60 + " minutes" %>
+                    <%
+                        var duration = 0;
+                       if(section.duration > 0){
+                         duration = section / 60;
+                       }
+                    %>
+                    <%= duration + " minutes" %>
                   </div>
                 </div>
               </div>

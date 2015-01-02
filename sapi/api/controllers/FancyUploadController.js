@@ -230,7 +230,7 @@ module.exports = {
     var courseId = ids[1];
     var sectionId = ids[2] ;
 
-    var courseToken = tokenHelper.getCourseToken([sectionId, tutorId]);
+    var courseToken = tokenHelper.getCourseToken([courseId, tutorId]);
     var sectionToken = tokenHelper.getSectionToken(sectionId);
 
     req.flash("courseInfoToken", token);

@@ -23,7 +23,7 @@ var getCourseSectionInfoStub = function (courseId, sectionId) {
   Course.findOne({id: courseId})
     .then(function (course) {
       gcourse = course;
-      CourseSection.findOne({courseid: courseId})
+      CourseSection.findOne({id: sectionId})
         .then(function (courseSection) {
           gsection = courseSection;
           Video.find({courseid: courseId, sectionid: sectionId})
