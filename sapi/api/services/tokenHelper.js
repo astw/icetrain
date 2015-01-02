@@ -34,7 +34,7 @@ module.exports = {
       tutorId: tutorId,
       path: path
     }
-    var token = jwt.encode(payload, secret);
+    var token = jwt.encode(payload, videoSecret);
     return token;
 
     var shortId = videoHasher.encode(mediaId);
@@ -43,11 +43,15 @@ module.exports = {
   },
 
   getVideoInfo: function (mediaToken) {
-    var token = jwt.decode(mediaToken, secret);
+    var token = jwt.decode(mediaToken, videoSecret);
     return token;
 
     var payload = videoHasher.decode(mediaId);
     return payload;
+  },
+
+  getVideoToken : function(id){
+    return videoHasher.encode(id);
   },
 
   getCourseToken: function (id) {
@@ -60,6 +64,10 @@ module.exports = {
 
   getUserToken: function (id) {
     return userHasher.encode(id);
+  },
+
+  getVideoId : function(token){
+    return videoHasher.decode(token);
   },
 
   getCourseId: function (token) {

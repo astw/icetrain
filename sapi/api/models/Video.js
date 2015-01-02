@@ -78,7 +78,7 @@ module.exports = {
     },
     enId :function(){
       var obj = this.toObject();
-      return mediaTokenHelper.getEnId(obj.id);
+      return mediaTokenHelper.getVideoToken(obj.id);
     }
   },
 
