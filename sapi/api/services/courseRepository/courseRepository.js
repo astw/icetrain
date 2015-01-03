@@ -42,7 +42,7 @@ var getCourseSectionInfoStub = function (courseId, sectionId) {
   return defer.promise;
 };
 
-var updateCourseInfo = function (courseInfo, courseId, name, desc, level, tags) {
+var updateCourseInfo = function (courseId, name, desc, level, tags) {
   var defer = Q.defer();
   Course.findOne({id: courseId})
     .then(function (course) {
@@ -58,7 +58,7 @@ var updateCourseInfo = function (courseInfo, courseId, name, desc, level, tags) 
   return defer.promise;
 };
 
-var updateCourseSectionInfo = function (courseInfo, courseId, sectionId, name, desc, tags) {
+var updateCourseSectionInfo = function (courseId, sectionId, name, desc, tags) {
   var defer = Q.defer();
   CourseSection.findOne({courseid: courseId, id: sectionId})
     .then(function (section) {
@@ -72,7 +72,7 @@ var updateCourseSectionInfo = function (courseInfo, courseId, sectionId, name, d
   return defer.promise;
 };
 
-var updateVideoInfo = function (courseInfo, courseId, sectionId, videoOrders, videoNames) {
+var updateVideoInfo = function (courseId, sectionId, videoOrders, videoNames) {
   var promises = [];
   // for videos
   var videoCount = videoOrders.length;
@@ -81,7 +81,7 @@ var updateVideoInfo = function (courseInfo, courseId, sectionId, videoOrders, vi
   for (var i = 0; i < videoCount; i++) {
     var videoInfo = {};
 
-    videoOrders[i] =  mediaTokenHelper.getId(videoOrders[i].value)[0];
+    videoOrders[i] =  mediaTokenHelper.getVideoId(videoOrders[i].value)[0];
     videoInfo.id = videoOrders[i];
 
     videoInfo.sequence = i ;
@@ -89,7 +89,7 @@ var updateVideoInfo = function (courseInfo, courseId, sectionId, videoOrders, vi
 
     var nextId = -1;
     if (i < videoCount - 1) {
-      nextId =  mediaTokenHelper.getId(videoOrders[i+ 1].value)[0];
+      nextId =  mediaTokenHelper.getVideoId(videoOrders[i+ 1].value)[0];
     };
     videoInfo.nextId = nextId ;
     videoInfoArray.push(videoInfo);
@@ -117,27 +117,39 @@ var updateVideoInfo = function (courseInfo, courseId, sectionId, videoOrders, vi
 
 var updateCourseSectionVideoInfo = function (courseInfo, courseId, sectionId) {
 
-  var course = courseInfo;
-
-  return updateCourseInfo(courseInfo, courseId,
-    course.courseName,
-    course.courseDescription,
-    course.courseLevel,
-    course.courseTags
+  return updateCourseInfo(
+    courseId,
+    courseInfo.courseName,
+    courseInfo.courseDescription,
+    courseInfo.courseLevel,
+    courseInfo.courseTags
   ).then(function(data){
-      console.log("update course infor finished");
+      console.log("update course info finished");
     })
     .then(function(data) {
-      updateCourseSectionInfo(courseInfo, courseId, sectionId,
-        course.sectionName,
-        course.sectionDescription,
-        course.sectionTags
+      updateCourseSectionInfo(courseId, sectionId,
+        courseInfo.sectionName,
+        courseInfo.sectionDescription,
+        courseInfo.sectionTags
       ).then(function(data){
           console.log("update course section finished");
-          return updateVideoInfo(courseInfo, courseId, sectionId, course.videoOrders, course.videoNames);
+          return updateVideoInfo(courseId, sectionId, courseInfo.videoOrders, courseInfo.videoNames);
         }) ;
     }
    );
+};
+
+var updateSectionVideoInfo = function (sectionInfo, courseId, sectionId) {
+
+  return updateCourseSectionInfo(courseId, sectionId,
+    sectionInfo.sectionName,
+    sectionInfo.sectionDescription,
+    sectionInfo.sectionTags
+      ).then(function(data){
+          console.log("update course section finished");
+          console.dir(data);
+          return updateVideoInfo(courseId, sectionId, sectionInfo.videoOrders, sectionInfo.videoNames);
+        }) ;
 };
 
 var getCourseByTutor = function(tutorId){
@@ -202,6 +214,8 @@ module.exports = {
   getCourseSectionInfo: getCourseSectionInfo,
 
   saveOrUpdateAllCourse: updateCourseSectionVideoInfo,
+
+  saveOrUpdateAllSection :updateSectionVideoInfo,
 
   getCourseByTutor:getCourseByTutor,
 

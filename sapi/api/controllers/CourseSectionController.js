@@ -4,11 +4,6 @@ var courseRepository = require("../services/courseRepository/courseRepository.js
 var tokenHelper = require("../services/tokenHelper.js");
 
 var urlQuery = require('url');
-var courseidKey = "sec for construct course id";
-var sectionKey = "sec for construct couse section id";
-var Hashids = require("hashids"),
-  courseHashids = new Hashids(courseidKey),
-  sectionHashids = new Hashids(sectionKey);
 
 module.exports = {
 
@@ -60,7 +55,6 @@ module.exports = {
       courseRepository.getCourseSectionInfo(courseId, sectionId)
         .then(function (courseInfo) {
           console.dir("-------courseInfo-------------");
-          console.dir(courseInfo);
           res.view("editCourseSections", {token: token, courseInfo: courseInfo});
         });
     }
@@ -75,21 +69,53 @@ module.exports = {
             var data = JSON.stringify("/courses/byuser/" + tutorId);
             res.header('Content-Length',data.length);
             res.end(data);
-            //res.redirect("/courses/byuser/" + token);
         });
     }
   },
-
-  getCourseSections : function(req, res){
+  getCourseSection : function(req, res){
     var courseToken = req.params.courseToken;
     var sectionToken = req.params.sectionToken;
 
-    var courseId = tokenHelper.getCourseId(courseToken);
-    var sectionId = tokenHelper.getSectionId(sectionToken);
+    var courseId = tokenHelper.getCourseId(courseToken)[0];
+    var sectionId = tokenHelper.getSectionId(sectionToken)[0];
 
     courseRepository.getCourseSectionInfo(courseId, sectionId)
       .then(function (courseInfo) {
         res.view("sectionInfo", {courseToken: courseToken, sectionToken: sectionToken, courseInfo: courseInfo});
       });
+  },
+
+  editSection : function(req, res){
+    var courseToken = req.params.courseToken;
+    var sectionToken = req.params.sectionToken;
+
+    var courseId = tokenHelper.getCourseId(courseToken)[0];
+    var sectionId = tokenHelper.getSectionId(sectionToken)[0];
+
+    if(req.method ==="GET") {
+      courseRepository.getCourseSectionInfo(courseId, sectionId)
+        .then(function (courseInfo) {
+          var tutorId = courseInfo.course.tutorid;
+          var sectionId = courseInfo.section.id;
+          var token = tokenHelper.getSectionToken([tutorId, courseId, sectionId]);
+          res.view("editSection", {
+            token: token,
+            courseToken: courseToken,
+            sectionToken: sectionToken,
+            courseInfo: courseInfo
+          });
+        });
+    }
+    else {
+      var sectionInfo = req.body.sectionInfo;
+
+      courseRepository.saveOrUpdateAllSection(sectionInfo, courseId,sectionId)
+        .then(function (sectionInfo) {
+          res.contentType("application/json");
+          var data = JSON.stringify("/courses/"+courseToken+"/sections/" + sectionToken);
+          res.header('Content-Length',data.length);
+          res.end(data);
+        });
+    }
   }
 };

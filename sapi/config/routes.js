@@ -57,7 +57,13 @@ module.exports.routes = {
   "get /courses/edit/:enId" : "CourseController.updateCourseById",
   "post /courses/edit/:enId" : "CourseController.updateCourseById",
 
-  "get /courses/:courseToken/sections/:sectionToken" : "CourseSectionController.getCourseSections",
+  "get /courses/:courseToken/sections/:sectionToken" : "CourseSectionController.getCourseSection",
+
+  "get /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.getCourseSection",
+
+  "get /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.editSection",
+  "post /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.editSection",
+
 
   "get /create-course" : {view:"create-course"},
   "post /create-course" : "CourseController.create",

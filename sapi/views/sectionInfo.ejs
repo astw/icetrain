@@ -1,17 +1,36 @@
+<head>
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/blueimp-gallery.min.css">
+</head>　
 
-<div class="container" >
-<div class="row">
-  <div id="breadcrumb">
-    <ul class="crumbs">
-      <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
-      <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
-      <li><a href="/courses/edit/<%= courseInfo.course.enId() %>" style="z-index:7;">Edit Course</a></li>
-      <li><a href="/courses/byid/<%= courseInfo.course.enId() %>" style="z-index:6;">Course Information</a></li>
-      <li><a class="current" href="/courses/<%= courseInfo.course.enId() %>/sections/<%= courseInfo.section.enId() %>" style="z-index:5;">Section Information</a></li>
-    </ul>
+<div class="container">
+
+  <div class="row">
+    <div id="breadcrumb">
+      <ul class="crumbs">
+        <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+        <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
+        <li><a href="/courses/edit/<%= courseInfo.course.enId() %>" style="z-index:7;">Edit Course</a></li>
+        <li><a href="/courses/byid/<%= courseInfo.course.enId() %>" style="z-index:6;">Course Information</a></li>
+        <li><a class="current" href="/courses/<%= courseInfo.course.enId() %>/sections/<%= courseInfo.section.enId() %>"
+               style="z-index:5;">Section Information</a></li>
+        <li><a href="/courses/<%=courseInfo.course.enId() %>/sections/edit/<%=courseInfo.section.enId() %>"
+               style="z-index:4;">Edit Section Information</a></li>
+      </ul>
+    </div>
   </div>
-</div>
 
-<hr/>
-<%- partial("partials/showFullSectionInfo", {course: courseInfo.course, section: courseInfo.section, videos: courseInfo.videos}) %>
+  <br/>
+
+  <hr/>
+  <div class="row" >
+  <%- partial("partials/showFullSectionInfo", {
+    course: courseInfo.course,
+    section: courseInfo.section,
+    videos: courseInfo.videos
+  }) %>
+  </div>
+
 </div>
+<br/>
+

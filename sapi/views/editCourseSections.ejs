@@ -62,11 +62,9 @@
         }
       };
 
-      alert(JSON.stringify(courseInfo));
-
       $.ajax({
         type: 'POST',
-        url: "http://localhost:1337/courses-section/edit/<%= token %>",
+        url: "/courses-section/edit/<%= token %>",
         data: JSON.stringify(courseInfo),
         success: function (data) {
           window.location = data;
@@ -91,8 +89,8 @@
         <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
         <li><a href="/courses/<%= token %>/create-section" style="z-index:7;">Create
             A New Section</a></li>
-        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To New Created Section</a></li>
-        <li><a class="current" href="/courses-section/edit/<%= token %>" style="z-index:5;">Edit Course/Section/Videos
+        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To Section</a></li>
+        <li><a class="current" href="/courses-section/edit/<%= token %>" style="z-index:5;">Edit Course / Section / Videos
             information</a></li>
       </ul>
     </div>

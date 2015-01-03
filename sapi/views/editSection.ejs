@@ -1,4 +1,6 @@
 <head>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/blueimp-gallery.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -33,26 +35,16 @@
     $("#sortable").disableSelection();
 
     $("#submit").click(function () {
-
+ 
       var videoOrders = $("input[name='videoId[]'").serializeArray();
       var videoNames = $("input[name='videoName[]'").serializeArray();
 
-      var courseName = $("input[name='courseName']").val();
-      var courseDescription = $("#courseDescription").val();
-      var courseLevel = $("#courseLevel").val();
-
-      var courseTags = $("input[name='courseTags']").val();
       var sectionName = $("input[name='sectionName']").val();
       var sectionTags = $("input[name='sectionTags']").val();
       var sectionDescription = $("#sectionDescription").val();
 
       var courseInfo = {
-        "token": "<%= token%>",
-        "courseInfo": {
-          "courseName": courseName || "",
-          "courseDescription": courseDescription || "",
-          "courseLevel": courseLevel,
-          "courseTags": courseTags || "",
+        "sectionInfo": {
           "sectionName": sectionName || "",
           "sectionTags": sectionTags || "",
           "sectionDescription": sectionDescription || "",
@@ -64,7 +56,7 @@
 
       $.ajax({
         type: 'POST',
-        url: "http://localhost:1337/courses-section/edit/<%= token %>",
+        url: "/courses/<%=courseToken %>/sections/edit/<%= sectionToken %>",
         data: JSON.stringify(courseInfo),
         success: function (data) {
           window.location = data;
@@ -88,10 +80,21 @@
         <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
         <li><a href="/courses/<%= token %>/create-section" style="z-index:7;">Create
             A New Section</a></li>
-        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To New Created Section</a></li>
-        <li><a class="current" href="/courses-section/edit/<%= token %>" style="z-index:5;">Edit Course/Section/Videos
-            information</a></li>
+        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To Section</a></li>
+        <li><a class="current" href="/courses-section/edit/<%= token %>" style="z-index:5;">Edit Section information</a></li>
       </ul>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row container">
+    <div class="col-lg-7">
+
+      <button id="submit" class="btn btn-primary start">
+        <i class="glyphicon glyphicon-upload"></i>
+        <span>Submit Update</span>
+      </button>
     </div>
   </div>
 
@@ -100,18 +103,17 @@
     <fieldset>
       <!-- Form Name -->
       <!--<legend>Edit course / section / video information</legend>-->
-      <legend><br/></legend>
+      <legend></legend>
 
-      <% include ../partials/editCourse.ejs %>
+      <%- partial("partials/editCourse.ejs", {
+        section: courseInfo.section,
+        course: courseInfo.course,
+        videos: courseInfo.videos
+      }) %>
 
     </fieldset>
   </div>
 
-  <div class="row">
-    <div class="controls">
-      <button id="submit" name="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </div>
 </div>
 
-</div>
+<br/><br/>
