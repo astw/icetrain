@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c64e0de-fab6-4b90-bddd-38236dfbc087" name="Default" comment="fix when delete an video,  reduce the play duration of the section and that course">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js" afterPath="$PROJECT_DIR$/sapi/api/controllers/CourseSectionController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js" afterPath="$PROJECT_DIR$/sapi/api/services/courseRepository/courseRepository.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" afterPath="$PROJECT_DIR$/sapi/views/editCourseSections.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/courseInfo.ejs" afterPath="$PROJECT_DIR$/sapi/views/courseInfo.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/editSection.ejs" afterPath="$PROJECT_DIR$/sapi/views/editSection.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/config/routes.js" afterPath="$PROJECT_DIR$/sapi/config/routes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/section-video-upload.ejs" afterPath="$PROJECT_DIR$/sapi/views/section-video-upload.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/sectionInfo.ejs" afterPath="$PROJECT_DIR$/sapi/views/sectionInfo.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/partials/showFullSectionInfo.ejs" afterPath="$PROJECT_DIR$/sapi/views/partials/showFullSectionInfo.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs" afterPath="$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="770d8a94-b04c-4cd4-b935-71fdfc8e3305" name="Rejected commit: Default" comment="fix when delete an video,  reduce the play duration of the section and that course" />
@@ -60,14 +55,9 @@
       <file leaf-file-name="showFullSectionInfo.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sapi/views/partials/showFullSectionInfo.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0357144" vertical-offset="0" max-vertical-offset="171">
-              <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-              <folding>
-                <element signature="n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="-3.8301888" vertical-offset="880" max-vertical-offset="1748">
+              <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,11 +77,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editSection.ejs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="editSection.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sapi/views/editSection.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2345679" vertical-offset="627" max-vertical-offset="2375">
-              <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+            <state vertical-scroll-proportion="-4.071429" vertical-offset="627" max-vertical-offset="2375">
+              <caret line="39" column="70" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="courseInfo.ejs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sapi/views/courseInfo.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.23765433" vertical-offset="2222" max-vertical-offset="2774">
+              <caret line="121" column="51" selection-start-line="121" selection-start-column="51" selection-end-line="121" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -110,44 +110,29 @@
       <file leaf-file-name="showSectionsInfo.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.0714285" vertical-offset="503" max-vertical-offset="1140">
-              <caret line="31" column="37" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="37" />
+            <state vertical-scroll-proportion="-3.9433963" vertical-offset="0" max-vertical-offset="1140">
+              <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tokenHelper.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sapi/api/services/tokenHelper.js">
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sapi/config/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1121" max-vertical-offset="1710">
-              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="941" max-vertical-offset="1862">
+              <caret line="54" column="55" selection-start-line="54" selection-start-column="55" selection-end-line="54" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="q.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sapi/node_modules/q/q.js">
+      <file leaf-file-name="CourseController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="10611" max-vertical-offset="36917">
-              <caret line="563" column="0" selection-start-line="563" selection-start-column="0" selection-end-line="563" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1213" max-vertical-offset="2261">
+              <caret line="67" column="2" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FancyUploadController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sapi/api/controllers/FancyUploadController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3013" max-vertical-offset="3306">
-              <caret line="239" column="0" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
-              <folding>
-                <element signature="e#918#1450#0" expanded="false" />
-                <element signature="e#2370#2779#0" expanded="false" />
-                <element signature="e#2889#4116#0" expanded="false" />
-                <element signature="e#5940#5966#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -198,12 +183,10 @@
         <option value="$PROJECT_DIR$/sapi/api/models/Course.js" />
         <option value="$PROJECT_DIR$/sapi/api/models/CourseSection.js" />
         <option value="$PROJECT_DIR$/sapi/api/services/common/tools.js" />
-        <option value="$PROJECT_DIR$/sapi/views/courseInfo.ejs" />
         <option value="$PROJECT_DIR$/sapi/api/services/tokenHelper.js" />
         <option value="$PROJECT_DIR$/sapi/api/models/Video.js" />
         <option value="$PROJECT_DIR$/sapi/views/partials/editCourse.ejs" />
         <option value="$PROJECT_DIR$/sapi/views/courseInfoBar.ejs" />
-        <option value="$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs" />
         <option value="$PROJECT_DIR$/sapi/views/myCoursesList.ejs" />
         <option value="$PROJECT_DIR$/sapi/views/editCourse.ejs" />
         <option value="$PROJECT_DIR$/sapi/views/sectionInfo.ejs.js" />
@@ -216,6 +199,8 @@
         <option value="$PROJECT_DIR$/sapi/views/partials/showFullSectionInfo.ejs" />
         <option value="$PROJECT_DIR$/sapi/views/sectionInfo.ejs" />
         <option value="$PROJECT_DIR$/sapi/views/editSection.ejs" />
+        <option value="$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs" />
+        <option value="$PROJECT_DIR$/sapi/views/courseInfo.ejs" />
       </list>
     </option>
   </component>
@@ -344,68 +329,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ps_jwt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="peixun_website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ps_jwt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="peixun_website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ps_jwt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="peixun_website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1113,14 +1036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="2261">
-          <caret line="89" column="20" selection-start-line="89" selection-start-column="20" selection-end-line="89" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sapi/views/myCoursesList.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-73.96429" vertical-offset="171" max-vertical-offset="3002">
@@ -1166,31 +1081,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/views/courseInfo.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57081544" vertical-offset="228" max-vertical-offset="3724">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="28" selection-end-column="8" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#li#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#li#3;n#ul#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sapi/views/editCourse.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.75" vertical-offset="3021" max-vertical-offset="3648">
           <caret line="166" column="48" selection-start-line="166" selection-start-column="48" selection-end-line="166" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/config/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1055" max-vertical-offset="1862">
-          <caret line="63" column="6" selection-start-line="63" selection-start-column="6" selection-end-line="63" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1266,32 +1160,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0714285" vertical-offset="503" max-vertical-offset="1140">
-          <caret line="31" column="37" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sapi/views/partials/editCourse.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.142857" vertical-offset="787" max-vertical-offset="1463">
           <caret line="49" column="23" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sapi/views/partials/showFullSectionInfo.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0357144" vertical-offset="0" max-vertical-offset="171">
-          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding>
-            <element signature="n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1318,8 +1191,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sapi/views/editSection.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2345679" vertical-offset="627" max-vertical-offset="2375">
-          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+        <state vertical-scroll-proportion="-4.071429" vertical-offset="627" max-vertical-offset="2375">
+          <caret line="39" column="70" selection-start-line="39" selection-start-column="70" selection-end-line="39" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/views/partials/showFullSectionInfo.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8301888" vertical-offset="880" max-vertical-offset="1748">
+          <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/config/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="941" max-vertical-offset="1862">
+          <caret line="54" column="55" selection-start-line="54" selection-start-column="55" selection-end-line="54" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/api/controllers/CourseController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1213" max-vertical-offset="2261">
+          <caret line="67" column="2" selection-start-line="67" selection-start-column="2" selection-end-line="67" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/views/partials/showSectionsInfo.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.9433963" vertical-offset="0" max-vertical-offset="1140">
+          <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sapi/views/courseInfo.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23765433" vertical-offset="2222" max-vertical-offset="2774">
+          <caret line="121" column="51" selection-start-line="121" selection-start-column="51" selection-end-line="121" selection-end-column="51" />
           <folding />
         </state>
       </provider>
