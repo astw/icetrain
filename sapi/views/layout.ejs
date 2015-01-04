@@ -45,14 +45,14 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                  <%  if(req.session.user == null) { %>
-                  <li><a href="http://expo.getbootstrap.com" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Expo');">登录</a></li>
+                  <li><a href="/local-login" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Expo');">登录</a></li>
                   <li><a href="http://blog.getbootstrap.com" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Blog');">注册</a></li>
 
                 <%
                   }  else {
                 %>
                  <li><a href="/courses/byuser/<%= req.session.user.id%>">Welcome <%= req.session.user.displayName %></a></li>
-                 <li><a href="http://blog.getbootstrap.com" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Blog');">log out</a></li>
+                 <li><a href="/auth/local_logout" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Blog');">log out</a></li>
 
                 <%
                 }

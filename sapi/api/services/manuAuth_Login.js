@@ -37,5 +37,10 @@ module.exports = {
 
   local_login : function(req, res){
 
+  },
+  local_logout : function(req, res){
+    req.session.user = null;
+    res.status(200);
+    res.redirect('/');
   }
 }
