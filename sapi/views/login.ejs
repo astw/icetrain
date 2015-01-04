@@ -1,0 +1,61 @@
+
+<head>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+</head>
+
+
+<script>
+
+  $(function () {
+
+    $("#submit").click(function () {
+      var email = $("#email").val();
+      var password = $("#password").val();
+
+      var loginInfo = {
+        email:email,
+        password:password
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: "/auth/login",
+        data: JSON.stringify(loginInfo),
+        success: function (data) {
+          window.location = "/courses/byuser/" + data.user.id;
+        },
+        error: function (data) {
+           alert("error " + JSON.stringify(data));
+        },
+        contentType: "application/json",
+        dataType: "json"
+      });
+    });
+  });
+
+</script>
+
+
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3 text-center">
+
+    <div id="loginForm">
+      <label class="text-left" id="mf240">  Email <br />
+        <input id="email" type="text" name="email" tabindex="1" autofocus="" value="">
+      </label>
+      <br/>
+
+      <label class="" id="mf241">
+        Password <a href=" " tabindex="4" style="font-size: 9px; font-weight: 600;" id="mfa100">Forgot Password?</a>
+        <br/>
+        <input id="password" type="password" name="Password" tabindex="2">
+      </label>
+      <br/>
+      <div id="submit"  class="btn btn-default" >Sign in</div>
+    </div>
+  </div>
+</div>
+

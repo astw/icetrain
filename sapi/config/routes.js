@@ -40,6 +40,11 @@ module.exports.routes = {
     view: 'uploadfile'  // view 'uploadfile' in views directory will loaded automatically
   },
 
+  /**********************below is for local login *********************************/
+  "/local-login" : {
+    view: 'login'
+  },
+
   'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo",
 
 
@@ -79,6 +84,8 @@ module.exports.routes = {
     "post /upload-video/:token" :"FancyUploadController.uploadCourseVideo",
 
     "delete /delete-video/:videoToken" :"FancyUploadController.deleteCourseVideo"
+
+
     /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
