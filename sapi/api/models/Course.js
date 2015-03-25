@@ -114,7 +114,7 @@ module.exports = {
             "id":1
         },
         {
-            "name": "java    starter",
+            "name": "java starter",
             "desc": "to learn the baisc of java programming",
             "tutorid": 2 ,
             "duration":120,
