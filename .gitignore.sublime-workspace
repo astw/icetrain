@@ -1,0 +1,298 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/F/Dev_work/Consumer-web-utilities/src/app/main/main.html",
+		"/F/Dev_work/Consumer-web-utilities/gulpfile.js",
+		"/F/temp/consumercustomercenter/gulpfile.js",
+		"/F/All_ConsumerProjects/ConsumerCustomerCenter/Main/Source/Components/ConsumerCustomerCenterWebApp/AppSettings.config",
+		"/C/LEK/logstash/bin/Logstash.conf",
+		"/C/LEK/logstash/bin/apache-log.conf",
+		"/C/LEK/logstash/bin/Logstash-apache-geo-file.conf",
+		"/C/Program Files/Apache Software Foundation/Apache Tomcat 8.0.15/conf/server.xml",
+		"/C/Program Files/Apache Software Foundation/Apache Tomcat 8.0.15/conf/tomcat-users.xml",
+		"/F/AppSettings.config",
+		"/F/temp/demo/export/2015-04-24/InstallerWebService/gulpfile.js",
+		"/F/temp/demo/export/2015-04-24/ConsumerService/gulpfile.js",
+		"/F/temp/demo/export/2015-04-24/ConsumerWebAPI/Source/Solutions/ConsWebAPI/DebugEnvironment.xml",
+		"/F/BAK-UP/ConsumerCustomerCenter_Git/Source/Components/ConsumerCustomerCenterWebApp/ConsumerCustomerCenterWebApp.nuspec",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/findjob/sapi/api/services/createSendToken.js",
+		"/F/temp/consumercustomercenter/Source/Deployment/ConsumerCustomerCenterWebAppSetup/Includes/WebAppFiles.wxi",
+		"/F/temp/consumercustomercenter/Source/Solutions/ConsumerCustomerCenter/1.log",
+		"/F/temp/demo/export/2015-04-24/ConsumerCustomerCenter/gulpfile.js",
+		"/C/Program Files (x86)/Pinegrow Web Designer/templates/angular/todo.js",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/findjob/sapi/api/services/googleAuth.js",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/findjob/sapi/api/services/manuAuth_Login.js",
+		"/C/LEK/logstash/bin/hello.conf",
+		"/F/temp/demo/consumercustomercenter/.git/config",
+		"/F/temp/demo/export/2015-04-24/ConsumerMobileAppService/gulpfile.js",
+		"/F/temp/demo/export/2015-04-24/InstallerManagerCIA/gulpfile.js",
+		"/F/temp/demo/export/2015-04-24/NotifierAdmin/gulpfile.js",
+		"/C/LEK/apache-samples/apache-access_log/access_log/access_log",
+		"/C/LEK/logstash/README.md",
+		"/F/temp/demo/export/2015-04-24/NotifierServer/gulpfile.js",
+		"/F/temp/demo/export/2015-04-24/InCommS1/gulpfile.js",
+		"/F/temp/test/Consumer-reminder-content/ConsumerReminderContent/src/app/main/main.controller.js",
+		"/F/temp/test/Consumer-reminder-content/ConsumerReminderContent/src/app/main/main.controller.spec.js",
+		"/F/hosts",
+		"/C/spring/dev/my-spring-app/pom.xml",
+		"/F/BAK-UP/consumercustomercenter/gulpfile.js",
+		"/F/temp/demo/export/2015-04-24/InCommS2/gulpfile.js",
+		"/F/GitMirgration/Experiment/consumercustomercenter/gulpfile.js",
+		"/F/GitMirgration/Experiment/consumercustomercenter/Source/Solutions/ConsumerCustomerCenter/ConsumerCustomerCenter.sln",
+		"//drop/dev/ConsumerQA/Utilities/QA_Consumer_Utilities/SQL/License - MissingFlag update.sql",
+		"/F/Git-tfs/ConsAPI/.git/config",
+		"/F/temp/test/Yo_angular_fullstack/node_modules/mongoose/package.json",
+		"/F/All_ConsumerProjects/ConsumerCustomerCenter/MGR/Source/Components/ConsumerCustomerCenterWebApp/Web.config",
+		"/C/Users/bwang/Documents/consumercustomercenter/gulpfile.js",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder/.yo-rc.json",
+		"/C/mongoData/mongod.cfg",
+		"/F/GitMirgration/Experiment/consumerservices/gulpfile.js",
+		"/F/All_Consumer_Code/Consumer/InstallerWebService/MGR/Source/Components/InstallerWebService/LoJackInstall.csproj",
+		"/C/Users/bwang/Documents/web [ConsumerService].config",
+		"/F/All_ConsumerProjects/ConsumerServices/MGR/MGR/Source/Components/ConsumerServices/ConsumerServices.csproj",
+		"/F/GitMirgration/consumercustomercenter/Source/package.json.back",
+		"/F/GitMirgration/consumercustomercenter/1.txt",
+		"/F/GitMirgration/consumercustomercenter/package.json",
+		"/F/GitMirgration/Experiment/consumercustomercenter/package.json",
+		"/F/GitMirgration/consumercustomercenter/Source/package.json",
+		"/F/TFS/Consumer/ConsumerCustomerCenter/Main/Source/Solutions/ConsumerCustomerCenter/DebugEnvironment.xml",
+		"/F/TFS-Migration/InstallerWebService/MGR/Source/Components/InstallerWebService/LoJackInstall.csproj",
+		"/F/TFS-Migration/InstallerWebService/MGR/Source/Solutions/InstallerWebService/LoJackInstall.sln",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/findjob/api/package.json",
+		"/C/Users/bwang/Desktop/Installer_web/MSI/install.lojackforlaptops.com/web.config",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/NugetPackage/ConsumerAPI-debug.nuspec",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder/app/index.html",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder/app/scripts/controllers/main.js",
+		"/F/TFS-Migration/InstallerWebService/MGR/Source/Components/InstallerWebService/LoJackInstall.nuspec",
+		"/F/TFS-Migration/InstallerWebService/MGR/Source/Components/InstallerWebService/LoJackInstall-debug.nuspec",
+		"/C/Users/bwang/AppData/Roaming/npm/node_modules/grunt-cli/bin/grunt",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder - Copy/app/index.html",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder/dist/views/main.html",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/nodejs_reminder/app.js",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/multivision/server.js",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/multivision/server/config/routes.js",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/NodejsReminder/.gitignore",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Components/Com.Absolute.Common.Mvc/Attributes/CCEmailAttribute.cs",
+		"/C/Users/bwang/Desktop/Introduction/build into Octopus sever .txt",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/NugetPackage/ConsumerAPI.nuspec",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Components/ConsumerCustomerCenterWebApp/packages.config.bak",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Solutions/ConsumerCustomerCenter/packages/ConsumerAPI.1.0.0/lib/net35/Com.Absolute.Utilities.Configuration.config",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Solutions/ConsumerCustomerCenter/packages/ConsumerAPI.1.0.0/lib/net35/Com.Absolute.Utilities.Configuration.DV2CONS3.config",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Components/ConsumerCustomerCenterWebApp/bin/Com.Absolute.Utilities.Configuration.config",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Components/ConsumerCustomerCenterWebApp/obj/octopacked/ConsumerCustomerCenterWebApp.9.9.33.0/bin/Com.Absolute.Utilities.Configuration.config",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Components/ConsumerCustomerCenterWebApp/bin/Com.Absolute.Utilities.Configuration.template.config",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/nodejs_reminder/views/index.handlebars",
+		"/F/TFS-Migration/ConsumerCustomerCenter/MGR/Source/Components/ConsumerCustomerCenterWebApp/ConsumerCustomerCenterWebApp.csproj",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder - Copy/app/views/about.html",
+		"/F/TFS-Migration/InstallerWebService/MGR/Source/Solutions/InstallerWebService/DebugEnvironment.xml",
+		"/C/Users/bwang/Desktop/Temp/Debug/Web.config",
+		"/C/Users/bwang/Desktop/Temp/Release/Web.config",
+		"/F/Dev_work/NodeJS_Work/Language_Notifier/angular_reminder/app/.buildignore",
+		"/C/Stash_Clone/ConsWebAPI_H/Source/Solutions/ConsWebAPI/packages/.gitignore",
+		"/C/Stash_Clone/ConsWebAPI_H/.gitignore",
+		"/C/TEMP/demo/ttt/.git/config",
+		"/F/installation_staff/conf_works.xml",
+		"/F/index.html",
+		"/C/Users/bwang/Desktop/Introduction/deploy to octopus nuget package repository",
+		"/C/Users/bwang/Documents/test2/2.txt",
+		"/C/Users/bwang/Documents/testonly3/Source/Components/Utilities/ILogger.cs",
+		"/C/TEMP/testOnly/Main/Source/Components/Utilities/ILogger.cs",
+		"/C/Users/bwang/Documents/testonly/Source/Components/Utilities/ILogger.cs",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/1.txt",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/NugetPackage/tools/getContents.ps1",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/NugetPackage/tools/install.ps1",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/NugetPackage/tools/uninstall.ps1",
+		"/C/Users/bwang/Documents/test2/.git/config",
+		"/C/Users/bwang/Documents/test2/1.txt",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/11.txt",
+		"/C/TEMP/testOnly/ttt/icetrain/sapi/api/models/Course.js",
+		"/C/TEMP/testOnly/ttt/icetrain/sapi/app.js",
+		"/C/Users/bwang/Documents/testonly_2/Source/Components/Utilities/ILogger.cs",
+		"/C/TEMP/migration/InstallerWebService-Dev-YVR-Main/Main/Source/UnitTests/LoJackInstall.UnitTest/App.config",
+		"/C/TEMP/testOnly/.git/config",
+		"/F/TFS-Migration/ConsAPI/MGR/Source/Components/ConsAPI/out.txt",
+		"/C/Users/bwang/Desktop/conf.xml",
+		"/F/Dev_work/tfs/ConumerCustomerCenter/ConsumerCustomerCenter/Dev/YVR/Main/Source/Components/ConsumerCustomerCenterWebApp/ConsumerCustomerCenterWebApp.csproj",
+		"/C/Users/bwang/Documents/Visual Studio 2012/Projects/ConsoleApplication1/packages/GhostScriptSharp.1.3.1.4/Tools/GetGsdll.ps1",
+		"/C/TEMP/migration - Copy/ConsAPI/Main/Source/Components/ConsAPI/NugetPackage/tools/install.ps1",
+		"/C/TEMP/migration - Copy/ConsAPI/Main/Source/Components/ConsAPI/NugetPackage/tools/GetGsdll.ps1",
+		"/F/Dev_work/Refector-Make-library/ConsAPI/Main/Source/Components/ConsAPI/ConsAPI-Package.nuspec",
+		"/C/TEMP/migration - Copy/ConsAPI/Main/Source/Components/ConsAPI/NugetPackage/ConsAPI.nuspec",
+		"/C/Users/bwang/Documents/visual studio 2012/Projects/ConsoleApplication1/packages/OctoPack.3.0.42/tools/OctoPack.targets",
+		"/C/Users/bwang/Documents/visual studio 2012/Projects/ConsoleApplication1/packages/OctoPack.3.0.42/tools/Uninstall.ps1",
+		"/C/Users/bwang/Documents/Visual Studio 2012/Projects/ConsoleApplication1/packages/GhostScriptSharp.1.3.1.4/Tools/install.ps1",
+		"/C/Users/bwang/Documents/Visual Studio 2012/Projects/ConsoleApplication1/packages/GhostScriptSharp.1.3.1.4/Tools/uninstall.ps1",
+		"/F/Dev_work/Refector-Make-library/ConsAPI/Main/Source/Components/ConsAPI/ConsAPI.nuspec",
+		"/F/Dev_work/Refector-Make-library/ConsAPI/Main/Source/Components/ConsAPI/bin/Release/Package.nuspec",
+		"/C/TEMP/migration - Copy/ConsAPI/Main/Source/Components/ConsAPI/ConsAPI-Package.nuspec",
+		"/C/Nuget/ConsumerAPI.1.2.9/_rels/.rels",
+		"/F/INSTALLATION/conf_works.xml",
+		"/F/Dev_work/Refector-Make-library/ConsAPI/Main/Source/Solutions/ConsAPI/bin/Release/Microsoft.Practices.EnterpriseLibrary.Data.xml",
+		"/C/Users/bwang/OneDrive/Learn/node/example.js"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 123.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"ConsAPI\\Dev\\F70\\Main",
+			"bin",
+			"bearer",
+			"Bearer",
+			"AppSettings.config",
+			"ConfigFileTask",
+			"DebugEnvironment",
+			"Your Node Express App",
+			"QA2CONS2",
+			"QA2CONS",
+			"qa2cons2",
+			"FAILED"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"QACONS2",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": ".gitignore.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 262.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
