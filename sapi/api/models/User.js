@@ -11,11 +11,13 @@ module.exports = {
      attributes: {
         email:{
             type:"string",
-            required:true
-            //,unique:true
+            required:true,
+            email:true,
+            unique:true
         },
         password:{
-            type:"string"
+           type:"string",
+           required:true
         },
         googleId:{type:"string"},
         facebookId:{type:"string"},
