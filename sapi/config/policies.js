@@ -23,6 +23,11 @@ module.exports.policies = {
         "find" : ['jwtAuth']
     },
 
+    "UserController":{
+     //   "find" :['checkWritePermission'],
+     //   "findOne" :['checkWritePermission']
+    },
+
     "VideoController" :{
         //"find" :['checkClientKey','jwtAuth','checkWritePermission'],
         //"create":['checkClientKey','jwtAuth','checkWritePermission'],

@@ -27,11 +27,10 @@ module.exports = {
   // resolution:high:low
   // path,
 
-  createVideoToken: function (mediaId, tutorId, path) {
+  createVideoToken: function (mediaId, path) {
 
     var payload = {
       mediaId: mediaId,
-      tutorId: tutorId,
       path: path
     }
     var token = jwt.encode(payload, videoSecret);
@@ -39,7 +38,6 @@ module.exports = {
 
     var shortId = videoHasher.encode(mediaId);
     return shortId;
-
   },
 
   getVideoInfo: function (mediaToken) {

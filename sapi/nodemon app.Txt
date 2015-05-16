@@ -1,0 +1,3 @@
+nodemon app
+
+to automatically restart the server

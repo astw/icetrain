@@ -56,34 +56,66 @@ module.exports.routes = {
    //"get /findex" :{view:"fuploadindex"},
 
   /**********************below is for course *********************************/
-  "get /courses/byuser/:userId" : "CourseController.getUserCourses",
-  "get /courses/byid/:enId": "CourseController.getCourseById",
-
-  "get /courses/edit/:enId" : "CourseController.updateCourseById",
-  "post /courses/edit/:enId" : "CourseController.updateCourseById",
-
-  "get /courses/:courseToken/sections/:sectionToken" : "CourseSectionController.getCourseSection",
-
-  "get /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.getCourseSection",
-
-  "get /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.editSection",
-  "post /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.editSection",
-
-
-  "get /create-course" : {view:"create-course"},
-  "post /create-course" : "CourseController.create",
-
-  "get /courses-section/edit/:courseToken" : "CourseSectionController.editCourseSections",
-  "post /courses-section/edit/:courseToken" : "CourseSectionController.editCourseSections",
-
-  "get /courses/:courseToken/create-section" :  "CourseSectionController.showCreateSectionUI",
-  "post /create-section" : "CourseSectionController.create",
-
-    /**********************below is for course *********************************/
-    "get /upload-video/:token" : "FancyUploadController.showUploadUI",
-    "post /upload-video/:token" :"FancyUploadController.uploadCourseVideo",
-
-    "delete /delete-video/:videoToken" :"FancyUploadController.deleteCourseVideo"
+  // "post /user":"UserController.postUser"
+  //  "get /courses" : "CourseController.getAllCourses",
+  //  // get user's course
+  //  "get /:userId/courses" : "CourseController.getUserCourses",
+  //  "post /:userId/courses":"CourseController.postUserCourse",
+  //  "get /:userId/courses/:courseId":"CourseController.getUserCourse",
+  //  "put /:userId/courses/:courseId":"CourseController.putUserCourse",
+  //  "delete /:userId/courses/:courseId":"CourseController.deleteUserCourse",
+  //
+  //  /// course module
+  //  "get /:userId/courses/:courseId/modules" :"CourseSectionController.getCourseModules",
+  //  "post /:userId/courses/:courseId/modules" :"CourseSectionController.postCourseModule",
+  //  "get /:userId/courses/:courseId/modules/:moduleId" :"CourseSectionController.getCourseModule",
+  //  "put /:userId/courses/:courseId/modules/:moduleId" :"CourseSectionController.putCourseModule",
+  //  "delete /:userId/courses/:courseId/modules/:moduleId" :"CourseSectionController.deleteCourseModule",
+  //
+  //  /// - course section in each module
+  //  "get /:userId/courses/:courseId/modules/:moduleId/sections" :"CourseSectionController.getCourseSections",
+  //  "post /:userId/courses/:courseId/modules/:moduleId/sections" :"CourseSectionController.postCourseSection",
+  //  "get /:userId/courses/:courseId/modules/:moduleId/sections/:sectionId" :"CourseSectionController.getCourseSection",
+  //  "put /:userId/courses/:courseId/modules/:moduleId/sections/:sectionId" :"CourseSectionController.putCourseSection",
+  //  "delete /:userId/courses/:courseId/modules/:moduleId/sections/:sectionId" :"CourseSectionController.deleteCourseSection",
+  //
+  // /// - video in each section
+  // "get /:userId/courses/:courseId/videos" : "VideoController.getCourseVideos",
+  // "get /:userId/courses/:courseId/sections/videos" : "VideoController.getCourseSectionVideos",
+  //
+  // "post /:userId/courses/:courseId/sections/:sectionId/videos" : "VideoController.uploadCourseSectionVideo",
+  // "delete /:userId/courses/:courseId/sections/:sectionId/videos" : "VideoController.putSectionVideos",
+  //
+  ///////////////////////////////////////////////////////////////////////////////////
+  //
+  //"get /courses/byuser/:userId" : "CourseController.getUserCourses",
+  //"get /courses/byid/:enId": "CourseController.getCourseById",
+  //
+  //"get /courses/edit/:enId" : "CourseController.updateCourseById",
+  //"post /courses/edit/:enId" : "CourseController.updateCourseById",
+  //
+  //"get /courses/:courseToken/sections/:sectionToken" : "CourseSectionController.getCourseSection",
+  //
+  //"get /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.getCourseSection",
+  //
+  //"get /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.editSection",
+  //"post /courses/:courseToken/sections/edit/:sectionToken" : "CourseSectionController.editSection",
+  //
+  //
+  //"get /create-course" : {view:"create-course"},
+  //"post /create-course" : "CourseController.create",
+  //
+  //"get /courses-section/edit/:courseToken" : "CourseSectionController.editCourseSections",
+  //"post /courses-section/edit/:courseToken" : "CourseSectionController.editCourseSections",
+  //
+  //"get /courses/:courseToken/create-section" :  "CourseSectionController.showCreateSectionUI",
+  //"post /create-section" : "CourseSectionController.create",
+  //
+  //  /**********************below is for course *********************************/
+  //  "get /upload-video/:token" : "FancyUploadController.showUploadUI",
+  //  "post /upload-video/:token" :"FancyUploadController.uploadCourseVideo",
+  //
+  //  "delete /delete-video/:videoToken" :"FancyUploadController.deleteCourseVideo"
 
 
     /***************************************************************************

@@ -11,117 +11,77 @@ var tools = require("../services/common/tools.js");
 module.exports = {
 
   attributes: {
-      courseid :{
-          type:"integer",
-          required:true,
-          defaultsTo: -1
-      },
 
-      nextsectionid:{
-        type:"integer"
-      },
+    title: {
+      type: "string",
+      required: true,
+      minLength: 5,
+      maxLength: 200
+    },
 
-      title:{
-          type:"string",
-          required:true,
-          minLength:5,
-          maxLength:200
-      },
+    desc: {
+      type: "string"
+    },
 
-      desc:{
-          type:"string"
-      },
+    course: {
+      model: "Course"
+    },
 
-      tutorid:{
-          type: "integer",
-          required:true,
-          defaultsTo:-1
-      } ,
+    videos: {
+      collection: "Video",
+      via: "courseSection"
+    },
 
-      duration:{
-          type:"integer",
-          defaultsTo:-1
-      },
+    next: {
+      model: "CourseSection"
+    },
 
-      tags:{
-          type:"string"
-      },
+    duration: {
+      type: "integer",
+      defaultsTo: -1
+    },
 
-      status:{
-          type:"string",
-          enum:["processing","opened","closed"],
-          defaultsTo:"processing"
-      },
+    tags: {
+      type: "string"
+    },
 
-      rate :{
-          type:"integer",
-          defaultsTo:0
-      },
+    status: {
+      type: "string",
+      enum: ["processing", "opened", "closed"],
+      defaultsTo: "processing"
+    },
 
-      viewtimes:{
-          type:"integer",
-          defaultsTo:-1
-      },
+    rate: {
+      type: "integer",
+      defaultsTo: 0
+    },
 
-      relased :{
-          type:"datetime"
-      },
+    viewTimes: {
+      type: "integer",
+      defaultsTo: -1
+    },
 
-      opentoall:{
-          type:"boolean",
-          defaultsTo:true
-      },
+    releaseAt: {
+      type: "datetime"
+    },
 
-      Course:{
-        model:"Course"
-      },
+    openToAll: {
+      type: "boolean",
+      defaultsTo: true
+    },
 
-    enId :function(){
+    enId: function () {
       var obj = this.toObject();
       return tokenHelper.getSectionToken(obj.id);
     },
 
-    formattedTime : function(){
+    formattedTime: function () {
       var obj = this.toObject();
       var value = obj.duration;
       return tools.formattedTime(value);
     }
   },
 
-    seedData:
-        [
-            {
-                "courseid": 1,
-                "title": "this is the title of section 1",
-                "desc": "this is desc of section 1",
-                "tutorid": 1,
-                "duration": 100,
-                "tags": "tag for section1",
-                "status": "processing",
-                "rate": 10,
-                "viewtimes": 20,
-                "opentoall": true,
-                "videoid":1,
-                "id":1
-            },
-
-            {
-                "courseid": 2,
-                "title": "this is the title of section 2",
-                "desc": "this is desc of section 2",
-                "tutorid": 2,
-                "duration": 100,
-                "tags": "tag for section2",
-                "status": "processing",
-                "rate": 10,
-                "viewtimes": 20,
-                "opentoall": true,
-                "videoid":12,
-                "id":2
-            }
-
-        ]
-
-
+  seedData: []
 };
 
