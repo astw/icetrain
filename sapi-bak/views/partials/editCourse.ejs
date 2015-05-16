@@ -1,0 +1,71 @@
+<div class="container">
+
+
+  <div class="row">
+    <!-- Text input section name-->
+    <div class="container">
+      <div class="col-md-8">
+        <label class="control-label" for="sectionName">Section Name</label>
+
+        <div class="controls">
+          <input id="sectionName" name="sectionName" type="text" required minlength="10" placeholder="section title"
+                 value="<%= section.title %>" class="col-md-9">
+
+        </div>
+      </div>
+    </div>
+    <br/>
+    <!-- Text input section tags-->
+    <div class="container">
+      <div class="col-md-8">
+        <label class="control-label" for="sectionTags">Section Tags</label>
+
+        <div class="controls">
+          <input id="sectionTags" name="sectionTags" type="text" required minlength="6" placeholder="section tags"
+                 value="<%= section.tags %>" class="col-md-9">
+        </div>
+      </div>
+    </div>
+    <br/>
+    <!-- Text input section description-->
+    <div class="container">
+      <div class="col-md-8">
+        <label class="control-label" for="sectionDescription">Section Description</label>
+
+        <div class="controls">
+          <textarea id="sectionDescription" name="sectionDescription" required minlength="20" class="col-md-9"
+                    height="150px"><%= section.desc || "description" %></textarea>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <!-- Select Multiple -->
+    <div class="container">
+      <div class="control-group">
+        <div class="col-md-8">
+          <label class="control-label">Videos of this section </label>
+
+          <div class="controls">
+            <ul id="sortable">
+              <% videos.forEach(function(video){ %>
+              <% console.dir(video.toJSON()); %>
+              <% console.dir(video.playtoken()); %>
+              <% console.log("-----------------") %>
+              <% console.dir(video.enId()); %>
+              <li class="ui-state-default">
+                <input name="videoId[]" type="text" text="<%= video.enId() %>" value="<%= video.enId() %>" hidden="true"
+                       class="col-md-10">
+                <input name="videoName[]" type="text" text="<%= video.name.trim() || "" %>" required minlength="5"
+                       placeholder="<%= video.name.trim()||'videoName' %>" class="col-md-10">
+                <br/>
+                <video width="320" height="240" controls src=<%= "/mediaServer/video/stream/" + video.playtoken() %>/>
+              </li>
+              <% }) %>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

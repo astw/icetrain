@@ -1,0 +1,119 @@
+<head>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/blueimp-gallery.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+</head>
+
+<style>
+  #sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+  }
+
+  #sortable li {
+    margin: 3px;
+    padding: 0.4em;
+    padding: 1.5em;
+    font-size: 1.4em;
+  }
+
+  #sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
+  }
+
+</style>
+
+<script>
+
+  $(function () {
+    $("#sortable").sortable();
+    $("#sortable").disableSelection();
+
+    $("#submit").click(function () {
+
+      var videoOrders = $("input[name='videoId[]'").serializeArray();
+      var videoNames = $("input[name='videoName[]'").serializeArray();
+
+      var sectionName = $("input[name='sectionName']").val();
+      var sectionTags = $("input[name='sectionTags']").val();
+      var sectionDescription = $("#sectionDescription").val();
+
+      var courseInfo = {
+        "sectionInfo": {
+          "sectionName": sectionName || "",
+          "sectionTags": sectionTags || "",
+          "sectionDescription": sectionDescription || "",
+          "videoOrders": videoOrders,
+          "videoNames": videoNames,
+          "tutorId": "<%= courseInfo.course.tutorid%>"
+        }
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: "/courses/<%=courseToken %>/sections/edit/<%= sectionToken %>",
+        data: JSON.stringify(courseInfo),
+        success: function (data) {
+          window.location = data;
+        },
+        error: function (data) {
+          alert("error " + JSON.stringify(data));
+        },
+        contentType: "application/json",
+        dataType: "json"
+      });
+
+    });
+  });
+</script>
+
+<div class="container">
+  <div class="row">
+    <div id="breadcrumb">
+      <ul class="crumbs">
+        <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+        <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
+        <li><a href="/courses/<%= token %>/create-section" style="z-index:7;">Create
+            A New Section</a></li>
+        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To Section</a></li>
+        <li><a class="current" href="/courses-section/edit/<%= token %>" style="z-index:5;">Edit Section information</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row container">
+    <div class="col-lg-7">
+
+      <button id="submit" class="btn btn-primary start">
+        <i class="glyphicon glyphicon-upload"></i>
+        <span>Submit Update</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <fieldset>
+      <!-- Form Name -->
+      <!--<legend>Edit course / section / video information</legend>-->
+      <legend></legend>
+
+      <%- partial("partials/editCourse.ejs", {
+        section: courseInfo.section,
+        course: courseInfo.course,
+        videos: courseInfo.videos
+      }) %>
+
+    </fieldset>
+  </div>
+
+</div>
+
+<br/><br/>

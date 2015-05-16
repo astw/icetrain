@@ -1,0 +1,54 @@
+
+<div class="well well-lg">
+
+  <%
+  var sections = course.sections;
+  if(sections != null){
+    sections.forEach(function(section, index){
+  %>
+  <div class="well well-lg">
+
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <strong>Section #: </strong>
+      </div>
+      <div class="col-md-8">
+        <a href="/courses/<%= course.enId() %>/sections/<%= section.enId() %>">
+          <%= index + 1 %>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <strong>Section Name: </strong>
+      </div>
+      <div class="col-md-8">
+        <a href="/courses/<%= course.enId() %>/sections/<%= section.enId() %>">
+          <%= section.title %>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <strong>Section Tags: </strong>
+      </div>
+      <div class="col-md-8">
+        <%= section.tags %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <strong>Section duration: </strong>
+      </div>
+      <div class="col-md-8">
+        <% var time =section.formattedTime() %>
+        <%= time.minutes %> Minutes <%= time.seconds %> Seconds
+      </div>
+    </div>
+  </div>
+
+  <%
+  });
+  }
+  %>
+</div>

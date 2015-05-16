@@ -1,0 +1,169 @@
+<head>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+</head>
+
+<style>
+  #sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+  }
+
+  #sortable li {
+    margin: 3px;
+    padding: 0.4em;
+    padding: 1.5em;
+    font-size: 1.4em;
+  }
+
+  #sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
+  }
+
+</style>
+
+<script>
+
+  $(function () {
+    $("#sortable").sortable();
+    $("#sortable").disableSelection();
+
+    $("#submit").click(function () {
+
+      var videoOrders = $("input[name='videoId[]'").serializeArray();
+      var videoNames = $("input[name='videoName[]'").serializeArray();
+
+      var courseName = $("input[name='courseName']").val();
+      var courseDescription = $("#courseDescription").val();
+      var courseLevel = $("#courseLevel").val();
+
+      var courseTags = $("input[name='courseTags']").val();
+      var sectionName = $("input[name='sectionName']").val();
+      var sectionTags = $("input[name='sectionTags']").val();
+      var sectionDescription = $("#sectionDescription").val();
+
+      var courseInfo = {
+        "token": "<%= token%>",
+        "courseInfo": {
+          "courseName": courseName || "",
+          "courseDescription": courseDescription || "",
+          "courseLevel": courseLevel,
+          "courseTags": courseTags || "",
+          "sectionName": sectionName || "",
+          "sectionTags": sectionTags || "",
+          "sectionDescription": sectionDescription || "",
+          "videoOrders": videoOrders,
+          "videoNames": videoNames,
+          "tutorId": "<%= courseInfo.course.tutorid%>"
+        }
+      };
+
+      $.ajax({
+        type: 'POST',
+        url: "/courses-section/edit/<%= token %>",
+        data: JSON.stringify(courseInfo),
+        success: function (data) {
+          window.location = data;
+        },
+        error: function (data) {
+          alert("error " + JSON.stringify(data));
+        },
+        contentType: "application/json",
+        dataType: "json"
+      });
+
+    });
+  });
+</script>
+
+<div class="container">
+
+  <div class="row">
+    <div id="breadcrumb">
+      <ul class="crumbs">
+        <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+        <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
+        <li><a href="/courses/<%= token %>/create-section" style="z-index:7;">Create
+            A New Section</a></li>
+        <li><a href="/upload-video/<%= token %>" style="z-index:6;">Upload Videos To Section</a></li>
+        <li><a class="current" href="/courses-section/edit/<%= token %>" style="z-index:5;">Edit Course / Section / Videos
+            information</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <fieldset>
+      <!-- Form Name -->
+      <!--<legend>Edit course / section / video information</legend>-->
+      <legend><br/></legend>
+
+      <!-- Text input Course Name -->
+      <div class="container">
+        <div class="col-md-8">
+          <label class="control-label" for="courseName">Course Name</label>
+
+          <div class="controls">
+            <input id="courseName" name="courseName" type="text" required minlength="10" placeholder="course name"
+                   value="<%= courseInfo.course.name %>" class="col-md-9">
+          </div>
+        </div>
+      </div>
+      <br/>
+
+      <!-- Text input  Course Description -->
+      <div class="container">
+        <div class="col-md-8">
+          <label class="control-label" for="courseDescription">Course Description</label>
+
+          <div class="controls">
+            <textarea id="courseDescription" name="courseDescription" required minlength="20" class="col-md-9"
+                      placeholder="Course description" height="150px"><%= courseInfo.course.desc || "" %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <br/>
+      <!-- Text input course level-->
+      <div class="container">
+        <div class="col-md-8">
+          <label class="control-label" for="courseLevel">Course Level</label>
+
+          <div class="controls">
+
+            <select id="courseLevel" name="courseLevel" class="col-md-9">
+              <option>beginner</option>
+              <option>medium</option>
+              <option>advanced</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <br/>
+      <!-- Text input course tags-->
+      <div class="container">
+        <div class="col-md-8">
+          <label class="control-label" for="courseTags">Course Tags</label>
+
+          <div class="controls">
+            <input id="courseTags" name="courseTags" type="text" required minlength="5" placeholder="Course tags"
+                   value="<%= courseInfo.course.tags %>" class="col-md-9">
+          </div>
+        </div>
+      </div>
+
+      <br/>
+      <%- partial("partials/editCourse", {section: courseInfo.section, videos: courseInfo.videos}) %>
+      <br/>
+    </fieldset>
+    <div class="controls">
+      <button id="submit" name="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</div>
+

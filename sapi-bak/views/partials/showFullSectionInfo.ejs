@@ -1,0 +1,86 @@
+
+<div class="container">
+  <div class="row col-md-8">
+    <div class="well">
+      <!-- Text input course name-->
+      <div class="container">
+        <div class="col-md-8 ">
+
+          <div class="col-md-4">
+            <label class="control-label">Course Name</label>
+          </div>
+          <div class="col-md-4">
+            <div class="controls">
+              <%= course.name %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="row col-md-8">
+    <div class="well">
+
+      <div class="container">
+        <div class="col-md-8">
+          <div class="col-md-4 text-right">
+            <label class="control-label">Section Name</label>
+          </div>
+          <div class="col-md-4">
+            <%= section.title %>
+          </div>
+        </div>
+      </div>
+
+      <br/>
+
+      <div class="container">
+        <div class="col-md-8">
+          <div class="col-md-4 text-right">
+            <label class="control-label">Section Tags</label>
+          </div>
+          <div class="col-md-4">
+            <%= section.tags %>
+          </div>
+        </div>
+      </div>
+      <br/>
+
+      <div class="container">
+        <div class="col-md-8">
+          <div class="col-md-4 text-right">
+            <label class="control-label" for="sectionDescription">Section Description</label>
+          </div>
+          <div class="col-md-4">
+            <%= section.desc || "description" %>
+          </div>
+        </div>
+      </div>
+      <br/>
+
+      <div class="container">
+        <div class="col-md-8">
+          <div class="col-md-4 text-right">
+            <label class="control-label">Videos of this section </label>
+          </div>
+
+          <div class="col-md-4">
+            <% videos.forEach(function(video, index){ %>
+            <div class="row ">
+              <%= video.name.trim() || "" %>
+              <video width="320" height="240" controls
+                     src=<%= "/mediaServer/video/stream/" + video.playtoken() %>/>
+
+              <% }) %>
+            </div>
+            <hr/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

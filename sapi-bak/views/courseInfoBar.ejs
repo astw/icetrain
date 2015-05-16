@@ -1,0 +1,13 @@
+<head>
+
+  <link rel="stylesheet" href="/stylesheets/crumbs.css">
+</head>
+
+<div id="breadcrumb">
+  <ul class="crumbs">
+    <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+    <li><a href="/courses/byuser/<%= 12%>" style="z-index:8;">My Courses</a></li>
+    <li><a class="current" href="/courses/edit/<%= course.enId() %>" style="z-index:7;">Edit Course</a></li>
+    <li><a href="/courses/byid/<%= course.enId() %>" style="z-index:6;">Course Information</a></li>
+  </ul>
+</div>
