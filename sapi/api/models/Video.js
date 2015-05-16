@@ -28,12 +28,11 @@ module.exports = {
       required: true,
       defaultsTo: -1
     },
-
     size: {
       type: "integer"
     },
 
-    path: {
+   path: {
       type: "string",
       required: true
     },
@@ -49,9 +48,9 @@ module.exports = {
     },
 
     sectionid: {
-      type: "integer",
-      required: true,
-      defaultsTo: -1
+       type:"integer",
+      required:true,
+      defaultsTo:-1
     },
 
     sequence:{
@@ -150,6 +149,8 @@ module.exports = {
     {
       "name": "linux start",
       "tutorid": "1",
+      "courseid":"1",
+      "sectionid":"1",
       "format": "mp4",
       "duration": "130",
       "path": "/media/tutors/1/courses/1/hres/m1-s1.mp4",
@@ -162,6 +163,8 @@ module.exports = {
     {
       "name": "linux start",
       "tutorid": "1",
+      "courseid":"1",
+      "sectionid":"1",
       "format": "mp4",
       "duration": "50",
       "path": "/media/tutors/1/courses/1/hres/m1-s2.mp4",

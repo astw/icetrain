@@ -28,10 +28,6 @@ module.exports = {
           maxLength:200
       },
 
-      videoid:{
-          type:"integer"
-      },
-
       desc:{
           type:"string"
       },
