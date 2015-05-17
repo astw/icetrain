@@ -37,10 +37,10 @@ module.exports = {
           level: req.body.level
         }, function (err, data) {
           if (err) {
-            return res.status(err.status).send(err.detail);
+            return res.status(err.status).send(err.details);
           };
 
-          return res.status(200).send(data);
+          return res.status(201).send(data);
         });
       }
       else {
@@ -49,4 +49,3 @@ module.exports = {
     });
   }
 };
-

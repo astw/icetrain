@@ -23,17 +23,21 @@ module.exports = {
       type: "string"
     },
 
-    course: {
-      model: "Course"
+    course:{
+      model:"Section"
+    },
+
+    module: {
+      model: "Module"
+    },
+
+    next: {
+      model: "Section"
     },
 
     videos: {
       collection: "Video",
-      via: "courseSection"
-    },
-
-    next: {
-      model: "CourseSection"
+      via: "section"
     },
 
     duration: {
@@ -45,24 +49,9 @@ module.exports = {
       type: "string"
     },
 
-    status: {
-      type: "string",
-      enum: ["processing", "opened", "closed"],
-      defaultsTo: "processing"
-    },
-
     rate: {
       type: "integer",
       defaultsTo: 0
-    },
-
-    viewTimes: {
-      type: "integer",
-      defaultsTo: -1
-    },
-
-    releaseAt: {
-      type: "datetime"
     },
 
     openToAll: {

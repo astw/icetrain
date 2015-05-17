@@ -26,8 +26,8 @@ module.exports = {
       model: "User"
     },
 
-    sections: {
-      collection: "CourseSection",
+    modules: {
+      collection: "Module",
       via: "course"
     },
 

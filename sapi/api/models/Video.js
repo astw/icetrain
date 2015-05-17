@@ -10,6 +10,7 @@ var tools = require("../services/common/tools.js");
 module.exports = {
 
   attributes: {
+
     name: {
       type: "string",
       required: true,
@@ -39,14 +40,8 @@ module.exports = {
       type: "integer"
     },
 
-    courseSection:{
-      model: "CourseSection"
-    },
-
-    sequence:{
-      type: "integer",
-      required: true,
-      defaultsTo: -1
+    section:{
+      model: "Section"
     },
 
     next: {
@@ -74,12 +69,15 @@ module.exports = {
     // increate the section duration, and course duration
     // step 1 findout section
 
-    values.courseSection.duration += values.duration || 0 ;
-    values.courseSection.save();
+    if(values.section) {
+      values.section.duration += values.duration || 0;
+      values.section.save();
 
-    values.courseSection.course.duration += values.duration || 0;
-    values.courseSection.course.save();
-
+      if(values.section.course){
+      values.course.course.duration += values.duration || 0;
+      values.course.course.save();
+      }
+    }
     next();
   },
 
@@ -87,11 +85,15 @@ module.exports = {
     // decrease the section duration, and course duration
 
     if(attribute.duration > 0) {
-      values.courseSection.duration += values.duration || 0 ;
-      values.courseSection.save();
+      if(values.section) {
+        values.section.duration -= values.duration || 0;
+        values.section.save();
 
-      values.courseSection.course.duration += values.duration || 0;
-      values.courseSection.course.save();
+        if(values.section.course){
+          values.course.course.duration -= values.duration || 0;
+          values.course.course.save();
+        }
+      }
     }
     next();
   },

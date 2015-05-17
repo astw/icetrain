@@ -14,7 +14,7 @@ module.exports.bootstrap = function(cb) {
     async.series([
         User.seed,
         Course.seed,
-        CourseSection.seed,
+        Section.seed,
         Permission.seed,
         Video.seed
     ],cb)
