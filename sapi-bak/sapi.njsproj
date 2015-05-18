@@ -56,7 +56,7 @@
         <Content Include="views\uploadfile.ejs" />
         <Compile Include="api\controllers\AuthController.js" />
         <Compile Include="api\controllers\CourseController.js" />
-        <Compile Include="api\controllers\CourseSectionController.js" />
+        <Compile Include="api\controllers\SectionController.js" />
         <Compile Include="api\controllers\FancyUploadController.js" />
         <Compile Include="api\controllers\FileController.js" />
         <Compile Include="api\controllers\JobController.js" />
@@ -64,7 +64,7 @@
         <Compile Include="api\controllers\UserController.js" />
         <Compile Include="api\controllers\VideoController.js" />
         <Compile Include="api\models\Course.js" />
-        <Compile Include="api\models\CourseSection.js" />
+        <Compile Include="api\models\Section.js" />
         <Compile Include="api\models\FancyUpload.js" />
         <Compile Include="api\models\File.js" />
         <Compile Include="api\models\Job.js" />

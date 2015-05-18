@@ -11,10 +11,18 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         templateUrl:"app/reminder/reminder.html",
         controller:"ReminderCtrl"
       })
+      .when('/account/login',{
+        templateUrl:"app/components/navbar/login.html",
+        controller:"NavbarCtrl"
+      })
+      .when('/account/logout',{
+        templateUrl:"/",
+        controller:"NavbarCtrl"
+      })
       .otherwise({
         redirectTo: '/'
       });
- 
+
       $locationProvider.html5Mode(true);
   })
 ;

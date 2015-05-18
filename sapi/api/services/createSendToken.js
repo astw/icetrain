@@ -5,11 +5,11 @@ var sessionTokenHelper = require("../services/sessionTokenHelper.js");
 
 var secret = "this is my secret";
 
-module.exports = function (user, res) { 
+module.exports = function (user, res, statusCode) {
 
     var token = sessionTokenHelper.createSessionToken(user,res);
 
-    res.status(201).send({
+    res.status(statusCode).send({
         user: user.toJSON(),
         token: token
     });

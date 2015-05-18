@@ -13,7 +13,28 @@
         <li><a ng-href="#">Contact</a></li>
       </ul>
 
+      <ul class="nav navbar-nav pull-right">
+
+        <li ng-hide="isAuthenticated" >
+          <a href="/account/login">登录</a>
+        </li>
+
+        <li ng-hide="isAuthenticated" >
+          <a href="/account/register">注册</a>
+        </li>
+
+
+        <li ng-show="isAuthenticated" >
+          <a>{{user.displayName}}</a>
+        </li>
+
+        <li ng-show="isAuthenticated" >
+          <a href="/" class="btn" ng-click="logout()" >退出</a>
+        </li>
+       </ul>
+
       <ul class="nav navbar-nav navbar-right">
+        <li>Current date: {{ date | date:'yyyy-MM-dd' }}</li>
         <li>Current date: {{ date | date:'yyyy-MM-dd' }}</li>
       </ul>
     </div>

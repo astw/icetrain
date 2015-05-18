@@ -5,6 +5,10 @@ var createSendToken = require("./createSendToken.js");
 module.exports = {
 
   login: function (req, res) {
+    console.log("inside manuAuth_Login.js");
+
+    console.log(req.body.email);
+    console.log(req.body.passowrd);
     var email = req.body.email;
     var password = req.body.password;
     if (!email || !password) {
@@ -30,7 +34,7 @@ module.exports = {
           });
         }
         req.session.user = foundUser;
-        createSendToken(foundUser, res);
+        createSendToken(foundUser, res,200);
       });
     })
   },
