@@ -19,6 +19,18 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         templateUrl:"/",
         controller:"NavbarCtrl"
       })
+      .when('/account/home',{
+        templateUrl:"app/account/home.html",
+        controller:'AccountCtrl'
+      })
+      .when('/course/create',{
+        templateUrl:"app/course/createCourse.html",
+        controller:"CourseCtrl"
+      })
+      .when('/course/:id',{
+        templateUrl:"app/course/courseInfo.html",
+        controller:"CourseInfoCtrl"
+      })
       .otherwise({
         redirectTo: '/'
       });

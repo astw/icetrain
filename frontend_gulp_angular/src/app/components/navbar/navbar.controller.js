@@ -6,7 +6,7 @@ angular.module('icetraiFront')
     $scope.isAuthenticated = auth.isAuthenticated();
     $scope.user = auth.currentUser();
 
-    $scope.login = function(email, password) {
+    $scope.login = function() {
       auth.login($scope.email, $scope.password).
         then(function(data){
           if(data.status == 200) {
@@ -25,6 +25,7 @@ angular.module('icetraiFront')
       $scope.username = "";
       $scope.user = "";
       $scope.password = "";
+      $scope.isAuthenticated = auth.isAuthenticated();
       $location.path('/');
     }
   });
