@@ -8,12 +8,12 @@ angular.module('icetraiFront')
 
     $scope.login = function() {
       auth.login($scope.email, $scope.password).
-        then(function(data){
-          if(data.status == 200) {
-            $scope.user = data.user;
+        then(function(res){
+          if(res.status == 200) {
+            $scope.user = res.data.user;
             $scope.isAuthenticated = auth.isAuthenticated();
 
-            $location.path('/');
+            $location.url('/');
           }
           else
             $scope.loginFails = true;

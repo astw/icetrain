@@ -16,4 +16,26 @@ angular.module('icetraiFront')
           $scope.course = null;
         };
       });
+
+    $scope.toggleModule = function(module){
+      module.show = !module.show;
+    };
+
+    $scope.getEnabledClassIfAuthorized =function(userMayViewFirstClip){
+
+    };
+
+    $scope.createCourse = function(){
+      alert("createCourse");
+    };
+
+
+    $scope.deleteCourse = function(){
+      alert("deleteCourse");
+    }
+
+
+    $scope.editCourse = function(){
+      alert("editCourse");
+    }
   });

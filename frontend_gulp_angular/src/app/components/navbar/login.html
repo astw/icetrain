@@ -1,7 +1,5 @@
-  <div class="container">
-
+<div class="container">
   <div ng-include="'app/components/navbar/navbar.html'"></div>
-
   <div class="jumbotron text-left">
 
     <form class="form-horizontal" name="loginForm">
@@ -13,8 +11,10 @@
         <!-- email input-->
         <div class="form-group">
           <label class="col-md-4 control-label" for="username">电子邮件</label>
+
           <div class="col-md-4">
-            <input id="username" name="username" type="text" ng-model="email" placeholder="电子邮件" class="form-control input-md">
+            <input id="username" name="username" type="text" ng-model="email" placeholder="电子邮件"
+                   class="form-control input-md">
             <span class="help-block"></span>
           </div>
         </div>
@@ -22,8 +22,10 @@
         <!-- Password input-->
         <div class="form-group">
           <label class="col-md-4 control-label" for="password">密码</label>
+
           <div class="col-md-4">
-            <input id="password" name="password" type="password" ng-model="password" aceholder="密码" class="form-control input-md">
+            <input id="password" name="password" type="password" ng-model="password" aceholder="密码"
+                   class="form-control input-md">
             <span class="help-block"></span>
           </div>
         </div>
@@ -31,9 +33,11 @@
         <!-- Button -->
         <div class="form-group">
           <label class="col-md-4 control-label" for="cbLogin"></label>
+
           <div class="col-md-4">
             <button id="cbLogin" name="cbLogin" ng-click="login()"
-                    ng-disabled="loginForm.$invalid" class="btn btn-primary" >登录</button>
+                    ng-disabled="loginForm.$invalid" class="btn btn-primary">登录
+            </button>
           </div>
         </div>
 
