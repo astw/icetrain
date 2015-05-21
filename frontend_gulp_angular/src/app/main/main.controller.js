@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('icetraiFront')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, auth) {
+
+    $scope.isAuthenticated = auth.isAuthenticated();
+    $scope.user = auth.currentUser();
+
+
     $scope.awesomeThings = [
       {
         'title': 'AngularJS',
