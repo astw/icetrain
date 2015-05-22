@@ -10,14 +10,24 @@ angular.module('icetraiFront')
 
     var user = auth.currentUser();
     console.log(user.displayName);
-    courseRepository.getUserCourses(user.id).then(function(res){
-      if(res.status == 200) {
-        $scope.courses = res.data;
-      }
-      else{
-        $scope.errorMessage ='服务器错';
-      }
-    });
+    courseRepository.getUserCourses(user.id).then(function onSuccess(){ 
+        $scope.courses = res.data; 
+    })
+    .catch(function onError(res){
+      console.log(res);
+    })
+    .finally(function eitherWay(){
+      console.log("either way");
+    }); 
+
+    // courseRepository.getUserCourses(user.id).then(function(res){
+    //   if(res.status == 200) {
+    //     $scope.courses = res.data;
+    //   }
+    //   else{
+    //     $scope.errorMessage ='服务器错';
+    //   }
+    // });
 
 
     $scope.createCourse = function(email, password) {

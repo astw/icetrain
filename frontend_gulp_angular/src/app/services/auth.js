@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('icetraiFront')
-.service('auth',function($http,$window,$q, $location,authToken, $cookieStore) {
+.service('auth',function($http,$window,$q, $location,authToken, $cookieStore,$rootScope) {
 
     var API_URL = 'http://localhost:1337/auth/';
     var clientkey = "this is the client key";

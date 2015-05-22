@@ -1,3 +1,6 @@
 nodemon app
 
 to automatically restart the server
+
+
+require python 2.7.3 to install all packages
