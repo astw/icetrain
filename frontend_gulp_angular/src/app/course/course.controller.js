@@ -10,7 +10,7 @@ angular.module('icetraiFront')
 
     var user = auth.currentUser();
     console.log(user.displayName);
-    courseRepository.getUserCourses(user.id).then(function onSuccess(){
+    courseRepository.getUserCourses(user.id).then(function onSuccess(res){
         $scope.courses = res.data;
     })
     .catch(function onError(res){

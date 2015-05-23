@@ -31,10 +31,6 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         templateUrl:"app/course/createCourse.html",
         controller:"CourseCtrl"
       })
-      //.when('/module/create',{
-      //  templateUrl:"app/course/createModule.html",
-      //  controller:"CreateModuleCtrl"
-      //})
       .when('/course/:id',{
         templateUrl:"app/course/courseInfo.html",
         controller:"CourseInfoCtrl"

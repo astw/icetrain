@@ -13,9 +13,9 @@
 <div class="row">
     <div class="col-md-12">
       <span>
-         <h5>所有章节
-           <div class="btn btn-primary btn-xs" ng-click="createModule()">+</div>
-         </h5>
+         <h4> 所有章节
+           <div class="btn btn-primary btn-xs" title="增加章节" alt="增加章节" ng-click="createModule()">+</div>
+         </h5></h4>
         </span>
     </div>
   </div>
@@ -32,11 +32,17 @@
 
                   <span class="glyphicons glyphicons-plus">sssss</span>
                   <span>
+                    <span class="list-itme glyphicon glyphicons-plus pull-right"
+                          ng-click="addModule(module)">
+                      <img width="16" height="16" alt="ddd"  title="增加教学视频"  lt="增加教学视频" src="assets/images/add.ico"> </span>
+
+                    <span class="list-itme glyphicon glyphicons-plus pull-right"
+                          ng-click="editModule(module)"><img width="16" height="16" title="编辑本节" alt="编辑本节" src="assets/images/edit-1.ico"> </span>
+
                   <span class="list-itme glyphicon glyphicons-plus pull-right"
-                        ng-click="deleteModule(module)"> Delete </span>
-                  <span class="list-itme glyphicon glyphicons-plus pull-right"
-                        ng-click="editModule(module)"> edit </span>
+                        ng-click="deleteModule(module)"><img width="16" height="16"  title="删除本节"  alt="删除本节" src="assets/images/delete.ico"> </span>
                   </span>
+
                 <a data-toggle="collapse" data-parent="#accordion" href="#{{module.id}}">{{module.name}}</a>
               </span>
             </p>

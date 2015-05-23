@@ -31,7 +31,7 @@ angular.module('icetraiFront')
       };
 
       var dfd = $q.defer();
-      http.put(url,{headers:headers})
+      $http.put(url,{headers:headers})
         .then(function(res){
           console.log(res);
           dfd.resolve(res);
@@ -60,6 +60,22 @@ angular.module('icetraiFront')
       return dfd.promise;
     };
 
+    this.deleteModule = function(module,user){
+      var url = API_URL + 'module/' + module.id;
+      var sessionToken = authToken.getToken();
+
+      var headers = {
+        clientkey: 'this is the client key',
+        uid: user.id
+      };
+      var dfd = $q.defer();
+      $http.delete(url,{headers:headers}).then(function(res){
+        dfd.resolve(res);
+      });
+
+      return dfd.promise;
+    };
+
     this.createModule = function(moduleInfo,courseInfo,user){
       var url = API_URL + 'module/';
       var sessionToken = authToken.getToken();
@@ -69,13 +85,30 @@ angular.module('icetraiFront')
         uid: user.id
       };
 
-      console.log(moduleInfo);
-
       var dfd = $q.defer();
 
       $http.post(url,moduleInfo, {headers:headers})
         .then(function(res){
             dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+
+    this.updateModule = function(moduleInfo,courseInfo,user){
+      var url = API_URL + 'module/' + moduleInfo.id;
+      var sessionToken = authToken.getToken();
+
+      var headers = {
+        clientkey: 'this is the client key',
+        uid: user.id
+      };
+
+      var dfd = $q.defer();
+      $http.put(url, moduleInfo, {headers:headers})
+        .then(function(res){
+          console.log(res);
+          dfd.resolve(res);
         });
 
       return dfd.promise;

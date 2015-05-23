@@ -10,11 +10,21 @@
   <!--</div>-->
 
   <div class="row">
-    <div class="col-lg-9">
+    <div class="col-md-12">
+      <span>
+        <h1>{{ course.name }}</h1>
+        <h4>{{course.desc}} </h4>
+        </span>
+    </div>
+  </div>
+  <br/>
+
+  <div class="row">
+    <div class="col-md-8">
       <form class="form-horizontal" id="moduleForm" name="moduleForm" >
         <fieldset>
           <!-- Form Name -->
-          <legend><br/>创建新章节</legend>
+          <legend>章节信息</legend>
 
           <!-- Text input-->
           <div class="form-group">
@@ -58,11 +68,11 @@
 
           <!-- Button (Double) -->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="submit"></label>
-
             <div class="col-md-8">
-              <button id="submit" type="submit" ng-click="submitCreateModuleForm()" class="btn btn-success">创建</button>
-              <button id="reset" type="reset" class="btn btn-danger">重填</button>
+                  <button ng-show="verb == 'create'" id="submit1" type="submit" ng-click="submitCreateModuleForm()" class="btn btn-success">创建</button>
+                  <button ng-show="verb == 'update'" id="submit2" type="submit" ng-click="submitUpdateModuleForm()" class="btn btn-success">更新</button>
+
+                 <button id="reset" type="reset" class="btn btn-danger">重填</button>
             </div>
           </div>
 
