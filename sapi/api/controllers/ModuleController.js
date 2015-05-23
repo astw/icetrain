@@ -16,7 +16,8 @@ module.exports = {
      Module.create({
           name: req.body.name,
           desc: req.body.desc,
-          tutor: 1,
+          tutor:req.body.tutor,
+          course:req.body.course,
           tags: req.body.tag,
           level: req.body.level
         }, function (err, newModule) {

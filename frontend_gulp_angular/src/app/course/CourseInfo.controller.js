@@ -1,10 +1,14 @@
 
 
 angular.module('icetraiFront')
-.controller('CourseInfoCtrl',function($http,$scope, $routeParams, courseRepository){
+.controller('CourseInfoCtrl',function($http,$scope, $routeParams, courseRepository, auth){
 
     var courseId = $routeParams.id;
-    var editorEnable = false;
+    $scope.user = auth.currentUser();
+
+    $scope.showCourseInfoDiv =true;
+    $scope.showModuleDiv = false;
+    $scope.showAddModuleDiv = false;
 
     courseRepository.getCourseById(courseId)
       .then(function(res){
@@ -25,17 +29,38 @@ angular.module('icetraiFront')
 
     };
 
-    $scope.createCourse = function(){
-      alert("createCourse");
+    $scope.createModule = function(){
+      $scope.showCourseInfoDiv =false;
+      $scope.showModuleDiv = false;
+      $scope.showAddModuleDiv = true;
     };
 
 
-    $scope.deleteCourse = function(){
-      alert("deleteCourse");
-    }
+    $scope.submitCreateModuleForm = function(){
+
+      var moduleInfo = {};
+      moduleInfo.name = $scope.name;
+      moduleInfo.desc =$scope.desc;
+      moduleInfo.tags =$scope.tags;
+      moduleInfo.course = $scope.course;
+      moduleInfo.tutor = $scope.course.tutor;
+
+      courseRepository.createModule(moduleInfo,$scope.course,$scope.user)
+        .then(function(res){
+            if(res.status == 201){
+              $scope.showCourseInfoDiv =true;
+              $scope.showModuleDiv = false;
+              $scope.showAddModuleDiv = false;
+            }
+        });
+    };
+
+    $scope.deleteModule = function(){
+      alert("createModule");
+    };
 
 
-    $scope.editCourse = function(){
-      alert("editCourse");
+    $scope.editModule = function(){
+      alert("editModule");
     }
   });

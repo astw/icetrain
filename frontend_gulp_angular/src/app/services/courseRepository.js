@@ -58,5 +58,26 @@ angular.module('icetraiFront')
         });
 
       return dfd.promise;
-    }
+    };
+
+    this.createModule = function(moduleInfo,courseInfo,user){
+      var url = API_URL + 'module/';
+      var sessionToken = authToken.getToken();
+
+      var headers = {
+        clientkey: 'this is the client key',
+        uid: user.id
+      };
+
+      console.log(moduleInfo);
+
+      var dfd = $q.defer();
+
+      $http.post(url,moduleInfo, {headers:headers})
+        .then(function(res){
+            dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
   });

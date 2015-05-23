@@ -31,13 +31,17 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         templateUrl:"app/course/createCourse.html",
         controller:"CourseCtrl"
       })
+      //.when('/module/create',{
+      //  templateUrl:"app/course/createModule.html",
+      //  controller:"CreateModuleCtrl"
+      //})
       .when('/course/:id',{
         templateUrl:"app/course/courseInfo.html",
         controller:"CourseInfoCtrl"
       })
       .when('/test',{
         templateUrl:"app/account/test.html",
-        controller:"TestCtrl" 
+        controller:"TestCtrl"
       })
       .otherwise({
         redirectTo: '/'
