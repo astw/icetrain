@@ -1,0 +1,41 @@
+<script type="text/javascript">
+  FileAPI = {
+    debug: true,
+    forceLoad: true, html5: false //to debug flash in HTML5 browsers
+    //wrapInsideDiv: true, //experimental for fixing css issues
+    //only one of jsPath or jsUrl.
+    //jsPath: '/js/FileAPI.min.js/folder/',
+    //jsUrl: 'yourcdn.com/js/FileAPI.min.js',
+
+    //only one of staticPath or flashUrl.
+    //staticPath: '/flash/FileAPI.flash.swf/folder/'
+    //flashUrl: 'yourcdn.com/js/FileAPI.flash.swf'
+  };
+</script>
+
+
+<div style="float:left; margin-right: 10px;">
+  <form name="myForm">
+    <fieldset><legend>Upload on form submit</legend>
+      Username: <input type="text" name="userName" ng-model="username" size="39" required="">
+      <i ng-show="myForm.userName.$error.required">*required</i><br>
+      Profile Picture: <input type="file" ngf-select="" ng-model="picFile" name="file" accept="video/*" required="">
+      <i ng-show="myForm.file.$error.required">*required</i>
+      <br>
+
+      <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile)">Submit</button>
+
+      <div class="preview">
+        <div>Preview image/audio/video:</div>
+        <video controls="" ngf-src="picFile[0]" ng-show="picFile[0] != null" ngf-accept="'video/*'"></video>
+      </div>
+
+
+		<span class="progress" ng-show="picFile[0].progress >= 0">
+			<div style="width:{{picFile[0].progress}}%" ng-bind="picFile[0].progress + '%'" class="ng-binding"></div>
+		</span>
+      <span ng-show="picFile[0].result">Upload Successful</span>
+    </fieldset>
+    <br>
+  </form>
+

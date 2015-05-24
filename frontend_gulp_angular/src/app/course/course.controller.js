@@ -25,4 +25,7 @@ angular.module('icetraiFront')
 
     };
 
+    $scope.uploadVideo = function(files){
+      alert(files);
+    }
   });

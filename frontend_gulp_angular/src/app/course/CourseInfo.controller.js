@@ -35,7 +35,7 @@ angular.module('icetraiFront')
       $scope.verb = 'create';
     };
 
-    $scope.submitCreateModuleForm = function(module) {
+    $scope.submitCreateModuleForm = function() {
 
       var moduleInfo = {};
       moduleInfo.name = $scope.name;
@@ -49,6 +49,7 @@ angular.module('icetraiFront')
           if (res.status == 201) {
             $scope.showCourseInfoDiv = true;
             $scope.showModuleDiv = false;
+            $scope.course.modules.push(res.data);
           }
         });
     };
@@ -85,5 +86,9 @@ angular.module('icetraiFront')
       $scope.showCourseInfoDiv = false;
       $scope.showModuleDiv = true;
       $scope.verb = 'update';
+    };
+
+    $scope.addVideos = function(module){
+
     }
   });
