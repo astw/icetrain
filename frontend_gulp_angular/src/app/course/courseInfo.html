@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style>
+  .center {
+    alignment: center;
+  }
+
+  .left {
+    float: left !important;
+  }
+
+  .right {
+    float: right !important;
+  }
+
+  h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-size: 50%;
+    color: #ff0000;
+    line-height: 0;
+  }
+
+  .list-itme {
+    display: inline-block;
+    margin-left: 10px;
+    text-align: right;
+  }
+
+  .check{
+    background-image: url('assets/images/check.ico');
+    width:12px;
+    height: 12px;
+  }
+
+</style>
+
+<div class="container">
+  <div class="row">
+  <div ng-include="'app/components/navbar/navbar.html'"></div>
+  </div>
+
+
+  <div class="row" ng-show="showCourseInfoDiv">
+    <div ng-include="'app/course/partial/courseInfoDiv.html'"></div>
+  </div>
+
+  <div class="row" ng-show="showModuleDiv">
+    <div ng-include="'app/course/partial/editModuleDiv.html'"></div>
+  </div>
+
+  <div class="row" ng-show="showVideoUploadDiv">
+    <div ng-include="'app/course/uploadVideoDiv.html'"></div>
+  </div>
+
+  <hr>
+  <div class="footer">
+    <p>With ♥ from <a href="https://twitter.com/Swiip">@Swiip</a></p>
+  </div>
+</div>

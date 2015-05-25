@@ -21,93 +21,31 @@ module.exports = {
 
     console.log(req.body);
 
-    User.findOne({email: req.body.tutorEmail}, function (err, user) {
+    //User.findOne({id: req.session.userid}, function (err, user) {
+    User.findOne({id: 1}, function (err, user) {
       if (err) {
-        throw err;
+         return res.notFound();
       }
       console.log(user);
       if (user) {
         Course.create({
-          name: req.body.courseName,
-          desc: req.body.courseDesc,
-          tutorid: user.id,
-          coursetype: req.body.courseType,
-          tags: req.body.courseTags,
-          leve: req.body.courseLevel
+          name: req.body.name,
+          desc: req.body.desc,
+          tutor: user,
+          courseType: req.body.courseType ,
+          tags: req.body.tag,
+          level: req.body.level
         }, function (err, data) {
           if (err) {
-            res.writeHead(400, {"Location": "/error"}) } ;
+            return res.status(err.status).send(err.details);
+          };
 
-          //var shortToken = hashids.encode([data.id, user.id]);
-          var shortToken = tokenHelper.getCourseToken([data.id, user.id]);
-          res.redirect("/courses/" + shortToken + "/create-section");
-          res.end();
+          return res.status(201).send(data);
         });
       }
       else {
-        res.writeHead(400, {"Location": "/error"});
-        res.end();
+         return res.json({status:400},400);
       }
     });
-  },
-
-  getUserCourses: function (req, res) {
-    var userId = req.params.userId;
-    //var ids = courseHashids.decode(token);
-    //var tutorId = ids[0];
-    //var courseId = ids[1];
-    //var sectionId = ids[2];
-    //var videoId = ids[3];
-
-    courseRepository.getCourseByTutor(userId)
-      .then(function (courses) {
-        res.view("myCoursesList", {tutorId: userId, courses: courses});
-      });
-  },
-
-  getCourseById : function(req, res){
-    var enId = req.params.enId ;
-    var courseId = tokenHelper.getCourseId(enId)[0];
-    if(courseId != null) {
-      courseRepository.getCourseById(courseId).then(function (course) {
-          res.view("courseInfo", {course: course});
-        }
-      );
-    }
-    else{
-      res.view("error");
-    }
-  },
-
-  updateCourseById : function(req,res){
-
-    var enId = req.params.enId;
-    var courseId = tokenHelper.getCourseId(enId)[0];
-
-    if (req.method === 'GET')
-    {
-      courseRepository.getCourseById(courseId).then(function (course) {
-          res.view("editCourse", {course: course});
-        }
-      );
-    }
-    else if(req.method==='POST') {
-
-      var courseInfo = req.body.courseInfo;
-      if (courseId != null) {
-        courseRepository.updateCourseById(courseId, courseInfo).then(function (course) {
-            res.contentType("application/json");
-            var data = JSON.stringify("/courses/byid/" + course.enId());
-            res.header('Content-Length', data.length);
-            res.end(data);
-          }
-        );
-      }
-      else {
-        res.view("error");
-      }
-    }
   }
-
 };
-

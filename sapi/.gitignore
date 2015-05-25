@@ -97,7 +97,7 @@ lib-cov
 *.out
 *.pid
 npm-debug.log
-
+assets/uploaded
 
 
 
@@ -116,3 +116,4 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+.idea/workspace.xml

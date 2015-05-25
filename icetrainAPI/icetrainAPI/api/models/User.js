@@ -10,11 +10,13 @@ module.exports = {
   attributes: {
   	name:{
   		type:'string'
-  	},
+  	}
+
+    ,
   	products :{
   		collection:"product",
   		via:'user'
-  	} 
+  	}
   }
 };
 

@@ -1,0 +1,186 @@
+<%
+console.dir(course);
+%>
+
+<head>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/stylesheets/crumbs.css">
+</head>
+
+
+<script>
+
+  $(function () {
+     $("#submit").click(function () {
+
+      var courseName = $("input[name='courseName']").val();
+      var courseDescription = $("#courseDescription").val();
+      var courseLevel = $("#courseLevel").val();
+      var courseTags = $("input[name='courseTags']").val();
+      var courseType = $("#courseType").val();
+
+      var courseInfo = {
+        "courseInfo": {
+          "name": courseName || "",
+          "desc": courseDescription || "",
+          "level": courseLevel,
+          "tags": courseTags || "",
+          "courseType": courseType
+        }
+      };
+
+      alert(JSON.stringify(courseInfo));
+      $.ajax({
+        type: 'POST',
+        url: "/courses/edit/<%= course.enId() %>",
+        data: JSON.stringify(courseInfo),
+        success: function (data) {
+          window.location = data;
+        },
+        error: function (data) {
+          alert("error " + JSON.stringify(data));
+        },
+        contentType: "application/json",
+        dataType: "json"
+      });
+    });
+  });
+</script>
+
+<div class="container">
+
+  <div id="breadcrumb">
+    <ul class="crumbs">
+      <li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>
+      <li><a href="/courses/byuser/<%= 1 %>" style="z-index:8;">My Courses</a></li>
+      <li><a class="current" href="/courses/edit/<%= course.enId() %>" style="z-index:7;">Edit Course</a></li>
+      <li><a href="/courses/byid/<%= course.enId() %>" style="z-index:6;">Course Information</a></li>
+    </ul>
+  </div>
+
+  <br/>
+
+  <div class="row">
+
+    <div class="col-lg-9">
+      <form class="form-horizontal">
+        <fieldset>
+
+          <!-- Form Name -->
+          <legend>课程信息</legend>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseName">课程名称</label>
+
+            <div class="col-md-8">
+              <input id="courseName" name="courseName" type="text" value="<%= course.name %>" placeholder="输入课程名称"
+                     class="form-control input-md" required="">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseDesc">课程简介</label>
+
+            <div class="col-md-8">
+              <textarea class="form-control" id="courseDescription" name="courseDescription"
+                        placeholder="输入课程简介" required><%= course.desc %></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseType">课程类别</label>
+
+            <div class="col-md-4">
+              <select id="courseType" name="courseType" class="form-control">
+                <option value="1" <%= course.coursetype == "1" ? "selected" : "" %>>Nodejs</option>
+                <option value="2" <%= course.coursetype == "2" ? "selected" : "" %>>javascript</option>
+                <option value="3" <%= course.coursetype == "3" ? "selected" : "" %> >java</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseLevel">课程级别</label>
+
+            <div class="col-md-4">
+              <select id="courseLevel" name="courseLevel" class="form-control">
+                <option value="beginner"  <%= course.level == "beginner" ? "selected" : "" %> >初级</option>
+                <option value="medium" <%= course.level == "medium" ? "selected" : "" %>  >中级</option>
+                <option value="advanced" <%= course.level == "advanced" ? "selected" : "" %>  >高级</option>
+              </select>
+            </div>
+          </div>
+
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="courseTags">课程标签</label>
+
+            <div class="col-md-4">
+              <input id="courseTags" name="courseTags" type="text" value="<%= course.tags %>" placeholder="课程标签"
+                     class="form-control input-md">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseTags">课程总时间</label>
+
+            <div class="col-md-4">
+              <% var time =course.formattedTime() %>
+              <%= time.minutes %> Minutes <%= time.seconds %> Seconds
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="tutorEmail">讲师电子邮件</label>
+
+            <div class="col-md-8">
+              <div class="well well-lg">
+
+                <div class="row">
+                  <div class="col-md-4 text-right">
+                    <strong>Tutor Name: </strong>
+                  </div>
+                  <div class="col-md-8">
+                    <a href="/tutor/<%= course.tutor.id %> ">
+                      <%= course.tutor.email %>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4 text-right">
+                    <strong>Tutor Name: </strong>
+                  </div>
+                  <div class="col-md-8">
+                    <%= course.tutor.displayName %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseTags">课程sections</label>
+
+           <div class="col-md-8">
+              <%- partial("partials/showSectionsInfo",course) %>
+            </div>
+           </div>
+
+          <div class="form-group">
+              <label class="col-md-4 control-label" for="submit"></label>
+
+              <div class="col-md-8">
+                <button id="submit" type="submit" class="btn btn-success">Update课程</button>
+                <button id="reset" type="reset" class="btn btn-danger">Reset</button>
+              </div>
+            </div>
+
+        </fieldset>
+
+      </form>
+    </div>
+
+  </div>
+</div>

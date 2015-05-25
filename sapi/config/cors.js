@@ -73,6 +73,6 @@ module.exports.cors = {
   *                                                                          *
   ***************************************************************************/
 
-  headers: 'content-type, authorization,clientkey'
+  headers: 'content-type, authorization,clientkey,uid'
 
 };

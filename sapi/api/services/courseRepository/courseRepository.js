@@ -197,7 +197,7 @@ var updateCourseById = function (courseId, courseInfo) {
     course.save().then(function(err){
         userRepository.getUserById(course.tutorid).then(function(tutor){
         course.tutor = tutor;
-        CourseSection.find({courseid:course.id}).then(function(sections){
+        Section.find({courseid:course.id}).then(function(sections){
           course.sections = sections;
           defer.resolve(course);
         })
