@@ -35,12 +35,13 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         templateUrl:"app/course/uploadVideoDiv.html",
         controller:"VideoUploadCtrl"
       })
+
      .when('/course/:id',{
         templateUrl:"app/course/courseInfo.html",
         controller:"CourseInfoCtrl"
       })
       .when('/test',{
-        templateUrl:"app/account/test.html",
+        templateUrl:"app/course/addVideo.html",
         controller:"TestCtrl"
       })
       //.when('/video/upload',{
