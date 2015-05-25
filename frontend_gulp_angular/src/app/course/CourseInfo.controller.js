@@ -2,12 +2,13 @@
 
 angular.module('icetraiFront')
 .controller('CourseInfoCtrl',function($http,$scope, $routeParams, courseRepository, auth){
-
+    alert('ddd');
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
 
     $scope.showCourseInfoDiv =true;
     $scope.showModuleDiv = false;
+    $scope.showVideoUploadDiv = false;
     var verb ='get';
 
     courseRepository.getCourseById(courseId)
@@ -32,6 +33,7 @@ angular.module('icetraiFront')
     $scope.createModule = function(){
       $scope.showCourseInfoDiv =false;
       $scope.showModuleDiv = true;
+      $scope.showVideoUploadDiv = false;
       $scope.verb = 'create';
     };
 
@@ -49,6 +51,7 @@ angular.module('icetraiFront')
           if (res.status == 201) {
             $scope.showCourseInfoDiv = true;
             $scope.showModuleDiv = false;
+            $scope.showVideoUploadDiv = false;
             $scope.course.modules.push(res.data);
           }
         });
@@ -64,6 +67,7 @@ angular.module('icetraiFront')
           if (res.status == 200) {
             $scope.showCourseInfoDiv = true;
             $scope.showModuleDiv = false;
+            $scope.showVideoUploadDiv = false;
           }
         });
     };
@@ -85,10 +89,40 @@ angular.module('icetraiFront')
 
       $scope.showCourseInfoDiv = false;
       $scope.showModuleDiv = true;
+      $scope.showVideoUploadDiv = false;
       $scope.verb = 'update';
     };
 
     $scope.addVideos = function(module){
+      $scope.showCourseInfoDiv = false;
+      $scope.showModuleDiv = false;
+      $scope.showVideoUploadDiv = true;
+    };
 
-    }
+    $scope.$watch('files', function () {
+      $scope.upload($scope.files);
+    });
+    $scope.log = '';
+
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          Upload.upload({
+            url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+            fields: {
+              'username': $scope.username
+            },
+            file: file
+          }).progress(function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+
+            file.progress = progressPercentage ;
+          }).success(function (data, status, headers, config) {
+
+            $scope.$apply();
+          });
+        }
+      }
+    };
   });
