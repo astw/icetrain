@@ -30,7 +30,7 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    // order: [
+    //order: [
     //   'startRequestTimer',
     //   'cookieParser',
     //   'session',
@@ -41,12 +41,13 @@ module.exports.http = {
     //   'methodOverride',
     //   'poweredBy',
     //   '$custom',
+    //   'multiparty',
     //   'router',
     //   'www',
     //   'favicon',
     //   '404',
     //   '500'
-    // ],
+    //],
 
   /****************************************************************************
   *                                                                           *
@@ -68,11 +69,12 @@ module.exports.http = {
   * http://www.senchalabs.org/connect/multipart.html for other options.      *
   *                                                                          *
   ***************************************************************************/
-
-     bodyParser: require('body-parser'),//require('skipper')body-parser
-     flash:require("connect-flash")
-
-  // },
+  //
+  //   bodyParser:require('skipper'),//body-parser require('body-parser'),//
+  //   flash:require("connect-flash"),
+  //   multiparty : require('connect-multiparty')
+  //
+  //}
 
   /***************************************************************************
   *                                                                          *

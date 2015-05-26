@@ -156,13 +156,13 @@ module.exports = {
 
     var uploader = createUploader(req);
     console.log("begin uploading....");
-    uploader.post(req, res, function (obj) {
-      console.log(req.body);
-      // delete data from db
-      // reduce the duration from courseSection and course tables
-
-      res.send(JSON.stringify(obj));
-    });
+    //uploader.post(req, res, function (obj) {
+    //  console.log(req.body);
+    //  // delete data from db
+    //  // reduce the duration from courseSection and course tables
+    //
+    //  res.send(JSON.stringify(obj));
+    //});
   },
 
   uploadCourseVideo: function (req, res) {
