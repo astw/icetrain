@@ -31,7 +31,7 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         templateUrl:"app/course/createCourse.html",
         controller:"CourseCtrl"
       })
-      .when('/course/uploadVideo',{
+      .when('/course/uploadVideo/:courseId',{
         templateUrl:"app/course/uploadVideoDiv.html",
         controller:"VideoUploadCtrl"
       })
@@ -56,6 +56,6 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
         redirectTo: '/'
       });
 
-      $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
   })
 ;

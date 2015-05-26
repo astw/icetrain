@@ -28,9 +28,7 @@
     <div class="col-md-12">
       <fieldset>
         <legend>上传教学视频到</legend>
-
         <div class="col-md-9">
-
          <div ngf-select ngf-drop=""
            ng-model="files"
            ng-model-rejected="rejFiles"
@@ -48,30 +46,26 @@
            ngf-drop-available="dropAvailable">
          Select File  <span ng-show="dropAvailable">or Drop</span>
          </div>
+          <div>
+            <input type="hidden" name="courseId" value= {{courseId}} />
+          </div>
         </div>
-        <input type="text" name="userName" ng-model="username" size="39"
-               required="" class="ng-pristine ng-valid ng-valid-required">
         <br/>
         <div ng-repeat="f in files" class="col-md-9">
-
             <div class="col-md-4">
               <video controls="" width="300" height="200" ngf-src="f" ng-show="f != null" ngf-accept="'video/*'"></video>
             </div>
-
             <div class="col-md-1"> </div>
 
             <div class="col-md-7">
               <label>输入视频简介</label>
-              <!--<textarea  class="form-control"  type="text"  ng-model="username" ng-minlength="50">-->
+              <textarea  class="form-control"  type="text"  ng-model="sectionName" ng-minlength="50" class="ng-pristine ng-valid ng-valid-required">
+              </textarea>
 
-              <!--</textarea>-->
-              <input type="text" name="userName1" ng-model="username1" size="39"
-                     required="" class="ng-pristine ng-valid ng-valid-required">
-              <br/>
               <span class="progress" ng-show="f.progress >= 0">
               <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'" class="ng-binding"></div>
               </span>
-              <di>{{f.name}}</di>  {{f.progress }}
+              <span><strong>文件名：</strong>{{f.name}}</di>  {{f.progress }}</span> <span> <strong>大小：</strong> {{f.size}}</span>
             </div>
           </div>
        </fieldset>
