@@ -87,6 +87,33 @@ module.exports = {
     }
   },
 
-  seedData: []
+  seedData: [{
+    "name": "c# WCP starter",
+    "desc": "to learn the baisc of wcf programming",
+    "tutor": '1' ,
+    "duration":120,
+    "tags":"c#,wpf",
+    "status": "processing",
+    "rate" : 5,
+    "rank" : 3,
+    "viewtimes": 1,
+    "coursetype":".net",
+    "level":"medium",
+    "id":1
+  },
+    {
+      "name": "java starter",
+      "desc": "to learn the baisc of java programming",
+      "tutor": 2 ,
+      "duration":120,
+      "tags":"java",
+      "status": "processing",
+      "rate" : 5,
+      "rank" : 3,
+      "viewtimes": 1,
+      "coursetype":"java",
+      "level":"medium",
+      "id":2
+    }]
 };
 
