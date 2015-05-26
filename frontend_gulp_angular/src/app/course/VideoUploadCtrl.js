@@ -24,7 +24,7 @@ angular.module('icetraiFront')
 
   function upload(file) {
     $scope.errorMsg = null;
-    $scope.howToSend = 2;
+    $scope.howToSend = 1;
     if ($scope.howToSend === 1) {
       uploadUsingUpload(file);
     } else if ($scope.howToSend == 2) {
@@ -45,10 +45,13 @@ angular.module('icetraiFront')
     });
 
     file.upload.then(function(response) {
+      console.log('----- return from server');
+      console.log(response);
       $timeout(function() {
         file.result = response.data;
       });
     }, function(response) {
+      console.dir("error" + response);
       if (response.status > 0)
         $scope.errorMsg = response.status + ': ' + response.data;
     });
@@ -59,6 +62,7 @@ angular.module('icetraiFront')
     });
 
     file.upload.xhr(function(xhr) {
+
       // xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
     });
   }
@@ -68,7 +72,7 @@ angular.module('icetraiFront')
       url: 'http://localhost:1337/upload' ,
       method: 'POST',
       headers : {
-        'Content-Type': undefined, //file.type,
+        'Content-Type': 'multipart/form-data',   //file.type,
         'clientkey':'this is clientkey'
       },
       data:{username: $scope.username},

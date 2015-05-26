@@ -2,7 +2,7 @@
  * Created by Administrator on 24/05/2015.
  */
 
-  'use strict';
+var formidable = require('formidable');
 
 //var NgFileController = function(){};
 //NgFileController.prototype.upload = function(req,res){

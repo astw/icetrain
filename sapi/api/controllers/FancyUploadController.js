@@ -154,6 +154,25 @@ module.exports = {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
 
+
+    //var form = new formidable.IncomingForm();
+    //form.uploadDir = "f:\\temp";
+    //form.encoding ='binary';
+    //form.addListener('file',function(name, file){
+    //  console.log(name);
+    //  console.log(file);
+    //})
+    //
+    //form.addListener('end', function() {
+    //  res.end();
+    //});
+    //
+    //form.parse(req, function(err, fields, files) {
+    //  if (err) {
+    //    console.log(err);
+    //  }
+    //});
+
     var uploader = createUploader(req);
     console.log("begin uploading....");
     //uploader.post(req, res, function (obj) {

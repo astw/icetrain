@@ -47,6 +47,7 @@ module.exports.routes = {
 
   'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo"
 
+   "post /upload" : "FancyUploadController.upload"
 
 ,"post /upload" : "NgFileUploadController.upload"
 

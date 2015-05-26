@@ -49,6 +49,9 @@
          Select File  <span ng-show="dropAvailable">or Drop</span>
          </div>
         </div>
+        <input type="text" name="userName" ng-model="username" size="39"
+               required="" class="ng-pristine ng-valid ng-valid-required">
+        <br/>
         <div ng-repeat="f in files" class="col-md-9">
 
             <div class="col-md-4">
@@ -62,7 +65,7 @@
               <!--<textarea  class="form-control"  type="text"  ng-model="username" ng-minlength="50">-->
 
               <!--</textarea>-->
-              <input type="text" name="userName" ng-model="username" size="39"
+              <input type="text" name="userName1" ng-model="username1" size="39"
                      required="" class="ng-pristine ng-valid ng-valid-required">
               <br/>
               <span class="progress" ng-show="f.progress >= 0">
