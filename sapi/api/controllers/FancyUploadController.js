@@ -99,7 +99,7 @@ var createMediaFolder = function (tutorId, courseId) {
 };
 
 var processVideoUploading = function (req, res,mediaFormData, sectionId, courseId, tutorId, videoFilePath) {
-     Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
+  Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
     console.dir(metadata);
     var duration = 0;
     metadata.streams.forEach(function (mediaInfo) {
@@ -109,7 +109,7 @@ var processVideoUploading = function (req, res,mediaFormData, sectionId, courseI
       }
     });
 
-       var relativeVideoPath = videoFilePath.replace(root,"");
+    var relativeVideoPath = videoFilePath.replace(root,"");
     Video.create(
       {
         name: mediaFormData.name || "  ",
@@ -175,19 +175,19 @@ module.exports = {
 
     var uploader = createUploader(req);
     console.log("begin uploading....");
-    //uploader.post(req, res, function (obj) {
-    //  console.log(req.body);
-    //  // delete data from db
-    //  // reduce the duration from courseSection and course tables
-    //
-    //  res.send(JSON.stringify(obj));
-    //});
+    uploader.post(req, res, function (obj) {
+      console.log(req.body);
+      // delete data from db
+      // reduce the duration from courseSection and course tables
+
+      res.send(JSON.stringify(obj));
+    });
   },
 
   uploadCourseVideo: function (req, res) {
 
     var token = req.params.token;
-   // var ids = courseHashids.decode(token);
+    // var ids = courseHashids.decode(token);
     var ids = tokenHelper.getSectionId(token);
 
     var tutorId = ids[0];

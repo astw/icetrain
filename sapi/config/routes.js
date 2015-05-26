@@ -45,11 +45,11 @@ module.exports.routes = {
     view: 'login'
   },
 
-  'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo"
+  'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo",
 
    "post /upload" : "FancyUploadController.upload"
 
-,"post /upload" : "NgFileUploadController.upload"
+//,"post /upload" : "NgFileUploadController.upload"
 
    /*******************  below is for uploader  *******************************/
    //
