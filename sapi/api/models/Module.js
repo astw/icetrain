@@ -60,6 +60,11 @@ module.exports = {
       type:"string"     // would be used to control for regular user or pay user.
     },
 
+    //toJSON: function () {
+    //  var obj = this.toObject();
+    //  obj.id = this.enId();
+    //  return obj;
+    //},
     enId: function () {
       var obj = this.toObject();
       return tokenHelper.getCourseToken(obj.id);
@@ -72,5 +77,14 @@ module.exports = {
     }
   },
 
-  seedData: []
+  seedData: [{
+    "name": "c# WCP starter module 1",
+    "desc": "to learn the baisc of wcf programming",
+    "course": {"id":1}
+  },
+    {
+      "name": "java starter  module2",
+      "desc": "to learn the baisc of java programming",
+      "course":  {"id":1}
+    }]
 }

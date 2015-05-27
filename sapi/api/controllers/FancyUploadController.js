@@ -6,6 +6,7 @@
  */
 //
 var options = require("./settings/jqueryFileSetting.js").options;
+var videoOptions = require("./settings/videoFileSettings.js").options;
 
 var fs = require('fs');
 var path = require("path")
@@ -28,8 +29,6 @@ var inspect = require('util').inspect;
 var formidable = require('formidable');
 
 var tokenHelper = require("../services/tokenHelper.js");
-
-
 
 var changeFilesName = function (obj) {
   obj.files.forEach(function (file) {
@@ -154,9 +153,8 @@ module.exports = {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
 
-
     //var form = new formidable.IncomingForm();
-    //form.uploadDir = "f:\\temp";
+    //form.uploadDir = videoOptions.uploadDir;
     //form.encoding ='binary';
     //form.addListener('file',function(name, file){
     //  console.log(name);
@@ -177,8 +175,6 @@ module.exports = {
     console.log("begin uploading....");
     uploader.post(req, res, function (obj) {
       console.log(req.body);
-      // delete data from db
-      // reduce the duration from courseSection and course tables
 
       res.send(JSON.stringify(obj));
     });
@@ -186,13 +182,17 @@ module.exports = {
 
   uploadCourseVideo: function (req, res) {
 
-    var token = req.params.token;
-    // var ids = courseHashids.decode(token);
-    var ids = tokenHelper.getSectionId(token);
+    //var token = req.params.token;
+    //// var ids = courseHashids.decode(token);
+    //var ids = tokenHelper.getSectionId(token);
+    //
+    //var tutorId = ids[0];
+    //var courseId = ids[1];
+    //var sectionId = ids[2];
 
-    var tutorId = ids[0];
-    var courseId = ids[1];
-    var sectionId = ids[2];
+    var tutorId = req.params.tutorId;
+    var courseId = req.params.courseId;
+    var sectionId = req.params.moduleId;
 
     var folder = createMediaFolder(tutorId, courseId);
     var uploader = createUploader2(req, folder);

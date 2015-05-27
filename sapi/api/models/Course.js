@@ -75,6 +75,12 @@ module.exports = {
       type: "string"
     },
 
+    //toJSON: function () {
+    //  var obj = this.toObject();
+    //  obj.id = this.enId();
+    //  return obj;
+    //},
+
     enId: function () {
       var obj = this.toObject();
       return tokenHelper.getCourseToken(obj.id);
@@ -90,7 +96,7 @@ module.exports = {
   seedData: [{
     "name": "c# WCP starter",
     "desc": "to learn the baisc of wcf programming",
-    "tutor": '1' ,
+    "tutor": {"id":1} ,
     "duration":120,
     "tags":"c#,wpf",
     "status": "processing",
@@ -104,7 +110,7 @@ module.exports = {
     {
       "name": "java starter",
       "desc": "to learn the baisc of java programming",
-      "tutor": 2 ,
+      "tutor":  {"id":1}  ,
       "duration":120,
       "tags":"java",
       "status": "processing",
