@@ -31,8 +31,6 @@ module.exports = {
   upload: function (req, res) {
     var files = req.file;
 
-
-
       if (options.uploadDir.indexOf(req.session.id) < 0) {
         var dir = path.join(options.uploadDir, req.session.id);
         if (!fs.existsSync(dir)) {
