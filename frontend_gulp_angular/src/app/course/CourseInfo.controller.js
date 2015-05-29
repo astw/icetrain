@@ -98,8 +98,8 @@ angular.module('icetraiFront')
       $scope.showModuleDiv = false;
       $scope.showVideoUploadDiv = true;
 
-
-      $location.url('course/uploadVideo/'+ $scope.course.id);
+      var url ="/" + $scope.course.tutor.id + "/course/" + $scope.course.id + "/" + module.id+ "/videoUpload";
+      $location.url(url);
     };
 
     $scope.$watch('files', function () {

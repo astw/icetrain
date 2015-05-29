@@ -1,12 +1,16 @@
 'use strict';
 
 angular.module('icetraiFront')
-  .controller('VideoUploadCtrl',[ '$scope', '$http', '$timeout', '$compile','$routeParams', 'Upload', function($scope, $http, $timeout,$routeParams, $compile, Upload, ngFileUpload) {
+  .controller('VideoUploadCtrl',
 
+    function($scope, $http, $timeout,$routeParams, $compile, Upload) {
+      $scope.tutorId = $routeParams.tutorId;
+      $scope.moduleId =$routeParams.moduleId;
+      $scope.courseId = $routeParams.courseId;
+      alert($scope.courseId);
 
-    $scope.courseId = $routeParams.courseId;
-    alert($scope.courseId);
-    alert($routeParams.courseId);
+    ///  /tutorId:/course/:courseId/moduleId/videoUpload
+
 
     $scope.$watch('files', function(files) {
     $scope.formUpload = false;
@@ -41,7 +45,9 @@ angular.module('icetraiFront')
 
   function uploadUsingUpload(file) {
     file.upload = Upload.upload({
-      url: 'http://localhost:1337/upload',
+      url: 'http://localhost:1337/'+$scope.tutorId+'/course/'+$scope.courseId +'/'+$scope.moduleId+"/videoUpload",
+      //url:'http://localhost:1337/file/upload',
+      ///:userid/video/:courseid/sectionid/upload
       method: 'POST',
       headers: {
         'clientkey' : 'my-header-value'
@@ -105,8 +111,7 @@ angular.module('icetraiFront')
     e.preventDefault();
   });
 
-
-  }]);
+  });
 //
 //angular.module('icetraiFront')
 //     .controller('VideoUploadCtrl', ['$scope', 'Upload', function ($scope, Upload) {
