@@ -1,6 +1,12 @@
 'use strict';
 
 angular.module('icetraiFront')
+  .controller('VideoUploadCtrl',[ '$scope', '$http', '$timeout', '$compile','$routeParams', 'Upload', function($scope, $http, $timeout,$routeParams, $compile, Upload, ngFileUpload) {
+
+
+    $scope.courseId = $routeParams.courseId;
+    alert($scope.courseId);
+    alert($routeParams.courseId);
   .controller('VideoUploadCtrl',[ '$scope', '$http', '$timeout', '$compile', 'Upload', function($scope, $http, $timeout, $compile, Upload, ngFileUpload) {
 
     $scope.$watch('files', function(files) {
@@ -23,6 +29,8 @@ angular.module('icetraiFront')
     };
 
     function upload(file) {
+
+
       $scope.errorMsg = null;
       $scope.howToSend = 1;
       if ($scope.howToSend === 1) {

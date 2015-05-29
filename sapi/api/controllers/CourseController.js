@@ -14,7 +14,6 @@ var tokenHelper = require("../services/tokenHelper.js");
 var courseRepository = require("../services/courseRepository/courseRepository.js");
 
 module.exports = {
-
   create: function (req, res) {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
