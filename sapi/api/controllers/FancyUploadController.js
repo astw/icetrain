@@ -153,40 +153,53 @@ module.exports = {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
 
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('received upload:\n\n');
-      res.end(util.inspect({fields: fields, files: files}));
+    var uploadFile = req.file('uploadFile');
+    console.log(uploadFile);
+
+    uploadFile.upload(function onUploadComplete (err, files) {
+      //	Files will be uploaded to .tmp/uploads
+
+      if (err) return res.serverError(err);
+      //	IF ERROR Return and send 500 error with error
+
+      console.log(files);
+      res.json({status:200,file:files});
     });
 
-    form.on('progress', function(bytesReceived, bytesExpected) {
-      var percent_complete = (bytesReceived / bytesExpected) * 100;
-      console.log(percent_complete.toFixed(2));
-    });
-
-    form.on('error', function(err) {
-      console.error(err);
-    });
-
-    form.on('end', function(fields, files) {
-      /* Temporary location of our uploaded file */
-      var temp_path = this.openedFiles[0].path;
-      /* The file name of the uploaded file */
-      var file_name = this.openedFiles[0].name;
-      /* Location where we want to copy the uploaded file */
-      var new_location = 'c:/localhost/nodejs/';
-
-      fs.copy(temp_path, new_location + file_name, function(err) {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log("success!")
-        }
-      });
-    });
-
-    return;
+    //var form = new formidable.IncomingForm();
+    //form.parse(req, function(err, fields, files) {
+    //  res.writeHead(200, {'content-type': 'text/plain'});
+    //  res.write('received upload:\n\n');
+    //  res.end(util.inspect({fields: fields, files: files}));
+    //});
+    //
+    //form.on('progress', function(bytesReceived, bytesExpected) {
+    //  var percent_complete = (bytesReceived / bytesExpected) * 100;
+    //  console.log(percent_complete.toFixed(2));
+    //});
+    //
+    //form.on('error', function(err) {
+    //  console.error(err);
+    //});
+    //
+    //form.on('end', function(fields, files) {
+    //  /* Temporary location of our uploaded file */
+    //  var temp_path = this.openedFiles[0].path;
+    //  /* The file name of the uploaded file */
+    //  var file_name = this.openedFiles[0].name;
+    //  /* Location where we want to copy the uploaded file */
+    //  var new_location = 'c:/localhost/nodejs/';
+    //
+    //  fs.copy(temp_path, new_location + file_name, function(err) {
+    //    if (err) {
+    //      console.error(err);
+    //    } else {
+    //      console.log("success!")
+    //    }
+    //  });
+    //});
+    //
+    //return;
 
 
 
@@ -238,9 +251,10 @@ module.exports = {
     console.log("begin uploading....");
     uploader.post(req, res, function (obj) {
       console.dir(req.body);
-
-      var videoFilePath = path.join(folder, obj.files[0].name);
-      if (obj.files[0].type == "video/mp4") {
+      var filename = req.file('uploadFile')._files[0].stream.filename;
+      var videoFilePath = path.join(folder,filename);
+      var filetype =req.file('uploadFile')._files[0].stream.headers['content-type'];
+      if ( filetype == "video/mp4") {
         processVideoUploading(req, res, obj, sectionId, courseId, tutorId, videoFilePath);
       }
       else{

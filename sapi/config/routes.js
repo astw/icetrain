@@ -45,10 +45,10 @@ module.exports.routes = {
     view: 'login'
   },
 
-  'post /file/upload':"FileController.uploadCourseVideo",
+  'post /file/upload':"FileController.upload",
   'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo",
 
-   "post /:tutorId/course/:courseId/:moduleId/videoUpload" :"FancyUploadController.upload"  //"FileController.uploadCourseVideo"
+   "post /:tutorId/course/:courseId/:moduleId/videoUpload" :"FancyUploadController.uploadCourseVideo"  //"FileController.uploadCourseVideo"
 
 //,"post /upload" : "NgFileUploadController.upload"
 
