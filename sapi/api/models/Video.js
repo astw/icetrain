@@ -36,12 +36,17 @@ module.exports = {
       required: true
     },
 
-    url: {
-      type: "integer"
+    urltoken: {
+      type: "string",
+      defaultsTo:""
     },
 
-    section:{
-      model: "Section"
+    module:{
+      model: "module"
+    },
+
+    tutor:{
+      model:"user"
     },
 
     next: {
@@ -66,16 +71,16 @@ module.exports = {
   },
 
   beforeCreate: function (values, next) {
-    // increate the section duration, and course duration
-    // step 1 findout section
+    // increate the module duration, and course duration
+    // step 1 findout module
 
-    if(values.section) {
-      values.section.duration += values.duration || 0;
-      values.section.save();
+    if(values.model) {
+      values.model.duration += values.duration || 0;
+      values.model.save();
 
-      if(values.section.course){
-      values.course.course.duration += values.duration || 0;
-      values.course.course.save();
+      if(values.model.course){
+      values.model.course.duration += values.duration || 0;
+      values.model.course.save();
       }
     }
     next();

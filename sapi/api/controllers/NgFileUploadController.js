@@ -4,13 +4,28 @@
 
 var formidable = require('formidable');
 
-//var NgFileController = function(){};
-//NgFileController.prototype.upload = function(req,res){
-//  var files = req.files;
-//  console.log(files);
-//}
-var createUploader2 = function (req, dir) {
+var videoOptions = require("./settings/videoFileSettings.js").options;
+var util = require('util');
+var fs = require('fs');
+var path = require("path")
+var root = require('app-root-path') + "";
+var Ffmpeg = require('fluent-ffmpeg');
 
+var randomstring = require("randomstring");
+var courseidKey = "sec for construct course id";
+var sectionKey = "sec for construct couse section id";
+var Hashids = require("hashids"),
+  courseHashids = new Hashids(courseidKey),
+  sectionHashids = new Hashids(sectionKey);
+var urlQuery = require('url');
+var flash = require('connect-flash');
+
+var Busboy = require("busboy");
+var inspect = require('util').inspect; ;
+
+var tokenHelper = require("../services/tokenHelper.js");
+
+var createUploader2 = function (req, dir) {
   dir = dir.replace(/\\/g, "/");
   options.uploadDir = dir;
   options.tmpDir = dir;
@@ -25,7 +40,6 @@ var fs = require('fs');
 var path = require("path")
 var root = require('app-root-path') + "";
 var Ffmpeg = require('fluent-ffmpeg');
-
 
 var createFolder = function (dir) {
   if (!fs.existsSync(dir)) {
@@ -47,7 +61,47 @@ var createMediaFolder = function (tutorId, courseId) {
   return originFolder;
 };
 
+var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId, tutorId, videoFilePath) {
+  Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
+    console.dir(metadata);
+    var duration = 0;
+    metadata.streams.forEach(function (mediaInfo) {
+      if (mediaInfo.codec_type == "video") {
+        duration = mediaInfo.duration;
+        return;
+      }
+    });
 
+    var relativeVideoPath = videoFilePath.replace(root,"");
+    Video.create(
+      {
+        name: mediaFormData.videoname || "  ",
+        tutor: {id:tutorId},
+        course:{id:courseId},
+        module:{id:moduleId},
+        size: mediaFormData.filesize,
+        format: mediaFormData.filetype,
+        duration: duration,
+        path: relativeVideoPath
+      },
+      function (err, data) {
+        if (!!err) {
+          console.log(JSON.stringify(err));
+        }
+
+        var ids = [tutorId, courseId, moduleId, data.id];
+        var idToken = courseHashids.encode(ids);
+        mediaFormData.urltoken = idToken;
+
+        data.urltoken = mediaFormData.urltoken;
+        data.save(function(err){
+          if(err){}
+          else
+            res.send(data);
+        });
+      })
+  });
+};
 module.exports = {
   upload: function (req, res) {
 
@@ -59,41 +113,25 @@ module.exports = {
       //	Files will be uploaded to .tmp/uploads
       if (err) return res.serverError(err);
 
-      var tutorId = req.params.tutorId;
-      var courseId = req.params.courseId;
-      var sectionId = req.params.moduleId;
+      var tutorId = parseInt( req.params.tutorId);
+      var courseId = parseInt(req.params.courseId);
+      var moduleId = parseInt(req.params.moduleId);
 
       var folder = createMediaFolder(tutorId, courseId);
-      console.log(folder);
-      console.log(files);
-      var filesize = files[0].size;
-      var path = files[0].fd;
-      var filename = files[0].filename;
-      res.json({status: 200, file: files});
+      var formObj = {};
+      formObj.filesize = files[0].size;
+      formObj.filename = files[0].filename;
+      formObj.filetype = files[0].type;
+      formObj.videoname = req.body.data.videoname;
+      var filepath = formObj.path = files[0].fd;
 
+      if(formObj.filetype == 'video/mp4'){
+        processVideoUploading(req,res,formObj,moduleId, courseId, tutorId, filepath);
+      }else{
+        res.json({status: 401,Error:"not supported"});
+      }
     })
   }
-}
+};
 
-//
-//module.exports = {
-//  upload: function  (req, res) {
-//    console.log("upload is called");
-//    if(req.method === 'GET')
-//      return res.json({'status':'GET not allowed'});
-//    //	Call to /upload via GET is error
-//
-//    var uploadFile = req.file('file');
-//    console.log(uploadFile);
-//
-//    uploadFile.upload(function onUploadComplete (err, files) {
-//      //	Files will be uploaded to .tmp/uploads
-//
-//      if (err) return res.serverError(err);
-//      //	IF ERROR Return and send 500 error with error
-//
-//      console.log(files);
-//      res.json({status:200,file:files});
-//    });
-//  }
-//};
+

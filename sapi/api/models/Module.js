@@ -32,8 +32,8 @@ module.exports = {
       model: "Module"
     },
 
-    sections: {
-      collection: "Section",
+    videos: {
+      collection: "Video",
       via: "module"
     },
 
@@ -60,11 +60,6 @@ module.exports = {
       type:"string"     // would be used to control for regular user or pay user.
     },
 
-    //toJSON: function () {
-    //  var obj = this.toObject();
-    //  obj.id = this.enId();
-    //  return obj;
-    //},
     enId: function () {
       var obj = this.toObject();
       return tokenHelper.getCourseToken(obj.id);
