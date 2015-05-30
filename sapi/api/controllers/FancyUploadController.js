@@ -13,9 +13,7 @@ var path = require("path")
 var root = require('app-root-path') + "";
 var Ffmpeg = require('fluent-ffmpeg');
 
-
 var randomstring = require("randomstring");
-
 var courseidKey = "sec for construct course id";
 var sectionKey = "sec for construct couse section id";
 var Hashids = require("hashids"),

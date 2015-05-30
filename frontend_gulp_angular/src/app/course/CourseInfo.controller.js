@@ -2,7 +2,7 @@
 
 angular.module('icetraiFront')
 .controller('CourseInfoCtrl',function($http,$scope, $routeParams,$location,  courseRepository, auth){
-    alert($routeParams.id);
+
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
 

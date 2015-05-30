@@ -27,31 +27,51 @@ var root = require('app-root-path') + "";
 var Ffmpeg = require('fluent-ffmpeg');
 
 
+var createFolder = function (dir) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+};
+
+var createMediaFolder = function (tutorId, courseId) {
+
+  var tutorFolder = path.join(root, "media/tutors/", tutorId + "");
+  var tutorCoursesFolder = path.join(tutorFolder, "/courses/");
+  var courseFolder = path.join(tutorCoursesFolder, courseId + "");
+  var originFolder = path.join(courseFolder, "/origin");
+  createFolder(tutorFolder);
+  createFolder(tutorCoursesFolder);
+  createFolder(courseFolder);
+  createFolder(originFolder);
+
+  return originFolder;
+};
+
+
 module.exports = {
   upload: function (req, res) {
-    var files = req.file;
 
-      if (options.uploadDir.indexOf(req.session.id) < 0) {
-        var dir = path.join(options.uploadDir, req.session.id);
-        if (!fs.existsSync(dir)) {
-          fs.mkdirSync(dir);
-        };
+    var uploadFile = req.file('uploadFile');
+    console.log(uploadFile);
+    console.log(req.body.data);
 
-        dir = dir.replace(/\\/g, "/");
-        options.uploadDir = dir;
-        options.tmpDir = dir;
-        options.public = dir;
-        options.uploadUrl = path.join(options.uploadUrl, req.session.id, "/").replace(/\\/g, "/");
-      }
-      var uploader = require('blueimp-file-upload-expressjs')(options);
-    uploader.post(req, res, function (obj) {
-      console.log(req.body);
-      res.send(JSON.stringify(obj));
-    });
+    uploadFile.upload(function onUploadComplete(err, files) {
+      //	Files will be uploaded to .tmp/uploads
+      if (err) return res.serverError(err);
 
-    console.log(files);
-    console.log(files.name);
-    console.log(files.type);
+      var tutorId = req.params.tutorId;
+      var courseId = req.params.courseId;
+      var sectionId = req.params.moduleId;
+
+      var folder = createMediaFolder(tutorId, courseId);
+      console.log(folder);
+      console.log(files);
+      var filesize = files[0].size;
+      var path = files[0].fd;
+      var filename = files[0].filename;
+      res.json({status: 200, file: files});
+
+    })
   }
 }
 
