@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('icetraiFront').controller('VideoUploadCtrl',
+angular.module('icetraiFront').controller('VideoUploadCtrl',function($scope, $http,$routeParams,$timeout, Upload, relayService) {
 
-    function($scope, $http, $timeout,$routeParams, $compile, Upload) {
       $scope.tutorId = $routeParams.tutorId;
       $scope.moduleId = $routeParams.moduleId;
       $scope.courseId = $routeParams.courseId;
+
+     console.log(relayService.get()) ;
+     $scope.module = relayService.get();
 
       $scope.$watch('files', function (files) {
         $scope.formUpload = false;
@@ -26,8 +28,11 @@ angular.module('icetraiFront').controller('VideoUploadCtrl',
         }
       };
 
-      function upload(file) {
+      $scope.upload = function(file){
+        upload(file);
+      };
 
+       function upload(file) {
         $scope.errorMsg = null;
         $scope.howToSend = 1;
         if ($scope.howToSend === 1) {
@@ -37,17 +42,14 @@ angular.module('icetraiFront').controller('VideoUploadCtrl',
         }
       }
 
-      function uploadUsingUpload(file) {
+    function uploadUsingUpload(file) {
         file.upload = Upload.upload({
           url: 'http://localhost:1337/' + $scope.tutorId + '/course/' + $scope.courseId + '/' + $scope.moduleId + "/videoUpload",
-          //url:'http://localhost:1337/file/upload',
-          ///:userid/video/:courseid/sectionid/upload
           method: 'POST',
           headers: {
             'clientkey': 'my-header-value'
           },
-        //  fields: {username: $scope.username},
-          data: {'course-name': 'this is the course name'},
+          data: {'videoname': 'this is the videoname'},
           file: file,
           fileFormDataName: 'uploadFile'
         });

@@ -1,7 +1,7 @@
 
 
 angular.module('icetraiFront')
-.controller('CourseInfoCtrl',function($http,$scope, $routeParams,$location,  courseRepository, auth){
+.controller('CourseInfoCtrl',function($http,$scope, $routeParams,$location,$timeout, Upload,  courseRepository, auth,relayService){
 
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
@@ -16,9 +16,11 @@ angular.module('icetraiFront')
         console.log(res.data);
         if(res.status == 200) {
           $scope.course = res.data;
+          relayService.put(res.data);
         }
         else{
           $scope.course = null;
+          relayService.put(null);
         };
       });
 
@@ -97,35 +99,126 @@ angular.module('icetraiFront')
       $scope.showCourseInfoDiv = false;
       $scope.showModuleDiv = false;
       $scope.showVideoUploadDiv = true;
+      $scope.module = module;
+      relayService.put(module);
+
 
       var url ="/" + $scope.course.tutor.id + "/course/" + $scope.course.id + "/" + module.id+ "/videoUpload";
-      $location.url(url);
+     // $location.url(url);
     };
 
-    $scope.$watch('files', function () {
-      $scope.upload($scope.files);
-    });
-    $scope.log = '';
 
-    $scope.upload = function (files) {
-      if (files && files.length) {
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          Upload.upload({
-            url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-            fields: {
-              'username': $scope.username
-            },
-            file: file
-          }).progress(function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-
-            file.progress = progressPercentage ;
-          }).success(function (data, status, headers, config) {
-
-            $scope.$apply();
-          });
+    $scope.uploadAll = function(){
+      $scope.formUpload = false;
+        if ($scope.files != null) {
+          for (var i = 0; i < $scope.files.length; i++) {
+            $scope.errorMsg = null;
+            (function (file) {
+              upload(file);
+            })($scope.files[i]);
+          }
         }
+    },
+
+    //$scope.$watch('files', function (files) {
+    //  $scope.formUpload = false;
+    //  if (files != null) {
+    //    for (var i = 0; i < files.length; i++) {
+    //      $scope.errorMsg = null;
+    //      (function (file) {
+    //        upload(file);
+    //      })(files[i]);
+    //    }
+    //  }
+    //});
+
+    $scope.uploadPic = function (files) {
+      $scope.formUpload = true;
+      if (files != null) {
+        upload(files[0])
       }
     };
+
+    $scope.upload = function(file){
+      upload(file);
+    };
+
+    function upload(file) {
+      $scope.errorMsg = null;
+      $scope.howToSend = 1;
+      if ($scope.howToSend === 1) {
+        uploadUsingUpload(file);
+      } else if ($scope.howToSend == 2) {
+        uploadUsing$http(file);
+      }
+    }
+
+    function uploadUsingUpload(file) {
+      var tutorId = $scope.course.tutor.id;
+      var courseId = $scope.course.id;
+      var moduleId = $scope.module.id;
+
+      file.upload = Upload.upload({
+        url: 'http://localhost:1337/' + tutorId + '/course/' + courseId + '/' + moduleId + "/videoUpload",
+        method: 'POST',
+        headers: {
+          'clientkey': 'my-header-value'
+        },
+        data: {videoname: 'this is the videoname'},
+        file: file,
+        fileFormDataName: 'uploadFile'
+      });
+
+      file.upload.then(function (response) {
+        $timeout(function () {
+          file.result = response.data;
+        });
+      }, function (response) {
+        console.dir("error" + response);
+        if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+      });
+
+      file.upload.progress(function (evt) {
+        // Math.min is to fix IE which reports 200% sometimes
+        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+
+      file.upload.xhr(function (xhr) {
+        // xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
+      });
+    }
+
+    function uploadUsing$http(file) {
+      file.upload = Upload.http({
+        url: 'http://localhost:1337/' + $scope.tutorId + '/course/' + $scope.courseId + '/' + $scope.moduleId + "/videoUpload",
+        //url: 'http://localhost:1337/upload' ,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',   //file.type,
+          'clientkey': 'this is clientkey'
+        },
+        data: {username: $scope.username},
+        file: file
+      });
+
+      file.upload.then(function (response) {
+        file.result = response.data;
+      }, function (response) {
+        if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+      });
+
+      file.upload.progress(function (evt) {
+        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+    }
+
+    angular.element(window).bind('dragover', function (e) {
+      e.preventDefault();
+    });
+    angular.element(window).bind('drop', function (e) {
+      e.preventDefault();
+    })
+
   });

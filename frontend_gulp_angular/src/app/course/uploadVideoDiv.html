@@ -20,15 +20,11 @@
 
 <div class="container">
   <div class="row">
-    <div ng-include="'app/components/navbar/navbar.html'"></div>
-  </div>
-
-
-  <div class="row">
     <div class="col-md-12">
       <fieldset>
-        <legend>上传教学视频到</legend>
-        <div class="col-md-9">
+        <legend>上传教学视频到: 章节 {{module.name}}</legend>
+
+         <div class="col-md-9">
          <div ngf-select ngf-drop=""
            ng-model="files"
            ng-model-rejected="rejFiles"
@@ -44,7 +40,14 @@
            class="drop-box ng-pristine ng-untouched ng-valid"
            accept="application/*"
            ngf-drop-available="dropAvailable">
-         Select File  <span ng-show="dropAvailable">or Drop</span>
+          <span class = 'btn btn-success fileinput=button' >
+            <i class="glyphicon glyphicon-plus" />asdsad
+          </span>
+            Select File  <span ng-show="dropAvailable">or
+           <span class = 'btn btn-success fileinput=button' >
+            <img src="/assets/images/drop_box_folder_graphite.ico"/>
+          </span>
+         </span>
          </div>
           <div>
             <input type="hidden" name="courseId" value= {{courseId}} />
@@ -70,8 +73,5 @@
           </div>
        </fieldset>
   <hr>
-  <div class="footer">
-    <p>With ♥ from <a href="https://twitter.com/Swiip">@Swiip</a></p>
-  </div>
 </div>
 
