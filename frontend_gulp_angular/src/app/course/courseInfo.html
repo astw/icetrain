@@ -117,9 +117,9 @@
               <div class="col-md-1"> </div>
 
               <div class="col-md-7">
-                <label>输入视频简介</label>
-              <textarea  class="form-control"  type="text"  ng-model="sectionName" ng-minlength="50" class="ng-pristine ng-valid ng-valid-required">
-              </textarea>
+                <label>输入视频简介</label> {{$index}}
+              <input  class="form-control"  type="text"
+                      ng-model="videoNames[$index]" ng-minlength="5" class="ng-pristine ng-valid ng-valid-required" />
 
               <span class="progress" ng-show="f.progress >= 0">
               <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'" class="ng-binding"></div>

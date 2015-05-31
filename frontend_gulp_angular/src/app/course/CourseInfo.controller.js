@@ -11,6 +11,8 @@ angular.module('icetraiFront')
     $scope.showVideoUploadDiv = false;
     var verb ='get';
 
+    $scope.videoNames = [0,1,2];
+
     courseRepository.getCourseById(courseId)
       .then(function(res){
         console.log(res.data);
@@ -107,7 +109,6 @@ angular.module('icetraiFront')
      // $location.url(url);
     };
 
-
     $scope.uploadAll = function(){
       $scope.formUpload = false;
         if ($scope.files != null) {
@@ -154,6 +155,11 @@ angular.module('icetraiFront')
     }
 
     function uploadUsingUpload(file) {
+
+      console.log($scope.videoNames[0]);
+
+      var index = $scope.files.indexOf(file);
+
       var tutorId = $scope.course.tutor.id;
       var courseId = $scope.course.id;
       var moduleId = $scope.module.id;
@@ -164,7 +170,7 @@ angular.module('icetraiFront')
         headers: {
           'clientkey': 'my-header-value'
         },
-        data: {videoname: 'this is the videoname'},
+        data: {videoname: $scope.videoNames[index]},
         file: file,
         fileFormDataName: 'uploadFile'
       });
