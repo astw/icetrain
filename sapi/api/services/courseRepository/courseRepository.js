@@ -174,10 +174,10 @@ var getCourseById = function(courseId){
       defer.reject(new Error(err));
     }
     else {
-      userRepository.getUserById(course.tutorid).then(function(tutor){
+      userRepository.getUserById(course.tutor).then(function(tutor){
         course.tutor = tutor;
-        CourseSection.find({courseid:course.id}).then(function(sections){
-          course.sections = sections;
+        Module.find({course:course.id}).then(function(modules){
+          course.modules = modules;
           defer.resolve(course);
         })
       });

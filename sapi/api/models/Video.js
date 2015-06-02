@@ -42,11 +42,11 @@ module.exports = {
     },
 
     module:{
-      model: "module"
+      model: "Module"
     },
 
     tutor:{
-      model:"user"
+      model:"User"
     },
 
     next: {

@@ -60,6 +60,16 @@ module.exports = {
       type:"string"     // would be used to control for regular user or pay user.
     },
 
+    getVideos: function () {
+      var obj = this.toObject();
+      var defer = Q.defer();
+      Video.find({module:obj})
+        .then(function (videos) {
+          defer.resolve(videos);
+        });
+      return defer.promise;
+    },
+
     enId: function () {
       var obj = this.toObject();
       return tokenHelper.getCourseToken(obj.id);

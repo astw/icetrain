@@ -5,6 +5,7 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var Q = require("q");
 var courseidKey = "sec for construct course id";
 var Hashids = require("hashids"),
   hashids = new Hashids(courseidKey),
@@ -13,7 +14,49 @@ var Hashids = require("hashids"),
 var tokenHelper = require("../services/tokenHelper.js");
 var courseRepository = require("../services/courseRepository/courseRepository.js");
 
+var getCourseByTutor = function(tutorId){
+  var result = [];
+  return Course.find({tutorid: tutorId})
+    .then(function (courses) {
+      courses.forEach(function (course) {
+        result.push(
+          course.getSections().then(function (sections) {
+            course.sections = sections;
+            return course;
+          }));
+      });
+      return Q.all(result);
+    });
+};
+
+var getCourseModules = function(req, res) {
+
+  var courseId = parseInt(req.params.id);
+  var defer = Q.defer();
+  Module.find({id:courseId}).then(function (modules) {
+    defer.resolve(modules);
+  });
+   return defer.promise;
+};
+
+getCourseById = function(req, res){
+  var enId = req.params.enId ;
+  var courseId = tokenHelper.getCourseId(enId)[0];
+  if(courseId != null) {
+    courseRepository.getCourseById(courseId).then(function (course) {
+        res.view("courseInfo", {course: course});
+      }
+    );
+  }
+  else{
+    res.view("error");
+  }
+}
+
 module.exports = {
+
+  getCourseById : getCourseById,
+  getCourseModules: getCourseModules,
   create: function (req, res) {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
