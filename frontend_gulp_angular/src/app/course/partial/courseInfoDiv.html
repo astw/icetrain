@@ -50,8 +50,10 @@
           <div id="{{module.id}}" class="panel-collapse collapse in">
             <div class="panel-body">
               {{module.desc}}des
-              <div ng-repeat="video in module.videoCollection">
-                {{video.name}}, {{video.urltoken}}
+              <div ng-repeat="video in module.videoCollection"  style="background:#829aa8;height:30px; margin: 5px">
+                <div>
+                  <img width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}}, {{video.urltoken}}
+                </div>
               </div>
             </div>
           </div>
