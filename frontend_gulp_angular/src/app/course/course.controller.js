@@ -11,7 +11,14 @@ angular.module('icetraiFront')
     var user = auth.currentUser();
     console.log(user.displayName);
     courseRepository.getUserCourses(user.id).then(function onSuccess(res){
+       res.data.forEach(function(course){
+           courseRepository.getCourseModules(course).then(function(modules){
+             course.modules = modules;
+           });
+       });
+
         $scope.courses = res.data;
+
     })
     .catch(function onError(res){
       console.log(res);
@@ -28,4 +35,5 @@ angular.module('icetraiFront')
     $scope.uploadVideo = function(files){
       alert(files);
     }
+
   });

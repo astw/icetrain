@@ -17,6 +17,15 @@ angular.module('icetraiFront')
       .then(function(res){
         console.log(res.data);
         if(res.status == 200) {
+          res.data.modules.forEach(function(module){
+            console.log(module.vidoes);
+            courseRepository.getCourseModules(res.data).then(function(moduleRes){
+              res.data.complexModules = moduleRes.data;
+              $scope.course = res.data;
+              console.log(res.data);
+            });
+          });
+
           $scope.course = res.data;
           relayService.put(res.data);
         }

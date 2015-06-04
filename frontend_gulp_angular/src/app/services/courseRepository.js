@@ -23,6 +23,25 @@ angular.module('icetraiFront')
       return dfd.promise;
     };
 
+    this.getCourseModules = function(course) {
+      var API_URL = 'http://localhost:1337/';
+      var cid = course.id;
+
+      var url = API_URL + "courses/" + cid + "/modules/";
+      var headers = {
+        clientkey: 'this is the client key'
+      };
+
+      var dfd = $q.defer();
+      $http.get(url, {headers: headers})
+        .then(function (res) {
+          console.log(res);
+          dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+
     this.updateCourse = function (courseInfo, uid) {
       var url = API_URL + "course/"
       var headers = {

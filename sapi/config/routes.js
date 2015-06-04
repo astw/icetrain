@@ -49,7 +49,8 @@ module.exports.routes = {
   'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo",
 
    "post /:tutorId/course/:courseId/:moduleId/videoUpload" :"NgFileUploadController.upload"  //"FancyUploadController.uploadCourseVideo"  //
-, 'get /courses/:id/modules/' :'CourseController.getCourseModules'
+, 'get /courses/:id/modules' :'CourseController.getCourseModules'
+, 'get /courses/:id' :'CourseController.getCourseById'
 
 //,"post /upload" : "NgFileUploadController.upload"
 
@@ -96,7 +97,7 @@ module.exports.routes = {
   ///////////////////////////////////////////////////////////////////////////////////
   //
   //"get /courses/byuser/:userId" : "CourseController.getUserCourses",
-  ,"get /courses/byid/:enId": "CourseController.getCourseById"
+  //,"get /courses/byid/:enId": "CourseController.getCourseById"
   //
   //"get /courses/edit/:enId" : "CourseController.updateCourseById",
   //"post /courses/edit/:enId" : "CourseController.updateCourseById",
