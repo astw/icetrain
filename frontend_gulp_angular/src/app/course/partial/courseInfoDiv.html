@@ -26,42 +26,39 @@
       <div class="panel-group" id="accordion">
         <div class="panel panel-default" ng-repeat="module in course.complexModules" ng-click="toggleModule(module)">
           <div class="panel-heading">
-            <p class="nav" style="display: block; left: 1436px;" data-section-title="">
-              <span class="ui-play-module play-module small button"
-                    ng-class="getEnabledClassIfAuthorized(module.userMayViewFirstClip)" ng-click="">
-
-                  <span class="glyphicons glyphicons-plus">sssss</span>
+             <h4 class="panel-title">
+               <div>
+                 <a data-toggle="collapse"  data-parent="#accordion" href="#body_{{module.id}}">{{module.name}}</a>
                   <span>
                     <span class="list-itme glyphicon glyphicons-plus pull-right"   ng-click="addVideos(module)">
                       <img width="16" height="16" alt="ddd"  title="增加教学视频"  lt="增加教学视频" src="assets/images/add.ico">
                     </span>
-
                     <span class="list-itme glyphicon glyphicons-plus pull-right"
                           ng-click="editModule(module)"><img width="16" height="16" title="编辑本节" alt="编辑本节" src="assets/images/edit-1.ico"> </span>
-
                   <span class="list-itme glyphicon glyphicons-plus pull-right"
                         ng-click="deleteModule(module)"><img width="16" height="16"  title="删除本节"  alt="删除本节" src="assets/images/delete.ico"> </span>
                   </span>
-
-                  <a data-toggle="collapse" data-parent="#accordion" href="#{{module.id}}">{{module.name}}</a>
-              </span>
-            </p>
-
-          <div id="{{module.id}}" class="panel-collapse collapse in">
-            <div class="panel-body">
-              {{module.desc}}des
-              <div ng-repeat="video in module.videoCollection"  style="background:#829aa8;height:30px; margin: 5px">
-                <div>
-                  <img width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}}, {{video.urltoken}}
-                </div>
-              </div>
+               </div>
+             </h4>
             </div>
-          </div>
+            <div id="body_{{module.id}}" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  {{module.desc}}des
+                  <div ng-repeat="video in module.videoCollection"  style="background:#ffffff;height:30px; margin-top: 10px; margin-bottom: 10px; margin-left: 0px">
+                    <div>
+                      <img width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}}, {{video.urltoken}}
+                      <span class=" pull-right">
+                        <img src="/assets/images/delete-1.ico"  height="16px" width="16px"  title="删除视频" alt="删除视频" ng-click="deleteVideo(video)" >
+                        <img src="/assets/images/favorites.ico" height="16px" width="16px"  title="收藏" alt="收藏" ng-click="bookMark(video)">
+                        {{video.duration}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="col-lg-1">
 
     </div>
@@ -100,5 +97,4 @@
         </table>
       </div>
     </div>
-  </div>
-
+ </div>

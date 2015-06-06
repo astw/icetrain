@@ -21,6 +21,7 @@ angular.module('icetraiFront')
             console.log(module.vidoes);
             courseRepository.getCourseModules(res.data).then(function(moduleRes){
               res.data.complexModules = moduleRes.data;
+              console.log(res.data.complexModules);
               $scope.course = res.data;
               console.log(res.data);
             });
@@ -34,6 +35,7 @@ angular.module('icetraiFront')
           relayService.put(null);
         };
       });
+
 
     $scope.toggleModule = function(module){
       module.show = !module.show;
@@ -117,6 +119,14 @@ angular.module('icetraiFront')
       var url ="/" + $scope.course.tutor.id + "/course/" + $scope.course.id + "/" + module.id+ "/videoUpload";
      // $location.url(url);
     };
+
+    $scope.deleteVideo = function(video){
+
+    }
+
+    $scope.bookMark = function(video){
+
+    }
 
     $scope.uploadAll = function(){
       $scope.formUpload = false;
