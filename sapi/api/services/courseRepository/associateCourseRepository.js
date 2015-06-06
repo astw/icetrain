@@ -36,7 +36,7 @@ fillVideoInfo = function(modules){
 var getCourseModules = function(req, res) {
   var courseId = parseInt(req.params.id);
   var defer = Q.defer();
-  Module.find({id:courseId}).then(function (modules) {
+  Module.find({course:courseId}).then(function (modules) {
     defer.resolve(modules);
   });
   return defer.promise;
