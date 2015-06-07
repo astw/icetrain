@@ -27,7 +27,12 @@ fillVideoInfo = function(modules){
   modules.forEach(function (module) {
     result.push(
       Video.find({module:module.id}).then(function (videos) {
-        module.videoCollection = videos;return module;
+        videos.forEach(function(video){
+          delete video.path;
+          video.id = video.playtoken();
+        });
+        module.videoCollection = videos;
+        return module;
       }));
   });
 

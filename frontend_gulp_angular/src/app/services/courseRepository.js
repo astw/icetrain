@@ -7,10 +7,17 @@ angular.module('icetraiFront')
 .service('courseRepository',function($http,$q,authToken,auth, $cookieStore) {
     var API_URL = 'http://localhost:1337/'
 
+    var getAuthHeader = function (uid){
+      var token = authToken.getToken();
+      if (token)
+       return  'Bearer ' + token;
+    };
+
     this.getCourseById = function (cid) {
       var url = API_URL + "course/" + cid;
       var headers = {
-        clientkey: 'this is the client key'
+        clientkey: 'this is the client key',
+        Authorization:getAuthHeader()
       };
 
       var dfd = $q.defer();
@@ -29,7 +36,8 @@ angular.module('icetraiFront')
 
       var url = API_URL + "courses/" + cid + "/modules/";
       var headers = {
-        clientkey: 'this is the client key'
+        clientkey: 'this is the client key',
+        Authorization:getAuthHeader()
       };
 
       var dfd = $q.defer();
@@ -46,7 +54,8 @@ angular.module('icetraiFront')
       var url = API_URL + "course/"
       var headers = {
         clientkey: 'this is the client key',
-        uid:uid
+        uid:uid,
+        Authorization:getAuthHeader()
       };
 
       var dfd = $q.defer();
@@ -65,7 +74,8 @@ angular.module('icetraiFront')
 
       var headers = {
         clientkey: 'this is the client key',
-        uid: uid
+        uid: uid,
+        Authorization:getAuthHeader()
       };
 
       var dfd = $q.defer();
@@ -79,13 +89,30 @@ angular.module('icetraiFront')
       return dfd.promise;
     };
 
+    this.deleteVideo = function(video,user){
+      var urlToken = video.urltoken;
+      var url = API_URL + 'delete-video/'+ user.id + "/" +  urlToken;
+      var headers = {
+        clientkey: 'this is the client key',
+        uid: user.id,
+        Authorization:getAuthHeader()
+      };
+      var dfd = $q.defer();
+      $http.delete(url,{headers:headers}).then(function(res){
+        dfd.resolve(res);
+      });
+
+      return dfd.promise;
+    };
+
     this.deleteModule = function(module,user){
       var url = API_URL + 'module/' + module.id;
       var sessionToken = authToken.getToken();
 
       var headers = {
         clientkey: 'this is the client key',
-        uid: user.id
+        uid: user.id,
+        Authorization:getAuthHeader()
       };
       var dfd = $q.defer();
       $http.delete(url,{headers:headers}).then(function(res){
@@ -101,7 +128,8 @@ angular.module('icetraiFront')
 
       var headers = {
         clientkey: 'this is the client key',
-        uid: user.id
+        uid: user.id,
+        Authorization:getAuthHeader()
       };
 
       var dfd = $q.defer();
@@ -120,7 +148,8 @@ angular.module('icetraiFront')
 
       var headers = {
         clientkey: 'this is the client key',
-        uid: user.id
+        uid: user.id,
+        Authorization:getAuthHeader()
       };
 
       var dfd = $q.defer();

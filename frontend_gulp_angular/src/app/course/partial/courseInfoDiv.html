@@ -46,7 +46,9 @@
                   {{module.desc}}des
                   <div ng-repeat="video in module.videoCollection"  style="background:#ffffff;height:30px; margin-top: 10px; margin-bottom: 10px; margin-left: 0px">
                     <div>
-                      <img width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}}, {{video.urltoken}}
+                      <a href="/mediaServer/video/stream/{{video.id}}">
+                      <img alt="播放" title="播放" width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}}, {{video.urltoken}}
+                      </a>
                       <span class=" pull-right">
                         <img src="/assets/images/delete-1.ico"  height="16px" width="16px"  title="删除视频" alt="删除视频" ng-click="deleteVideo(video)" >
                         <img src="/assets/images/favorites.ico" height="16px" width="16px"  title="收藏" alt="收藏" ng-click="bookMark(video)">

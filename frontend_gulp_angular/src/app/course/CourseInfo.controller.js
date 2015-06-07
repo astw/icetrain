@@ -121,12 +121,17 @@ angular.module('icetraiFront')
     };
 
     $scope.deleteVideo = function(video){
-
+      courseRepository.deleteVideo(video,$scope.user).then(function(res){
+        console.log(res);
+      });
     }
 
     $scope.bookMark = function(video){
 
-    }
+      courseRepository.deleteVideo(video,$scope.user).then(function(res){
+          console.log(res);
+      });
+    };
 
     $scope.uploadAll = function(){
       $scope.formUpload = false;
