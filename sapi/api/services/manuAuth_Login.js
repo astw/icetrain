@@ -33,6 +33,9 @@ module.exports = {
             message: "username or password invalid."
           });
         }
+        var oldDateObj = new Date();
+        var newDateObj = new Date(oldDateObj.getTime() + 60000);
+        req.session.cookie.expires = newDateObj;
         req.session.user = foundUser;
         createSendToken(foundUser, res,200);
       });

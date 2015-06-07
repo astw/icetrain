@@ -33,7 +33,11 @@ module.exports.policies = {
         //"create":['checkClientKey','jwtAuth','checkWritePermission'],
         //"update":['checkClientKey','jwtAuth','checkWritePermission'],
         //"destroy":['checkClientKey','jwtAuth','checkWritePermission']
-    }
+    },
+
+   "NgFileUploadController" :{
+     'deleteVideo':['jwtAuth']
+   }
 
 
   /***************************************************************************

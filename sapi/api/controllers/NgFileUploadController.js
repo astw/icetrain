@@ -48,7 +48,6 @@ var createFolder = function (dir) {
 };
 
 var createMediaFolder = function (tutorId, courseId) {
-
   var tutorFolder = path.join(root, "media/tutors/", tutorId + "");
   var tutorCoursesFolder = path.join(tutorFolder, "/courses/");
   var courseFolder = path.join(tutorCoursesFolder, courseId + "");
@@ -71,7 +70,6 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
       }
     });
 
-    console.log('videoname=' + mediaFormData.videoname);
     var relativeVideoPath = videoFilePath.replace(root,"");
     Video.create(
       {
@@ -102,9 +100,8 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
       })
   });
 };
-module.exports = {
-  upload: function (req, res) {
 
+var uploadVideo = function(req,res){
     var uploadFile = req.file('uploadFile');
     console.log(req.body.data);
 
@@ -121,9 +118,8 @@ module.exports = {
       formObj.filesize = files[0].size;
       formObj.filename = files[0].filename;
       formObj.filetype = files[0].type;
-      console.log(req.body.data)
+      console.log(req.body.data);
       if(req.body.data){
-
         formObj.videoname = JSON.parse(req.body.data).videoname;
       }
       else
@@ -137,7 +133,37 @@ module.exports = {
         res.json({status: 401,Error:"not supported"});
       }
     })
-  }
+};
+
+var deleteVideo = function(req, res){
+  if(req.method != 'DELETE')
+    return res.json({'status':'GET not allowed'});
+
+  var urlToken = req.params.urlToken;
+  var tutorId = parseInt(req.params.tutorId);
+  if( !urlToken || !tutorId ){
+    return res.json({status:400, Error:'Error operation'});
+  };
+
+  var currentUserId = req.session.userid;
+  //var ids = [tutorId, courseId, moduleId, data.id];
+  var ids = courseHashids.decode(urlToken);
+  if(ids[0] != tutorId || currentUserId != tutorId){
+    return res.json({status:401, Error:'Unauthorized operation'});
+  };
+
+  Video.destroy({urltoken:urlToken,tutor:tutorId}).exec(function (err, video) {
+    if(err) {
+      return res.json({status: 404, Error: 'Not found'});
+    }
+
+    return res.json({status:200, Video:video});
+  });
+ };
+
+module.exports = {
+  upload: uploadVideo,
+  deleteVideo : deleteVideo
 };
 
 

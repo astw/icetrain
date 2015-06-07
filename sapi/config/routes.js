@@ -51,6 +51,7 @@ module.exports.routes = {
    "post /:tutorId/course/:courseId/:moduleId/videoUpload" :"NgFileUploadController.upload"  //"FancyUploadController.uploadCourseVideo"  //
 , 'get /courses/:id/modules' :'CourseController.getCourseModules'
 , 'get /courses/:id' :'CourseController.getCourseById'
+, "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
 
 //,"post /upload" : "NgFileUploadController.upload"
 
