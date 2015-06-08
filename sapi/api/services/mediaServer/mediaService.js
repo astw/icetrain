@@ -18,6 +18,8 @@ module.exports =  {
             res.end("");
         }
 
+        console.log(mediaInfo);
+
         var url = mediaInfo.path;
 
         var data = cache[url];
