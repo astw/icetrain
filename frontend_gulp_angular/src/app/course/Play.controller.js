@@ -4,10 +4,13 @@
 'use strict';
 
 angular.module('icetraiFront')
-  .controller('PlayCtrl', function ($scope, $http,$location,auth, courseRepository) {
+  .controller('PlayCtrl', function ($scope, $http,$location, $sce, auth, courseRepository) {
 
     var MediaServer = "http://localhost:1337";
-    $scope.vidoUrl = MediaServer + $location.url();
+    $scope.videoUrl = MediaServer + $location.url();
+    console.log('inside PlayCtrl');
+    console.log($scope.videoUrl);
+
 
     //var url = API_URL + 'module/' + moduleInfo.id;
     //var sessionToken = authToken.getToken();
@@ -26,6 +29,9 @@ angular.module('icetraiFront')
     //  });
 
 
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  }
 
 
 
