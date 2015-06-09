@@ -1,6 +1,6 @@
 /**
  * Created by Administrator on 24/05/2015.
- */ 
+ */
 var formidable = require('formidable');
 
 var videoOptions = require("./settings/videoFileSettings.js").options;
@@ -124,20 +124,20 @@ var uploadVideo = function(req,res){
       else
         formObj.videoname = '';
 
-      var filepath = formObj.path = files[0].fd; 
+      var filepath = formObj.path = files[0].fd;
       console.log(folder);
       console.log(filepath);
-      
-      var baseFileName = path.basename(filepath); 
-      var extname = path.extname(filepath);  
+
+      var baseFileName = path.basename(filepath);
+      var extname = path.extname(filepath);
 
       var targetfile = path.join(folder,baseFileName);
       console.log(targetfile);
-  
+
       fs.createReadStream(filepath).pipe(fs.createWriteStream(targetfile));
 
       if(formObj.filetype == 'video/mp4'){
-        processVideoUploading(req,res,formObj,moduleId, courseId, tutorId, filepath);
+        processVideoUploading(req,res,formObj,moduleId, courseId, tutorId, targetfile);
       }else{
         res.json({status: 401,Error:"not supported"});
       }

@@ -28,8 +28,8 @@ fillVideoInfo = function(modules){
     result.push(
       Video.find({module:module.id}).then(function (videos) {
         videos.forEach(function(video){
-          delete video.path;
           video.id = video.playtoken();
+          delete video.path;
         });
         module.videoCollection = videos;
         return module;

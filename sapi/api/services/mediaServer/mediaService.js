@@ -10,39 +10,39 @@ var cache = Object();  // {}
 
 module.exports =  {
 
-     playVideo :function(req, res){
+     playVideo :function(req, res) {
 
-        var token = req.params.token;
-        var mediaInfo = mediaTokenHelper.getVideoInfo(token);
-        if(!mediaInfo){
-            res.end("");
-        }
+       var token = req.params.token;
+       console.log(token);
+       //var mediaInfo = mediaTokenHelper.getVideoInfo(token);
+       //if(!mediaInfo){
+       //  res.end("");
+       // console.log(mediaInfo);
+       //var url = mediaInfo.path;
 
-        console.log(mediaInfo);
+       var data = cache[token];
+       if (data == null) {
+         Video.findOne({urltoken: token}).then(function (video) {
+           var mediaPath = video.path;
 
-        var url = mediaInfo.path;
+           console.log(video);
+           console.log("root=" + root);
+           var mediaPath= path.join(root,mediaPath);
+           console.log( mediaPath );
 
-        var data = cache[url];
-
-        if(data == null)
-        {
-            console.log("root=" + root);
-            console.log(url);
-            var mediaPath= path.join(root,url);
-            console.log( mediaPath );
-
-            fs.readFile(mediaPath, function (err, data) {
-                if (err) {
-                    throw err;
-                }
-                cache[url] = data;
-                res.writeHead(200, { 'Content-Length': data.length, 'Content-Type': 'video/mp4' });
-                res.end(data);
-            });
-        }
-         else{
-            res.writeHead(200, { 'Content-Length': data.length, 'Content-Type': 'video/mp4' })
-            res.end(data);
-        }
-    }
-}
+           fs.readFile(mediaPath, function (err, data) {
+             if (err) {
+               throw err;
+             }
+             cache[token] = data;
+             res.writeHead(200, {'Content-Length': data.length, 'Content-Type': 'video/mp4'});
+             res.end(data);
+           });
+         })
+       }
+       else {
+         res.writeHead(200, {'Content-Length': data.length, 'Content-Type': 'video/mp4'});
+         res.end(data);
+       }
+     }
+};
