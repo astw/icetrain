@@ -151,10 +151,16 @@ module.exports = {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
 
+    var uploadOptions = {
+     // dirname: 'D:/Khufu_I/Videos',
+      maxBytes:100000000
+    };
+
     var uploadFile = req.file('uploadFile');
     console.log(uploadFile);
 
-    uploadFile.upload(function onUploadComplete (err, files) {
+
+    uploadFile.upload(uploadOptions, function onUploadComplete (err, files) {
       //	Files will be uploaded to .tmp/uploads
 
       if (err) return res.serverError(err);

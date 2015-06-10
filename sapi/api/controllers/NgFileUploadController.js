@@ -104,7 +104,11 @@ var uploadVideo = function(req,res){
     var uploadFile = req.file('uploadFile');
     console.log(req.body.data);
 
-    uploadFile.upload(function onUploadComplete(err, files) {
+    var uploadOptions = {
+      // dirname: 'D:/Khufu_I/Videos',
+      maxBytes:100000000
+    };
+    uploadFile.upload(uploadOptions,function onUploadComplete(err, files) {
       //	Files will be uploaded to .tmp/uploads
       if (err) return res.serverError(err);
 
