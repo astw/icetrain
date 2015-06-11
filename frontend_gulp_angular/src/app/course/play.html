@@ -3,7 +3,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/assets/css/blueimp-gallery.min.css">
-
+<link ref="stylesheet" href="/assets/css/player.css">
+<link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/4.12/video.js"></script>
+<script>
+  videojs.options.flash.swf = "video-js.swf";
+</script>
 <style>
   .center {
     alignment: center;
@@ -24,9 +29,326 @@
     <div ng-include="'app/components/navbar/navbar.html'"></div>
   </div>
 
-  <video  controls>
-    <source ng-src="{{trustSrc(videoUrl)}}" type="video/mp4">
-    Your browser does not support HTML5 video.
+  <div id="palyer-box" class="cf guandeng-mos">
+    <h1 img="http://a1.jikexueyuan.com/home/201505/14/95cb/5553facb364ec.jpg" style="color: rgb(53, 181, 88);">Go
+      语言函数概述</h1>
+
+    <div class="videobox player-video" time="403" seq="1" lesson_count="6" course_id="895">
+      <!--<video id="example_video_3" class="video-js vjs-default-skin" controls preload="none" width="640" height="264"-->
+             <!--poster="http://video-js.zencoder.com/oceans-clip.png"-->
+             <!--data-setup="{}">-->
+        <!--<source src="{{trustSrc(videoUrl)}}" type="video/mp4"  />-->
+        <!--<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>-->
+      <!--</video>-->
+
+      <div id="play_video"
+           class="video-js vjs-default-skin vjs-controls-enabled vjs-has-started vjs-paused vjs-user-inactive"
+           style="width: 100%; height:800px;">
+        <video id="example_video" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%"
+            data-setup="{}">
+          <!--&lt;!&ndash; 如果浏览器不兼容HTML5则使用flash播放 &ndash;&gt;-->
+          <source ng-src="{{trustSrc(videoUrl)}}" type="video/mp4"  />
+          <!--<object id="flash_fallback_1" class="vjs-flash-fallback" width="100%" height="100%"-->
+                  <!--type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">-->
+            <!--<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">-->
+            <!--<param name="allowfullscreen" value="true">-->
+            <!--&lt;!&ndash;<param name="flashvars" value="config={$jsonConfig}">&ndash;&gt;-->
+
+            <!--<param value="config=http://flash.flowplayer.org/demos/standalone/plugins/flash/config-embed.js" >-->
+          <!--</object>-->
+        <!--</video>-->
+
+
+        <!--<object name="player" id="_fp_0.7909233206883073"  width="100%" height="100%"-->
+                <!--data="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf"-->
+                <!--type="application/x-shockwave-flash">-->
+          <!--<param value="true" name="allowfullscreen"/>-->
+          <!--<param value="always" name="allowscriptaccess"/>-->
+          <!--<param value="transparent" name="wmode"/>-->
+          <!--<param value="high" name="quality"/>-->
+          <!--<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf" />-->
+          <!--<param value="config=http://flash.flowplayer.org/demos/standalone/plugins/flash/config-embed.js"-->
+                 <!--name="flashvars"/>-->
+        <!--</object>-->
+          yyyy
+        <object type="application/x-shockwave-flash" data="/Tools/flowplayer-3.2.12.swf" width="600px" height="338px">
+          <param name="movie" value="Tools/flowplayer-3.2.12.swf">
+          <param name="allowFullScreen" value="true">
+          <param name="wmode" value="transparent">
+          <param name="flashVars" value="config={'playlist':['../Video/myVideo.jpg',{'url':'{{trustSrc(videoUrl)}}','autoPlay':false}]}">
+          <img src="video/myVideo.jpg" width="600px" height="480px"></object></video>
+
+        <div>
+        </div>
+
+        <!--<div class="vjs-poster" tabindex="-1"-->
+             <!--style="display: none; background-image: url(http://s1.jikexueyuan.com/common/images/play_bg_v4_6fe6f30.jpg);"></div>-->
+        <!--<div class="vjs-text-track-display"></div>-->
+        <!--<div class="vjs-loading-spinner" style="opacity: 0.75; display: none;"></div>-->
+        <!--<div class="vjs-big-play-button" aria-live="polite" tabindex="0" aria-label="play video"><span></span></div>-->
+        <!--<div class="vjs-control-bar">-->
+          <!--<div class="vjs-play-control vjs-control  vjs-paused" aria-live="polite" tabindex="0">-->
+            <!--<div class="vjs-control-content"><span class="vjs-control-text">Play</span></div>-->
+          <!--</div>-->
+          <!--<div class="vjs-current-time vjs-time-controls vjs-control">-->
+            <!--<div class="vjs-current-time-display" aria-live="off"><span class="vjs-control-text">Current Time </span>0:12-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-time-divider">-->
+            <!--<div><span>/</span></div>-->
+          <!--</div>-->
+          <!--<div class="vjs-duration vjs-time-controls vjs-control">-->
+            <!--<div class="vjs-duration-display" aria-live="off"><span class="vjs-control-text">Duration Time </span>6:43-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-remaining-time vjs-time-controls vjs-control">-->
+            <!--<div class="vjs-remaining-time-display" aria-live="off"><span-->
+              <!--class="vjs-control-text">Remaining Time </span>-6:31-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-progress-control vjs-control">-->
+            <!--<div aria-valuenow="3.04" aria-valuemin="0" aria-valuemax="100" tabindex="0"-->
+                 <!--class="vjs-progress-holder vjs-slider" aria-label="video progress bar" aria-valuetext="0:12">-->
+              <!--<div class="vjs-load-progress" style="width: 100%;"><span class="vjs-control-text">Loaded: 0%</span></div>-->
+              <!--<div class="vjs-play-progress" style="width: 3.14%;"><span class="vjs-control-text">Progress: 0%</span>-->
+              <!--</div>-->
+              <!--<div class="vjs-seek-handle vjs-slider-handle" style="left: 3.03%;"><span-->
+                <!--class="vjs-control-text">00:00</span></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-fullscreen-control vjs-control " aria-live="polite" tabindex="0">-->
+            <!--<div class="vjs-control-content"><span class="vjs-control-text">Fullscreen</span></div>-->
+          <!--</div>-->
+          <!--<div class="vjs-volume-control vjs-control">-->
+            <!--<div aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" tabindex="0"-->
+                 <!--class="vjs-volume-bar vjs-slider" aria-label="volume level" aria-valuetext="100%">-->
+              <!--<div class="vjs-volume-level" style="width: 100%;"><span class="vjs-control-text"></span></div>-->
+              <!--<div class="vjs-volume-handle vjs-slider-handle" style="left: 100%;"><span-->
+                <!--class="vjs-control-text">00:00</span></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-mute-control vjs-control" aria-live="polite" tabindex="0">-->
+            <!--<div><span class="vjs-control-text">Mute</span></div>-->
+          <!--</div>-->
+          <!--<div class="vjs-subtitles-button vjs-menu-button vjs-control " aria-live="polite" tabindex="0"-->
+               <!--aria-haspopup="true" role="button" aria-label="Subtitles Menu" style="display: none;">-->
+            <!--<div class="vjs-control-content"><span class="vjs-control-text">Subtitles</span></div>-->
+            <!--<div class="vjs-menu">-->
+              <!--<ul class="vjs-menu-content">-->
+                <!--<li class="vjs-menu-item vjs-selected" aria-live="polite" tabindex="0" aria-selected="true">subtitles-->
+                  <!--off-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-captions-button vjs-menu-button vjs-control " aria-live="polite" tabindex="0"-->
+               <!--aria-haspopup="true" role="button" aria-label="Captions Menu" style="display: none;">-->
+            <!--<div class="vjs-control-content"><span class="vjs-control-text">Captions</span></div>-->
+            <!--<div class="vjs-menu">-->
+              <!--<ul class="vjs-menu-content">-->
+                <!--<li class="vjs-menu-item vjs-selected" aria-live="polite" tabindex="0" aria-selected="true">captions-->
+                  <!--off-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="vjs-chapters-button vjs-menu-button vjs-control " aria-live="polite" tabindex="0"-->
+               <!--aria-haspopup="true" role="button" aria-label="Chapters Menu" style="display: none;">-->
+            <!--<div class="vjs-control-content"><span class="vjs-control-text">Chapters</span></div>-->
+            <!--<div class="vjs-menu">-->
+              <!--<ul class="vjs-menu-content"></ul>-->
+              <!--<li class="vjs-menu-title">Chapters</li>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+    <div class="player-nav">
+      <ul>
+        <li class="mulu">
+          <i></i>
+
+          <p>目录</p>
+
+          <div class="mulu-box" id="videolist">
+            <div class="mulu-content">
+              <strong>目录 <span id="shouqi">收起&gt;</span></strong>
+              <!--case-->
+              <div class="case cf">
+                <div id="simTestContent2" class="simScrollCont">
+                  <p>本课程主要讲解 Go 语言中函数的定义和使用及包括递归函数、函数泛型、动态加载函数、函数闭包和函数类型等在内的多种应用的应用技巧。</p>
+                  <dl class="lessonvideo-list">
+
+                    <dd class="playing">
+
+                      <h2>
+                        <span class="sm-icon "></span>
+                        <a href="http://www.jikexueyuan.com/course/895_1.html?ss=1"
+                           jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8005&amp;posColumn=1.1">1.Go 语言函数概述</a>
+                        <span class="lesson-time">00:06:43</span>
+                      </h2>
+                      <blockquote>本课时介绍Go语言函数的定义和使用技巧。</blockquote>
+                    </dd>
+
+                    <dd>
+
+                      <h2>
+                        <span class="sm-icon "></span>
+                        <a href="http://www.jikexueyuan.com/course/895_2.html?ss=1"
+                           jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8005&amp;posColumn=2.2">2.递归函数</a>
+                        <span class="lesson-time">00:05:16</span>
+                      </h2>
+                      <blockquote>本课时介绍递归函数的概念和使用。</blockquote>
+                    </dd>
+
+                    <dd>
+
+                      <h2>
+                        <span class="sm-icon "></span>
+                        <a href="http://www.jikexueyuan.com/course/895_3.html?ss=1"
+                           jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8005&amp;posColumn=3.3">3.泛型函数</a>
+                        <span class="lesson-time">00:06:28</span>
+                      </h2>
+                      <blockquote>本课时介绍泛型函数的概念和应用场景。</blockquote>
+                    </dd>
+
+                    <dd>
+
+                      <h2>
+                        <span class="sm-icon "></span>
+                        <a href="http://www.jikexueyuan.com/course/895_4.html?ss=1"
+                           jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8005&amp;posColumn=4.4">4.动态运行函数</a>
+                        <span class="lesson-time">00:09:46</span>
+                      </h2>
+                      <blockquote>本课时讲解Go语言中函数动态运行和创建的相关技巧。</blockquote>
+                    </dd>
+
+                    <dd>
+
+                      <h2>
+                        <span class="sm-icon "></span>
+                        <a href="http://www.jikexueyuan.com/course/895_5.html?ss=1"
+                           jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8005&amp;posColumn=5.5">5.函数闭包和匿名函数</a>
+                        <span class="lesson-time">00:07:41</span>
+                      </h2>
+                      <blockquote>本课时介绍Go语言中函数闭包和匿名函数的概念和相关用法以及使用闭包进行调试的技巧。</blockquote>
+                    </dd>
+
+                    <dd>
+
+                      <h2>
+                        <span class="sm-icon "></span>
+                        <a href="http://www.jikexueyuan.com/course/895_6.html?ss=1"
+                           jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8005&amp;posColumn=6.6">6.函数类型参数</a>
+                        <span class="lesson-time">00:15:10</span>
+                      </h2>
+                      <blockquote>本课时讲解函数参数类型的技巧和应用场景及Go语言中记忆函数的实现。</blockquote>
+                    </dd>
+
+                  </dl>
+                </div>
+                <div id="simScrollTest2" class="simScroll" style="visibility: visible;">
+                  <div tag="simArea" class="simScrollDragArea" style="height: 202px;">
+                    <div tag="simDrag" class="simScrollDrag"
+                         style="position: absolute; top: 2px; width: 14px; height: 39px;"></div>
+                  </div>
+                </div>
+              </div>
+              <!--case end-->
+            </div>
+          </div>
+        </li>
+
+        <li class="ask" onclick="javascript:;" id="diaLoginBtn"
+            jktag="&amp;posArea=0002&amp;posOper=8017&amp;posColumn=2.1">
+
+          <i></i>
+
+          <p>提问</p>
+
+          <div class="ask-box" style="display: none; left: 40px;">提交问题</div>
+        </li>
+
+
+        <li class="xiazai diaLoginBtn">
+          <a href="javascript:void(0);" class="down-course" id="down_video"><i></i>
+
+            <p>下载</p></a>
+
+          <div class="xiazai-box" style="display: none; left: 40px;">
+            <a href="javascript:void(0);" class="down-course">下载本节视频</a>
+          </div>
+
+
+        </li>
+
+        <li class="xianlu">
+          <i></i>
+
+          <p>线路</p>
+
+          <div class="xianlu-box" style="display: none; left: 40px;">
+            <em>视频太卡？试试切换线路</em>
+            <span class="bc-blue"><a href="http://www.jikexueyuan.com/course/895_1.html">√ 线路1</a></span>
+
+
+            <span><a href="http://www.jikexueyuan.com/course/895_1.html?ss=2"
+                     jktag="&amp;posGP=103001&amp;posArea=0002&amp;posOper=8018&amp;posColumn=4.2&amp;aVXl=2">√ 线路2</a></span>
+          </div>
+        </li>
+
+        <li class="diaLoginBtn shouchang user-action">
+
+
+          <i class="" jktag="&amp;posArea=0002&amp;posOper=8019&amp;posColumn=5.2"></i>
+
+          <p>收藏</p>
+
+          <div class="shouchang-box" style="display: none; left: 40px;">收藏课程</div>
+        </li>
+        <li class="fenxiang">
+          <i></i>
+
+          <p>分享</p>
+
+          <div class="fenxiang-box" style="display: none; left: 40px;">
+            <i class="sina-icon" jktag="&amp;posArea=0002&amp;posOper=8020&amp;posColumn=6.1"></i>
+            <i class="qq-icon" jktag="&amp;posArea=0002&amp;posOper=8021&amp;posColumn=6.2"></i>
+          </div>
+        </li>
+      </ul>
+      <div class="lianbo relative" val="1" courseurl="/course/895_2.html?ss=1"
+           jktag="&amp;posArea=0002&amp;posOper=8007&amp;posColumn=7.1">
+        <i></i>
+
+        <p>连播</p>
+
+        <div class="lianbobox" style="display: none; left: 40px;">连续播放</div>
+      </div>
+      <div class="deng-icon relative" jktag="&amp;posArea=0002&amp;posOper=8022&amp;posColumn=8.1">
+        <i></i>
+
+        <p>开灯</p>
+
+        <div class="deng-box" style="display: none; left: 40px;">开灯模式</div>
+      </div>
+      <div class="slow-time-tip" style="left: -210px;">
+        <i class="w-sj"></i>
+        <img src="http://s1.jikexueyuan.com/course/images/close2_77b3a90.png" class="closew">
+        <strong>视频加载太慢？</strong>
+
+        <p>我们有两条线路可以选择，试试切换线路把</p>
+      </div>
+    </div>
+  </div>
+ 
+  <video id="example_video_1" class="video-js vjs-default-skin"
+         controls preload="auto" width="100%" height="800px"
+         poster="http://video-js.zencoder.com/oceans-clip.png"
+         data-setup='{"example_option":true}'>
+    <source ng-src="{{trustSrc(videoUrl)}}" type="video/mp4" />
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
   </video>
 
   <hr>
