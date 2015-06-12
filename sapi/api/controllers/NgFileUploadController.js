@@ -62,12 +62,13 @@ var createMediaFolder = function (tutorId, courseId) {
 var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId, tutorId, videoFilePath) {
   Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
     var duration = 0;
-    metadata.streams.forEach(function (mediaInfo) {
-      if (mediaInfo.codec_type == "video") {
-        duration = mediaInfo.duration;
-        return;
-      }
-    });
+    //metadata.streams.forEach(function (mediaInfo) {
+    //  if (mediaInfo.codec_type == "video") {
+    //    duration = mediaInfo.duration;
+    //    return;
+    //  }
+    //});
+   duration = metadata.format.duration;
 
     var relativeVideoPath = videoFilePath.replace(root,"");
     Video.create(
@@ -140,7 +141,7 @@ var uploadVideo = function(req,res){
 
       fs.createReadStream(filepath).pipe(fs.createWriteStream(targetfile));
 
-      if(formObj.filetype == 'video/mp4'){
+      if(formObj.filetype == 'video/mp4' || formObj.filetype == 'video/webm'){
         processVideoUploading(req,res,formObj,moduleId, courseId, tutorId, targetfile);
       }else{
         res.json({status: 401,Error:"not supported"});
