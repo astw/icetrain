@@ -45,9 +45,11 @@
     padding-top: 25px;
     margin: 10px;
   }
+
   .dragover {
     border: 5px dashed blue;
   }
+
   .progress div {
     font-size: smaller;
     background: orange;
@@ -55,12 +57,10 @@
   }
 </style>
 
-
 <div class="container">
   <div class="row">
-  <div ng-include="'app/components/navbar/navbar.html'"></div>
+    <div ng-include="'app/components/navbar/navbar.html'"></div>
   </div>
-
 
   <div class="row" ng-show="showCourseInfoDiv">
     <div ng-include="'app/course/partial/courseInfoDiv.html'"></div>
@@ -78,9 +78,10 @@
           <fieldset>
             <legend>上传教学视频到: 章节 {{module.name}}</legend>
             <br>
+
             <div class="col-md-9">
               <button type="button" class="btn btn-primary start" ng-click="uploadAll()">
-                    <i class="glyphicon glyphicon-upload" /> 上传全部
+                <i class="glyphicon glyphicon-upload"/> 上传全部
               </button>
             </div>
 
@@ -100,26 +101,28 @@
                    class="drop-box ng-pristine ng-untouched ng-valid"
                    accept="application/*"
                    ngf-drop-available="dropAvailable">
-                 <span class = 'btn btn-success fileinput=button' >
-                   <i class="glyphicon glyphicon-plus" /> 点击选择视频
+                 <span class='btn btn-success fileinput=button'>
+                   <i class="glyphicon glyphicon-plus"/> 点击选择视频
                   </span>
-                  <span ng-show="dropAvailable"> 或 拖放视频到此 </span>
+                <span ng-show="dropAvailable"> 或 拖放视频到此 </span>
               </div>
               <div>
-                <input type="hidden" name="courseId" value= {{courseId}} />
+                <input type="hidden" name="courseId" value={{courseId}}/>
               </div>
             </div>
             <br/>
+
             <div ng-repeat="f in files" class="col-md-9">
               <div class="col-md-4">
-                <video controls="" width="300" height="200" ngf-src="f" ng-show="f != null" ngf-accept="'video/*'"></video>
+                <video controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
+                       ngf-accept="'video/*'"></video>
               </div>
-              <div class="col-md-1"> </div>
+              <div class="col-md-1"></div>
 
               <div class="col-md-7">
                 <label>输入视频简介</label> {{$index}}
-              <input  class="form-control"  type="text"
-                      ng-model="videoNames[$index]" ng-minlength="5" class="ng-pristine ng-valid ng-valid-required" />
+                <input class="form-control" type="text"
+                       ng-model="videoNames[$index]" ng-minlength="5" class="ng-pristine ng-valid ng-valid-required"/>
 
               <span class="progress" ng-show="f.progress >= 0">
               <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'" class="ng-binding"></div>
@@ -130,10 +133,13 @@
           </fieldset>
           <hr>
         </div>
-  </div>
+      </div>
 
-  <hr>
-  <div class="footer">
-    <p>With ♥ from <a href="https://twitter.com/Swiip">@Swiip</a></p>
+      <hr>
+      <div class="footer">
+        <p>With ♥ from <a href="https://twitter.com/Swiip">@Swiip</a></p>
+      </div>
+    </div>
   </div>
 </div>
+

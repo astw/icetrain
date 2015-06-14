@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap', 'ngFileUpload'])
+angular.module('icetraiFront', ['ngAnimate', 'ngCookies',
+  'ngTouch', 'ngSanitize',
+  'ngResource', 'ngRoute',
+  'ui.bootstrap', 'ngFileUpload']
+)
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
@@ -42,6 +46,10 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
       .when('/mediaServer/video/stream/:token',{
         templateUrl:"app/course/play.html",
         controller:"PlayCtrl"
+      })
+      .when('/example',{
+        templateUrl:"app/example/example.html",
+        controller:"ModalDemoCtrl"
       })
       .when('/test',{
         templateUrl:"app/course/addVideo.html",

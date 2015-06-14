@@ -1,7 +1,8 @@
 
 
 angular.module('icetraiFront')
-.controller('CourseInfoCtrl',function($http,$scope, $routeParams,$location,$timeout, Upload,  courseRepository, auth,relayService){
+.controller('CourseInfoCtrl',function($http,$scope, $routeParams,$location,$timeout,
+                                      Upload,  courseRepository, auth,relayService,$modal){
 
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
@@ -15,8 +16,12 @@ angular.module('icetraiFront')
 
     courseRepository.getCourseById(courseId)
       .then(function(res){
-        console.log(res.data);
         if(res.status == 200) {
+          if(res.data.modules == null || res.data.modules.length == 0){
+             res.data.modules =[];
+             res.data.complexModules =[];
+             $scope.course = res.data;
+          }
           res.data.modules.forEach(function(module){
             console.log(module.vidoes);
             courseRepository.getCourseModules(res.data).then(function(moduleRes){
@@ -36,13 +41,11 @@ angular.module('icetraiFront')
         };
       });
 
-
     $scope.toggleModule = function(module){
       module.show = !module.show;
     };
 
     $scope.getEnabledClassIfAuthorized =function(userMayViewFirstClip){
-
     };
 
     $scope.createModule = function(){
@@ -64,10 +67,10 @@ angular.module('icetraiFront')
       courseRepository.createModule(moduleInfo, $scope.course, $scope.user)
         .then(function (res) {
           if (res.status == 201) {
+            $scope.course.complexModules.push(res.data);
             $scope.showCourseInfoDiv = true;
             $scope.showModuleDiv = false;
             $scope.showVideoUploadDiv = false;
-            $scope.course.modules.push(res.data);
           }
         });
     };
@@ -87,12 +90,37 @@ angular.module('icetraiFront')
         });
     };
 
+    $scope.modalMessage ="确定要删除这一节吗？"
+    $scope.items =['itme1','item2'];
     $scope.deleteModule = function(module){
-      courseRepository.deleteModule(module,$scope.user).
-        then(function(res){
-            var idx = $scope.course.modules.indexOf(module);
-            $scope.course.modules.splice(idx,1);
-        });
+      var modalInstance = $modal.open({
+        animation:true,
+        templateUrl :"deleteClass.htm",
+        controller:"ModalInstanceCtrl",
+        size:null,
+        resolve:{
+          modalMessage:function(){
+            return  $scope.modalMessage;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (items) {
+        courseRepository.deleteModule(module,$scope.user).
+          then(function(res){
+           var idx = $scope.course.complexModules.indexOf(module);
+           $scope.course.complexModules.splice(idx,1);
+           // for(var i=0 ;i<$scope.course.modules; i++){
+           //   if($scope.course.modules[i].id == module.id)
+           //   {
+           //     $scope.course.modules.splice(0,1);
+           //   }
+           // }
+          });
+
+      }, function () {
+
+      });
     };
 
     $scope.editModule = function(module){
@@ -114,8 +142,6 @@ angular.module('icetraiFront')
       $scope.showVideoUploadDiv = true;
       $scope.module = module;
       relayService.put(module);
-
-
       var url ="/" + $scope.course.tutor.id + "/course/" + $scope.course.id + "/" + module.id+ "/videoUpload";
      // $location.url(url);
     };
@@ -124,10 +150,9 @@ angular.module('icetraiFront')
       courseRepository.deleteVideo(video,$scope.user).then(function(res){
         console.log(res);
       });
-    }
+    };
 
     $scope.bookMark = function(video){
-
       courseRepository.deleteVideo(video,$scope.user).then(function(res){
           console.log(res);
       });
@@ -179,9 +204,6 @@ angular.module('icetraiFront')
     }
 
     function uploadUsingUpload(file) {
-
-      console.log($scope.videoNames[0]);
-
       var index = $scope.files.indexOf(file);
 
       var tutorId = $scope.course.tutor.id;
@@ -249,6 +271,17 @@ angular.module('icetraiFront')
     });
     angular.element(window).bind('drop', function (e) {
       e.preventDefault();
-    })
-
+    });
   });
+
+angular.module('icetraiFront').controller('ModalInstanceCtrl', function ($scope, $modalInstance, modalMessage ) {
+
+  $scope.modalMessage = modalMessage;
+  $scope.ok = function () {
+    $modalInstance.close($scope);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});

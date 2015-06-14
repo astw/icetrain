@@ -29,7 +29,6 @@ angular.module('icetraiFront')
 
     $scope.createCourse = function(email, password) {
 
-
     };
 
     $scope.uploadVideo = function(files){

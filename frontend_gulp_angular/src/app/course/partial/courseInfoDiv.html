@@ -36,7 +36,8 @@
                     <span class="list-itme glyphicon glyphicons-plus pull-right"
                           ng-click="editModule(module)"><img width="16" height="16" title="编辑本节" alt="编辑本节" src="assets/images/edit-1.ico"> </span>
                   <span class="list-itme glyphicon glyphicons-plus pull-right"
-                        ng-click="deleteModule(module)"><img width="16" height="16"  title="删除本节"  alt="删除本节" src="assets/images/delete.ico"> </span>
+                        ng-click="deleteModule(module)"><img width="16" height="16"  title="删除本节"  alt="删除本节" src="assets/images/delete.ico">
+                  </span>
                   </span>
                </div>
              </h4>
@@ -64,7 +65,7 @@
     <div class="col-lg-1">
 
     </div>
-
+  <button class="btn btn-default" ng-click="open()">Open me!</button>
     <div class="col-lg-2">
       <div class="row">
         <div class="left"><h6>更多信息 </h6></div>
@@ -100,3 +101,24 @@
       </div>
     </div>
  </div>
+
+<div ng-controller="ModalInstanceCtrl">
+  <script type="text/ng-template" id="deleteClass.htm">
+    <!--<div class="modal-header">-->
+       <!--<h3 class="modal-title">I'm a modal!</h3>-->
+    <!--</div>-->
+    <div class="modal-body">
+      <ul>
+        <h3>{{modalMessage}}</h3>
+        {{module.name}}
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+  <button class="btn btn-default" ng-click="open()">Open me!</button>
+</div>
+
+
