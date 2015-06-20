@@ -170,6 +170,13 @@ angular.module('icetraiFront')
         }
     },
 
+      $scope.showCourse = function(){
+        $scope.showCourseInfoDiv = true;
+        $scope.showModuleDiv = false;
+        $scope.showVideoUploadDiv = false;
+      };
+
+
     //$scope.$watch('files', function (files) {
     //  $scope.formUpload = false;
     //  if (files != null) {

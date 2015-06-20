@@ -75,12 +75,16 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <fieldset>
-            <legend>上传教学视频到: 章节 {{module.name}}</legend>
-            <br>
+          <div class="well well-lg">
+            <h1>{{course.name}}</h1>
+          </div>
+          <legend>上传教学视频到: 章节 {{module.name}}</legend>
 
             <div class="col-md-9">
-              <button type="button" class="btn btn-primary start" ng-click="uploadAll()">
+              <button type="button" class="btn btn-primary btn-xs start" ng-click="showCourse()">
+                <i class="glyphicon glyphicon-hand-left"/> 返回课程
+              </button>
+              <button type="button" class="btn btn-primary btn-xs start" ng-click="uploadAll()">
                 <i class="glyphicon glyphicon-upload"/> 上传全部
               </button>
             </div>
@@ -130,7 +134,7 @@
                 <span><strong>文件名：</strong>{{f.name}}</di>  {{f.progress }}</span> <span> <strong>大小：</strong> {{f.size}}</span>
               </div>
             </div>
-          </fieldset>
+
           <hr>
         </div>
       </div>
