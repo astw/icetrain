@@ -29,6 +29,7 @@ module.exports.policies = {
     },
 
     "VideoController" :{
+        "streamVideo" :['jwtAuth']
         //"find" :['checkClientKey','jwtAuth','checkWritePermission'],
         //"create":['checkClientKey','jwtAuth','checkWritePermission'],
         //"update":['checkClientKey','jwtAuth','checkWritePermission'],

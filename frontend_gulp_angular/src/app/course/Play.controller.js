@@ -7,20 +7,24 @@ angular.module('icetraiFront')
   .controller('PlayCtrl', function ($scope, $http,$location, $sce, auth, courseRepository) {
 
     var MediaServer = "http://localhost:1337";
-    $scope.videoUrl = MediaServer + $location.url();
+    var sessionToken = auth.sessionToken();
+    $scope.userLoggedIn = true;
+    if(!sessionToken){
+      $scope.userLoggedIn = false;
+    };
+
+    $scope.videoUrl = MediaServer + $location.url() +"?sessionToken=" + sessionToken;
     console.log('inside PlayCtrl');
     console.log($scope.videoUrl);
 
-
-    //var url = API_URL + 'module/' + moduleInfo.id;
-    //var sessionToken = authToken.getToken();
+    //var url = API_URL + 'module/' + moduleInfo.id ;
     //
     //var headers = {
     //  clientkey: 'this is the client key',
-    //  uid: user.id,
-    //  Authorization:getAuthHeader()
+    //  //uid: user.id,
+    //  Authorization:sessionToken
     //};
-    //
+
     //var dfd = $q.defer();
     //$http.put(url, moduleInfo, {headers:headers})
     //  .then(function(res){
@@ -32,7 +36,5 @@ angular.module('icetraiFront')
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
-
-
 
   });

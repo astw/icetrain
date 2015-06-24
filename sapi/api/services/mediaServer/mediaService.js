@@ -39,7 +39,9 @@ module.exports =  {
          //  fs.readFile(mediaPath, function (err, data) {
            fs.stat(mediaPath, function(err, stats) {
              if (err) {
-               throw err;
+               res.statusCode = 500;
+               res.writeHead(500, err);
+               res.end(err);
              }
 
              var total = stats.size;

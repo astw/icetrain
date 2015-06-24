@@ -48,4 +48,7 @@ angular.module('icetraiFront')
     this.isAuthenticated = function () {
       return !!authToken.getToken();
     };
+    this.sessionToken = function(){
+      return authToken.getToken();
+    }
   });

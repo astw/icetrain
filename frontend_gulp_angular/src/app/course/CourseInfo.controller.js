@@ -6,7 +6,6 @@ angular.module('icetraiFront')
 
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
-
     $scope.showCourseInfoDiv =true;
     $scope.showModuleDiv = false;
     $scope.showVideoUploadDiv = false;

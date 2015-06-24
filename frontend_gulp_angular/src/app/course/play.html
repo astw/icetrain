@@ -46,17 +46,10 @@
            style="width: 100%; height:800px;">
         <video id="example_video" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%"
             data-setup="{}">
-          <!--&lt;!&ndash; 如果浏览器不兼容HTML5则使用flash播放 &ndash;&gt;-->
+          <!--&lt;!&ndash; 如果浏览器不兼容HTML5则使用flash播放 &ndash;&gt;--> 
           <source type="video/mp4" ng-src="{{trustSrc(videoUrl)}}"   />
-          <!--<object id="flash_fallback_1" class="vjs-flash-fallback" width="100%" height="100%"-->
-                  <!--type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">-->
-            <!--<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">-->
-            <!--<param name="allowfullscreen" value="true">-->
-            <!--&lt;!&ndash;<param name="flashvars" value="config={$jsonConfig}">&ndash;&gt;-->
 
-            <!--<param value="config=http://flash.flowplayer.org/demos/standalone/plugins/flash/config-embed.js" >-->
-          <!--</object>-->
-        <!--</video>-->
+        </video>
 
 
         <!--<object name="player" id="_fp_0.7909233206883073"  width="100%" height="100%"-->
@@ -76,7 +69,8 @@
           <param name="allowFullScreen" value="true">
           <param name="wmode" value="transparent">
           <param name="flashVars" value="config={'playlist':['../Video/myVideo.jpg',{'url':'{{trustSrc(videoUrl)}}','autoPlay':false}]}">
-          <img src="video/myVideo.jpg" width="600px" height="480px"></object></video>
+          <img src="video/myVideo.jpg" width="600px" height="480px"></object>
+        </video>
 
         <div>
         </div>
