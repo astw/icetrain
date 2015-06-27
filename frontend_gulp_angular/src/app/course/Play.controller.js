@@ -6,6 +6,26 @@
 angular.module('icetraiFront')
   .controller('PlayCtrl', function ($scope, $http,$location, $sce, auth, courseRepository) {
 
+    $scope.tabs = [
+      { title:'Dynamic Title 1', content:'Dynamic content 1' },
+      { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+    ];
+
+    $scope.select = function(tab){
+
+    };
+    $scope.showTab = function(tab){
+       return  !!tab.show  ;//& tab.mouseOver;
+    };
+
+    $scope.tabClick = function(tab){
+      if(!tab.show){
+        tab.show = true;
+      }
+      else
+        tab.show = false;
+    };
+
     var MediaServer = "http://localhost:1337";
     var sessionToken = auth.sessionToken();
     $scope.userLoggedIn = true;

@@ -5,12 +5,12 @@ angular.module('icetraiFront')
     $scope.date = new Date();
     $scope.isAuthenticated = auth.isAuthenticated();
     $scope.user = auth.currentUser();
-
     $scope.login = function() {
       auth.login($scope.email, $scope.password).
         then(function(res){
           if(res.status == 200) {
             $scope.user = res.data.user;
+
             $scope.isAuthenticated = auth.isAuthenticated();
 
             $location.url('/');
