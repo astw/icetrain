@@ -7,8 +7,8 @@ angular.module('icetraiFront')
   .controller('PlayCtrl', function ($scope, $http,$location, $sce, auth, courseRepository) {
 
     $scope.tabs = [
-      { title:'Dynamic Title 1', content:'Dynamic content 1' },
-      { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+      { title:'Dynamic Title 1', content:'Dynamic content 1',sections:[{name:"section name1"},{name:"section name2"}]},
+      { title:'Dynamic Title 2', content:'Dynamic content 2',sections:[{name:"chapt2 section name1"},{name:"chapt2 section name2"}], disabled: true }
     ];
 
     $scope.select = function(tab){
@@ -24,6 +24,20 @@ angular.module('icetraiFront')
       }
       else
         tab.show = false;
+    };
+
+    $scope.getVideoClass = function(section){
+       if(section.current)
+           return " current";
+      else
+          return " "
+    };
+
+    $scope.videoClicked = function(tab, section){
+       for(var i=0; i< tab.sections.length; i++){
+         tab.sections[i].current = false;
+       }
+       section.current = true;
     };
 
     var MediaServer = "http://localhost:1337";

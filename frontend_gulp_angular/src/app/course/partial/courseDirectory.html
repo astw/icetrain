@@ -5,16 +5,15 @@
          select="select(tab)"
          ng-click="tabClick(tab)"
       >
-      <div ng-show="showTab(tab)" >
-      {{tab.content}}
-         <div>thisfdsfsdfsdfsdf
-           <br/>
-           sfsdfsdfdsf
-           <br/>
-           sdfsdfsdfsdf
-           <br>sfdsfdsfdsfdf
-
-         </div>
+      <div ng-repeat="section in tab.sections" class="videoCarousel">
+        <div ng-show="showTab(tab)" class="sectionNameBlock" ng-class="getVideoClass(section)" ng-click="videoClicked(tab,section)">
+          <div class="sectionName">
+             {{section.name}}
+          </div>
+          <div class="videoDuration">
+            4:12
+          </div>
+        </div>
       </div>
     </tab>
   </tabset>
