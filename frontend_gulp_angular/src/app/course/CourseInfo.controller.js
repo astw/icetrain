@@ -1,7 +1,7 @@
 
 
 angular.module('icetraiFront')
-.controller('CourseInfoCtrl',function($http,$scope, $routeParams,$location,$timeout,
+.controller('CourseInfoCtrl',function($http, $rootScope, $scope, $routeParams,$location,$timeout,
                                       Upload,  courseRepository, auth,relayService,$modal){
 
     var courseId = $routeParams.id;
@@ -27,6 +27,7 @@ angular.module('icetraiFront')
               res.data.complexModules = moduleRes.data;
               console.log(res.data.complexModules);
               $scope.course = res.data;
+              $rootScope.course = res.data;
               console.log(res.data);
             });
           });

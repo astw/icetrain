@@ -4,40 +4,40 @@
 'use strict';
 
 angular.module('icetraiFront')
-  .controller('PlayCtrl', function ($scope, $http,$location, $sce, auth, courseRepository) {
+  .controller('PlayCtrl', function ($scope,$rootScope, $http,$location, $sce, auth, courseRepository) {
 
-    $scope.tabs = [
-      { title:'Dynamic Title 1', content:'Dynamic content 1',sections:[{name:"section name1"},{name:"section name2"}]},
-      { title:'Dynamic Title 2', content:'Dynamic content 2',sections:[{name:"chapt2 section name1"},{name:"chapt2 section name2"}], disabled: true }
-    ];
+    $scope.modules = $rootScope.course.complexModules;
 
-    $scope.select = function(tab){
-
+    $scope.select = function(module){
+         module.show = true;
     };
-    $scope.showTab = function(tab){
-       return  !!tab.show  ;//& tab.mouseOver;
+    $scope.showModule = function(module){
+       return  !module.show  ;//& tab.mouseOver;
     };
 
-    $scope.tabClick = function(tab){
-      if(!tab.show){
-        tab.show = true;
+    $scope.moduleClick = function(module){
+      if(!module.show){
+        module.show = true;
       }
       else
-        tab.show = false;
+        module.show = false;
     };
 
-    $scope.getVideoClass = function(section){
-       if(section.current)
+    $scope.getVideoClass = function(video){
+       if(video.current)
            return " current";
       else
           return " "
     };
 
-    $scope.videoClicked = function(tab, section){
-       for(var i=0; i< tab.sections.length; i++){
-         tab.sections[i].current = false;
-       }
-       section.current = true;
+    $scope.videoClicked = function(modules, video){
+      for(var m =0; m <modules.length; m++) {
+        var module = modules[m];
+        for (var i = 0; i < module.videoCollection.length; i++) {
+          module.videoCollection[i].current = false;
+        }
+      }
+       video.current = true;
     };
 
     var MediaServer = "http://localhost:1337";

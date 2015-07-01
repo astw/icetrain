@@ -1,17 +1,17 @@
 <div ng-controller="PlayCtrl">
   <tabset>
-    <tab ng-repeat="tab in tabs" heading="{{tab.title}}"
-         active="tab.active"
-         select="select(tab)"
-         ng-click="tabClick(tab)"
+    <tab ng-repeat="module in modules" heading="{{module.name}}"
+         active="module.active"
+         select="select(module)"
+         ng-click="moduleClick(module)"
       >
-      <div ng-repeat="section in tab.sections" class="videoCarousel">
-        <div ng-show="showTab(tab)" class="sectionNameBlock" ng-class="getVideoClass(section)" ng-click="videoClicked(tab,section)">
+      <div ng-repeat="video in module.videoCollection" class="videoCarousel">
+        <div ng-show="showModule(module)" class="sectionNameBlock" ng-class="getVideoClass(video)" ng-click="videoClicked(modules,video)">
           <div class="sectionName">
-             {{section.name}}
+             {{video.name}}
           </div>
           <div class="videoDuration">
-            4:12
+             {{video.duration}}
           </div>
         </div>
       </div>
