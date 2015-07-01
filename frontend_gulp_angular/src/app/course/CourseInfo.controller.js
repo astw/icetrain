@@ -27,7 +27,7 @@ angular.module('icetraiFront')
               res.data.complexModules = moduleRes.data;
               console.log(res.data.complexModules);
               $scope.course = res.data;
-              $rootScope.course = res.data;
+              relayService.putKeyValue('course',$scope.course);
               console.log(res.data);
             });
           });

@@ -4,9 +4,10 @@
 'use strict';
 
 angular.module('icetraiFront')
-  .controller('PlayCtrl', function ($scope,$rootScope, $http,$location, $sce, auth, courseRepository) {
+  .controller('PlayCtrl', function ($scope,relayService, $http,$location, $sce, auth, courseRepository) {
 
-    $scope.modules = $rootScope.course.complexModules;
+    $scope.course =  relayService.getKeyValue('course');
+    $scope.modules = $scope.course.complexModules;
 
     $scope.select = function(module){
          module.show = true;
@@ -31,13 +32,15 @@ angular.module('icetraiFront')
     };
 
     $scope.videoClicked = function(modules, video){
-      for(var m =0; m <modules.length; m++) {
+      for(var m =0; m <$scope.modules.length; m++) {
         var module = modules[m];
         for (var i = 0; i < module.videoCollection.length; i++) {
           module.videoCollection[i].current = false;
         }
       }
-       video.current = true;
+      video.current = true;
+
+      relayService.putKeyValue('course',$scope.course);
     };
 
     var MediaServer = "http://localhost:1337";
