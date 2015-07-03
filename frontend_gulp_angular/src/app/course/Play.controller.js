@@ -5,9 +5,18 @@
 
 angular.module('icetraiFront')
   .controller('PlayCtrl', function ($scope,relayService, $http,$location, $sce, auth, courseRepository) {
+    var MediaServer = "http://localhost:1337";
+    var sessionToken = auth.sessionToken();
+    $scope.userLoggedIn = true;
+    if(!sessionToken){
+      $scope.userLoggedIn = false;
+    };
+
+    $scope.videoUrl = MediaServer + $location.url() +"?sessionToken=" + sessionToken;
 
     $scope.course =  relayService.getKeyValue('course');
     $scope.modules = $scope.course.complexModules;
+    $scope.currentVideoPlayUrl = "";
 
     $scope.select = function(module){
          module.show = true;
@@ -32,6 +41,7 @@ angular.module('icetraiFront')
     };
 
     $scope.videoClicked = function(modules, video){
+
       for(var m =0; m <$scope.modules.length; m++) {
         var module = modules[m];
         for (var i = 0; i < module.videoCollection.length; i++) {
@@ -39,20 +49,15 @@ angular.module('icetraiFront')
         }
       }
       video.current = true;
+      $scope.videoUrl = MediaServer + "/mediaServer/video/stream/" + video.urltoken  +"?sessionToken=" + sessionToken;
+
+      var player = $(event.target).closest('#palyerBorder').find('#example_video_html5_api');
+      player.attr('src',$scope.videoUrl);
+      player.load();
 
       relayService.putKeyValue('course',$scope.course);
     };
 
-    var MediaServer = "http://localhost:1337";
-    var sessionToken = auth.sessionToken();
-    $scope.userLoggedIn = true;
-    if(!sessionToken){
-      $scope.userLoggedIn = false;
-    };
-
-    $scope.videoUrl = MediaServer + $location.url() +"?sessionToken=" + sessionToken;
-    console.log('inside PlayCtrl');
-    console.log($scope.videoUrl);
 
     //var url = API_URL + 'module/' + moduleInfo.id ;
     //
