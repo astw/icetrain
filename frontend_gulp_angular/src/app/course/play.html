@@ -1,11 +1,10 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="http://localhost:3000/assets/css/blueimp-gallery.min.css">
-<link ref="stylesheet" href="http://localhost:3000/assets/css/player.css">
+ 
+
 <link href="//vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
 <script src="//vjs.zencdn.net/4.12/video.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+
 <script>
   videojs.options.flash.swf = "video-js.swf";
 </script>
@@ -27,16 +26,30 @@
   }
 
   #courseDirectory {
-    position: absolute;z-index:100;  left: 0px;top: 0px;height: 100px
+    position: absolute;z-index:100;  left: 0px;top: 0px;
   }
-  .sectionName{
+  .nav>li>a{
+    color:#ffffff
+  }
+
+  .nav>li>a:hover {
+    color:#000000;
+  }
+  .nav>li.active{
+    font-weight: bold;
+    color:#ffffff;
+    background-color: #000000;
+
+  }
+
+  .videoName{
     height:65px;
     text-align: center;
     font-size: 13px;
     font-weight: bold;
     word-wrap: break-word;
   }
- .sectionNameBlock{
+ .videoNameBlock{
    position:relative;
    float:left;
    border:1px solid #999;
@@ -50,10 +63,15 @@
    margin: 3px;
    z-index:150;
    padding: 5px;
+   opacity: 0.8;
  }
 
- .sectionNameBlock.current{
-   background-color: #777;
+ .videoNameBlock:hover{
+   border: 1px solid #Ff6E34;
+ }
+
+ .videoNameBlock.current{
+   background-color: #333;
    border: 1px solid #E76E34;
  }
   .videoDuration{
@@ -66,7 +84,12 @@
   .videoCarousel{
     position: relative;
     left:0px;
-    width: 1140px;
+    float : left;
+    width: 800px;
+    background-color: #333;
+    z-index: 20;
+    border: 1px solid #999;
+    opacity: 0.8;
   }
 
 
@@ -77,13 +100,13 @@
     <div ng-include="'app/components/navbar/navbar.html'"></div>
   </div>
 
-  <div id="palyer-box" class="cf guandeng-mos">
+  <div id="palyerBorder" class=" ">
     <h1 style="color: rgb(53, 181, 88);">Go 语言函数概述</h1>
       <div id="play_video"
            class="video-js vjs-default-skin vjs-controls-enabled vjs-has-started vjs-paused vjs-user-inactive"
            style="width: 100%; height:800px;">
 
-        <div id="courseDirectory" course-directory>  </div>
+        <div id="courseDirectory" course-directory>  </div>s
         <video id="example_video" class="video-js vjs-default-skin btm"   controls preload="none" width="100%" height="100%"
             data-setup="{}"
             poster="http://localhost:3000/assets/images/icytrain_player_bg.png"
