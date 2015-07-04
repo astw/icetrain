@@ -35,7 +35,7 @@ angular.module('icetraiFront')
 
     $scope.getVideoClass = function(video){
        if(video.current)
-           return " current";
+           return " current watched";
       else
           return " "
     };

@@ -1,5 +1,89 @@
+<style>
+
+  .nav>li>a{
+    color:#ffffff
+  }
+
+  .nav>li>a:hover {
+    color:#000000;
+  }
+  .nav>li.active{
+    font-weight: bold;
+    color:#ffffff;
+    background-color: #000000;
+  }
+  .videoName{
+    height:65px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    word-wrap: break-word;
+  }
+  .videoNameBlock{
+    position:relative;
+    float:left;
+    border:1px solid #999;
+    width: 150px;
+    height: 80px;
+    cursor:pointer;
+    color:#ffffff;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 3px;
+    z-index:150;
+    padding: 5px;
+    opacity: 0.8;
+  }
+
+  .videoNameBlock.watched {
+    background-image: url(../assets/images/checkbox-v2.png);
+    background-repeat: no-repeat;
+    background-position: 5px 60px;
+  }
+
+  .videoNameBlock:hover{
+    border: 1px solid #Ff6E34;
+  }
+
+  .videoNameBlock.current{
+    background-color: #333;
+    border: 1px solid #E76E34;
+  }
+  .videoDuration{
+    position:relative;
+    bottom:13px;
+    right:3px;
+    text-align: right;
+  }
+
+  .videoCarousel{
+    position: relative;
+    left:0px;top: 0px;
+    float : left;
+    width: 800px;
+    background-color: #333;
+    z-index: 20;
+    border: 1px solid #999;
+    opacity: 0.8;
+  }
+
+  .drecttoryBand{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    float: left;
+    width:1140px;
+    z-index: 20;
+    border-bottom: 1px solid #ffffff;
+  }
+
+</style>
+
 <div ng-controller="PlayCtrl">
-  <tabset>
+  <div class="drecttoryBand">
+
+   <tabset>
     <tab ng-repeat="module in modules" heading=" {{module.name}}"
          active="module.active"
          select="select(module)"
@@ -19,4 +103,7 @@
       </div>
     </tab>
   </tabset>
+
+  </div>
+
 </div>
