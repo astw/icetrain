@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<style>
+  .nextModuleLink {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #005fb3;
+  }
 
-</body>
-</html>
+  #nextModuleLay {
+    position: absolute;
+    left: 0px;
+    top: 150px;
+    background-color: #000000;
+    height: 500px;
+    width:100%;
+    z-index: 10;
+    display: table-cell;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+  }
+</style>
+
+<div id="nextModuleLay" ng-show="showNextModule" >
+  <h4 > 本节全部播放完毕, 点击此处<span class="nextModuleLink" ng-click="playNextModule()"> 播放下一节</span> </h4>
+</div>

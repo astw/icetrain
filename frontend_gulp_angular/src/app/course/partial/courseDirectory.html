@@ -68,7 +68,7 @@
     opacity: 0.8;
   }
 
-  .drecttoryBand{
+  .directoryBand{
     position: absolute;
     left: 0px;
     top: 0px;
@@ -80,8 +80,8 @@
 
 </style>
 
-<div ng-controller="PlayCtrl">
-  <div class="drecttoryBand">
+<div>
+  <div class="directoryBand">
 
    <tabset>
     <tab ng-repeat="module in modules" heading=" {{module.name}}"
@@ -91,7 +91,7 @@
       >
       <div class="videoCarousel" ng-show="showModule(module)">
         <div ng-repeat="video in module.videoCollection" >
-          <div class="videoNameBlock" ng-class="getVideoClass(video)" ng-click="videoClicked(modules,video)">
+          <div class="videoNameBlock" ng-class="getVideoClass(video)" ng-click="videoClicked(module,video)">
           <div class="videoName">
              {{video.name}}
           </div>

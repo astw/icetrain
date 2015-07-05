@@ -6,3 +6,11 @@ app.directive('courseDirectory', function(){
      templateUrl:'app/course/partial/courseDirectory.html'
    };
 });
+
+app.directive('nextModule', function(){
+  return {
+    templateUrl:'app/course/partial/nextModule.html'
+  };
+});
+
+
