@@ -5,21 +5,46 @@
     color: #005fb3;
   }
 
-  #nextModuleLay {
+  #nextModuleLayerContent {
     position: absolute;
     left: 0px;
-    top: 150px;
+    top: 50%;
     background-color: #000000;
-    height: 500px;
+    height: 200px;
     width:100%;
     z-index: 10;
-    display: table-cell;
     align-content: center;
     text-align: center;
+    display: table-cell;
     vertical-align: middle;
   }
+
+  #nextModuleLayer {
+    display: table;
+  }
+
+  /*.orange-star {*/
+    /*height: 18px;*/
+    /*width: 18px;*/
+    /*background-size: contain;*/
+    /*background-image: url("{!$Resource.OrangeStar}");*/
+  /*}*/
+  /*.white-star {*/
+    /*height: 18px;*/
+    /*width: 18px;*/
+    /*background-size: contain;*/
+    /*background-image: url("{!$Resource.Whitestar}");*/
+  /*}*/
+
 </style>
 
-<div id="nextModuleLay" ng-show="showNextModule" >
+<div id="nextModuleLayer" ng-show="showNextModule" >
+ <div id="nextModuleLayerContent">
   <h4 > 本节全部播放完毕, 点击此处<span class="nextModuleLink" ng-click="playNextModule()"> 播放下一节</span> </h4>
+   给本节打分
+   <span>
+    <rating ng-model="rate" max="rateMax" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+  </span>
+ </div>
 </div>
