@@ -146,6 +146,10 @@ angular.module('icetraiFront')
       $scope.overStar = value;
       $scope.percent = 100 * (value / $scope.rateMax);
     };
+    $scope.ratingClick = function(){
+      alert('rating click');
+    };
+
     $scope.safeApply = function (fn) {
       var phase = this.$root.$$phase;
       if (phase == '$apply' || phase == '$digest') {
