@@ -13,9 +13,13 @@
           <label class="col-md-4 control-label" for="username">电子邮件</label>
 
           <div class="col-md-4">
-            <input id="username" name="username" type="text" ng-model="email" placeholder="电子邮件"
-                   class="form-control input-md">
-            <span class="help-block"></span>
+            <input id="email" name="email" type="text" ng-model="email" placeholder="电子邮件"
+                   class="form-control input-md"> 
+            <span style="color:red" ng-show="loginForm.email.$dirty &&
+                 loginForm.email.$invalid">
+            <span ng-show="loginForm.email.$error.required">email is required</span>
+            <span ng-show="loginForm.email.$error.email">Invalid email address</span>
+            </span> 
           </div>
         </div>
 
@@ -26,6 +30,13 @@
           <div class="col-md-4">
             <input id="password" name="password" type="password" ng-model="password" aceholder="密码"
                    class="form-control input-md">
+            <span style="color:red" ng-show="loginForm.password.$dirty &&
+                   loginForm.password.$invalid"> 
+              <span ng-show="loginForm.password.$error.required"> 
+                  Email is required.
+              </span>
+              
+            </span>
             <span class="help-block"></span>
           </div>
         </div>

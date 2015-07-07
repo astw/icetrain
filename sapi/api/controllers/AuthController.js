@@ -10,12 +10,11 @@ var facebookAuth = require("../services/facebookAuth.js");
 var googleAuth = require("../services/googleAuth.js");
 
 module.exports = {
-	  login:loginSerice.login,
+	login:loginSerice.login,
     local_login: loginSerice.local_login,
     local_logout:loginSerice.local_logout,
 
     register:register,
     google:  googleAuth ,
     facebook:facebookAuth
-
 };
