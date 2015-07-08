@@ -6,7 +6,8 @@ module.exports = {
 
   login: function (req, res) {
     console.log("inside manuAuth_Login.js");
-
+    console.log(req.body);
+    
     console.log(req.body.email);
     console.log(req.body.passowrd);
     var email = req.body.email;
