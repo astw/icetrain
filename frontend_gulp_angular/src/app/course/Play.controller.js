@@ -4,16 +4,20 @@
 'use strict';
 
 angular.module('icetraiFront')
-  .controller('PlayCtrl', function ($scope, relayService, $http, $location, $sce, auth, courseRepository) {
+  .controller('PlayCtrl', function ($scope, relayService,
+    $http, $location, $sce, auth,
+    courseRepository,
+    watchHistoryService) {
+
     var MediaServer = "http://localhost:1337";
     var sessionToken = auth.sessionToken();
 
+    $scope.user = auth.currentUser();
     $scope.showVideoPlayer = true;
     $scope.userLoggedIn = true;
     if (!sessionToken) {
       $scope.userLoggedIn = false;
-    }
-    ;
+    };
     $scope.videoUrl = MediaServer + $location.url() + "?sessionToken=" + sessionToken;
 
     $scope.course = relayService.getKeyValue('course');
@@ -57,8 +61,13 @@ angular.module('icetraiFront')
       var player = getVideoPlayer();
       player.attr('src', $scope.videoUrl);
       player.load();
+      // add a new watchHistroy record
+      addWatchHistory(module,video);
+
       player.bind('ended', function () {
-        var nextVideo = getNextVideoUrl(module, video, player);
+        // update whatch history
+        updateWatchHistoryWatched(module,video);
+        var nextVideo = getNextVideo(module, video, player);
         if (!nextVideo) {
           return;
         }
@@ -68,6 +77,7 @@ angular.module('icetraiFront')
       $scope.safeApply();
       relayService.putKeyValue('course', $scope.course);
     };
+
 
     $scope.playNextModule = function () {
 
@@ -88,7 +98,7 @@ angular.module('icetraiFront')
       }
     };
 
-    var getNextVideoUrl = function (module, currentVideo, player) {
+    var getNextVideo = function (module, currentVideo, player) {
       var idx = module.videoCollection.indexOf(currentVideo);
       if (idx < module.videoCollection.length - 1) {
         var video = module.videoCollection[idx + 1];
@@ -121,6 +131,16 @@ angular.module('icetraiFront')
     var getVideoPlayer = function () {
       return $(event.target).closest('#palyerBorder').find('#example_video_html5_api');
     };
+
+    var addWatchHistory = function(module,video){
+        watchHistoryService.addUserWatchHistory(
+          $scope.user.id, $scope.course.id, module.id,video.id);
+    };
+    var updateWatchHistoryWatched = function(module,video){
+        watchHistoryService.updateWatchHistoryWatched(
+          $scope.user.id, $scope.course.id, module.id,video.id);
+    };
+
     //var url = API_URL + 'module/' + moduleInfo.id ;
     //
     //var headers = {

@@ -19,8 +19,13 @@ module.exports = {
       required:true
     },
     videoid:{
-      type:"integer",
+      type:"string",
       required:true
+    },
+    status:{
+      type:'string',
+      enum: ["watching", "watched"],
+      defaultsTo:'watching'
     },
     watchtime:{
       type:"datetime",

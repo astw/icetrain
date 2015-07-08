@@ -53,6 +53,10 @@ module.exports.routes = {
 , 'get /courses/:id' :'CourseController.getCourseById'
 , "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
 
+, 'get /users/:uid/watchhistory':'WatchHistoryController.getUserWatchHistory'
+, 'get /users/:uid/watchhistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
+, 'post /users/:uid/watchhistory':'WatchHistoryController.addUserWatchHistory'
+, 'put /users/:uid/watchhistory':'WatchHistoryController.updateWatchHistory'
 //,"post /upload" : "NgFileUploadController.upload"
 
    /*******************  below is for uploader  *******************************/
