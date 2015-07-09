@@ -20,7 +20,7 @@ module.exports = {
 
   getUserCourseWatchHistory:function(req,res){
     var userid = req.params.uid;
-    WatchHistory.find({user:userid,courseid:cid}).then(function(data){
+    WatchHistory.find({userid:userid,courseid:cid}).then(function(data){
       return res.status(200).send(data);
     })
       .error(function(err){
@@ -30,41 +30,7 @@ module.exports = {
 
   addUserWatchHistory:function(req, res){
     var userid = req.params.uid;
-    var userid_1 = req.body.user;
-    if(userid != userid_1){
-      return res.status(400).send();
-    };
-
-    User.findOne({id: userid}, function (err, user) {
-      if (err) {
-        return res.notFound();
-      }
-      console.log(user);
-      if (user) {
-        WatchHistory.create({
-          user: user,
-          courseid: req.body.courseid,
-          moduleid: req.body.moduleid,
-          videoid: req.body.videoid,
-          status: req.body.status,
-          watchtime: Date()
-         },
-          function (err, data) {
-          if (err) {
-            return res.status(err.status).send(err.details);
-          };
-           return res.status(201).send(data);
-        });
-      }
-      else {
-        return res.json({status:400},400);
-      }
-    });
-  },
-
-  updateWatchHistory:function(req,res){
-    var userid = req.params.uid;
-    var userid_1 = req.body.user;
+    var userid_1 = req.body.userid;
     if(userid != userid_1){
       return res.status(400).send();
     };
@@ -76,23 +42,70 @@ module.exports = {
       console.log(user);
       if (user) {
         WatchHistory.findOne({
-            user: user,
-            courseid: req.body.courseid,
-            moduleid: req.body.moduleid,
-            videoid: req.body.videoid
-          },
-          function (err, data) {
-            if (err) {
-              return res.status(err.status).send(err.details);
-            };
+           userid: req.body.userid,
+           courseid: req.body.courseid,
+           moduleid: req.body.moduleid,
+           videoid: req.body.videoid
+        }).then(function(data){
+          console.log(data);
+          if(data){
+            // already exist, update the status
             data.status = req.body.status;
-            data.save().then(function(err){
-              if(err){
-                return res.status(400).send(err);
-              }
+            data.save().then(function (data) {
               return res.status(200).send(data);
             });
-          });
+          }
+          else{
+            // create a new watchhistory
+            WatchHistory.create({
+                userid: req.body.userid,
+                courseid: req.body.courseid,
+                moduleid: req.body.moduleid,
+                videoid: req.body.videoid,
+                status: req.body.status,
+                watchtime: Date()
+              },
+              function (err, data) {
+                if (err) {
+                  return res.status(err.status).send(err.details);
+                };
+                return res.status(201).send(data);
+              });
+          }
+         })
+      }
+      else {
+        return res.json({status:400},400);
+      }
+    });
+  },
+
+  updateWatchHistory:function(req,res){
+    var userid = req.params.uid;
+    var userid_1 = req.body.userid;
+    if(userid != userid_1){
+      return res.status(400).send();
+    };
+
+    User.findOne({id: userid}, function (err, user) {
+      if (err) {
+        return res.notFound();
+      }
+      console.log(user);
+      if (user) {
+        WatchHistory.findOne({
+          userid: userid,
+          courseid: req.body.courseid,
+          moduleid: req.body.moduleid,
+          videoid: req.body.videoid
+        }).then(function (data) {
+          if(data) {
+            data.status = req.body.status;
+            data.save().then(function (data) {
+              return res.status(200).send(data);
+            });
+          }
+        })
       }
       else {
         return res.json({status:400},400);

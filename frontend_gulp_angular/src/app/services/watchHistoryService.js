@@ -25,7 +25,7 @@ angular.module('icetraiFront')
 
     this.getUserWatchHistory = function (uid) {
 
-      var url = API_URL + "users/" + uid + "/watchhistory/";
+      var url = API_URL + "users/" + uid + "/watchhistory";
       var headers = getHeader();
       var dfd = $q.defer();
       $http.get(url, {headers: headers})
@@ -58,7 +58,7 @@ angular.module('icetraiFront')
       var headers = getHeader();
 
       var data = {
-        user: uid,
+        userid: uid,
         courseid: cid,
         moduleid: mid,
         videoid: vid,
@@ -82,7 +82,7 @@ angular.module('icetraiFront')
 
 
           var data = {
-            user:uid,
+            userid:uid,
             courseid: cid,
             moduleid: mid,
             videoid: vid,
@@ -90,7 +90,7 @@ angular.module('icetraiFront')
           };
 
           var dfd = $q.defer();
-          url = API_URL +"users/" + uid + "/watchhistory/"
+          url = API_URL +"users/" + uid + "/watchhistory"
 
           $http.put(url, data, {headers: headers})
             .then(function (res) {

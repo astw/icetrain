@@ -31,11 +31,6 @@ module.exports = {
       via: "tutor"
     },
 
-    watchHistory:{
-      collection:"WatchHistory",
-      via: "user"
-    },
-
     googleId: {type: "string"},
     facebookId: {type: "string"},
     displayName: {type: "string"},

@@ -7,8 +7,9 @@
 
 module.exports = {
   attributes: {
-    user:{
-      model:"User"
+    userid:{
+      type:"integer",
+      required:true
     },
      courseid: {
       type: "integer",
