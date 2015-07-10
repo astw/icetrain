@@ -9,8 +9,8 @@ module.exports = {
 
   getUserWatchHistory:function(req,res){
     console.log(req.params);
-    var userid = req.params.uid;
-    WatchHistory.find({user:userid}).then(function(data){
+    var userid = req.params.uid; 
+    WatchHistory.find({userid:userid}).then(function(data){
       return res.status(200).send(data);
     })
       .error(function(err){
@@ -20,6 +20,7 @@ module.exports = {
 
   getUserCourseWatchHistory:function(req,res){
     var userid = req.params.uid;
+    var cid = req.params.cid; 
     WatchHistory.find({userid:userid,courseid:cid}).then(function(data){
       return res.status(200).send(data);
     })

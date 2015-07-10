@@ -2,7 +2,10 @@
 
 angular.module('icetraiFront')
 .controller('CourseInfoCtrl',function($http, $rootScope, $scope, $routeParams,$location,$timeout,
-                                      Upload,  courseRepository, auth,relayService,$modal){
+                                      Upload, 
+                                      courseRepository, 
+                                      watchHistoryService,
+                                      auth,relayService,$modal){
 
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
@@ -31,7 +34,6 @@ angular.module('icetraiFront')
               console.log(res.data);
             });
           });
-
           $scope.course = res.data;
           relayService.put(res.data);
         }
@@ -40,6 +42,15 @@ angular.module('icetraiFront')
           relayService.put(null);
         };
       });
+     
+    watchHistoryService.getUserCourseWatchHistory(userid, courseid).then(function(res){
+       if(res.status == 200){
+        $scope.watchHistory = res.data;
+        var cacheKey = 'userid_' + userid +"_courseid_" + courseid;
+        relayService.putKeyValue(cacheKey,$scope.watchHistory);
+       }
+    });
+
 
     $scope.toggleModule = function(module){
       module.show = !module.show;

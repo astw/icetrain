@@ -22,6 +22,19 @@ angular.module('icetraiFront')
 
     $scope.course = relayService.getKeyValue('course');
     $scope.modules = $scope.course.complexModules;
+    
+
+    var historyKey = 'userid_' + $scope.user.id +"_courseid_" + $scope.course.id;
+    var watchHistory = relayService.getKeyValue(historyKey);
+    if(!watchHistory){
+     watchHistoryService.getUserCourseWatchHistory($scope.user.id, $scope.course.id).then(function(res){
+       if(res.status == 200){
+        $scope.watchHistory = res.data;
+        
+        relayService.putKeyValue(cacheKey,$scope.watchHistory);
+       }
+    });
+    };
 
     $scope.select = function (module) {
       module.show = true;
@@ -42,8 +55,13 @@ angular.module('icetraiFront')
     $scope.getVideoClass = function (video) {
       if (video.current)
         return " current watched";
-      else
-        return " "
+      else{
+        watchHistory.forEach(function(log){
+          if(log.videoid == video.id){
+                return " " + log.satus;
+          }
+        })
+      }         
     };
 
     $scope.videoClicked = function (module, video) {
@@ -112,6 +130,9 @@ angular.module('icetraiFront')
         player.attr('style', "visibility:hidden");
         $scope.showVideoPlayer = false;
         $scope.showNextModule = true;
+        var player = getVideoPlayer(); 
+        player.attr('src', '');
+        player.load();
         $scope.$applyAsync();
         return null;
       }
