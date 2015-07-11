@@ -1,0 +1,85 @@
+<!--<style>-->
+
+  <!--.list-itme {-->
+    <!--display: inline-block;-->
+    <!--margin-left: 10px;-->
+    <!--text-align: right;-->
+  <!--}-->
+
+  <!--.check {-->
+    <!--background-image: url('assets/images/check.ico');-->
+    <!--width: 12px;-->
+    <!--height: 12px;-->
+  <!--}-->
+<!--</style>-->
+
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+      <span>
+        <h1>{{ course.name }}</h1>
+        <h4>{{course.desc}} </h4>
+       <div>
+         <h5>讲师 <a href="/tutor/{{coourse.tutor.id}} "> {{course.tutor.displayName}} </a></h5>
+       </div>
+        </span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+      <span>
+         <h4> 所有章节
+           <button type="button" class="btn btn-primary btn-xs" ng-click="createModule()">
+             <i class="glyphicon glyphicon-plus"/> 增加新章节
+           </button>
+
+         </h4>
+        </span>
+  </div>
+</div>
+<br/>
+
+<div class="row">
+  <div class="col-lg-7" modules-list/>
+
+  <div class="col-lg-1">
+
+  </div>
+  <div class="col-lg-2">
+    <div class="row">
+      <div class="left"><h6>更多信息 </h6></div>
+    </div>
+
+    <div class="row">
+      <table class="table table-striped table-hover table-condensed">
+        <tr>
+          <td>级别</td>
+          <td><Strong>{{course.level}}</Strong></td>
+        </tr>
+        <tr>
+          <td>总时间</td>
+          <td> {{course.duration}}</td>
+        </tr>
+        <tr>
+          <td>发布时间</td>
+          <td><Strong>{{course.releasedAt}} </Strong></td>
+        </tr>
+        <tr>
+          <td>状态</td>
+          <td><Strong> {{course.status}}</Strong></td>
+        </tr>
+        <tr>
+          <td>排行榜</td>
+          <td><Strong> {{course.rank}}</Strong></td>
+        </tr>
+        <tr>
+          <td>播放次数</td>
+          <td><Strong> {{ course.viewtimes > 0 ? course.viewtimes : 0 }}</Strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>

@@ -13,4 +13,27 @@ app.directive('nextModule', function(){
   };
 });
 
+app.directive("videoUpload",function(){
+  return {
+    templateUrl:'app/course/partial/videoUpload.html'
+  }
+});
+
+app.directive("courseInfo",function(){
+  return {
+    templateUrl:'app/course/partial/courseInfo.html'
+  }
+});
+
+app.directive("moduleEditor",function(){
+  return{
+    templateUrl:'app/course/partial/module-editor.html'
+  }
+});
+
+app.directive("modulesList",function(){
+  return {
+    templateUrl:'app/course/partial/modules-list.html'
+  }
+})
 

@@ -1,12 +1,12 @@
 <div class="container">
   <!--<div class="row">-->
-    <!--<div id="breadcrumb">-->
-      <!--<ul class="crumbs">-->
-        <!--<li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>-->
-        <!--<li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>-->
-        <!--<li><a class="current" href="/courses/<%=courseToken%>/create-section<%= 10000001 %>" style="z-index:7;">Create A New Section</a></li>-->
-      <!--</ul>-->
-    <!--</div>-->
+  <!--<div id="breadcrumb">-->
+  <!--<ul class="crumbs">-->
+  <!--<li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>-->
+  <!--<li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>-->
+  <!--<li><a class="current" href="/courses/<%=courseToken%>/create-section<%= 10000001 %>" style="z-index:7;">Create A New Section</a></li>-->
+  <!--</ul>-->
+  <!--</div>-->
   <!--</div>-->
 
   <div class="row">
@@ -21,12 +21,14 @@
 
   <div class="row">
     <div class="col-md-8">
-      <form class="form-horizontal" id="moduleForm" name="moduleForm" >
+      <form class="form-horizontal" id="moduleForm" name="moduleForm">
         <fieldset>
           <!-- Form Name -->
-          <legend> <button type="button" class="btn btn-default start" ng-click="showCourse()">
+          <legend>
+            <button type="button" class="btn btn-default start" ng-click="showCourse()">
               <i class="glyphicon glyphicon-hand-left"/> 返回课程
-              </button> | 章节信息
+            </button>
+            | 章节信息
           </legend>
 
           <!-- Text input-->
@@ -34,7 +36,7 @@
             <label class="col-md-4 control-label" for="moduleName">章节名称</label>
 
             <div class="col-md-8">
-              <input id="moduleName" name="name" type="text" placeholder="章节名称"   ng-model="$parent.name"
+              <input id="moduleName" name="name" type="text" placeholder="章节名称" ng-model="$parent.name"
                      class="form-control input-md" ng-minlength="5" ng-maxlength="20">
               <span class="help-block has-error" ng-if="moduleForm.name.$dirty">
                 <span ng-show="moduleForm.name.$error.required">章节名称必须填</span>
@@ -49,8 +51,9 @@
             <label class="col-md-4 control-label" for="moduleDesc">章节称简介</label>
 
             <div class="col-md-8">
-              <textarea class="form-control" id="moduleDesc" name="module.desc" ng-model="$parent.desc" placeholder="输入章节的简介"
-                  ng-minlength="10" ng-maxlength="50" ng-required="true"></textarea>
+              <textarea class="form-control" id="moduleDesc" name="module.desc" ng-model="$parent.desc"
+                        placeholder="输入章节的简介"
+                        ng-minlength="10" ng-maxlength="50" ng-required="true"></textarea>
               <span class="help-block has-error" ng-if="moduleForm.desc.$dirty">
                 <span ng-show="moduleForm.desc.$error.required">章节简介必须填</span>
                 <span ng-show="moduleForm.desc.$error.minlength">章节简介最少10个字</span>
@@ -65,24 +68,27 @@
 
             <div class="col-md-4">
               <input id="moduleTags" name="moduleTags" ng-model="tags" type="text" placeholder="章节标签"
-                 ng-model="$parent.tags"    class="form-control input-md">
+                     ng-model="$parent.tags" class="form-control input-md">
             </div>
           </div>
 
           <!-- Button (Double) -->
           <div class="form-group">
             <div class="col-md-8">
-                  <button ng-show="verb == 'create'" id="submit1" type="submit" ng-click="submitCreateModuleForm()" class="btn btn-success">创建</button>
-                  <button ng-show="verb == 'update'" id="submit2" type="submit" ng-click="submitUpdateModuleForm()" class="btn btn-success">更新</button>
+              <button ng-show="verb == 'create'" id="submit1" type="submit" ng-click="submitCreateModuleForm()"
+                      class="btn btn-success">创建
+              </button>
+              <button ng-show="verb == 'update'" id="submit2" type="submit" ng-click="submitUpdateModuleForm()"
+                      class="btn btn-success">更新
+              </button>
 
-                 <button id="reset" type="reset" class="btn btn-danger">重填</button>
+              <button id="reset" type="reset" class="btn btn-danger">重填</button>
             </div>
           </div>
 
         </fieldset>
       </form>
     </div>
-
   </div>
-
 </div>
+

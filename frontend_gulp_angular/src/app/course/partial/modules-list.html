@@ -1,0 +1,64 @@
+  <style>
+    .center {
+      alignment: center;
+    }
+
+    .left {
+      float: left !important;
+    }
+
+    .right {
+      float: right !important;
+    }
+
+    h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+      font-size: 50%;
+      color: #ff0000;
+      line-height: 0;
+    }
+  </style>
+
+   <div class="panel-group" id="accordion">
+    <div class="panel panel-default" ng-repeat="module in course.complexModules" ng-click="toggleModule(module)">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#body_{{module.id}}">{{module.name}}</a>
+                  <span>
+                    <span class="list-itme glyphicon glyphicons-plus pull-right" ng-click="addVideos(module)">
+                      <img width="16" height="16" alt="ddd" title="增加教学视频" lt="增加教学视频" src="assets/images/add.ico">
+                    </span>
+                    <span class="list-itme glyphicon glyphicons-plus pull-right"
+                          ng-click="editModule(module)"><img width="16" height="16" title="编辑本节" alt="编辑本节"
+                                                             src="assets/images/edit-1.ico"> </span>
+                  <span class="list-itme glyphicon glyphicons-plus pull-right"
+                        ng-click="deleteModule(module)"><img width="16" height="16" title="删除本节" alt="删除本节"
+                                                             src="assets/images/delete.ico">
+                  </span>
+                  </span>
+          </div>
+        </h4>
+      </div>
+      <div id="body_{{module.id}}" class="panel-collapse collapse in">
+        <div class="panel-body">
+          {{module.desc}}des
+          <div ng-repeat="video in module.videoCollection"
+               style="background:#ffffff;height:30px; margin-top: 10px; margin-bottom: 10px; margin-left: 0px">
+            <div>
+              <a href="/mediaServer/video/stream/{{video.urltoken}}">
+                <img alt="播放" title="播放" width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}},
+                {{video.urltoken}}
+              </a>
+                      <span class=" pull-right">
+                        <img src="/assets/images/delete-1.ico" height="16px" width="16px" title="删除视频" alt="删除视频"
+                             ng-click="deleteVideo(video)">
+                        <img src="/assets/images/favorites.ico" height="16px" width="16px" title="收藏" alt="收藏"
+                             ng-click="bookMark(video)">
+                        {{video.duration}}
+                      </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
