@@ -103,7 +103,11 @@ angular.module('icetraiFront')
         updateWatchHistoryWatched(module, video);
         var nextVideo = getNextVideo(module, video, player);
         if (!nextVideo) {
-          setEndOfCourse();
+          if($scope.modules.indexOf(module) == $scope.modules.length -1){
+            setEndOfCourse();
+          }
+          else
+            playNextModule();
         }
       });
 
