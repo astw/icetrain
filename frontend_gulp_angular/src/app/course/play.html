@@ -32,9 +32,18 @@
     left: 0px;
     top: 0px;
   }
-
-
 </style>
+<script>
+  $(function(){
+    var player = $('#example_video');
+    player.on('ended',function(){
+      console.log('video ends');
+    });
+
+  });
+
+</script>
+
 
 <div class="container" ng-controller="PlayCtrl">
   <div class="row">
