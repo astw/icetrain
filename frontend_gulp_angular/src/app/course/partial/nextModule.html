@@ -5,7 +5,7 @@
     color: #005fb3;
   }
 
-  #nextModuleLayerContent {
+  .layerContent {
     position: absolute;
     left: 0px;
     top: 50%;
@@ -19,14 +19,14 @@
     vertical-align: middle;
   }
 
-  #nextModuleLayer {
+  .contentLayer {
     display: table;
   }
 
 </style>
 
-<div id="nextModuleLayer" ng-show="showNextModule" >
- <div id="nextModuleLayerContent">
+<div class="contentLayer" id="nextModuleLayer" ng-show="showNextModule" >
+ <div class="layerContent">
   <h4 > 本节全部播放完毕, 点击此处<span class="nextModuleLink" ng-click="playNextModule()"> 播放下一节</span> </h4>
    给本节打分
    <span>
@@ -34,7 +34,24 @@
             on-hover="hoveringOver(value)" on-leave="overStar = null"
             ng-click="ratingClick()"
             >
+    </rating>
 
+    </span>
+    <br/>
+    <div class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+         ng-show="overStar && !isReadonly">{{percent}}%</div>
+  </div>
+</div>
+
+<div class="contentLayer" ng-show="showEndOfCourse" >
+  <div class="layerContent">
+    <h4 > 本课程全部播放完毕</h4>
+    给本课程打分
+   <span>
+    <rating ng-model="rate" max="rateMax" readonly="isReadonly"
+            on-hover="hoveringOver(value)" on-leave="overStar = null"
+            ng-click="ratingClick()"
+      >
     </rating>
 
     </span>

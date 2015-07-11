@@ -18,22 +18,21 @@ angular.module('icetraiFront')
     if (!sessionToken) {
       $scope.userLoggedIn = false;
     };
+
     $scope.videoUrl = MediaServer + $location.url() + "?sessionToken=" + sessionToken;
-
     $scope.course = relayService.getKeyValue('course');
-    $scope.modules = $scope.course.complexModules;
-
+    $scope.modules = [].concat($scope.course.complexModules);
 
     var historyKey = 'userid_' + $scope.user.id +"_courseid_" + $scope.course.id;
-    $scope.watchHistory =  relayService.getKeyValue(historyKey);
-    if(!$scope.watchHistory){
-     watchHistoryService.getUserCourseWatchHistory($scope.user.id, $scope.course.id).then(function(res){
-       if(res.status == 200){
-        $scope.watchHistory = res.data;
-        $scope.$applyAsync();
-        relayService.putKeyValue(historyKey,$scope.watchHistory);
-       }
-    });
+    var watchHistory =  relayService.getKeyValue(historyKey);
+    if(!watchHistory) {
+      watchHistoryService.getUserCourseWatchHistory($scope.user.id, $scope.course.id).then(function (res) {
+        if (res.status == 200) {
+          watchHistory = res.data;
+          $scope.$applyAsync();
+          relayService.putKeyValue(historyKey, $scope.watchHistory);
+        }
+      });
     };
 
     $scope.select = function (module) {
@@ -56,10 +55,10 @@ angular.module('icetraiFront')
       if (video.current)
         return " current watched";
       else{
-        if($scope.watchHistory) {
-        for (var i = 0; i < $scope.watchHistory.length; i++) {
-            if ($scope.watchHistory[i].videoid === video.id) {
-              return $scope.watchHistory[i].status;
+        if(watchHistory) {
+        for (var i = 0; i < watchHistory.length; i++) {
+            if (watchHistory[i].videoid === video.id) {
+              return watchHistory[i].status;
             }
           }
         }
@@ -73,23 +72,24 @@ angular.module('icetraiFront')
         })
       });
 
+      $scope.showEndOfCourse = false;
       $scope.showNextModule = false;
       $scope.showVideoPlayer = true;
       $scope.currentModule = module;
       video.current = true;
       $scope.videoUrl = getVideoUrl(video);
+      // add a new watchHistroy record
+      addWatchHistory(module, video);
+
       var player = getVideoPlayer();
       player.attr('src', $scope.videoUrl);
       player.load();
-      // add a new watchHistroy record
-      addWatchHistory(module,video);
-
       player.bind('ended', function () {
         // update whatch history
-        updateWatchHistoryWatched(module,video);
+        updateWatchHistoryWatched(module, video);
         var nextVideo = getNextVideo(module, video, player);
         if (!nextVideo) {
-          return;
+          setEndOfCourse();
         }
       });
 
@@ -98,9 +98,7 @@ angular.module('icetraiFront')
       relayService.putKeyValue('course', $scope.course);
     };
 
-
     $scope.playNextModule = function () {
-
       var idx = $scope.modules.indexOf($scope.currentModule);
       if (idx < $scope.modules.length - 1) {
         var module = $scope.modules[idx + 1];
@@ -114,10 +112,22 @@ angular.module('icetraiFront')
       }
       else {
         // end of this class
-        // player.attr('style',"visibility:hidden");
+        //player.attr('style',"visibility:hidden");
+        setEndOfCourse();
       }
     };
 
+    var setEndOfCourse = function(){
+      // end of this class
+      //player.attr('style',"visibility:hidden");
+      $scope.showEndOfCourse = true;
+      $scope.showNextModule = false;
+      $scope.showVideoPlayer = false;
+
+      var player = getVideoPlayer();
+      player.attr('src', '');
+      player.load();
+    };
     var getNextVideo = function (module, currentVideo, player) {
       var idx = module.videoCollection.indexOf(currentVideo);
       if (idx < module.videoCollection.length - 1) {
@@ -128,9 +138,9 @@ angular.module('icetraiFront')
       else {
         // end of this module
         // reminder user click to watch next module
-
         player.attr('style', "visibility:hidden");
         $scope.showVideoPlayer = false;
+        $scope.showEndOfCourse = false;
         $scope.showNextModule = true;
         var player = getVideoPlayer();
         player.attr('src', '');
@@ -138,6 +148,19 @@ angular.module('icetraiFront')
         $scope.$applyAsync();
         return null;
       }
+    };
+
+    var getVideoPlayer = function () {
+      return $(event.target).closest('#palyerBorder').find('#example_video_html5_api');
+    };
+
+    var addWatchHistory = function(module,video){
+      watchHistoryService.addUserWatchHistory(
+        $scope.user.id, $scope.course.id, module.id,video.id);
+    };
+    var updateWatchHistoryWatched = function(module,video){
+      watchHistoryService.updateWatchHistoryWatched(
+        $scope.user.id, $scope.course.id, module.id,video.id);
     };
 
     var hidePlay = function (player) {
@@ -150,35 +173,6 @@ angular.module('icetraiFront')
     var getVideoUrl = function (video) {
       return MediaServer + "/mediaServer/video/stream/" + video.urltoken + "?sessionToken=" + sessionToken;
     };
-
-    var getVideoPlayer = function () {
-      return $(event.target).closest('#palyerBorder').find('#example_video_html5_api');
-    };
-
-    var addWatchHistory = function(module,video){
-        watchHistoryService.addUserWatchHistory(
-          $scope.user.id, $scope.course.id, module.id,video.id);
-    };
-    var updateWatchHistoryWatched = function(module,video){
-        watchHistoryService.updateWatchHistoryWatched(
-          $scope.user.id, $scope.course.id, module.id,video.id);
-    };
-
-    //var url = API_URL + 'module/' + moduleInfo.id ;
-    //
-    //var headers = {
-    //  clientkey: 'this is the client key',
-    //  //uid: user.id,
-    //  Authorization:sessionToken
-    //};
-
-    //var dfd = $q.defer();
-    //$http.put(url, moduleInfo, {headers:headers})
-    //  .then(function(res){
-    //    console.log(res);
-    //    dfd.resolve(res);
-    //  });
-
 
     $scope.trustSrc = function (src) {
       return $sce.trustAsResourceUrl(src);
@@ -203,4 +197,32 @@ angular.module('icetraiFront')
         this.$apply(fn);
       }
     };
+
+    //--------- set player events
+    //$scope. player = getVideoPlayer();
+    //$scope.player.bind('ended', function () {
+    //  // update whatch history
+    //  var nextVideo = getNextVideo(initModule, initVideo, $scope.player);
+    //  if (!nextVideo) {
+    //     setEndOfCourse();
+    //     return;
+    //  }
+    //  $scope.player.attr('src', $scope.videoUrl);
+    //  $scope.player.load();
+    //});
+    //
+
+
+    var initVideoToken = $location.url().split('/mediaServer/video/stream/')[1];
+    var initModule = null;
+    var initVideo = null;
+    for(var i=0; i< $scope.modules.length; i++){
+      for(var j=0; j<$scope.modules[i].videoCollection.length; j++)
+        if(initVideoToken === $scope.modules[i].videoCollection[j].urltoken){
+          initModule = $scope.modules[i];
+          initVideo = initModule.videoCollection[j];
+       //   $scope.videoClicked(initModule,initVideo);
+        }
+    }
+
   });
