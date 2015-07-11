@@ -50,6 +50,8 @@ module.exports = {
         }).then(function(data){
           console.log(data);
           if(data){
+            console.log('---- exists ');
+
             // already exist, update the status
             data.status = req.body.status;
             data.save().then(function (data) {
@@ -57,6 +59,7 @@ module.exports = {
             });
           }
           else{
+            console.log('---- doesn exsits');
             // create a new watchhistory
             WatchHistory.create({
                 userid: req.body.userid,

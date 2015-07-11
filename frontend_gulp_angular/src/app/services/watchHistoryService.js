@@ -64,6 +64,7 @@ angular.module('icetraiFront')
         videoid: vid,
         status: 'watching'
       };
+      
       var dfd = $q.defer();
       $http.post(url, data, {headers: headers})
         .then(function (res) {

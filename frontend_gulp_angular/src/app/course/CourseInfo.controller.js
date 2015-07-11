@@ -13,6 +13,7 @@ angular.module('icetraiFront')
     $scope.showModuleDiv = false;
     $scope.showVideoUploadDiv = false;
     var verb ='get';
+    var userid = $scope.user.id;
 
     $scope.videoNames = [0,1,2];
 
@@ -43,10 +44,10 @@ angular.module('icetraiFront')
         };
       });
      
-    watchHistoryService.getUserCourseWatchHistory(userid, courseid).then(function(res){
+    watchHistoryService.getUserCourseWatchHistory(userid, courseId).then(function(res){
        if(res.status == 200){
         $scope.watchHistory = res.data;
-        var cacheKey = 'userid_' + userid +"_courseid_" + courseid;
+        var cacheKey = 'userid_' + userid +"_courseid_" + courseId;
         relayService.putKeyValue(cacheKey,$scope.watchHistory);
        }
     });
