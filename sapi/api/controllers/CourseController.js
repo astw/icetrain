@@ -4,6 +4,8 @@ var associateCourseRepository = require("../services/courseRepository/associateC
 
 module.exports = {
   getCourseById : associateCourseRepository.getCourseById,
+  getCoursesByTutor:associateCourseRepository.getCoursesByTutor,
   getCourseModules: associateCourseRepository.getCourseComplexModules,
-  create: associateCourseRepository.createCourse
+  postCourse: associateCourseRepository.createCourse,
+  putCourse:associateCourseRepository.updateCourseById
 };

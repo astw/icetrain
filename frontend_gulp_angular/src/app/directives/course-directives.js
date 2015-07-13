@@ -1,27 +1,27 @@
-'use strict'
+'use strict';
 
 var app = angular.module('icetraiFront');
 app.directive('courseDirectory', function(){
    return {
-     templateUrl:'app/course/partial/courseDirectory.html'
+     templateUrl:'app/course/partial/course-directory.html'
    };
 });
 
 app.directive('nextModule', function(){
   return {
-    templateUrl:'app/course/partial/nextModule.html'
+    templateUrl:'app/course/partial/next-module.html'
   };
 });
 
 app.directive("videoUpload",function(){
   return {
-    templateUrl:'app/course/partial/videoUpload.html'
+    templateUrl:'app/course/partial/video-upload.html'
   }
 });
 
 app.directive("courseInfo",function(){
   return {
-    templateUrl:'app/course/partial/courseInfo.html'
+    templateUrl:'app/course/partial/course-info.html'
   }
 });
 
@@ -35,5 +35,17 @@ app.directive("modulesList",function(){
   return {
     templateUrl:'app/course/partial/modules-list.html'
   }
-})
+});
+
+app.directive("courseEditor",function(){
+  return {
+    templateUrl:'app/course/partial/course-editor.html'
+  }
+});
+
+app.directive("myCoursesList",function(){
+  return {
+    templateUrl:'app/course/partial/my-courses-list.html'
+  }
+});
 

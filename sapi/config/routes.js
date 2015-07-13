@@ -46,12 +46,17 @@ module.exports.routes = {
   },
 
   'post /file/upload':"FileController.upload",
-  'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo",
+  'get /mediaServer/video/stream/:token'  :"VideoController.streamVideo"
 
-   "post /:tutorId/course/:courseId/:moduleId/videoUpload" :"NgFileUploadController.upload"  //"FancyUploadController.uploadCourseVideo"  //
+, 'post /:tutorId/course/:courseId/:moduleId/videoUpload' :'NgFileUploadController.upload'  //"FancyUploadController.uploadCourseVideo"  //
 , 'get /courses/:id/modules' :'CourseController.getCourseModules'
 , 'get /courses/:id' :'CourseController.getCourseById'
+, 'get /courses/users/:userId':'CourseController.getCoursesByTutor'
+, 'post /courses':'CourseController.postCourse'
+, 'put /course/courseId':'CourseController.putCourse'
+
 , "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
+
 
 , 'get /users/:uid/watchhistory':'WatchHistoryController.getUserWatchHistory'
 , 'get /users/:uid/watchhistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"

@@ -74,9 +74,9 @@ createCourse = function (req, res) {
       return res.json({'status': 'GET not allowed'});
 
     console.log(req.body);
+    console.log(req.session.userid);
 
-    //User.findOne({id: req.session.userid}, function (err, user) {
-    User.findOne({id: 1}, function (err, user) {
+    User.findOne({id: req.session.userid}, function (err, user) {
       if (err) {
         return res.notFound();
       }
@@ -103,11 +103,51 @@ createCourse = function (req, res) {
     });
 }
 
+var getCoursesByTutor = function(tutorId){
+
+  var result = [];
+  return Course.find({tutorid: tutorId})
+    .then(function (courses) {
+      courses.forEach(function (course) {
+        result.push(
+          course.getSections().then(function (sections) {
+            course.sections = sections;
+            return course;
+          }));
+      });
+      return Q.all(result);
+    });
+};
+
+var updateCourseById = function (courseId, courseInfo) {
+  var defer = Q.defer();
+  Course.findOne({id:courseId}).then(function(course){
+    course.name = courseInfo.name;
+    course.desc = courseInfo.desc;
+    course.level = courseInfo.level;
+    course.coursetype = courseInfo.courseType;
+    course.save().then(function(err){
+      userRepository.getUserById(course.tutorid).then(function(tutor){
+        course.tutor = tutor;
+        Section.find({courseid:course.id}).then(function(sections){
+          course.sections = sections;
+          defer.resolve(course);
+        })
+      });
+    });
+    defer.resolve(course);
+  });
+
+  return defer.promise;
+};
+
 module.exports = {
 
   getCourseById : getCourseById,
+  getCoursesByTutor:getCoursesByTutor,
   getCourseComplexModules: getCourseComplexModules,
-  createCourse:createCourse
+  createCourse:createCourse,
+  updateCourseById : updateCourseById
 
 }
 

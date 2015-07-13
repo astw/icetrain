@@ -1,0 +1,111 @@
+<div class="container">
+
+  <!--<div class="row">-->
+  <!--<div id="breadcrumb">-->
+  <!--<ul class="crumbs">-->
+  <!--<li class="first"><a href="/" style="z-index:9;"><span></span>Home</a></li>-->
+  <!--<li><a href="/courses/byuser/<%= 10000001 %>" style="z-index:8;">My Courses</a></li>-->
+  <!--<li><a class="current" href="/courses/<%=courseToken%>/create-section<%= 10000001 %>" style="z-index:7;">Create A New Section</a></li>-->
+  <!--</ul>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <div class="row">
+    <div class="col-md-8">
+      <form class="form-horizontal" id="courseForm" name="courseForm">
+        <fieldset>
+          <!-- Form Name -->
+          <legend>
+            <button type="button" class="btn btn-default start" ng-click="showMyCourses()">
+              <i class="glyphicon glyphicon-hand-left"/> 返回我的课程
+            </button>
+          </legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseName">课程名称</label>
+
+            <div class="col-md-8">
+              <input id="courseName" name="name" type="text" placeholder="课程名称" ng-model="course.name"
+                     class="form-control input-md" ng-minlength="5" ng-maxlength="20">
+              <span class="help-block has-error" ng-if="courseForm.name.$dirty">
+                <span ng-show="courseForm.name.$error.required">课程名称必须填</span>
+                <span ng-show="courseForm.name.$error.minlength">课程名称最少5个字</span>
+                <span ng-show="courseForm.name.$error.maxlength">课程名称最多20个字</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseDesc">课程称简介</label>
+
+            <div class="col-md-8">
+              <textarea class="form-control" id="courseDesc" name="course.desc" ng-model="course.desc"
+                        placeholder="输入课程的简介"
+                        ng-minlength="10" ng-maxlength="50" ng-required="true"></textarea>
+              <span class="help-block has-error" ng-if="courseForm.desc.$dirty">
+                <span ng-show="courseForm.desc.$error.required">课程简介必须填</span>
+                <span ng-show="courseForm.desc.$error.minlength">课程简介最少10个字</span>
+                <span ng-show="courseForm.desc.$error.maxlength">课程简介最多50个字</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseTags">课程级别</label>
+            <div class="col-md-4">
+              <select id="courseLevel" name="courseLevel" ng-model="course.level" class="form-control">
+                <option value="beginer">初级</option>
+                <option value="medium">中级</option>
+                <option value="advanced">高级</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseType">课程类别</label>
+
+            <div class="col-md-4">
+              <select id="courseType" name="courseType"  ng-model="course.type" class="form-control">
+                <option value="1">Nodejs</option>
+                <option value="2">javascript</option>
+                <option value="3">java</option>
+                <option value="4">C#</option>
+                <option value="5">SQL Server</option>
+                <option value="6">Oracle</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="courseTags">课程标签</label>
+
+            <div class="col-md-4">
+              <input id="courseTags" name="courseTags" ng-model="course.tags" type="text" placeholder="课程标签"
+                     ng-model="tags" class="form-control input-md">
+            </div>
+          </div>
+
+          <!-- Button (Double) -->
+          <div class="form-group">
+            <div class="col-md-8">
+              <button ng-show="verb == 'create'" id="submit1" type="submit" ng-click="submitCreateCourseForm()"
+                      class="btn btn-success">创建
+              </button>
+              <button ng-show="verb == 'update'" id="submit2" type="submit" ng-click="submitUpdateCourseForm()"
+                      class="btn btn-success">更新
+              </button>
+
+              <button id="reset" type="reset" class="btn btn-danger">重填</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+

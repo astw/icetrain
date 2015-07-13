@@ -38,6 +38,12 @@ module.exports.policies = {
 
    "NgFileUploadController" :{
      'deleteVideo':['jwtAuth']
+   },
+
+   "CourseController" :{
+     'postCourse' :['jwtAuth'],
+     'putCourse':['jwtAuth']
+
    }
 
 

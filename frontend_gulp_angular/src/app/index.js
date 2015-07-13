@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('icetraiFront', ['ngAnimate', 'ngCookies',
+angular.module('icetraiFront',
+  ['ngAnimate', 'ngCookies',
   'ngTouch', 'ngSanitize',
   'ngResource', 'ngRoute',
-  'ui.bootstrap', 'ngFileUpload']
+  'ui.bootstrap', 'ngFileUpload'
+  ]
 )
-  .config(function ($routeProvider, $locationProvider) {
+.config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'app/main/main.html',
@@ -58,7 +60,7 @@ angular.module('icetraiFront', ['ngAnimate', 'ngCookies',
       //.when('/video/upload',{
       //  templateUrl:"app/upload/index.html",
       //  controller:"UploadCtrl"
-      //}).
+      //})
       //when('/ngupload/',{
       //  templateUrl:"app/upload/ng-file.html",
       //  controller:"NgFileUploadCtrl"

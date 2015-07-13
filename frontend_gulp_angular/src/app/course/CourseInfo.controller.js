@@ -1,11 +1,10 @@
 
-
-angular.module('icetraiFront')
-.controller('CourseInfoCtrl',function($http, $rootScope, $scope, $routeParams,$location,$timeout,
+angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $rootScope, $scope, $routeParams,$location,$timeout,
                                       Upload,
                                       courseRepository,
                                       watchHistoryService,
-                                      auth,relayService,$modal) {
+                                      auth,relayService,
+                                      $modal) {
 
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
@@ -42,7 +41,6 @@ angular.module('icetraiFront')
           $scope.course = null;
           relayService.put(null);
         }
-        ;
       });
 
     watchHistoryService.getUserCourseWatchHistory(userid, courseId).then(function (res) {
@@ -108,8 +106,8 @@ angular.module('icetraiFront')
     $scope.deleteModule = function (module) {
       var modalInstance = $modal.open({
         animation: true,
-        templateUrl: "deleteClass.htm",
-        controller: "ModalInstanceCtrl",
+        templateUrl: 'deleteClass.htm',
+        controller: 'ModalInstanceCtrl',
         size: null,
         resolve: {
           modalMessage: function () {
@@ -123,18 +121,40 @@ angular.module('icetraiFront')
           then(function (res) {
             var idx = $scope.course.complexModules.indexOf(module);
             $scope.course.complexModules.splice(idx, 1);
-            // for(var i=0 ;i<$scope.course.modules; i++){
-            //   if($scope.course.modules[i].id == module.id)
-            //   {
-            //     $scope.course.modules.splice(0,1);
-            //   }
-            // }
+            for(var i=0 ;i<$scope.course.modules; i++){
+               if($scope.course.modules[i].id == module.id)
+               {
+                 $scope.course.modules.splice(0,1);
+               }
+            }
+            relayService.putKeyValue('course', $scope.course);
           });
 
       }, function () {
 
       });
     };
+
+    // test function for modal dialog
+    $scope.openDialog = function (module) {
+
+      var modalInstance = $modal.open({
+        animation: true,
+        templateUrl: 'deleteClass.htm',
+        controller: 'ModalInstanceCtrl',
+        size: null,
+        resolve: {
+          modalMessage: function () {
+            return $scope.modalMessage;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (items) {
+         alert( items );
+      });
+    };
+
 
     $scope.editModule = function (module) {
       $scope.name = module.name;
@@ -201,12 +221,6 @@ angular.module('icetraiFront')
     //    }
     //  }
     //});
-
-    $scope.toggleShowValue = function () {
-      $scope.showCourseInfoDiv = !$scope.showCourseInfoDiv;
-      $scope.showModuleEditor = !$scope.showModuleEditor;
-      $scope.showVideoUploadDiv = ! $scope.showVideoUploadDiv;
-    };
 
     $scope.uploadPic = function (files) {
       $scope.formUpload = true;
@@ -301,14 +315,15 @@ angular.module('icetraiFront')
   });
 
 angular.module('icetraiFront')
-  .controller('ModalInstanceCtrl',['$modalInstance', function ($scope, $modalInstance, modalMessage ) {
+  .controller('ModalInstanceCtrl',
+  [ '$scope','$modalInstance','modalMessage',function ($scope, $modalInstance, modalMessage ) {
 
-  $scope.modalMessage = modalMessage;
-  $scope.ok = function () {
-    $modalInstance.close($scope);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+  //$scope.modalMessage = modalMessage;
+  //$scope.ok = function () {
+  //  $modalInstance.close($scope);
+  //};
+  //
+  //$scope.cancel = function () {
+  //  $modalInstance.dismiss('cancel');
+  //};
 }]);

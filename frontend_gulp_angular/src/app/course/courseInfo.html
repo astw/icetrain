@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
 <link rel="stylesheet" href="/assets/css/blueimp-gallery.min.css">
 
 <style>
@@ -15,15 +16,17 @@
 
   <button ng-click="toggleShowValue()" >CLick me </button>
 
+  <button class="btn btn-default" ng-click="openDialog()">Open me!</button>
+
   <div class="row" module-editor ng-show="showModuleEditor"/>
   <div class="row" course-info ng-show="showCourseInfoDiv"/>
   <div class="row" video-upload ng-show="showVideoUploadDiv" />
 
   <div ng-controller="ModalInstanceCtrl">
     <script type="text/ng-template" id="deleteClass.htm">
-      <!--<div class="modal-header">-->
-      <!--<h3 class="modal-title">I'm a modal!</h3>-->
-      <!--</div>-->
+      <div class="modal-header">
+      <h3 class="modal-title">I'm a modal!</h3>
+      </div>
       <div class="modal-body">
         <ul>
           <h3>{{modalMessage}}</h3>
@@ -35,7 +38,6 @@
         <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
       </div>
     </script>
-    <button class="btn btn-default" ng-click="open()">Open me!</button>
   </div>
 
   <hr>

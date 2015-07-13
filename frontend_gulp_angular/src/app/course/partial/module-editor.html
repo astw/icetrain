@@ -36,7 +36,7 @@
             <label class="col-md-4 control-label" for="moduleName">章节名称</label>
 
             <div class="col-md-8">
-              <input id="moduleName" name="name" type="text" placeholder="章节名称" ng-model="$parent.name"
+              <input id="moduleName" name="name" type="text" placeholder="章节名称" ng-model="name"
                      class="form-control input-md" ng-minlength="5" ng-maxlength="20">
               <span class="help-block has-error" ng-if="moduleForm.name.$dirty">
                 <span ng-show="moduleForm.name.$error.required">章节名称必须填</span>
@@ -51,7 +51,7 @@
             <label class="col-md-4 control-label" for="moduleDesc">章节称简介</label>
 
             <div class="col-md-8">
-              <textarea class="form-control" id="moduleDesc" name="module.desc" ng-model="$parent.desc"
+              <textarea class="form-control" id="moduleDesc" name="module.desc" ng-model="desc"
                         placeholder="输入章节的简介"
                         ng-minlength="10" ng-maxlength="50" ng-required="true"></textarea>
               <span class="help-block has-error" ng-if="moduleForm.desc.$dirty">
@@ -68,7 +68,7 @@
 
             <div class="col-md-4">
               <input id="moduleTags" name="moduleTags" ng-model="tags" type="text" placeholder="章节标签"
-                     ng-model="$parent.tags" class="form-control input-md">
+                     ng-model="tags" class="form-control input-md">
             </div>
           </div>
 

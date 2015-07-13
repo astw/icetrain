@@ -50,8 +50,25 @@ angular.module('icetraiFront')
       return dfd.promise;
     };
 
+    this.createCourse = function(courseInfo, uid){
+      var url = API_URL + "courses";
+      var headers = {
+        clientkey: 'this is the client key',
+        Authorization:getAuthHeader()
+      };
+
+      var dfd = $q.defer();
+      $http.post(url,courseInfo,{headers:headers})
+        .then(function(res){
+          console.log(res);
+          dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+
     this.updateCourse = function (courseInfo, uid) {
-      var url = API_URL + "course/"
+      var url = API_URL + "course";
       var headers = {
         clientkey: 'this is the client key',
         uid:uid,
@@ -59,7 +76,7 @@ angular.module('icetraiFront')
       };
 
       var dfd = $q.defer();
-      $http.put(url,{headers:headers})
+      $http.put(url,courseInfo,{headers:headers})
         .then(function(res){
           console.log(res);
           dfd.resolve(res);
