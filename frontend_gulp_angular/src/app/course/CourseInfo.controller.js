@@ -1,10 +1,13 @@
 
-angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $rootScope, $scope, $routeParams,$location,$timeout,
+angular.module('icetraiFront')
+  .controller('CourseInfoCtrl',function($http, $rootScope, $scope, $routeParams,$location,$timeout,
                                       Upload,
                                       courseRepository,
                                       watchHistoryService,
                                       auth,relayService,
-                                      $modal) {
+                                      $modal, $log
+  )
+  {
 
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
@@ -14,6 +17,7 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
     var verb = 'get';
     var userid = $scope.user.id;
 
+    var count =0
     $scope.videoNames = [0, 1, 2];
 
     courseRepository.getCourseById(courseId)
@@ -104,6 +108,7 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
     $scope.modalMessage = "确定要删除这一节吗？"
     $scope.items = ['itme1', 'item2'];
     $scope.deleteModule = function (module) {
+
       var modalInstance = $modal.open({
         animation: true,
         templateUrl: 'deleteClass.htm',
@@ -124,7 +129,7 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
             for(var i=0 ;i<$scope.course.modules; i++){
                if($scope.course.modules[i].id == module.id)
                {
-                 $scope.course.modules.splice(0,1);
+                 $scope.course.modules.splice(i,1);
                }
             }
             relayService.putKeyValue('course', $scope.course);
@@ -150,11 +155,12 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
         }
       });
 
-      modalInstance.result.then(function (items) {
-         alert( items );
+      modalInstance.result.then(function (selectedItem) {
+         alert( selectedItem );
+      },function(){
+        alert("dismissed ");
       });
     };
-
 
     $scope.editModule = function (module) {
       $scope.name = module.name;
@@ -179,9 +185,12 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
       // $location.url(url);
     };
 
-    $scope.deleteVideo = function (video) {
+    $scope.deleteVideo = function (module,video) {
       courseRepository.deleteVideo(video, $scope.user).then(function (res) {
-        console.log(res);
+        var idx = module.videoCollection.indexOf(video);
+        module.videoCollection.splice(idx,1);
+        relayService.putKeyValue('course', $scope.course);
+        $log.info('delete ' + video);
       });
     };
 
@@ -193,6 +202,7 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
 
     $scope.uploadAll = function () {
       $scope.formUpload = false;
+
       if ($scope.files != null) {
         for (var i = 0; i < $scope.files.length; i++) {
           $scope.errorMsg = null;
@@ -271,6 +281,20 @@ angular.module('icetraiFront').controller('CourseInfoCtrl',function($http, $root
           $scope.errorMsg = response.status + ': ' + response.data;
       });
 
+      file.upload.success(function(data){
+        $log.info('file upload finished ' + data);
+        $scope.course.complexModules.forEach(function(m){
+          if(m.id === data.module){
+            m.videoCollection.push(data);
+          }
+        });
+        relayService.putKeyValue('course', $scope.course);
+        count++;
+        if(count === $scope.files.length){
+          alert("all finished");
+        }
+      });
+
       file.upload.progress(function (evt) {
         // Math.min is to fix IE which reports 200% sometimes
         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
@@ -318,12 +342,12 @@ angular.module('icetraiFront')
   .controller('ModalInstanceCtrl',
   [ '$scope','$modalInstance','modalMessage',function ($scope, $modalInstance, modalMessage ) {
 
-  //$scope.modalMessage = modalMessage;
-  //$scope.ok = function () {
-  //  $modalInstance.close($scope);
-  //};
-  //
-  //$scope.cancel = function () {
-  //  $modalInstance.dismiss('cancel');
-  //};
+  $scope.modalMessage = modalMessage;
+  $scope.ok = function () {
+    $modalInstance.close($scope);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 }]);

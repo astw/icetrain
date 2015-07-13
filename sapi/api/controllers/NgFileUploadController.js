@@ -68,8 +68,9 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
     //    return;
     //  }
     //});
-   duration = metadata.format.duration;
-
+    if(metadata) {
+      duration = metadata.format.duration;
+    }
     var relativeVideoPath = videoFilePath.replace(root,"");
     Video.create(
       {

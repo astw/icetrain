@@ -16,6 +16,13 @@
       color: #ff0000;
       line-height: 0;
     }
+
+   .tile-icon{
+     width:14px;
+     height:14px;
+     margin:2px;
+   }
+
   </style>
 
    <div class="panel-group" id="accordion">
@@ -24,17 +31,18 @@
         <h4 class="panel-title">
           <div>
             <a data-toggle="collapse" data-parent="#accordion" href="#body_{{module.id}}">{{module.name}}</a>
-                  <span>
-                    <span class="list-itme glyphicon glyphicons-plus pull-right" ng-click="addVideos(module)">
-                      <img width="16" height="16" alt="ddd" title="增加教学视频" lt="增加教学视频" src="assets/images/add.ico">
+                  <span class="lay1,pull-right">
+                     <span class="glyphicon glyphicons-plus pull-right" ng-click="addVideos(module)">
+                       <img class="tile-icon" title="增加教学视频" alt="增加教学视频" src="assets/images/add.ico">
                     </span>
-                    <span class="list-itme glyphicon glyphicons-plus pull-right"
-                          ng-click="editModule(module)"><img width="16" height="16" title="编辑本节" alt="编辑本节"
-                                                             src="assets/images/edit-1.ico"> </span>
-                  <span class="list-itme glyphicon glyphicons-plus pull-right"
-                        ng-click="deleteModule(module)"><img width="16" height="16" title="删除本节" alt="删除本节"
-                                                             src="assets/images/delete.ico">
-                  </span>
+                    <span class="glyphicon glyphicons-plus pull-right"
+                          ng-click="editModule(module)">
+                      <img class="tile-icon" title="编辑本节" alt="编辑本节" src="assets/images/edit-1.ico" >
+                    </span>
+                      <span class="glyphicon glyphicons-plus pull-right"
+                        ng-click="deleteModule(module)">
+                        <img class="tile-icon" title="删除本节" alt="删除本节" src="assets/images/delete.ico">
+                      </span>
                   </span>
           </div>
         </h4>
@@ -46,15 +54,14 @@
                style="background:#ffffff;height:30px; margin-top: 10px; margin-bottom: 10px; margin-left: 0px">
             <div>
               <a href="/mediaServer/video/stream/{{video.urltoken}}">
-                <img alt="播放" title="播放" width="24" height="24" src="/assets/images/Play.ico"/> {{video.name}},
-                {{video.urltoken}}
+                <img alt="播放" title="播放" width="16" height="16" src="/assets/images/Play.ico"/> {{video.name}}
               </a>
                       <span class=" pull-right">
-                        <img src="/assets/images/delete-1.ico" height="16px" width="16px" title="删除视频" alt="删除视频"
-                             ng-click="deleteVideo(video)">
-                        <img src="/assets/images/favorites.ico" height="16px" width="16px" title="收藏" alt="收藏"
-                             ng-click="bookMark(video)">
-                        {{video.duration}}
+                            <span class="tile-icon">{{video.duration}}</span>
+                            <img src="/assets/images/delete-1.ico" class="tile-icon" title="删除视频" alt="删除视频"
+                                     ng-click="deleteVideo(module,video)">
+                            <img src="/assets/images/favorites.ico"class="tile-icon" height="16px" width="16px" title="收藏" alt="收藏"
+                                     ng-click="bookMark(module,video)">
                       </span>
             </div>
           </div>
