@@ -21,6 +21,13 @@
 
 </style>
 
+<script type="javascript">
+  function onloadedmetadata(){
+      alert(this);
+  } 
+
+</script>
+
   <!--<div ng-include="'app/course/uploadVideoDiv.html'"></div>-->
   <div class="container">
     <div class="row">
@@ -68,8 +75,17 @@
 
         <div ng-repeat="f in files" class="col-md-9">
           <div class="col-md-4">
-            <video controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
-                   ngf-accept="'video/*'"></video>
+            <video id='{{$index}}' controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
+                   ngf-accept="'video/*'"
+                   onloadedmetadata ='
+                   var idex = this.id;
+                   alert(idex);
+                   alert(angular.element("#"+idex).scope().videoNames);
+                   console.log(angular.element("#"+idex).scope().videoNames);
+                   var name = angular.element("#"+idex).scope().videoNames[idex];
+                   alert(name);
+                   '
+                   ></video>
           </div>
           <div class="col-md-1"></div>
 
