@@ -24,10 +24,16 @@ angular.module('icetraiFront')
       return JSON.parse(storage.getItem(key));
     };
 
+    var clear = function(){
+      bag = null;
+      storage.clear();
+    };
+
     return{
       get:get,
       put:put,
       putKeyValue:putKeyValue,
-      getKeyValue:getKeyValue
+      getKeyValue:getKeyValue,
+      clear:clear
     }
 });

@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('icetraiFront')
-.service('auth',function($http,$window,$q, $location,authToken, $cookieStore,$rootScope) {
+.service('auth',function($http,$window,$q, $location,authToken, $cookieStore,relayService) {
 
     var API_URL = 'http://localhost:1337/auth/';
     var clientkey = "this is the client key";
@@ -39,6 +39,7 @@ angular.module('icetraiFront')
     this.logout = function () {
       authToken.removeToken();
       $cookieStore.remove(cookieKey);
+      relayService.clear();
     };
 
     this.currentUser = function () {

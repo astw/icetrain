@@ -10,9 +10,7 @@ angular.module('icetraiFront')
         then(function(res){
           if(res.status == 200) {
             $scope.user = res.data.user;
-
             $scope.isAuthenticated = auth.isAuthenticated();
-
             $location.url('/');
           }
           else

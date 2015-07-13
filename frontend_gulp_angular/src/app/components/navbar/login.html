@@ -10,16 +10,16 @@
 
         <!-- email input-->
         <div class="form-group">
-          <label class="col-md-4 control-label" for="username">电子邮件</label>
+          <label class="col-md-4 control-label" for="email">电子邮件</label>
 
           <div class="col-md-4">
             <input id="email" name="email" type="text" ng-model="email" placeholder="电子邮件"
-                   class="form-control input-md"> 
+                   class="form-control input-md">
             <span style="color:red" ng-show="loginForm.email.$dirty &&
                  loginForm.email.$invalid">
-            <span ng-show="loginForm.email.$error.required">email is required</span>
-            <span ng-show="loginForm.email.$error.email">Invalid email address</span>
-            </span> 
+            <span ng-show="loginForm.email.$error.required">电子邮件不能为空</span>
+            <span ng-show="loginForm.email.$error.email">无效电子邮件</span>
+            </span>
           </div>
         </div>
 
@@ -31,11 +31,11 @@
             <input id="password" name="password" type="password" ng-model="password" aceholder="密码"
                    class="form-control input-md">
             <span style="color:red" ng-show="loginForm.password.$dirty &&
-                   loginForm.password.$invalid"> 
-              <span ng-show="loginForm.password.$error.required"> 
-                  Email is required.
+                   loginForm.password.$invalid">
+              <span ng-show="loginForm.password.$error.required">
+                  密码不能为空
               </span>
-              
+
             </span>
             <span class="help-block"></span>
           </div>
