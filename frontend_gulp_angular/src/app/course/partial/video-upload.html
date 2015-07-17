@@ -23,8 +23,8 @@
 
 <script type="javascript">
   function onloadedmetadata(){
-      alert(this);
-  } 
+
+  }
 
 </script>
 
@@ -73,16 +73,15 @@
         </div>
         <br/>
 
-        <div ng-repeat="f in files" class="col-md-9">
+        <div ng-repeat="f in files track by $index" class="col-md-9">
           <div class="col-md-4">
-            <video id='{{$index}}' controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
+            <video id='video_{{$index}}' controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
                    ngf-accept="'video/*'"
                    onloadedmetadata ='
-                   var idex = this.id;
-                   alert(idex);
-                   alert(angular.element("#"+idex).scope().videoNames);
-                   console.log(angular.element("#"+idex).scope().videoNames);
-                   var name = angular.element("#"+idex).scope().videoNames[idex];
+                   var idex = this.id.split("_")[1];
+                   alert(angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames);
+                   console.log(angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames);
+                   var name = angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames[idex];
                    alert(name);
                    '
                    ></video>
@@ -91,7 +90,7 @@
 
           <div class="col-md-7">
             <label>输入视频简介</label> {{$index}}
-            <input class="form-control" type="text"
+            <input class="form-control" type="text" id="videoName_{{$index}}"
                    ng-model="videoNames[$index]" ng-minlength="5" class="ng-pristine ng-valid ng-valid-required"/>
 
               <span class="progress" ng-show="f.progress >= 0">

@@ -42,9 +42,10 @@ angular.module('icetraiFront')
     };
 
     $scope.getVideoClass = function (video) {
-      if (video === currentVideo)
+      if (video === currentVideo || video.played == true)
         return " current watched";
       else {
+        //watchHistory = getWatchHistory();
         if (watchHistory) {
           for (var i = 0; i < watchHistory.length; i++) {
             if (watchHistory[i].videoid === video.id) {
@@ -82,6 +83,7 @@ angular.module('icetraiFront')
         var module = $scope.modules[idx + 1];
         $scope.select(module);
         $scope.currentModule.active = false;
+
         module.active = true;
         if (module.videoCollection.length > 0) {
           var video = module.videoCollection[0];
@@ -155,7 +157,10 @@ angular.module('icetraiFront')
 
     var addWatchHistory = function (module, video) {
       watchHistoryService.addUserWatchHistory(
-        $scope.user.id, $scope.course.id, module.id, video.id);
+        $scope.user.id, $scope.course.id, module.id, video.id).
+      then(function(res){
+        watchHistory.push(res.data);
+      });
     };
     var updateWatchHistoryWatched = function (module, video) {
       watchHistoryService.updateWatchHistoryWatched(
@@ -240,7 +245,10 @@ angular.module('icetraiFront')
         updateWatchHistoryWatched(currentModuel, currentVideo);
         var nextVideo = getNextVideo(currentModuel, currentVideo, this);
         if (!nextVideo) {
-          if ($scope.modules.indexOf(currentModuel) == $scope.modules.length - 1) {
+          var currentVideoIndex = $scope.modules.indexOf(currentModuel);
+          currentVideo.played = true; 
+
+          if ( currentVideoIndex == $scope.modules.length - 1) {
             setEndOfCourse();
           }
           else

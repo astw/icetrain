@@ -30,6 +30,7 @@ module.exports = {
   },
 
   addUserWatchHistory:function(req, res){
+    console.log(sails.config.connections);
     var userid = req.params.uid;
     var userid_1 = req.body.userid;
     if(userid != userid_1){

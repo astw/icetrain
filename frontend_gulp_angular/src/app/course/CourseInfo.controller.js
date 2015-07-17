@@ -17,8 +17,8 @@ angular.module('icetraiFront')
     var verb = 'get';
     var userid = $scope.user.id;
 
-    var count =0
-    $scope.videoNames = [0, 1, 2];
+    var count =0;
+    $scope.videoNames = {};//[];
 
     courseRepository.getCourseById(courseId)
       .then(function (res) {
@@ -31,7 +31,7 @@ angular.module('icetraiFront')
           res.data.modules.forEach(function (module) {
             console.log(module.vidoes);
             courseRepository.getCourseModules(res.data).then(function (moduleRes) {
-              res.data.complexModules = moduleRes.data;
+              res.data.complexModules = [].concat(moduleRes.data);
               console.log(res.data.complexModules);
               $scope.course = res.data;
               relayService.putKeyValue('course', $scope.course);
@@ -49,7 +49,7 @@ angular.module('icetraiFront')
 
     watchHistoryService.getUserCourseWatchHistory(userid, courseId).then(function (res) {
       if (res.status == 200) {
-        $scope.watchHistory = res.data;
+        $scope.watchHistory = [].concat(res.data);
         var cacheKey = 'userid_' + userid + "_courseid_" + courseId;
         relayService.putKeyValue(cacheKey, $scope.watchHistory);
       }
@@ -255,6 +255,9 @@ angular.module('icetraiFront')
 
     function uploadUsingUpload(file) {
       var index = $scope.files.indexOf(file);
+      console.log(index);
+      console.log($scope.videoNames);
+      console.log($scope.videoNames[index]);
 
       var tutorId = $scope.course.tutor.id;
       var courseId = $scope.course.id;
@@ -285,6 +288,10 @@ angular.module('icetraiFront')
         $log.info('file upload finished ' + data);
         $scope.course.complexModules.forEach(function(m){
           if(m.id === data.module){
+            if(!m.videoCollection) {
+              m.videoCollection =[];
+            }
+
             m.videoCollection.push(data);
           }
         });
