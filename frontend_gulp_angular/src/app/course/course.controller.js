@@ -8,17 +8,13 @@ angular.module('iceApp')
                                       $modal, $log
   )
   {
-
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
     $scope.showCourseInfoDiv = true;
     $scope.showModuleEditor = false;
-    $scope.showVideoUploadDiv = false;
     var verb = 'get';
     var userid = $scope.user.id;
-
     var count =0;
-    $scope.videoNames = {};//[];
 
     courseRepository.getCourseById(courseId)
       .then(function (res) {
@@ -61,7 +57,6 @@ angular.module('iceApp')
       }
     });
 
-
     $scope.toggleModule = function (module) {
       module.show = !module.show;
     };
@@ -77,7 +72,6 @@ angular.module('iceApp')
     };
 
     $scope.submitCreateModuleForm = function () {
-
       var moduleInfo = {};
       moduleInfo.name = $scope.name;
       moduleInfo.desc = $scope.desc;
@@ -182,13 +176,8 @@ angular.module('iceApp')
     };
 
     $scope.addVideos = function (module) {
-      //$scope.showCourseInfoDiv = false;
-      //$scope.showModuleEditor = false;
-      //$scope.showVideoUploadDiv = true;
-      //$scope.module = module;
       relayService.put(module);
       relayService.putKeyValue("_uploadTo_module", module);
-      //var url = "/" + $scope.course.tutor.id + "/course/" + $scope.course.id + "/" + module.id + "/videoUpload";
       var url ="/video/upload";
       $location.path(url);
     };
@@ -224,135 +213,7 @@ angular.module('iceApp')
     $scope.showCourse = function () {
       $scope.showCourseInfoDiv = true;
       $scope.showModuleEditor = false;
-      $scope.showVideoUploadDiv = false;
     };
-
-
-    //$scope.$watch('files', function (files) {
-    //  $scope.formUpload = false;
-    //  if (files != null) {
-    //    for (var i = 0; i < files.length; i++) {
-    //      $scope.errorMsg = null;
-    //      (function (file) {
-    //        upload(file);
-    //      })(files[i]);
-    //    }
-    //  }
-    //});
-
-    $scope.uploadPic = function (files) {
-      $scope.formUpload = true;
-      if (files != null) {
-        upload(files[0])
-      }
-    };
-
-    $scope.upload = function (file) {
-      upload(file);
-    };
-
-    function upload(file) {
-      $scope.errorMsg = null;
-      $scope.howToSend = 1;
-      if ($scope.howToSend === 1) {
-        uploadUsingUpload(file);
-      } else if ($scope.howToSend == 2) {
-        uploadUsing$http(file);
-      }
-    }
-
-    function uploadUsingUpload(file) {
-      var index = $scope.files.indexOf(file);
-      var videoName = $("#videoName_" + index).val();
-      var duration =$("#duration_"+index).val();
-
-      console.log(videoName);
-      console.log(duration);
-
-      var tutorId = $scope.course.tutor.id;
-      var courseId = $scope.course.id;
-      var moduleId = $scope.module.id;
-
-      file.upload = Upload.upload({
-        url: 'http://localhost:1337/' + tutorId + '/course/' + courseId + '/' + moduleId + "/videoUpload",
-        method: 'POST',
-        headers: {
-          'clientkey': 'my-header-value'
-        },
-        data: {videoname: videoName,duration:duration},
-        file: file,
-        fileFormDataName: 'uploadFile'
-      });
-
-      file.upload.then(function (response) {
-        $timeout(function () {
-          file.result = response.data;
-        });
-      }, function (response) {
-        console.dir("error" + response);
-        if (response.status > 0)
-          $scope.errorMsg = response.status + ': ' + response.data;
-      });
-
-      file.upload.success(function(data){
-        $log.info('file upload finished ' + data);
-        $scope.course.complexModules.forEach(function(m){
-          if(m.id === data.module){
-            if(!m.videoCollection) {
-              m.videoCollection =[];
-            }
-
-            m.videoCollection.push(data);
-          }
-        });
-        relayService.putKeyValue('course', $scope.course);
-        count++;
-        if(count === $scope.files.length){
-          alert("all finished");
-        }
-      });
-
-      file.upload.progress(function (evt) {
-        // Math.min is to fix IE which reports 200% sometimes
-        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
-
-      file.upload.xhr(function (xhr) {
-        // xhr.upload.addEventListener('abort', function(){console.log('abort complete')}, false);
-      });
-    }
-
-    function uploadUsing$http(file) {
-      file.upload = Upload.http({
-        url: 'http://localhost:1337/' + $scope.tutorId + '/course/' + $scope.courseId + '/' + $scope.moduleId + "/videoUpload",
-        //url: 'http://localhost:1337/upload' ,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',   //file.type,
-          'clientkey': 'this is clientkey'
-        },
-        data: {username: $scope.username},
-        file: file
-      });
-
-      file.upload.then(function (response) {
-        file.result = response.data;
-      }, function (response) {
-        if (response.status > 0)
-          $scope.errorMsg = response.status + ': ' + response.data;
-      });
-
-      file.upload.progress(function (evt) {
-        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
-    }
-
-    angular.element(window).bind('dragover', function (e) {
-      e.preventDefault();
-    });
-    angular.element(window).bind('drop', function (e) {
-      e.preventDefault();
-    });
   });
 
 angular.module('iceApp')
