@@ -257,7 +257,9 @@ angular.module('icetraiFront')
       var index = $scope.files.indexOf(file);
       console.log(index);
       console.log($scope.videoNames);
-      console.log($scope.videoNames[index]);
+      console.log($scope.videoNames[index]); 
+      var videoName = $("#videoName_" + index).val();
+      console.log(videoName);
 
       var tutorId = $scope.course.tutor.id;
       var courseId = $scope.course.id;
@@ -269,7 +271,7 @@ angular.module('icetraiFront')
         headers: {
           'clientkey': 'my-header-value'
         },
-        data: {videoname: $scope.videoNames[index]},
+        data: {videoname: videoName},
         file: file,
         fileFormDataName: 'uploadFile'
       });

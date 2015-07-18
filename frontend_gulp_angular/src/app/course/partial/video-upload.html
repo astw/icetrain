@@ -79,10 +79,8 @@
                    ngf-accept="'video/*'"
                    onloadedmetadata ='
                    var idex = this.id.split("_")[1];
-                   alert(angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames);
                    console.log(angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames);
                    var name = angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames[idex];
-                   alert(name);
                    '
                    ></video>
           </div>
