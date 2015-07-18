@@ -60,17 +60,18 @@ var createMediaFolder = function (tutorId, courseId) {
 };
 
 var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId, tutorId, videoFilePath) {
-  Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
-    var duration = 0;
+    //Ffmpeg.ffprobe(videoFilePath, function (err, metadata) {
+    //var duration = 0;
     //metadata.streams.forEach(function (mediaInfo) {
     //  if (mediaInfo.codec_type == "video") {
     //    duration = mediaInfo.duration;
     //    return;
     //  }
     //});
-    if(metadata) {
-      duration = metadata.format.duration;
-    }
+    //if(metadata) {
+    //  duration = metadata.format.duration;
+    //}
+    console.log(mediaFormData);
     var relativeVideoPath = videoFilePath.replace(root,"");
     Video.create(
       {
@@ -80,7 +81,7 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
         module:{id:moduleId},
         size: mediaFormData.filesize,
         format: mediaFormData.filetype,
-        duration: duration,
+        duration: mediaFormData.duration,
         path: relativeVideoPath
       },
       function (err, data) {
@@ -99,7 +100,7 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
             res.send(data);
         });
       })
-  });
+  //});
 };
 
 var uploadVideo = function(req,res){
@@ -126,6 +127,7 @@ var uploadVideo = function(req,res){
       console.log(req.body.data);
       if(req.body.data){
         formObj.videoname = JSON.parse(req.body.data).videoname;
+        formObj.duration = JSON.parse(req.body.data).duration;
       }
       else
         formObj.videoname = '';

@@ -78,7 +78,8 @@
             <video id='video_{{$index}}' controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
                    ngf-accept="'video/*'"
                    onloadedmetadata ='
-                   var idex = this.id.split("_")[1];
+                   var index = this.id.split("_")[1];
+                   $("#duration_"+index).val(this.duration);
                    console.log(angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames);
                    var name = angular.element(document.querySelector("#videoName_"+idex)).scope().videoNames[idex];
                    '
@@ -91,6 +92,7 @@
             <input class="form-control" type="text" id="videoName_{{$index}}"
                    ng-model="videoNames[$index]" ng-minlength="5" class="ng-pristine ng-valid ng-valid-required"/>
 
+              <input class="form-control" type="hidden" id="duration_{{$index}}"> 
               <span class="progress" ng-show="f.progress >= 0">
               <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'" class="ng-binding"></div>
               </span>

@@ -51,7 +51,11 @@
   </div>
 
   <div id="palyerBorder" class=" ">
-    <h1 style="color: rgb(153, 0, 88);">{{course.name}}</h1>
+    <h1 style="color: rgb(153, 0, 88);">
+      <a ng-href="course/{{course.id}}">
+      {{course.name}}
+       </a>
+    </h1>
 
     <div id="play_video"
          class="video-js vjs-default-skin vjs-controls-enabled vjs-has-started vjs-paused vjs-user-inactive"
