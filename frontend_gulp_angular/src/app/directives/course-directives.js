@@ -25,6 +25,12 @@ app.directive("courseInfo",function(){
   }
 });
 
+app.directive("courseExtraInfo",function(){
+  return {
+    templateUrl:"app/course/partial/course-extra-info.html"
+  }
+});
+
 app.directive("moduleEditor",function(){
   return{
     templateUrl:'app/course/partial/module-editor.html'

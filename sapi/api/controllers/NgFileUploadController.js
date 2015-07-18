@@ -86,8 +86,11 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
       },
       function (err, data) {
         if (!!err) {
+          console.log('error in upload video' + err);
           console.log(JSON.stringify(err));
         }
+        // update duration time in course, and module
+
 
         var ids = [tutorId, courseId, moduleId, data.id];
         var idToken = courseHashids.encode(ids);
@@ -99,7 +102,7 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
           else
             res.send(data);
         });
-      })
+      });
   //});
 };
 

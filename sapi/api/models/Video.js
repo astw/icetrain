@@ -71,18 +71,33 @@ module.exports = {
   },
 
   beforeCreate: function (values, next) {
-    // increate the module duration, and course duration
+    // increase the module duration, and course duration
     // step 1 findout module
 
-    if(values.model) {
-      values.model.duration += values.duration || 0;
-      values.model.save();
-
-      if(values.model.course){
-      values.model.course.duration += values.duration || 0;
-      values.model.course.save();
+     Module.findOne({id: values.module}, function (err, module) {
+      if (!!err) {
+        console.log("no module found");
+      }else {
+        if(!!module) {
+          module.duration += values.duration || 0;
+          module.save();
+        }
       }
-    }
+    });
+
+    // step 2 find course
+    Course.findOne({id: values.course.id}, function (err, course) {
+      if(!!err){
+        console.log("no course found");
+      }
+      else {
+        if (!!course) {
+          course.duration += values.duration  || 0;
+          course.save();
+        }
+      }
+    });
+
     next();
   },
 
