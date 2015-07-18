@@ -1,4 +1,4 @@
- angular.module('icetraiFront').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
+ angular.module('iceApp').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
 
   $scope.items = ['item1', 'item2', 'item3'];
 
@@ -34,7 +34,7 @@
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-angular.module('icetraiFront').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+angular.module('iceApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   alert(items);
   $scope.items = items;

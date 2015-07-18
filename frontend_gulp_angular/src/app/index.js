@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('icetraiFront',
+angular.module('iceApp',
   ['ngAnimate', 'ngCookies',
   'ngTouch', 'ngSanitize',
   'ngResource', 'ngRoute',
@@ -37,13 +37,9 @@ angular.module('icetraiFront',
         templateUrl:"app/course/createCourse.html",
         controller:"CourseCtrl"
       })
-      .when('/:tutorId/course/:courseId/:moduleId/videoUpload',{
-        templateUrl:"app/course/uploadVideoDiv.html",
-        controller:"VideoUploadCtrl"
-      })
-     .when('/course/:id',{
-        templateUrl:"app/course/courseInfo.html",
-        controller:"CourseInfoCtrl"
+      .when('/course/:id',{
+        templateUrl:"app/course/course.html",
+        controller:"CourseCtrl"
       })
       .when('/mediaServer/video/stream/:token',{
         templateUrl:"app/course/play.html",
@@ -57,10 +53,10 @@ angular.module('icetraiFront',
         templateUrl:"app/course/addVideo.html",
         controller:"TestCtrl"
       })
-      //.when('/video/upload',{
-      //  templateUrl:"app/upload/index.html",
-      //  controller:"UploadCtrl"
-      //})
+      .when('/video/upload',{
+        templateUrl:"app/course/upload/video-upload.html",
+        controller:"VideoUploadCtrl"
+      })
       //when('/ngupload/',{
       //  templateUrl:"app/upload/ng-file.html",
       //  controller:"NgFileUploadCtrl"

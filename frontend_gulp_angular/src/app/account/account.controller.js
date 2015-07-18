@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .controller('AccountCtrl', function ($scope, $http,$location,auth,courseRepository) {
 
       $scope.showCourseEditor = false;

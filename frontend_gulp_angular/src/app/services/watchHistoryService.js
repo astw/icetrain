@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .service('watchHistoryService', function ($http, $q, authToken, auth, $cookieStore) {
 
     var user = auth.currentUser();
@@ -64,7 +64,7 @@ angular.module('icetraiFront')
         videoid: vid,
         status: 'watching'
       };
-      
+
       var dfd = $q.defer();
       $http.post(url, data, {headers: headers})
         .then(function (res) {

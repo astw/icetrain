@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .controller('MainCtrl', function ($scope,auth) {
     $scope.user = auth.currentUser() ;
     $scope.isAuthenticated = auth.isAuthenticated();

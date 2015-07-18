@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
 .service('courseRepository',function($http,$q,authToken,auth, $cookieStore) {
     var API_URL = 'http://localhost:1337/'
 

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .controller('PlayCtrl', function ($scope, relayService,
                                     $http, $location, $sce, auth,
                                     courseRepository,
@@ -246,7 +246,7 @@ angular.module('icetraiFront')
         var nextVideo = getNextVideo(currentModuel, currentVideo, this);
         if (!nextVideo) {
           var currentVideoIndex = $scope.modules.indexOf(currentModuel);
-          currentVideo.played = true; 
+          currentVideo.played = true;
 
           if ( currentVideoIndex == $scope.modules.length - 1) {
             setEndOfCourse();

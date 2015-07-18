@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .controller('ReminderCtrl', function ($scope) {
     $scope.awesomeThings = [
       {

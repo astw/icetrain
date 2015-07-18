@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .controller('NavbarCtrl', function ($scope,auth, $http,$location) {
     $scope.date = new Date();
     $scope.isAuthenticated = auth.isAuthenticated();

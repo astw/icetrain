@@ -3,7 +3,7 @@
 describe('controllers', function(){
   var scope;
 
-  beforeEach(module('icetraiFront'));
+  beforeEach(module('iceApp'));
 
   beforeEach(inject(function($rootScope) {
     scope = $rootScope.$new();

@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('icetraiFront');
+var app = angular.module('iceApp');
 app.directive('courseDirectory', function(){
    return {
      templateUrl:'app/course/partial/course-directory.html'

@@ -3,7 +3,7 @@
  */
 
 
-angular.module('icetraiFront')
+angular.module('iceApp')
   .service('relayService',function($window){
     var storage = $window.localStorage;
     var bag ={};

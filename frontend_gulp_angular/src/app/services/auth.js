@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('icetraiFront')
+angular.module('iceApp')
 .service('auth',function($http,$window,$q, $location,authToken, $cookieStore,relayService) {
 
     var API_URL = 'http://localhost:1337/auth/';

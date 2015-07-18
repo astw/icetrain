@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('icetraiFront')
+angular.module('iceApp')
 .factory('authToken', function($window){
     var storage = $window.localStorage;
     var cachedToken;
