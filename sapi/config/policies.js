@@ -29,23 +29,36 @@ module.exports.policies = {
     },
 
     "VideoController" :{
-        "streamVideo" :['jwtAuth']
-        //"find" :['checkClientKey','jwtAuth','checkWritePermission'],
-        //"create":['checkClientKey','jwtAuth','checkWritePermission'],
-        //"update":['checkClientKey','jwtAuth','checkWritePermission'],
-        //"destroy":['checkClientKey','jwtAuth','checkWritePermission']
+        "streamVideo" :['jwtAuth'],
+        "find" :['checkClientKey','jwtAuth'],
+        "create":['checkClientKey','jwtAuth','checkWritePermission'],
+        "update":['checkClientKey','jwtAuth','checkWritePermission'],
+        "destroy":['checkClientKey','jwtAuth','checkWritePermission']
     },
 
    "NgFileUploadController" :{
-     'deleteVideo':['jwtAuth']
+     "find" :['checkClientKey'],
+     "create":['checkClientKey','jwtAuth','checkWritePermission'],
+     'deleteVideo':['checkClientKey','jwtAuth','checkWritePermission'],
+     "update":['checkClientKey','jwtAuth','checkWritePermission'],
+     "destroy":['checkClientKey','jwtAuth','checkWritePermission']
    },
 
    "CourseController" :{
-     'postCourse' :['jwtAuth'],
-     'putCourse':['jwtAuth']
+     'find':['checkClientKey'],
+     'postCourse' :['checkClientKey','jwtAuth','checkWritePermission'],
+     'putCourse':['checkClientKey','jwtAuth','checkWritePermission'],
+     'create':['checkClientKey','jwtAuth','checkWritePermission'],
+     'update':['checkClientKey','jwtAuth','checkWritePermission'],
+     'destroy':['checkClientKey','jwtAuth','checkWritePermission']
+   },
 
-   }
-
+  "ModuleController" :{
+    'find':['checkClientKey'],
+    'create':['checkClientKey','jwtAuth','checkWritePermission'],
+    'update':['checkClientKey','jwtAuth','checkWritePermission'],
+    'destroy':['checkClientKey','jwtAuth','checkWritePermission']
+  }
 
   /***************************************************************************
   *                                                                          *

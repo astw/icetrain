@@ -81,10 +81,18 @@ module.exports = {
       return tools.formattedTime(value);
     }
   },
+
+  beforeCreate:function(element,next){
+    console.log('module before create');
+    console.log(element);
+    console.log(req.session.userid);
+
+  },
+
   afterDestroy: function (elements, next) {
     //console.log(attribute);
     //update the course duration
-    if (!elements || elements.length < 1) next;
+    if (!elements || elements.length < 1) next();
     elements.forEach(function (attribute) {
 
       if (attribute.duration <= 0) return;

@@ -21,24 +21,24 @@ getSessionToken = function(req){
 };
 
 
-module.exports = function(req, res, next){
-    var token = getSessionToken(req);
+module.exports = function(req, res, next) {
+  var token = getSessionToken(req);
 
-    if(token === '') {
-      return res.status(401).send({
-        message: "Authentication failed"
-      });
-    };
-
+  if (token === '') {
+    return res.status(401).send({
+      message: "Authentication failed - jwtAuth"
+    });
+  }
+  else {
     var payload = sessionTokenHelper.getPayloadFromSessionToken(token);     //jwt.decode(token, secret);
-
     if (!payload.userid) {
-        return res.status(401).send({
-            message: "Authentication failed"
-        });
+      return res.status(401).send({
+        message: "Authentication failed - jwtAuth"
+      });
     }
-
-    req.session.userid = payload.userid;
-
-    next();
+    else {
+      req.session.userid = payload.userid;
+      next();
+    }
+  }
 };

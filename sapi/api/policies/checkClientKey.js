@@ -6,11 +6,15 @@ module.exports = function(req, res, next) {
       message: "You don't have a client key or are using an authorized client key"
     });
   }
-  if (!req.headers || !req.headers.clientkey) {
-    return res.status(401).send({
-      message: "You don't have a client key or are using an authorized client key"
-    });
+  else {
+    if (!req.headers || !req.headers.clientkey) {
+      return res.status(401).send({
+        message: "You don't have a client key or are using an authorized client key"
+      });
+    }
+    else{
+      next();
+    }
   }
 
-  next();
 };

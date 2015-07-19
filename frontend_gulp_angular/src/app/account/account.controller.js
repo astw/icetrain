@@ -35,11 +35,10 @@ angular.module('iceApp')
     };
 
     $scope.submitUpdateCourseForm = function () {
-      $currentCourse.name = $scope.name;
-      $currentCourse.desc = $scope.desc;
-      $currentCourse.tags = $scope.tags;
+      var courseInfo = {};
+      courseInfo = $scope.course;
 
-      courseRepository.updateCourse($currentCourse, $scope.course, $scope.user)
+      courseRepository.updateCourse(courseInfo, $scope.course, $scope.user.id)
         .then(function (res) {
           if (res.status == 201) {
             $scope.courses.forEach(function(course){
@@ -67,7 +66,12 @@ angular.module('iceApp')
       $scope.course =course;
     };
     $scope.deleteCourse = function(course){
-
+      var courseInfo = {};
+      courseInfo = $scope.course;
+      courseRepository.deleteCourse(course,$scope.user.id)
+        .then(function (res) {
+          console.log(res);
+        });
     };
 
     $scope.showMyCourses = function(){

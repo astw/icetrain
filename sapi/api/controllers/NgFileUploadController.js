@@ -91,7 +91,6 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
         }
         // update duration time in course, and module
 
-
         var ids = [tutorId, courseId, moduleId, data.id];
         var idToken = courseHashids.encode(ids);
         mediaFormData.urltoken = idToken;

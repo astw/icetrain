@@ -12,21 +12,27 @@ module.exports = {
       return res.json({'status': 'GET not allowed'});
 
     console.log(req.body);
-
-     Module.create({
+    Course.findOneById(req.body.course.id).then(function (course) {
+      if (course.tutor != req.session.userid) {
+        return res.status(401).send("Cannot change other people's class");
+      }
+      else {
+        Module.create({
           name: req.body.name,
           desc: req.body.desc,
-          tutor:req.body.tutor,
-          course:req.body.course,
+          tutor: req.body.tutor,
+          course: req.body.course,
           tags: req.body.tag,
           level: req.body.level
         }, function (err, newModule) {
           if (err) {
             return res.status(err.status).send(err.details);
-          };
+          } ;
 
           return res.status(201).send(newModule);
         });
+      }
+    });
   }
 };
 

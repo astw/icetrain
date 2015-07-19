@@ -70,6 +70,13 @@ module.exports = {
       "displayName": "sun wen yan",
       "createdAt": "2014-12-06T21:22:53.245Z",
       "updatedAt": "2014-12-06T21:22:53.245Z"
+    },
+    {
+      "email": "cc@aa.com",
+      "password": "456",
+      "displayName": "Kelvin Wang",
+      "createdAt": "2014-12-06T21:22:53.245Z",
+      "updatedAt": "2014-12-06T21:22:53.245Z"
     }
   ]
 };

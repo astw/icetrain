@@ -60,7 +60,8 @@ getCourseById = function(req, res){
   // var courseId = tokenHelper.getCourseId(enId)[0];
   var courseId = req.params.id;
   if(courseId != null) {
-    Course.find({id:courseId}).populate('modules').then(function (course) {
+   // Course.find({id:courseId}).populate('modules').then(function (course) {
+    Course.find({id:courseId}).populateAll().then(function (course) {
        return res.status(200).send(course);
       }
     ).error(function(err){

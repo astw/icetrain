@@ -68,7 +68,7 @@ angular.module('iceApp')
     };
 
     this.updateCourse = function (courseInfo, uid) {
-      var url = API_URL + "course";
+      var url = API_URL + "course/"+courseInfo.id;
       var headers = {
         clientkey: 'this is the client key',
         uid:uid,
@@ -77,6 +77,24 @@ angular.module('iceApp')
 
       var dfd = $q.defer();
       $http.put(url,courseInfo,{headers:headers})
+        .then(function(res){
+          console.log(res);
+          dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+
+    this.deleteCourse = function(course,uid){
+      var url = API_URL + "course/"+course.id;
+      var headers = {
+        clientkey: 'this is the client key',
+        uid:uid,
+        Authorization:getAuthHeader()
+      };
+
+      var dfd = $q.defer();
+      $http.delete(url,{headers:headers})
         .then(function(res){
           console.log(res);
           dfd.resolve(res);
