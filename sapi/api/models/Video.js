@@ -31,26 +31,26 @@ module.exports = {
       type: "integer"
     },
 
-   path: {
+    path: {
       type: "string",
       required: true
     },
 
     urltoken: {
       type: "string",
-      defaultsTo:""
+      defaultsTo: ""
     },
 
-    module:{
+    module: {
       model: "Module"
     },
 
-    tutor:{
-      model:"User"
+    tutor: {
+      model: "User"
     },
 
     next: {
-       model:"Video"
+      model: "Video"
     },
 
     toJSON: function () {
@@ -59,12 +59,12 @@ module.exports = {
       return obj;
     },
 
-    playtoken:function(){
+    playtoken: function () {
       var obj = this.toObject();
       return mediaTokenHelper.createVideoToken(obj.id, obj.path);
     },
 
-    enId :function(){
+    enId: function () {
       var obj = this.toObject();
       return mediaTokenHelper.getVideoToken(obj.id);
     }
@@ -74,51 +74,67 @@ module.exports = {
     // increase the module duration, and course duration
     // step 1 findout module
 
-     Module.findOne({id: values.module}, function (err, module) {
+    Module.findOne({id: values.module}, function (err, module) {
       if (!!err) {
         console.log("no module found");
-      }else {
-        if(!!module) {
+      } else {
+        if (!!module) {
           module.duration += values.duration || 0;
           module.save();
-        }
-      }
-    });
 
-    // step 2 find course
-    Course.findOne({id: values.course.id}, function (err, course) {
-      if(!!err){
-        console.log("no course found");
-      }
-      else {
-        if (!!course) {
-          course.duration += values.duration  || 0;
-          course.save();
+          // step 2 find course
+          Course.findOne({id: module.course}, function (err, course) {
+            if (!!err) {
+              console.log("no course found");
+            }
+            else {
+              if (!!course) {
+                course.duration += values.duration || 0;
+                course.save();
+              }
+            }
+          });
         }
       }
     });
 
     next();
   },
+  //
+  //afterDestroy: function (attribute, next) {
+  //
+  //  Video.findOne({urltoken: attribute.where.urltoken}).then(function (video) {
+  //    if(video.duration > 0 ){
+  //    // decrease the section duration, and course duration
+  //    Module.findOne({id: attribute.where.moduleId}, function (err, module) {
+  //      if (!!err) {
+  //        console.log("no module found");
+  //      } else {
+  //        if (!!module) {
+  //          module.duration -= attribute.duration || 0;
+  //          module.save();
+  //        }
+  //      }
+  //    });
+  //
+  //    // step 2 find course
+  //    Course.findOne({id: attribute.where.courseId}, function (err, course) {
+  //      if (!!err) {
+  //        console.log("no course found");
+  //      }
+  //      else {
+  //        if (!!course) {
+  //          course.duration -= video.duration || 0;
+  //          course.save();
+  //        }
+  //      }
+  //    });
+  //  }
+  //  });
+  //  next();
+  //},
 
-  beforeDestroy: function (attribute, next) {
-    // decrease the section duration, and course duration
-
-    if(attribute.duration > 0) {
-      if(values.section) {
-        values.section.duration -= values.duration || 0;
-        values.section.save();
-
-        if(values.section.course){
-          values.course.course.duration -= values.duration || 0;
-          values.course.course.save();
-        }
-      }
-    }
-    next();
-  },
-
-  formattedTime : function(){
+  formattedTime: function () {
     var obj = this.toObject();
     var value = obj.duration;
     return tools.formattedTime(value);

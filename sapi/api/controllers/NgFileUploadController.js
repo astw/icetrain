@@ -172,12 +172,22 @@ var deleteVideo = function(req, res){
     return res.json({status:401, Error:'Unauthorized operation'});
   };
 
-  Video.destroy({urltoken:urlToken,tutor:tutorId}).exec(function (err, video) {
-    if(err) {
-      return res.json({status: 404, Error: 'Not found'});
-    }
-
-    return res.json({status:200, Video:video});
+  //Video.destroy({courseId:ids[1], moduleId:ids[2], urltoken:urlToken}).exec(function (err, video) {
+  Video.findOne({urltoken:urlToken}).then(function(video){
+    //if(err) {
+    //  return res.json({status: 404, Error: 'Not found'});
+    //}
+   video.destroy().then(function(data){
+      Module.findOne({id:video.module}).then(function(module){
+        module.duration -= video.duration;
+        module.save();
+        Course.findOne({id:module.course}).then(function(course){
+          course.duration -= video.duration;
+          course.save();
+        })
+      });
+      return res.json({status:200, Video:video});
+   });
   });
  };
 

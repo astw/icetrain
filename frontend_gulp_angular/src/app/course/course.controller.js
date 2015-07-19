@@ -125,19 +125,27 @@ angular.module('iceApp')
         courseRepository.deleteModule(module, $scope.user).
           then(function (res) {
             var idx = $scope.course.complexModules.indexOf(module);
+            $scope.course.duration -= module.duration;
             $scope.course.complexModules.splice(idx, 1);
             for(var i=0 ;i<$scope.course.modules; i++){
                if($scope.course.modules[i].id == module.id)
                {
                  $scope.course.modules.splice(i,1);
+                 break;
                }
             }
             relayService.putKeyValue('course', $scope.course);
+            $scope.safeApply();
           });
 
-      }, function () {
-
-      });
+      }, function (data) {
+        console.log('return from delete');
+         console.log(data);
+      }).
+      error(function(e){
+          console.log('---');
+          console.log(e);
+        });
     };
 
     // test function for modal dialog
@@ -186,6 +194,9 @@ angular.module('iceApp')
       courseRepository.deleteVideo(video, $scope.user).then(function (res) {
         var idx = module.videoCollection.indexOf(video);
         module.videoCollection.splice(idx,1);
+        module.duration -= video.duration;
+        $scope.module = module;
+        $scope.course.duration -= video.duration;
         relayService.putKeyValue('course', $scope.course);
         $log.info('delete ' + video);
       });

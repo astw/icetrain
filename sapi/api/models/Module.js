@@ -1,9 +1,9 @@
 /**
-* Module.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * Module.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 module.exports = {
 
@@ -24,11 +24,11 @@ module.exports = {
       model: "User"
     },
 
-    course:{
-      model:"Course"
+    course: {
+      model: "Course"
     },
 
-    next:{
+    next: {
       model: "Module"
     },
 
@@ -57,13 +57,13 @@ module.exports = {
     },
 
     moduleType: {
-      type:"string"     // would be used to control for regular user or pay user.
+      type: "string"     // would be used to control for regular user or pay user.
     },
 
     getVideos: function () {
       var obj = this.toObject();
       var defer = Q.defer();
-      Video.find({module:obj})
+      Video.find({module: obj})
         .then(function (videos) {
           defer.resolve(videos);
         });
@@ -81,15 +81,40 @@ module.exports = {
       return tools.formattedTime(value);
     }
   },
+  afterDestroy: function (elements, next) {
+    //console.log(attribute);
+    //update the course duration
+    if (!elements || elements.length < 1) next;
+    elements.forEach(function (attribute) {
+
+      if (attribute.duration <= 0) return;
+      var duration = attribute.duration;
+      Course.findOne({id: attribute.course}).then(function (course) {
+        course.duration -= duration;
+        course.save();
+      });
+
+      //destroy videos that belong to this module
+      Video.find({module: attribute.module}).then(function (vs) {
+        var videos = [].concat(vs);
+        videos.forEach(function (video) {
+          video.destroy();
+          video.save();
+        });
+      });
+    });
+
+    next();
+  },
 
   seedData: [{
     "name": "c# WCP starter module 1",
     "desc": "to learn the baisc of wcf programming",
-    "course": {"id":1}
+    "course": {"id": 1}
   },
     {
       "name": "java starter  module2",
       "desc": "to learn the baisc of java programming",
-      "course":  {"id":1}
+      "course": {"id": 1}
     }]
 }
