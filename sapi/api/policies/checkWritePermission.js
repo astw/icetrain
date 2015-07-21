@@ -9,7 +9,7 @@ module.exports = function(req, res, next){
     var userid = payload.userid;
     if (!userid ) {
         return res.status(401).send({
-            message: "Authentication failed - checkWritePermission"
+            message: "Authentication failed,no userId - checkWritePermission"
         });
     }
     else {
@@ -20,12 +20,14 @@ module.exports = function(req, res, next){
               message: "You don't have write permission. - checkWritePermission"
             });
           }
-          else{
-            // use can only write to his/her own course/module/videos
-            if(headerUserId != userid){
-              return res.status(401).send({
-                message: "You don't have write permission. - checkWritePermission"
-              });
+          else {
+            if(req.method === 'PUT') {
+              // use can only write to his/her own course/module/videos
+              if(headerUserId != userid){
+                return res.status(401).send({
+                  message: "You don't have write permission. - checkWritePermission"
+                });
+             } 
             }
             else
               next();
