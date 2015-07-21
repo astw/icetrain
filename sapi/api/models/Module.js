@@ -84,9 +84,8 @@ module.exports = {
 
   beforeCreate:function(element,next){
     console.log('module before create');
-    console.log(element);
-    console.log(req.session.userid);
-
+    console.log(element); 
+    next();
   },
 
   afterDestroy: function (elements, next) {

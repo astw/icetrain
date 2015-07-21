@@ -13,6 +13,8 @@ module.exports = {
 
     console.log(req.body);
     Course.findOneById(req.body.course.id).then(function (course) {
+      console.log(course);
+      console.log(req.session.userid);
       if (course.tutor != req.session.userid) {
         return res.status(401).send("Cannot change other people's class");
       }

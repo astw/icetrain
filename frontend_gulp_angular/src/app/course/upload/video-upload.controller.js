@@ -58,7 +58,7 @@ angular.module('iceApp').controller('VideoUploadCtrl',
     };
 
     $scope.showCourse = function(){
-      var url = "/course/1";// + $scope.course.id;
+      var url = "/course/" + $scope.course.id;
       $location.path(url);
       $location.url(url);
     };
@@ -109,7 +109,7 @@ angular.module('iceApp').controller('VideoUploadCtrl',
       console.log(videoName);
       console.log(duration);
 
-      var tutorId = $scope.course.tutor.id;
+      var tutorId = $scope.module.tutor;
       var courseId = $scope.course.id;
       var moduleId = $scope.module.id;
 
@@ -164,7 +164,7 @@ angular.module('iceApp').controller('VideoUploadCtrl',
 
     var uploadUsing$http =function (file) {
       file.upload = Upload.http({
-        url: 'http://localhost:1337/' + $scope.tutorId + '/course/' + $scope.courseId + '/' + $scope.moduleId + "/videoUpload",
+        url: 'http://localhost:1337/' + $scope.module.tutor + '/course/' + $scope.courseId + '/' + $scope.moduleId + "/videoUpload",
         //url: 'http://localhost:1337/upload' ,
         method: 'POST',
         headers: {
