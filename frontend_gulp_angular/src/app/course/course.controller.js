@@ -141,11 +141,7 @@ angular.module('iceApp')
       }, function (data) {
         console.log('return from delete');
          console.log(data);
-      }).
-      error(function(e){
-          console.log('---');
-          console.log(e);
-        });
+      })
     };
 
     // test function for modal dialog
@@ -225,6 +221,18 @@ angular.module('iceApp')
       $scope.showCourseInfoDiv = true;
       $scope.showModuleEditor = false;
     };
+
+    $scope.safeApply = function (fn) {
+      var phase = this.$root.$$phase;
+      if (phase == '$apply' || phase == '$digest') {
+        if (fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
+    
   });
 
 angular.module('iceApp')
