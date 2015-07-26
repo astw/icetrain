@@ -48,6 +48,7 @@ module.exports.policies = {
      'find':['checkClientKey'],
      'postCourse' :['checkClientKey','jwtAuth','checkWritePermission'],
      'putCourse':['checkClientKey','jwtAuth','checkWritePermission'],
+     'deleteCourse':['checkClientKey','jwtAuth','checkWritePermission'],
      'create':['checkClientKey','jwtAuth','checkWritePermission'],
      'update':['checkClientKey','jwtAuth','checkWritePermission'],
      'destroy':['checkClientKey','jwtAuth','checkWritePermission']

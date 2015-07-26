@@ -85,7 +85,8 @@ angular.module('iceApp')
         modalInstance.result.then(function (items) {
         courseRepository.deleteCourse(course,$scope.user.id)
           .then(function (res) {
-            console.log(res);
+            var index = $scope.courses.indexOf(course);
+            $scope.courses.splice(index,1);
           });
 
       }, function (data) {
