@@ -104,21 +104,10 @@ createCourse = function (req, res) {
     });
 }
 
-var getCoursesByTutor = function(tutorId){
-
-  var result = [];
-  return Course.find({tutorid: tutorId})
-    .then(function (courses) {
-      courses.forEach(function (course) {
-        result.push(
-          course.getSections().then(function (sections) {
-            course.sections = sections;
-            return course;
-          }));
-      });
-      return Q.all(result);
-    });
-};
+var getCoursesByTutor = function(req,res){
+   var tutorId = req.params.userId;
+  return Course.find({tutor: tutorId})
+}
 
 var updateCourseById = function (courseId, courseInfo) {
   var defer = Q.defer();

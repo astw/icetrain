@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('iceApp')
-  .controller('AccountCtrl', function ($scope, $http,$location,auth,courseRepository) {
+  .controller('AccountCtrl', function ($scope, $http,$location,$modal,auth,courseRepository) {
 
       $scope.showCourseEditor = false;
       $scope.showMyCoursesList = true;
@@ -66,12 +66,31 @@ angular.module('iceApp')
       $scope.course =course;
     };
     $scope.deleteCourse = function(course){
+
+      $scope.modalMessage = "确定要删除这课吗？"
+      var modalInstance = $modal.open({
+        animation: true,
+        templateUrl: 'app/course/partial/modal-dialog.html',
+        controller: 'ModalInstanceCtrl',
+        size: null,
+        resolve: {
+          modalMessage: function () {
+            return $scope.modalMessage;
+          }
+        }
+      });
+
       var courseInfo = {};
       courseInfo = $scope.course;
-      courseRepository.deleteCourse(course,$scope.user.id)
-        .then(function (res) {
-          console.log(res);
-        });
+        modalInstance.result.then(function (items) {
+        courseRepository.deleteCourse(course,$scope.user.id)
+          .then(function (res) {
+            console.log(res);
+          });
+
+      }, function (data) {
+        console.log('return from delete course');
+      })
     };
 
     $scope.showMyCourses = function(){
@@ -79,3 +98,17 @@ angular.module('iceApp')
       $scope.showMyCoursesList = true;
     }
   });
+
+angular.module('iceApp')
+  .controller('ModalInstanceCtrl',
+  [ '$scope','$modalInstance','modalMessage',function ($scope, $modalInstance, modalMessage ) {
+
+    $scope.modalMessage = modalMessage;
+    $scope.ok = function () {
+      $modalInstance.close($scope);
+    };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }]);

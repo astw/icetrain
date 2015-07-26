@@ -104,7 +104,7 @@ angular.module('iceApp')
     };
 
     this.getUserCourses = function (uid) {
-      var url = API_URL + 'user/' + uid + "/courses";
+      var url = API_URL + 'courses/users/' + uid ;
       var sessionToken = authToken.getToken();
 
       var headers = {

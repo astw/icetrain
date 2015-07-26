@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('iceApp').controller('VideoUploadCtrl',
-  function($scope,$location, $http,$routeParams,$timeout, auth,$window, Upload, relayService)
+  function($scope,$location,$log,$http,$routeParams,$timeout, auth,$window, Upload, relayService)
 {
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();

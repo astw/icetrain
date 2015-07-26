@@ -105,13 +105,12 @@ angular.module('iceApp')
         });
     };
 
-    $scope.modalMessage = "确定要删除这一节吗？"
-    $scope.items = ['itme1', 'item2'];
     $scope.deleteModule = function (module) {
 
+      $scope.modalMessage = "确定要删除这一节吗？"
       var modalInstance = $modal.open({
         animation: true,
-        templateUrl: 'deleteClass.htm',
+        templateUrl: 'app/course/partial/modal-dialog.html',
         controller: 'ModalInstanceCtrl',
         size: null,
         resolve: {
@@ -149,7 +148,7 @@ angular.module('iceApp')
 
       var modalInstance = $modal.open({
         animation: true,
-        templateUrl: 'deleteClass.htm',
+        templateUrl: '',
         controller: 'ModalInstanceCtrl',
         size: null,
         resolve: {
@@ -187,15 +186,34 @@ angular.module('iceApp')
     };
 
     $scope.deleteVideo = function (module,video) {
-      courseRepository.deleteVideo(video, $scope.user).then(function (res) {
-        var idx = module.videoCollection.indexOf(video);
-        module.videoCollection.splice(idx,1);
-        module.duration -= video.duration;
-        $scope.module = module;
-        $scope.course.duration -= video.duration;
-        relayService.putKeyValue('course', $scope.course);
-        $log.info('delete ' + video);
+
+      $scope.modalMessage = "确定要删除这一段视频吗？"
+      var modalInstance = $modal.open({
+        animation: true,
+        templateUrl: 'app/course/partial/modal-dialog.html',
+        controller: 'ModalInstanceCtrl',
+        size: null,
+        resolve: {
+          modalMessage: function () {
+            return $scope.modalMessage;
+          }
+        }
       });
+
+      modalInstance.result.then(function (items) {
+        courseRepository.deleteVideo(video, $scope.user).then(function (res) {
+          var idx = module.videoCollection.indexOf(video);
+          module.videoCollection.splice(idx, 1);
+          module.duration -= video.duration;
+          $scope.module = module;
+          $scope.course.duration -= video.duration;
+          relayService.putKeyValue('course', $scope.course);
+          $log.info('delete ' + video);
+        });
+      }, function (data) {
+        console.log('return from delete video');
+        console.log(data);
+      })
     };
 
     $scope.bookMark = function (video) {
@@ -232,19 +250,17 @@ angular.module('iceApp')
         this.$apply(fn);
       }
     };
-    
   });
-
 angular.module('iceApp')
   .controller('ModalInstanceCtrl',
   [ '$scope','$modalInstance','modalMessage',function ($scope, $modalInstance, modalMessage ) {
 
-  $scope.modalMessage = modalMessage;
-  $scope.ok = function () {
-    $modalInstance.close($scope);
-  };
+    $scope.modalMessage = modalMessage;
+    $scope.ok = function () {
+      $modalInstance.close($scope);
+    };
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-}]);
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }]);

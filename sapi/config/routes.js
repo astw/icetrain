@@ -57,7 +57,6 @@ module.exports.routes = {
 
 , "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
 
-
 , 'get /users/:uid/watchhistory':'WatchHistoryController.getUserWatchHistory'
 , 'get /users/:uid/watchhistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
 , 'post /users/:uid/watchhistory':'WatchHistoryController.addUserWatchHistory'

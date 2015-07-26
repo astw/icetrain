@@ -177,7 +177,9 @@ var deleteVideo = function(req, res){
     //  return res.json({status: 404, Error: 'Not found'});
     //}
    video.destroy().then(function(data){
-      Module.findOne({id:video.module}).then(function(module){
+     console.log(data);
+     Module.findOne({id:video.module}).then(function(module){
+
         module.duration -= video.duration;
         module.save();
         Course.findOne({id:module.course}).then(function(course){
