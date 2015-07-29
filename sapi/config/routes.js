@@ -53,8 +53,11 @@ module.exports.routes = {
 , 'get /courses/:id' :'CourseController.getCourseById'
 , 'get /courses/users/:userId':'CourseController.getCoursesByTutor'
 , 'post /courses':'CourseController.postCourse'
-, 'put /course/:courseId':'CourseController.putCourse'
-, 'delete /course/:courseId':'CourseController.deleteCourse'
+, 'put /courses/:courseId':'CourseController.putCourse'
+, 'delete /courses/:courseId':'CourseController.deleteCourse'
+
+, 'post /module':'ModuleController.create'
+
 
 , "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
 

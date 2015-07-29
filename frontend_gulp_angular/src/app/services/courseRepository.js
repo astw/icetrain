@@ -14,7 +14,7 @@ angular.module('iceApp')
     };
 
     this.getCourseById = function (cid) {
-      var url = API_URL + "course/" + cid;
+      var url = API_URL + "courses/" + cid;
       var headers = {
         clientkey: 'this is the client key',
         Authorization:getAuthHeader()
@@ -68,7 +68,7 @@ angular.module('iceApp')
     };
 
     this.updateCourse = function (courseInfo, uid) {
-      var url = API_URL + "course/"+courseInfo.id;
+      var url = API_URL + "courses/"+courseInfo.id;
       var headers = {
         clientkey: 'this is the client key',
         uid:uid,
@@ -86,7 +86,7 @@ angular.module('iceApp')
     };
 
     this.deleteCourse = function(course,uid){
-      var url = API_URL + "course/"+course.id;
+      var url = API_URL + "courses/"+course.id;
       var headers = {
         clientkey: 'this is the client key',
         uid:uid,
