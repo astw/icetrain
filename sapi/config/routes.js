@@ -65,6 +65,9 @@ module.exports.routes = {
 , 'get /users/:uid/watchhistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
 , 'post /users/:uid/watchhistory':'WatchHistoryController.addUserWatchHistory'
 , 'put /users/:uid/watchhistory':'WatchHistoryController.updateWatchHistory'
+
+
+, 'get /test/auth':'User.auth'
 //,"post /upload" : "NgFileUploadController.upload"
 
    /*******************  below is for uploader  *******************************/
