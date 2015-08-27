@@ -23,12 +23,18 @@
             </button>
           </legend>
 
+          <div class='form-group'>
+            <div class="alert alert-danger" ng-show="error" >
+              <strong>失败！</strong> {{message}}
+            </div>
+          </div>
+
           <!-- Text input-->
           <div class="form-group">
             <label class="col-md-4 control-label" for="courseName">课程名称</label>
 
             <div class="col-md-8">
-              <input id="courseName" name="name" type="text" placeholder="课程名称" ng-model="course.name"
+              <input id="courseName" name="name" type="text" placeholder="课程名称" ng-model="course.name" ng-change="InputChange()" 
                      class="form-control input-md" ng-minlength="5" ng-maxlength="20">
               <span class="help-block has-error" ng-if="courseForm.name.$dirty">
                 <span ng-show="courseForm.name.$error.required">课程名称必须填</span>
@@ -94,10 +100,10 @@
           <!-- Button (Double) -->
           <div class="form-group">
             <div class="col-md-8">
-              <button ng-show="verb == 'create'" id="submit1" type="submit" ng-click="submitCreateCourseForm()"
+              <button ng-show="verb == 'create'" id="submit1" type="submit" ng-click="submitCreateCourseForm()" ng-disabled="courseForm.$invalid"
                       class="btn btn-success">创建
               </button>
-              <button ng-show="verb == 'update'" id="submit2" type="submit" ng-click="submitUpdateCourseForm()"
+              <button ng-show="verb == 'update'" id="submit2" type="submit" ng-click="submitUpdateCourseForm()"  ng-disabled="courseForm.$invalid"
                       class="btn btn-success">更新
               </button>
 

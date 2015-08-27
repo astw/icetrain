@@ -26,7 +26,7 @@ angular.module('iceApp',
         controller:"NavbarCtrl"
       })
       .when('/account/signup',{
-        templateUrl:"app/account/signup.html",
+        templateUrl:"app/components/navbar/signup.html",
         controller:"AccountCtrl"
       })
       .when('/account/home',{

@@ -77,10 +77,17 @@ angular.module('iceApp')
 
       var dfd = $q.defer();
       $http.put(url,courseInfo,{headers:headers})
-        .then(function(res){
+        .then(
+          function(res){
           console.log(res);
           dfd.resolve(res);
-        });
+          },
+
+          function(err){
+            console.log(err);
+            dfd.reject(err);
+          } 
+        );
 
       return dfd.promise;
     };

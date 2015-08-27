@@ -91,6 +91,7 @@ angular.module('iceApp')
     };
 
     $scope.submitUpdateModuleForm = function () {
+      alert('update module');
       $currentCourse.name = $scope.name;
       $currentCourse.desc = $scope.desc;
       $currentCourse.tags = $scope.tags;
@@ -101,6 +102,9 @@ angular.module('iceApp')
             $scope.showCourseInfoDiv = true;
             $scope.showModuleEditor = false;
             $scope.showVideoUploadDiv = false;
+          }
+          else{
+            alert(res.status);
           }
         });
     };
