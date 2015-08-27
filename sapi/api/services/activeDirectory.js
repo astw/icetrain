@@ -7,8 +7,9 @@ module.exports ={
  auth:function(name,password){
 
 //LDAP://abc.com/DC=abc,DC=com
-var config = {  //url: 'ldap://dc.icetrain.com',
-			   url:'ldap://icetrain.com/DC=icetrian,DC=com',
+var config = { 
+          url: 'ldap://icetrain.com',
+			   // url:'ldap://icetrain.com/DC=icetrian,DC=com',
                baseDN: 'dc=icetain,dc=com'
            //    ,username: 'administrator@icetrain.com'
            //    ,password: '' 
