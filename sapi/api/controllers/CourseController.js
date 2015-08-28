@@ -15,7 +15,9 @@ module.exports = {
   },
   getCourseModules: associateCourseRepository.getCourseComplexModules,
   postCourse: associateCourseRepository.createCourse,
-  putCourse:associateCourseRepository.updateCourseById,
+  
+  putCourse: associateCourseRepository.updateCourseById, 
+
   deleteCourse:function(req,res){
     console.log(req.params);
 

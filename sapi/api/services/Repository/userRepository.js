@@ -23,7 +23,7 @@ var getUserByEmail = function(email){
   return defer.promise;
 };
 
-var getUserById = function(id){
+var getUserById = function(id){ 
 
   var defer = Q.defer();
   User.findOne({id:id}).exec(function(err, user){

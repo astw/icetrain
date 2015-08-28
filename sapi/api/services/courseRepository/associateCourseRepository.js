@@ -1,10 +1,13 @@
 'use restrict'
 var Q = require("q");
 var courseidKey = "sec for construct course id";
+
 var Hashids = require("hashids"),
   hashids = new Hashids(courseidKey),
   courseHashids = new Hashids(courseidKey);
 var tokenHelper = require("../tokenHelper.js");
+
+var userRepository = require("../Repository/userRepository");
 
 var getCourseByTutor = function(tutorId){
   var result = [];
@@ -109,26 +112,30 @@ var getCoursesByTutor = function(req,res){
   return Course.find({tutor: tutorId})
 }
 
-var updateCourseById = function (courseId, courseInfo) {
-  var defer = Q.defer();
-  Course.findOne({id:courseId}).then(function(course){
-    course.name = courseInfo.name;
-    course.desc = courseInfo.desc;
-    course.level = courseInfo.level;
-    course.coursetype = courseInfo.courseType;
-    course.save().then(function(err){
-      userRepository.getUserById(course.tutorid).then(function(tutor){
-        course.tutor = tutor;
-        Section.find({courseid:course.id}).then(function(sections){
-          course.sections = sections;
-          defer.resolve(course);
-        })
-      });
-    });
-    defer.resolve(course);
-  });
+var updateCourseById =  function(req,res){
+   var courseId = req.params.courseId;
+   var courseInfo = req.body;
+  Course.findOne({id:courseId}).then(
+    function(course) {
+      console.log(course);
 
-  return defer.promise;
+      if (!course) {
+        return res.notFound();
+      }
+      else {
+        if (course.tutor != parseInt(req.session.userid)) {
+          return res.status(401).send('Can only change your own course!');
+        }
+        course.name = courseInfo.name;
+        course.desc = courseInfo.desc;
+        course.level = courseInfo.level;
+        course.coursetype = courseInfo.courseType;
+        course.save();
+
+        return res.status(200).send(course);
+      }
+    }
+  );
 };
 
 module.exports = {

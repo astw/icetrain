@@ -44,8 +44,9 @@ angular.module('iceApp')
     $scope.submitUpdateCourseForm = function () {
       var courseInfo = {};
       courseInfo = $scope.course;
+      var uid = $scope.user.id;
 
-      courseRepository.updateCourse(courseInfo, $scope.course, $scope.user.id)
+      courseRepository.updateCourse(courseInfo, uid)
         .then(
           function (res) {  
           if (res.status == 200) {
