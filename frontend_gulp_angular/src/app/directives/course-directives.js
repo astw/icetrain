@@ -55,3 +55,14 @@ app.directive("myCoursesList",function(){
   }
 });
 
+app.directive("validPasswordConfirm",function(){
+  return{
+    require:"ngModel",
+    link:function(scope,elm,attr,ctrl){
+      ctrl.$parsers.unshift(function(viewValue,$scope){
+        var noMatch = viewValue != scope.createLoginForm.password.$viewValue;
+        ctrl.$setValidity('noMatch', !noMatch);
+      })
+    }
+  }
+});

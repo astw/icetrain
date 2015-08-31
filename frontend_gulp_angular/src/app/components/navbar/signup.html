@@ -1,36 +1,68 @@
 <div class="container">
-  <div class="row">
-    <div ng-include="'app/components/navbar/navbar.html'"></div>
+  <div ng-include="'app/components/navbar/navbar.html'"></div>
+  <div class="jumbotron text-left">
+    <form class="form-horizontal" name="createLoginForm">
+      <fieldset>
+        <!-- Form Name -->
+        <legend>创建新用户</legend>
+
+        <!-- email input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="email">电子邮件</label>
+
+          <div class="col-md-4">
+            <input id="email" name="email" type="email"   ng-model="email" placeholder="电子邮件"
+                   class="form-control input-md" required >
+
+            <span class="help-block has-error" ng-if="createLoginForm.email.$dirty &&  createLoginForm.email.$invalid">
+                <span ng-show="createLoginForm.email.$error.email">无效电子邮件</span>
+              </span>
+          </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="password">密码</label>
+
+          <div class="col-md-4">
+            <input id="password" name="password" type="password" ng-model="password" placeholder="密码"
+                   class="form-control input-md" required  ng-minlength="5" >
+
+            <span class="help-block has-error" ng-if="createLoginForm.password.$dirty">
+                <span ng-show="createLoginForm.password.$error.required">密码不能为空</span>
+                <span ng-show="createLoginForm.password.$error.minlength">电子邮件最少5个字符</span>
+              </span>
+            <span class="help-block"></span>
+          </div>
+        </div>
+
+        <!-- Password confirm input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="password2">确认密码</label>
+
+          <div class="col-md-4">
+            <input id="password2" name="password2" type="password" ng-model="password2" placeholder="再输入一遍密码"
+                   class="form-control input-md"  required ng-change="password2Chang()"
+              >
+            <span class="help-block has-error" ng-if="createLoginForm.password2.$dirty">
+                <span ng-show="createLoginForm.password2.$error.required">密码不能为空</span>
+                <span ng-show="passwordNotMatch">密码不一致</span>
+              </span>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="cbLogin"></label>
+
+          <div class="col-md-4">
+            <button id="cbLogin" name="cbLogin" ng-click="register()"
+                    ng-disabled="!createLoginForm.$valid || passwordNotMatch"  class="btn btn-primary">创建新用户
+            </button>
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
   </div>
-  
-
-<div class="col-md-4">
-<form ng-submit="submitSignupForm()" id="sign-up-form" class="form-signin" name="signup"> 
-	<h2 class="form-signin-heading">Create an account</h2>
-	<div class="row">
-
-		<div class="control-group form-group col-md-12" 
-				ng-class="{'has-error':signup.name.$invalid &&
-				signup.name.$dirty ">
-			<label>You full name</label>
-			<input type="text" class="form-control" placeholder="eg.Nikola Tesla" name="name" ng-module="signupForm.name" ng-maxlength="50"/> 
-
-			<span class="help-block has-error" ng-if="signup.name.$dirty">
-				<span ng-show="signup.name.$error.required">Name is required</span>
-				<span ng-show="signup.name.$error.maxlength">The name cannot be more than 50 charactors</span>
-			</span>
-		</div>
-
-		<!-- title --> 
-		<div class="control-group form-group col-md-12" ng-class="{'has-error':signup.title.$invalid &&signup.title.$dirty}"> 
-			<label>You title</label>
-			<input type="text" class="form-control" placeholder="eg.Gnius" name="title" ng-module="signupForm.title" ng-maxlenght="50"> 
-			<span class="help-block has-error" ng-if="signup.name.$dirty">
-				<span ng-show="signup.title.$error.required">title is required</span>
-				<span ng-show="signup.title.$error.maxlength">The title cannot be more than 50 charactors</span>
-			</span>
-		</div> 
-	</div>
-</form>
-</div>
 </div>

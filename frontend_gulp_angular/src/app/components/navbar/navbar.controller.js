@@ -26,4 +26,22 @@ angular.module('iceApp')
       $scope.isAuthenticated = auth.isAuthenticated();
       $location.path('/');
     }
+
+    $scope.password2Chang = function(){
+      $scope.passwordNotMatch = $scope.password2 != $scope.password;
+    };
+
+    $scope.register = function(){
+      auth.register($scope.email, $scope.password,$scope.password2).
+        then(function(res){ 
+          if(res.status == 200) {
+            $scope.user = res.data.user;
+            $scope.isAuthenticated = auth.isAuthenticated();
+            $location.url('/');
+          }
+          else
+            $scope.loginFails = true;
+        });
+    }
+
   });

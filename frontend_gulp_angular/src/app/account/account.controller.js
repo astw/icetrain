@@ -13,18 +13,19 @@ angular.module('iceApp')
       };
 
     $scope.user = auth.currentUser();
-      courseRepository.getUserCourses($scope.user.id).then(function(res){
-       if(res.status == 200) {
-         $scope.courses = res.data;
-       }
-       else{
-         $scope.errorMessage ='服务器错';
-       }
-    });
-
+    if($scope.user) {
+      courseRepository.getUserCourses($scope.user.id).then(function (res) {
+        if (res.status == 200) {
+          $scope.courses = res.data;
+        }
+        else {
+          $scope.errorMessage = '服务器错';
+        }
+      });
+    }
     $scope.InputChange = function(){
        $scope.message ="";
-       $scope.error = false;  
+       $scope.error = false;
     }
 
     $scope.submitCreateCourseForm = function () {
@@ -48,7 +49,7 @@ angular.module('iceApp')
 
       courseRepository.updateCourse(courseInfo, uid)
         .then(
-          function (res) {  
+          function (res) {
           if (res.status == 200) {
             $scope.courses.forEach(function(course){
               if(course.id === res.data.id){
@@ -58,10 +59,10 @@ angular.module('iceApp')
 
             $scope.showCourseEditor = false;
             $scope.showMyCoursesList = true;
-          }          
+          }
         },
         function(err){
-          $scope.error = true; 
+          $scope.error = true;
           $scope.message = err.statusText;
         });
     };

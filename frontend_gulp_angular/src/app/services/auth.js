@@ -17,6 +17,25 @@ angular.module('iceApp')
       clientkey: clientkey
     };
 
+    this.register = function(email, password,password2){
+      var dfd = $q.defer();
+
+      var url = API_URL + "register";
+      var message = {email: email, password: password, password2:password2};
+      $http.post(url,
+        message,
+        {headers: headers}
+      ).then(function (res) {
+          if (res.status == 200) {
+
+          }
+
+          dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+
     this.login = function (email, password) {
       var dfd = $q.defer();
 
