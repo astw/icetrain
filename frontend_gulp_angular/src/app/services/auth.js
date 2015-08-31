@@ -27,7 +27,7 @@ angular.module('iceApp')
         {headers: headers}
       ).then(function (res) {
           if (res.status == 200) {
-
+            authSuccessful(res.data);
           }
 
           dfd.resolve(res);

@@ -33,7 +33,7 @@ angular.module('iceApp')
 
     $scope.register = function(){
       auth.register($scope.email, $scope.password,$scope.password2).
-        then(function(res){ 
+        then(function(res){
           if(res.status == 200) {
             $scope.user = res.data.user;
             $scope.isAuthenticated = auth.isAuthenticated();
