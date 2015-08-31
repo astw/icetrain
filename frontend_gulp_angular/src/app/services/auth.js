@@ -17,11 +17,11 @@ angular.module('iceApp')
       clientkey: clientkey
     };
 
-    this.register = function(email, password,password2){
+    this.register = function(email,userName,password,password2){
       var dfd = $q.defer();
 
       var url = API_URL + "register";
-      var message = {email: email, password: password, password2:password2};
+      var message = {email: email,userName:userName, password: password, password2:password2};
       $http.post(url,
         message,
         {headers: headers}
@@ -31,6 +31,22 @@ angular.module('iceApp')
           }
 
           dfd.resolve(res);
+        },
+      function(err){
+        dfd.reject(err);
+      });
+
+      return dfd.promise;
+    };
+
+    this.checkEmailExistance = function(email){
+      var dfd = $q.defer();
+
+      var url = API_URL + "checkemail/" + email;
+      $http.get(url,
+        {headers: headers}
+      ).then(function (res) {
+           dfd.resolve(res);
         });
 
       return dfd.promise;

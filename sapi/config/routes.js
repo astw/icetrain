@@ -61,11 +61,12 @@ module.exports.routes = {
 
 , "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
 
-, 'get /users/:uid/watchhistory':'WatchHistoryController.getUserWatchHistory'
-, 'get /users/:uid/watchhistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
-, 'post /users/:uid/watchhistory':'WatchHistoryController.addUserWatchHistory'
-, 'put /users/:uid/watchhistory':'WatchHistoryController.updateWatchHistory'
+, 'get /users/:uid/watchHistory':'WatchHistoryController.getUserWatchHistory'
+, 'get /users/:uid/watchHistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
+, 'post /users/:uid/watchHistory':'WatchHistoryController.addUserWatchHistory'
+, 'put /users/:uid/watchHistory':'WatchHistoryController.updateWatchHistory'
 
+, 'get /auth/checkEmail/:email':'AuthController.checkEmail'
 
 , 'get /test/auth':'User.auth'
 //,"post /upload" : "NgFileUploadController.upload"

@@ -6,23 +6,43 @@
         <!-- Form Name -->
         <legend>创建新用户</legend>
 
+        <div class="alert alert-danger" ng-show="loginFails" >
+          <strong>创建用户失败，</strong> 电子邮件或密码无效
+        </div>
+
+        <!-- user name input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="email">用户名称 *</label>
+
+          <div class="col-md-4">
+            <input id="username" name="username" type="text"   ng-model="userName" placeholder="用户名称"
+                   class="form-control input-md" required ng-minlength="5">
+            <span class="help-block has-error" ng-if="createLoginForm.username.$touched && createLoginForm.username.$invalid">
+                <span ng-show="createLoginForm.username.$error.required">请填写用户名</span>
+                <span ng-show="createLoginForm.username.$error.minLength">用户名最少5个字符</span>
+              </span>
+          </div>
+        </div>
+
         <!-- email input-->
         <div class="form-group">
-          <label class="col-md-4 control-label" for="email">电子邮件</label>
+          <label class="col-md-4 control-label" for="email">电子邮件 *</label>
 
           <div class="col-md-4">
             <input id="email" name="email" type="email"   ng-model="email" placeholder="电子邮件"
-                   class="form-control input-md" required >
+                   class="form-control input-md"  ng-blur="checkEmail()" required ng-minlength="5"
+              >
 
-            <span class="help-block has-error" ng-if="createLoginForm.email.$dirty &&  createLoginForm.email.$invalid">
+            <span class="help-block has-error" ng-if="createLoginForm.email.$dirty">
                 <span ng-show="createLoginForm.email.$error.email">无效电子邮件</span>
+                <span ng-show="emailExists">电子邮件已存在</span>
               </span>
           </div>
         </div>
 
         <!-- Password input-->
         <div class="form-group">
-          <label class="col-md-4 control-label" for="password">密码</label>
+          <label class="col-md-4 control-label" for="password">密码 *</label>
 
           <div class="col-md-4">
             <input id="password" name="password" type="password" ng-model="password" placeholder="密码"
@@ -38,7 +58,7 @@
 
         <!-- Password confirm input-->
         <div class="form-group">
-          <label class="col-md-4 control-label" for="password2">确认密码</label>
+          <label class="col-md-4 control-label" for="password2">确认密码 *</label>
 
           <div class="col-md-4">
             <input id="password2" name="password2" type="password" ng-model="password2" placeholder="再输入一遍密码"
@@ -57,7 +77,7 @@
 
           <div class="col-md-4">
             <button id="cbLogin" name="cbLogin" ng-click="register()"
-                    ng-disabled="!createLoginForm.$valid || passwordNotMatch"  class="btn btn-primary">创建新用户
+                    ng-disabled="!createLoginForm.$valid || passwordNotMatch || emailExists"  class="btn btn-primary">创建新用户
             </button>
           </div>
         </div>

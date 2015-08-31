@@ -30,18 +30,34 @@ angular.module('iceApp')
     $scope.password2Chang = function(){
       $scope.passwordNotMatch = $scope.password2 != $scope.password;
     };
+    $scope.checkEmail = function(){
+       auth.checkEmailExistance($scope.email).
+        then(function(res){
+          if(res.status == 200) {
+            $scope.emailExists = (res.data === 'true');
+          }
+          else
+            $scope.emailExists = false;
+        });
+    };
 
     $scope.register = function(){
-      auth.register($scope.email, $scope.password,$scope.password2).
+      auth.register($scope.email, $scope.userName, $scope.password,$scope.password2).
         then(function(res){
           if(res.status == 200) {
             $scope.user = res.data.user;
             $scope.isAuthenticated = auth.isAuthenticated();
             $location.url('/');
           }
-          else
+          else{
             $scope.loginFails = true;
-        });
+          }
+        },
+
+        function(err){
+          $scope.loginFails = true;
+        }
+      );
     }
 
   });
