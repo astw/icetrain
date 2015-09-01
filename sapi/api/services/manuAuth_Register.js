@@ -12,7 +12,7 @@ module.exports = {
             return res.status(200).send('false');
         };
 
-        User.findOneByEmail(email, function (err, user) { 
+        User.findOneByEmail(email, function (err, user) {
           if (!user) {
             return res.status(200).send('false');
           }

@@ -41,6 +41,10 @@ angular.module('iceApp')
         });
     };
 
+    $scope.search =  function(term){
+      alert(term);
+    };
+
     $scope.register = function(){
       auth.register($scope.email, $scope.userName, $scope.password,$scope.password2).
         then(function(res){
