@@ -10,9 +10,9 @@ var tokenHelper = require("../tokenHelper.js");
 var userRepository = require("../Repository/userRepository");
 
 var getCourseByTutor = function(tutorId){
-  var result = [];
-  return Course.find({tutorid: tutorId})
+  return Course.find({tutorid:tutorId})
     .then(function (courses) {
+      console.log(courses);
       courses.forEach(function (course) {
         result.push(
           course.getSections().then(function (sections) {
@@ -73,6 +73,21 @@ getCourseById = function(req, res){
   }
 };
 
+var searchCourse = function(condition){
+  var deferred = Q.defer();
+  console.log(condition);
+  //return Course.find(condition)
+  Course.find(condition).populateAll().then(
+    function (courses) {
+        console.log(courses);
+        deferred.resolve(courses);
+    },
+    function(err){
+       deferred.reject(err);
+    });
+   return deferred.promise;
+}
+
 createCourse = function (req, res) {
     if (req.method === 'GET')
       return res.json({'status': 'GET not allowed'});
@@ -109,14 +124,14 @@ createCourse = function (req, res) {
 
 var getCoursesByTutor = function(req,res){
    var tutorId = req.params.userId;
-  return Course.find({tutor: tutorId})
-}
+  return Course.find({tutor: tutorId}).populateAll();
+};
 
-var updateCourseById =  function(req,res){
-   var courseId = req.params.courseId;
-   var courseInfo = req.body;
-  Course.findOne({id:courseId}).then(
-    function(course) {
+var updateCourseById =  function(req,res) {
+  var courseId = req.params.courseId;
+  var courseInfo = req.body;
+  Course.findOne({id: courseId}).then(
+    function (course) {
       console.log(course);
 
       if (!course) {
@@ -136,15 +151,14 @@ var updateCourseById =  function(req,res){
       }
     }
   );
-};
+}
 
 module.exports = {
-
   getCourseById : getCourseById,
   getCoursesByTutor:getCoursesByTutor,
   getCourseComplexModules: getCourseComplexModules,
   createCourse:createCourse,
-  updateCourseById : updateCourseById
-
-}
+  updateCourseById : updateCourseById,
+  searchCourse:searchCourse
+};
 

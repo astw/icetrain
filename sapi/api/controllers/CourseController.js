@@ -1,8 +1,45 @@
-
-
+var Q = require('q');
 var associateCourseRepository = require("../services/courseRepository/associateCourseRepository.js");
 
+var getTranslationSearchCondition = function(key) {
+  var condition = {};
+  condition.or = [];
+  //condition.or.push({name: new RegExp(key)});
+  //condition.or.push({desc: new RegExp(key)});
+  //condition = {name:{'like': '%'+ key + '%'}};
+  condition.or.push({name:{'like': '%'+ key + '%'}});
+  condition.or.push({desc:{'like': '%'+ key + '%'}});
+  console.log(JSON.stringify(condition));
+  return condition;
+};
+
 module.exports = {
+
+  getCourses:function(req,res) {
+    var searchTerm = req.param('searchTerm');
+    if (!searchTerm) {
+      searchTerm = req.param('searchterm');
+    }
+    if (!searchTerm) {
+      searchTerm = req.param('search-term');
+    }
+
+    if(searchTerm == undefined){
+      searchTerm='';
+    }
+
+    console.log(searchTerm);
+
+    var condition = getTranslationSearchCondition(searchTerm);
+    associateCourseRepository.searchCourse(condition).then(
+      function(courses){
+        console.log(courses);
+        res.status(200).send(courses);
+      },
+      function(err){
+        res.status(500).send(err);
+      });
+  },
   getCourseById : associateCourseRepository.getCourseById,
   getCoursesByTutor:function(req,res){
     associateCourseRepository.getCoursesByTutor(req,res)
@@ -15,8 +52,8 @@ module.exports = {
   },
   getCourseModules: associateCourseRepository.getCourseComplexModules,
   postCourse: associateCourseRepository.createCourse,
-  
-  putCourse: associateCourseRepository.updateCourseById, 
+
+  putCourse: associateCourseRepository.updateCourseById,
 
   deleteCourse:function(req,res){
     console.log(req.params);

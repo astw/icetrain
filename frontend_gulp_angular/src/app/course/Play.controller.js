@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('iceApp')
-  .controller('PlayCtrl', function ($scope, relayService,
+  .controller('PlayCtrl', function ($scope, relayService,$q,
                                     $http, $location, $sce, auth,
                                     courseRepository,
                                     watchHistoryService) {
@@ -22,11 +22,16 @@ angular.module('iceApp')
     }
     ;
 
+    var userid = $scope.user ? $scope.user.id: -1;
+
     $scope.videoUrl = MediaServer + $location.url() + "?sessionToken=" + sessionToken;
     $scope.course = relayService.getKeyValue('course');
     $scope.modules = [].concat($scope.course.complexModules);
 
-    var watchHistory = getWatchHistory();
+    var watchHistory = [];
+    getWatchHistory().then(function(history){
+      watchHistory = history;
+    });
     $scope.select = function (module) {
       if (!module) return;
       module.show = true;
@@ -156,15 +161,15 @@ angular.module('iceApp')
     }
 
     var addWatchHistory = function (module, video) {
-      watchHistoryService.addUserWatchHistory(
-        $scope.user.id, $scope.course.id, module.id, video.id).
+      if(userid < 0) return ;
+      watchHistoryService.addUserWatchHistory(userid,$scope.course.id, module.id, video.id).
       then(function(res){
         watchHistory.push(res.data);
       });
     };
     var updateWatchHistoryWatched = function (module, video) {
-      watchHistoryService.updateWatchHistoryWatched(
-        $scope.user.id, $scope.course.id, module.id, video.id).
+      if(userid < 0) return ;
+      watchHistoryService.updateWatchHistoryWatched(userid, $scope.course.id, module.id, video.id).
         then(function () {
           // update catch, and local watch history
           if (watchHistory) {
@@ -208,23 +213,33 @@ angular.module('iceApp')
     };
 
     function updateWatchHistoryCache() {
-      var historyKey = 'userid_' + $scope.user.id + "_courseid_" + $scope.course.id;
+      if(userid < 0) return ;
+      var historyKey = 'userid_' + userid + "_courseid_" + $scope.course.id;
       relayService.putKeyValue(historyKey, watchHistory);
     }
 
     function getWatchHistory() {
-      var historyKey = 'userid_' + $scope.user.id + "_courseid_" + $scope.course.id;
-      var watchHistory = relayService.getKeyValue(historyKey);
+      var dfd = $q.defer();
+      if(userid < 0){
+         dfd.resolve([]);
+      }
+      var historyKey = 'userid_' + userid + "_courseid_" + $scope.course.id;
+      watchHistory = relayService.getKeyValue(historyKey);
+
       if (!watchHistory) {
-        watchHistoryService.getUserCourseWatchHistory($scope.user.id, $scope.course.id).then(function (res) {
+        watchHistoryService.getUserCourseWatchHistory(userid, $scope.course.id).then(function (res) {
           if (res.status == 200) {
-            watchHistory = res.data;
             $scope.$applyAsync();
             relayService.putKeyValue(historyKey, watchHistory);
+            dfd.resolve(res.data);
           }
         });
       }
-      return watchHistory;
+      else{
+        dfd.resolve(watchHistory);
+      }
+
+      return dfd.promise;
     }
 
     var initVideoToken = $location.url().split('/mediaServer/video/stream/')[1];

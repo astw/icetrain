@@ -1,0 +1,14 @@
+tr {
+  line-height: 55px;
+  min-height: 25px;
+  height: 40px;
+  text-align: left;
+}
+.table tbody>tr>td{
+  vertical-align:middle;
+}
+
+.courseTable {
+  paddng: 10px;
+  text-align: center;
+}

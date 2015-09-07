@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('iceApp')
-  .controller('NavbarCtrl', function ($scope,auth, $http,$location) {
+  .controller('NavbarCtrl', function ($scope,auth, $http,$location,$routeParams, watchHistoryService) {
     $scope.date = new Date();
     $scope.isAuthenticated = auth.isAuthenticated();
     $scope.user = auth.currentUser();
@@ -11,7 +11,13 @@ angular.module('iceApp')
           if(res.status == 200) {
             $scope.user = res.data.user;
             $scope.isAuthenticated = auth.isAuthenticated();
-            $location.url('/');
+
+            var transfer = $location.search().transfer;
+            if(transfer){
+              $location.url(transfer);
+            }
+            else
+              $location.url('/');
           }
           else
             $scope.loginFails = true;
@@ -42,7 +48,7 @@ angular.module('iceApp')
     };
 
     $scope.search =  function(term){
-      alert(term);
+      $location.url('/search/' + term);
     };
 
     $scope.register = function(){
@@ -64,4 +70,14 @@ angular.module('iceApp')
       );
     }
 
+    $scope.safeApply = function (fn) {
+      var phase = this.$root.$$phase;
+      if (phase == '$apply' || phase == '$digest') {
+        if (fn && (typeof(fn) === 'function')) {
+          fn();
+        }
+      } else {
+        this.$apply(fn);
+      }
+    };
   });

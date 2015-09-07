@@ -13,6 +13,24 @@ angular.module('iceApp')
        return  'Bearer ' + token;
     };
 
+    // search courses
+    this.findCourses = function(searchTerm){
+
+      var url = API_URL + "courses?search-term=" + searchTerm ;
+      var headers = {
+        clientkey: 'this is the client key'
+      };
+
+      var dfd = $q.defer();
+      $http.get(url, {headers: headers})
+        .then(function (res) {
+          console.log(res);
+          dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+    //
     this.getCourseById = function (cid) {
       var url = API_URL + "courses/" + cid;
       var headers = {
@@ -86,7 +104,7 @@ angular.module('iceApp')
           function(err){
             console.log(err);
             dfd.reject(err);
-          } 
+          }
         );
 
       return dfd.promise;

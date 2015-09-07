@@ -1,7 +1,6 @@
 <div class="row">
   <!-- Form Name -->
   <div class="col-md-9 courseTable h3 text-left">
-    我的课程
   </div>
   <div class="col-md-9">
     <div class="table-responsive">
@@ -12,9 +11,6 @@
           <th>级别</th>
           <th>时间</th>
           <th>章节数</th>
-          <th>状态</th>
-          <th>观看次数</th>
-          <th>评价</th>
           <th></th>
         </tr>
         </thead>
@@ -25,19 +21,6 @@
           <td>{{course.level}}</td>
           <td>{{course.duration}}</td>
           <td>{{course.modules.length}}</td>
-          <td>{{course.status}}</td>
-          <td>{{course.viewtimes}}</td>
-          <td>{{course.rank}}</td>
-          <td>
-
-            <button type="button" class="btn btn-primary btn-xs" ng-click="editCourse(course)">
-            <i class="glyphicon glyphicon-edit"/> 编辑  </button>
-            <span>
-              <button type="button" class="btn btn-danger btn-xs" ng-click="deleteCourse(course)">
-                <i class="glyphicon glyphicon-minus"/> 删除
-              </button>
-            </span>
-          </td>
         </tr>
         </tbody>
       </table>

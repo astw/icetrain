@@ -50,12 +50,14 @@ module.exports.routes = {
 
 , 'post /:tutorId/course/:courseId/:moduleId/videoUpload' :'NgFileUploadController.upload'  //"FancyUploadController.uploadCourseVideo"  //
 , 'get /courses/:id/modules' :'CourseController.getCourseModules'
+, 'get /courses':'CourseController.getCourses'
 , 'get /courses/:id' :'CourseController.getCourseById'
 , 'get /courses/users/:userId':'CourseController.getCoursesByTutor'
 , 'post /courses':'CourseController.postCourse'
 , 'put /courses/:courseId':'CourseController.putCourse'
 , 'delete /courses/:courseId':'CourseController.deleteCourse'
 
+, 'get /modules':'ModuleController.search'
 , 'post /module':'ModuleController.create'
 
 
