@@ -61,6 +61,10 @@ angular.module('iceApp',
         templateUrl:"app/search/search-result.html",
         controller:"SearchCtrl"
       })
+      .when('/fabric/test',{
+        templateUrl:"app/fabric/test.html",
+        controller:"FabricCtrl"
+      })
       //when('/ngupload/',{
       //  templateUrl:"app/upload/ng-file.html",
       //  controller:"NgFileUploadCtrl"
