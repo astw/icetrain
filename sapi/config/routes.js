@@ -71,6 +71,13 @@ module.exports.routes = {
 , 'get /auth/checkEmail/:email':'AuthController.checkEmail'
 
 , 'get /test/auth':'User.auth'
+
+,  'get /books':'BookController.getBooks'
+,  'get /books/:id':'BookController.getBookById'
+,  'post /books' : 'BookController.createBook'
+,  'put /books/:id':'BookController.updateBookById'
+,  'delete /books/:id':'BookController.deleteBookById'
+
 //,"post /upload" : "NgFileUploadController.upload"
 
    /*******************  below is for uploader  *******************************/
