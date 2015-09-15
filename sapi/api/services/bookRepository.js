@@ -38,16 +38,16 @@ var createBook = function(data) {
 
 var updateBookById = function (courseId, dataToUpdate) {
   var defer = Q.defer();
-  getBookById.findOne({id: courseId})
+  Book.findOne({id: courseId})
     .then(function (book) {
-      book.title = dataToUpdate.title;
-      book.desc = dataToUpdate.desc;
-      book.rate = dataToUpdate.rate;
-      book.data = dataToUpdate.data;
-      book.openToAll = dataToUpdate.openToAll;
-      book.pages = dataToUpdate.pages;
+      book.title = dataToUpdate.title || book.title;
+      book.desc = dataToUpdate.desc || book.desc;
+      book.rate = dataToUpdate.rate || book.rate;
+      book.data = dataToUpdate.data || book.data;
+      book.openToAll = dataToUpdate.openToAll || book.openToAll;
+      book.pages = dataToUpdate.pages || book.pages;
       book.save();
-      defer.resolve(course);
+      defer.resolve(book);
     },
 
     function(err){
