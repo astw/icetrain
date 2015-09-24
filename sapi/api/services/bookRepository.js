@@ -24,7 +24,8 @@ var createBook = function(data) {
     rate : data.rate,
     data : data.data,
     openToAll : data.openToAll,
-    pages :data.pages
+    pages :data.totalPage,
+    author:data.author
   }, function (err, data) {
     if (err) {
       return  defer.reject(err);
