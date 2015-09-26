@@ -60,8 +60,12 @@ module.exports.connections = {
     adapter: 'sails-mongo',
     host: 'localhost',
     port: 27017,
-    // user: 'username',
-    // password: 'password',
+   // username:'icetrain',
+   // password:'icetrain',
+
+   // username: 'appuser',
+   // password: '123'
+   // database:'icetrain'
     database: 'psjwt'
   },
 
@@ -80,7 +84,7 @@ module.exports.connections = {
     user: 'YOUR_POSTGRES_USER',
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
-  }
+  },
 
 
   /***************************************************************************
@@ -88,5 +92,14 @@ module.exports.connections = {
   * More adapters: https://github.com/balderdashy/sails                      *
   *                                                                          *
   ***************************************************************************/
-
+ sqlserver: {
+    adapter: 'sails-sqlserver',
+    user: 'icetrain',
+    password: 'icetrain',
+    host: 'localhost', // azure database
+    database: 'icetrain',
+    options: {
+     // encrypt: true   // use this for Azure databases
+    }
+  }
 };

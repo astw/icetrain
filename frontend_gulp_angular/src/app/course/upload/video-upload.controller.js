@@ -7,7 +7,7 @@ angular.module('iceApp').controller('VideoUploadCtrl',
     $scope.user = auth.currentUser();
     $scope.showVideoUploadDiv = false;
     var verb = 'get';
-    var userid = $scope.user.id;
+    var userid =  $scope.user ? $scope.user.id:-1;
 
     $scope.course = relayService.getKeyValue("course");
     $scope.module = relayService.getKeyValue("_uploadTo_module");

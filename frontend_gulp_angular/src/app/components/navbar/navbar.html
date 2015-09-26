@@ -1,42 +1,58 @@
-<nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarCtrl">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="https://github.com/Swiip/generator-gulp-angular">
-        <span class="glyphicon glyphicon-home"></span> Gulp Angular
-      </a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-      <ul class="nav navbar-nav">
-        <li class="active"><a ng-href="#">Home</a></li>
-        <li><a ng-href="#">About</a></li>
-        <li><a ng-href="#">Contact</a></li>
-      </ul>
-
-      <ul class="nav navbar-nav pull-right">
-
-        <li ng-hide="isAuthenticated" >
-          <a href="/account/login">登录</a>
-        </li>
-
-        <li ng-hide="isAuthenticated" >
-          <a href="/account/register">注册</a>
-        </li>
-
-
-        <li ng-show="isAuthenticated" >
-          <a href="/account/home">{{user.displayName}}</a>
-        </li>
-
-        <li ng-show="isAuthenticated" >
-          <a href="/" class="btn" ng-click="logout()" >退出</a>
-        </li>
-       </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li>Current date: {{ date | date:'yyyy-MM-dd' }}</li>
-        <li>Current date: {{ date | date:'yyyy-MM-dd' }}</li>
-      </ul>
-    </div>
+<nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarCtrl" xmlns="http://www.w3.org/1999/html">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">冰点培训</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand glyphicon glyphicon-home" rel="home" href="/" title="冰点培训">冰点培训</a>
   </div>
+
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+
+    <ul class="nav navbar-nav">
+      <li class="active"><a ng-href="#">新课程</a></li>
+      <li><a ng-href="#">热门标签</a></li>
+      <li><a ng-href="#">热门课程</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav pull-right">
+
+      <li ng-hide="isAuthenticated" >
+        <a href="/account/login">登录</a>
+      </li>
+
+      <li ng-hide="isAuthenticated" >
+        <a href="/account/register">注册</a>
+      </li>
+
+
+      <li ng-show="isAuthenticated" >
+        <a href="/account/home">{{user.displayName}}</a>
+      </li>
+
+      <li ng-show="isAuthenticated" >
+        <a href="/" class="btn" ng-click="logout()" >退出</a>
+      </li>
+    </ul>
+
+    <div class="col-sm-4 col-md-4 pull-right">
+      <form class="navbar-form" role="search">
+        <div class="input-group">
+          <input type="text" class="form-control"
+                 name="srch-term" id="srch-term"
+                 placeholder="搜索课程"
+                 ng-model="searchTerm"
+                 ng-enter="search(searchTerm)"
+            >
+          <div class="input-group-btn">
+            <button class="btn btn-default"  ng-click="search(searchTerm)"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
 </nav>

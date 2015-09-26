@@ -5,6 +5,7 @@ module.exports = function(req, res, next){
 
     var token = req.headers.authorization.split(" ")[1];
     var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
+    console.log(payload);
     var headerUserId = req.headers.uid;
     var userid = payload.userid;
     if (!userid ) {
@@ -15,6 +16,9 @@ module.exports = function(req, res, next){
     else {
       Permission.findOneByUserid(userid).
         exec(function (err, permission) {
+          console.log(err);
+          console.log(permission);
+
           if (err || !permission || permission.type !== 'write') {
             return res.status(401).send({
               message: "You don't have write permission. - checkWritePermission"
@@ -25,12 +29,16 @@ module.exports = function(req, res, next){
               // use can only write to his/her own course/module/videos
               if(headerUserId != userid){
                 return res.status(401).send({
-                  message: "You don't have write permission. - checkWritePermission"
+                  message: "You don't have write permission(Not your course). - checkWritePermission"
                 });
-             } 
+             }
+             
+             next(); 
             }
-            else
+            else{
+              console.log('check permision finished ')  ;
               next();
+            }
           };
         });
     }

@@ -215,11 +215,11 @@ module.exports = {
 
   saveOrUpdateAllCourse: updateCourseSectionVideoInfo,
 
-  saveOrUpdateAllSection :updateSectionVideoInfo,
+  saveOrUpdateAllSection: updateSectionVideoInfo,
 
-  getCourseByTutor:getCourseByTutor,
+  getCourseByTutor: getCourseByTutor,
 
-  getCourseById:getCourseById,
+  getCourseById: getCourseById,
 
   updateCourseById: updateCourseById
 }

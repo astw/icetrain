@@ -50,18 +50,34 @@ module.exports.routes = {
 
 , 'post /:tutorId/course/:courseId/:moduleId/videoUpload' :'NgFileUploadController.upload'  //"FancyUploadController.uploadCourseVideo"  //
 , 'get /courses/:id/modules' :'CourseController.getCourseModules'
+, 'get /courses':'CourseController.getCourses'
 , 'get /courses/:id' :'CourseController.getCourseById'
 , 'get /courses/users/:userId':'CourseController.getCoursesByTutor'
 , 'post /courses':'CourseController.postCourse'
-, 'put /course/:courseId':'CourseController.putCourse'
-, 'delete /course/:courseId':'CourseController.deleteCourse'
+, 'put /courses/:courseId':'CourseController.putCourse'
+, 'delete /courses/:courseId':'CourseController.deleteCourse'
+
+, 'get /modules':'ModuleController.search'
+, 'post /module':'ModuleController.create'
+
 
 , "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
 
-, 'get /users/:uid/watchhistory':'WatchHistoryController.getUserWatchHistory'
-, 'get /users/:uid/watchhistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
-, 'post /users/:uid/watchhistory':'WatchHistoryController.addUserWatchHistory'
-, 'put /users/:uid/watchhistory':'WatchHistoryController.updateWatchHistory'
+, 'get /users/:uid/watchHistory':'WatchHistoryController.getUserWatchHistory'
+, 'get /users/:uid/watchHistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
+, 'post /users/:uid/watchHistory':'WatchHistoryController.addUserWatchHistory'
+, 'put /users/:uid/watchHistory':'WatchHistoryController.updateWatchHistory'
+
+, 'get /auth/checkEmail/:email':'AuthController.checkEmail'
+
+, 'get /test/auth':'User.auth'
+
+,  'get /books':'BookController.getBooks'
+,  'get /books/:id':'BookController.getBookById'
+,  'post /books' : 'BookController.createBook'
+,  'put /books/:id':'BookController.updateBookById'
+,  'delete /books/:id':'BookController.deleteBookById'
+
 //,"post /upload" : "NgFileUploadController.upload"
 
    /*******************  below is for uploader  *******************************/

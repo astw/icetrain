@@ -8,7 +8,7 @@ var secret = "this is my secret";
 module.exports = function (user, res, statusCode) {
 
     var token = sessionTokenHelper.createSessionToken(user,res);
-
+    console.log(token);
     res.status(statusCode).send({
         user: user.toJSON(),
         token: token

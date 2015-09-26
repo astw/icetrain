@@ -8,5 +8,12 @@
 
 module.exports = {
 
+ auth:function(req,res){
+     console.log(req.query.username);
+     console.log(req.query.password);
+
+	activeDirectory.auth(req.query.username,req.query.password);
+	res.status(200).send("autho finish");
+ }
 };
 

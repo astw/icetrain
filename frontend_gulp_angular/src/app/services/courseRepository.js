@@ -13,8 +13,26 @@ angular.module('iceApp')
        return  'Bearer ' + token;
     };
 
+    // search courses
+    this.findCourses = function(searchTerm){
+
+      var url = API_URL + "courses?search-term=" + searchTerm ;
+      var headers = {
+        clientkey: 'this is the client key'
+      };
+
+      var dfd = $q.defer();
+      $http.get(url, {headers: headers})
+        .then(function (res) {
+          console.log(res);
+          dfd.resolve(res);
+        });
+
+      return dfd.promise;
+    };
+    //
     this.getCourseById = function (cid) {
-      var url = API_URL + "course/" + cid;
+      var url = API_URL + "courses/" + cid;
       var headers = {
         clientkey: 'this is the client key',
         Authorization:getAuthHeader()
@@ -68,7 +86,7 @@ angular.module('iceApp')
     };
 
     this.updateCourse = function (courseInfo, uid) {
-      var url = API_URL + "course/"+courseInfo.id;
+      var url = API_URL + "courses/"+courseInfo.id;
       var headers = {
         clientkey: 'this is the client key',
         uid:uid,
@@ -77,16 +95,23 @@ angular.module('iceApp')
 
       var dfd = $q.defer();
       $http.put(url,courseInfo,{headers:headers})
-        .then(function(res){
+        .then(
+          function(res){
           console.log(res);
           dfd.resolve(res);
-        });
+          },
+
+          function(err){
+            console.log(err);
+            dfd.reject(err);
+          }
+        );
 
       return dfd.promise;
     };
 
     this.deleteCourse = function(course,uid){
-      var url = API_URL + "course/"+course.id;
+      var url = API_URL + "courses/"+course.id;
       var headers = {
         clientkey: 'this is the client key',
         uid:uid,

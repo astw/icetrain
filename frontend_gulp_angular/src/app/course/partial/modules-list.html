@@ -29,7 +29,7 @@
     <div class="panel panel-default" ng-repeat="module in course.complexModules" ng-click="toggleModule(module)">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <div>
+          <div ng-show="showEditor">
             <a data-toggle="collapse" data-parent="#accordion" href="#body_{{module.id}}">{{module.name}}</a>
                   <span class="lay1,pull-right">
                      <span class="glyphicon glyphicons-plus pull-right" ng-click="addVideos(module)">
@@ -53,10 +53,12 @@
           <div ng-repeat="video in module.videoCollection"
                style="background:#ffffff;height:30px; margin-top: 10px; margin-bottom: 10px; margin-left: 0px">
             <div>
-              <a href="/mediaServer/video/stream/{{video.urltoken}}">
-                <img alt="播放" title="播放" width="16" height="16" src="/assets/images/Play.ico"/> {{video.name}}
-              </a>
-                      <span class=" pull-right">
+              <div class="button">
+                <a ng-click="playMe(video)">
+                  <img alt="播放" title="播放" width="16" height="16" src="/assets/images/Play.ico"/> {{video.name}}
+                </a>
+              </div>
+                      <span class=" pull-right" ng-show="showEditor" >
                             <span class="tile-icon">{{video.duration}}</span>
                             <img src="/assets/images/delete-1.ico" class="tile-icon" title="删除视频" alt="删除视频"
                                      ng-click="deleteVideo(module,video)">

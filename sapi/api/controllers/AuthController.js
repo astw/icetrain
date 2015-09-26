@@ -14,7 +14,8 @@ module.exports = {
     local_login: loginSerice.local_login,
     local_logout:loginSerice.local_logout,
 
-    register:register,
+    register:register.register,
+    checkEmail:register.checkEmail,
     google:  googleAuth ,
     facebook:facebookAuth
 };

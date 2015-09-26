@@ -13,12 +13,18 @@ angular.module('iceApp')
     $scope.showCourseInfoDiv = true;
     $scope.showModuleEditor = false;
     var verb = 'get';
-    var userid = $scope.user.id;
+    var userid =  $scope.user ? $scope.user.id:-1;
     var count =0;
+    $scope.showEditor = false;
 
     courseRepository.getCourseById(courseId)
       .then(function (res) {
         if (res.status == 200) {
+          if(userid > 0 && res.data && res.data.tutor && res.data.tutor.id === userid){
+            $scope.showEditor = true;
+            console.log($scope.showEditor);
+          }
+
           if (res.data.modules == null || res.data.modules.length == 0) {
             res.data.modules = [];
             res.data.complexModules = [];
@@ -91,6 +97,7 @@ angular.module('iceApp')
     };
 
     $scope.submitUpdateModuleForm = function () {
+      alert('update module');
       $currentCourse.name = $scope.name;
       $currentCourse.desc = $scope.desc;
       $currentCourse.tags = $scope.tags;
@@ -101,6 +108,9 @@ angular.module('iceApp')
             $scope.showCourseInfoDiv = true;
             $scope.showModuleEditor = false;
             $scope.showVideoUploadDiv = false;
+          }
+          else{
+            alert(res.status);
           }
         });
     };
@@ -186,7 +196,7 @@ angular.module('iceApp')
     };
 
     $scope.deleteVideo = function (module,video) {
-
+      if(userid < 0) return ;
       $scope.modalMessage = "确定要删除这一段视频吗？"
       var modalInstance = $modal.open({
         animation: true,
@@ -214,6 +224,18 @@ angular.module('iceApp')
         console.log('return from delete video');
         console.log(data);
       })
+    };
+
+    $scope.playMe = function(video){
+      console.log(video);
+      var playUrl ='/mediaServer/video/stream/' + video.urltoken;
+
+      if(userid > 0){
+        $location.url(playUrl);
+      }
+      else{
+        $location.url('/account/login?transfer='+ playUrl);
+      }
     };
 
     $scope.bookMark = function (video) {

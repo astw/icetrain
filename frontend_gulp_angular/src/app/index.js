@@ -25,9 +25,9 @@ angular.module('iceApp',
         templateUrl:"/",
         controller:"NavbarCtrl"
       })
-      .when('/account/signup',{
-        templateUrl:"app/account/signup.html",
-        controller:"AccountCtrl"
+      .when('/account/register',{
+        templateUrl:"app/components/navbar/signup.html",
+        controller:"NavbarCtrl"
       })
       .when('/account/home',{
         templateUrl:"app/account/home.html",
@@ -56,6 +56,14 @@ angular.module('iceApp',
       .when('/video/upload',{
         templateUrl:"app/course/upload/video-upload.html",
         controller:"VideoUploadCtrl"
+      })
+      .when('/search/:searchTerm',{
+        templateUrl:"app/search/search-result.html",
+        controller:"SearchCtrl"
+      })
+      .when('/fabric/test',{
+        templateUrl:"app/fabric/test.html",
+        controller:"FabricCtrl"
       })
       //when('/ngupload/',{
       //  templateUrl:"app/upload/ng-file.html",

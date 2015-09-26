@@ -44,7 +44,6 @@ angular.module('iceApp')
       var dfd = $q.defer();
       $http.get(url, {headers: headers})
         .then(function (res) {
-          console.log(res);
           dfd.resolve(res);
         });
 
@@ -80,26 +79,24 @@ angular.module('iceApp')
       var API_URL = 'http://localhost:1337/';
       var url = API_URL + "users/" + uid + "/watchhistory";
       var headers = getHeader();
+      var data = {
+        userid: uid,
+        courseid: cid,
+        moduleid: mid,
+        videoid: vid,
+        status: 'watched'
+      };
 
+      var dfd = $q.defer();
+      url = API_URL + "users/" + uid + "/watchhistory";
 
-          var data = {
-            userid:uid,
-            courseid: cid,
-            moduleid: mid,
-            videoid: vid,
-            status: 'watched'
-          };
+      $http.put(url, data, {headers: headers})
+        .then(function (res) {
+          console.log(res);
+          dfd.resolve(res);
+        });
 
-          var dfd = $q.defer();
-          url = API_URL +"users/" + uid + "/watchhistory"
-
-          $http.put(url, data, {headers: headers})
-            .then(function (res) {
-              console.log(res);
-              dfd.resolve(res);
-            });
-
-            return dfd.promise;
-     }
+      return dfd.promise;
+    }
   }
 )

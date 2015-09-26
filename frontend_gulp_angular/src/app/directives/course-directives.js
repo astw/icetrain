@@ -55,3 +55,28 @@ app.directive("myCoursesList",function(){
   }
 });
 
+app.directive("validPasswordConfirm",function(){
+  return{
+    require:"ngModel",
+    link:function(scope,elm,attr,ctrl){
+      ctrl.$parsers.unshift(function(viewValue,$scope){
+        var noMatch = viewValue != scope.createLoginForm.password.$viewValue;
+        ctrl.$setValidity('noMatch', !noMatch);
+      })
+    }
+  }
+});
+//
+//app.directive('ngEnter', function () {
+//  return function (scope, element, attrs) {
+//    element.bind("keydown keypress", function (event) {
+//      if(event.which === 13) {
+//        scope.$apply(function (){
+//          scope.$eval(attrs.ngEnter);
+//        });
+//
+//        event.preventDefault();
+//      }
+//    });
+//  };
+//});

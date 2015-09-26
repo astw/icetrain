@@ -5,20 +5,28 @@ angular.module('iceApp')
 
       $scope.showCourseEditor = false;
       $scope.showMyCoursesList = true;
+      $scope.message="";
+      $scope.error = false;
 
       $scope.submitSignupForm = function(){
         alert('submitSignupForm');
       };
 
     $scope.user = auth.currentUser();
-      courseRepository.getUserCourses($scope.user.id).then(function(res){
-       if(res.status == 200) {
-         $scope.courses = res.data;
-       }
-       else{
-         $scope.errorMessage ='服务器错';
-       }
-    });
+    if($scope.user) {
+      courseRepository.getUserCourses($scope.user.id).then(function (res) {
+        if (res.status == 200) {
+          $scope.courses = res.data;
+        }
+        else {
+          $scope.errorMessage = '服务器错';
+        }
+      });
+    }
+    $scope.InputChange = function(){
+       $scope.message ="";
+       $scope.error = false;
+    }
 
     $scope.submitCreateCourseForm = function () {
       var courseInfo = {};
@@ -37,10 +45,12 @@ angular.module('iceApp')
     $scope.submitUpdateCourseForm = function () {
       var courseInfo = {};
       courseInfo = $scope.course;
+      var uid = $scope.user.id;
 
-      courseRepository.updateCourse(courseInfo, $scope.course, $scope.user.id)
-        .then(function (res) {
-          if (res.status == 201) {
+      courseRepository.updateCourse(courseInfo, uid)
+        .then(
+          function (res) {
+          if (res.status == 200) {
             $scope.courses.forEach(function(course){
               if(course.id === res.data.id){
                  course = res.data;
@@ -50,6 +60,10 @@ angular.module('iceApp')
             $scope.showCourseEditor = false;
             $scope.showMyCoursesList = true;
           }
+        },
+        function(err){
+          $scope.error = true;
+          $scope.message = err.statusText;
         });
     };
 

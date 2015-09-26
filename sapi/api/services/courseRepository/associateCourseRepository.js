@@ -1,15 +1,18 @@
 'use restrict'
 var Q = require("q");
 var courseidKey = "sec for construct course id";
+
 var Hashids = require("hashids"),
   hashids = new Hashids(courseidKey),
   courseHashids = new Hashids(courseidKey);
 var tokenHelper = require("../tokenHelper.js");
 
+var userRepository = require("../Repository/userRepository");
+
 var getCourseByTutor = function(tutorId){
-  var result = [];
-  return Course.find({tutorid: tutorId})
+  return Course.find({tutorid:tutorId})
     .then(function (courses) {
+      console.log(courses);
       courses.forEach(function (course) {
         result.push(
           course.getSections().then(function (sections) {
@@ -61,7 +64,7 @@ getCourseById = function(req, res){
   var courseId = req.params.id;
   if(courseId != null) {
    // Course.find({id:courseId}).populate('modules').then(function (course) {
-    Course.find({id:courseId}).populateAll().then(function (course) {
+    Course.findOne({id:courseId}).populateAll().then(function (course) {
        return res.status(200).send(course);
       }
     ).error(function(err){
@@ -69,6 +72,21 @@ getCourseById = function(req, res){
       });
   }
 };
+
+var searchCourse = function(condition){
+  var deferred = Q.defer();
+  console.log(condition);
+  //return Course.find(condition)
+  Course.find(condition).populateAll().then(
+    function (courses) {
+        console.log(courses);
+        deferred.resolve(courses);
+    },
+    function(err){
+       deferred.reject(err);
+    });
+   return deferred.promise;
+}
 
 createCourse = function (req, res) {
     if (req.method === 'GET')
@@ -106,38 +124,41 @@ createCourse = function (req, res) {
 
 var getCoursesByTutor = function(req,res){
    var tutorId = req.params.userId;
-  return Course.find({tutor: tutorId})
-}
-
-var updateCourseById = function (courseId, courseInfo) {
-  var defer = Q.defer();
-  Course.findOne({id:courseId}).then(function(course){
-    course.name = courseInfo.name;
-    course.desc = courseInfo.desc;
-    course.level = courseInfo.level;
-    course.coursetype = courseInfo.courseType;
-    course.save().then(function(err){
-      userRepository.getUserById(course.tutorid).then(function(tutor){
-        course.tutor = tutor;
-        Section.find({courseid:course.id}).then(function(sections){
-          course.sections = sections;
-          defer.resolve(course);
-        })
-      });
-    });
-    defer.resolve(course);
-  });
-
-  return defer.promise;
+  return Course.find({tutor: tutorId}).populateAll();
 };
 
-module.exports = {
+var updateCourseById =  function(req,res) {
+  var courseId = req.params.courseId;
+  var courseInfo = req.body;
+  Course.findOne({id: courseId}).then(
+    function (course) {
+      console.log(course);
 
+      if (!course) {
+        return res.notFound();
+      }
+      else {
+        if (course.tutor != parseInt(req.session.userid)) {
+          return res.status(401).send('Can only change your own course!');
+        }
+        course.name = courseInfo.name;
+        course.desc = courseInfo.desc;
+        course.level = courseInfo.level;
+        course.coursetype = courseInfo.courseType;
+        course.save();
+
+        return res.status(200).send(course);
+      }
+    }
+  );
+}
+
+module.exports = {
   getCourseById : getCourseById,
   getCoursesByTutor:getCoursesByTutor,
   getCourseComplexModules: getCourseComplexModules,
   createCourse:createCourse,
-  updateCourseById : updateCourseById
-
-}
+  updateCourseById : updateCourseById,
+  searchCourse:searchCourse
+};
 
