@@ -59,6 +59,15 @@ module.exports.policies = {
     'create':['checkClientKey','jwtAuth','checkWritePermission'],
     'update':['checkClientKey','jwtAuth','checkWritePermission'],
     'destroy':['checkClientKey','jwtAuth','checkWritePermission']
+  },
+
+  "BookController" :{
+    //'find':['checkClientKey'],
+    //'getBookById':['checkClientKey'],
+    'createBook':['checkClientKey','jwtAuth','checkWritePermission'],
+    'create':['checkClientKey','jwtAuth','checkWritePermission'],
+    'update':['checkClientKey','jwtAuth','checkWritePermission'],
+    'destroy':['checkClientKey','jwtAuth','checkWritePermission']
   }
 
   /***************************************************************************

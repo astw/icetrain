@@ -3,18 +3,20 @@ var sessionTokenHelper = require("../services/sessionTokenHelper.js");
 var urlQuery = require('url');
 
 getSessionToken = function(req){
+  console.log('to get session token');
   var sessionToken ='';
   if (!req.headers || !req.headers.authorization) {
     // check query string
     var query = urlQuery.parse(req.url,true).query;
     sessionToken = query.sessionToken;
-    console.log(sessionToken);
-    if(!sessionToken) {
-      return '';
-    }
+    console.log('trying to get token from query string');
   }
   else{
     sessionToken = req.headers.authorization.split(" ")[1];
+  }
+
+  if(!sessionToken){
+    sessionToken = req.headers['auth-token'];
   }
 
   return sessionToken ;

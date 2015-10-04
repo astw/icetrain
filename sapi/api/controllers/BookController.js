@@ -82,6 +82,7 @@ module.exports = {
   },
   createBook:function(req,res) {
     var data = req.body;
+    console.log(req.session.userid);
     data.author = req.session.userid;
     bookRepository.createBook(data).then(
       function (d) {

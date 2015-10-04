@@ -17,7 +17,7 @@ var getBookById = function (bookId) {
 
 var createBook = function(data) {
   var defer = Q.defer();
-  console.log(data);
+
   Book.create({
     title : data.title,
     desc : data.desc,
