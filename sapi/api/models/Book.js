@@ -5,45 +5,78 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
-var tokenHelper = require("../services/tokenHelper.js");
-var tools = require("../services/common/tools.js");
-
 module.exports = {
 
   attributes: {
 
-      title: {
-        type: "string",
-        required: true,
-        minLength: 5,
-        maxLength: 200
-      },
+    title: {
+      type: "string",
+      required: true,
+      minLength: 5,
+      maxLength: 200
+    },
 
-      desc: {
-        type: "string"
-      },
+    titleFont: {
+      type: "string"
+    },
 
-      pages:{
-        type:"integer"
-      },
+    titleColor: {
+      type: "string"
+    },
 
-      author: {
-        model:"User"
-      },
+    attribution: {
+      type: 'string'
+    },
 
-      rate: {
-        type: "integer",
-        defaultsTo: 0
-      },
+    attributionFont: {
+      type: 'string'
+    },
 
-      openToAll: {
-        type: "boolean",
-        defaultsTo: true
-      },
+    attributionColor: {
+      type: 'string'
+    },
 
-      data:{
-        type:"string"
-      }
+    backgroundColor: {
+      type: 'string'
+    },
+
+    desc: {
+      type: "string"
+    },
+
+    fontCoverImageIndex: {
+      type: "integer"
+    },
+
+    backCoverImageIndex: {
+      type: "integer"
+    },
+
+    dedication: {
+      type: "string"
+    },
+
+    pages: {
+      type: "integer"
+    },
+
+    author: {
+      model: "User"
+    },
+
+    rate: {
+      type: "integer",
+      defaultsTo: 0
+    },
+
+    openToAll: {
+      type: "boolean",
+      defaultsTo: true
+    },
+
+    data: {
+      type: "string"
+    }
   }
 };
 
