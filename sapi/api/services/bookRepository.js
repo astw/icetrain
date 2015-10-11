@@ -17,13 +17,14 @@ var getBookById = function (bookId) {
 
 var createBook = function(data) {
   var defer = Q.defer();
-
+  console.log(data);
+  console.log(JSON.stringify(data));
   Book.create({
     title : data.title,
     titleFont:data.titleFont,
     titleColor:data.titleColor,
     attribution:data.attribution,
-    attributionFont:data.atributionFont,
+    attributionFont:data.attributionFont,
     attributionColor:data.attributionColor,
     backgroundColor:data.backgroundColor,
     frontCoverImageIndex:data.frontCoverImageIndex,
