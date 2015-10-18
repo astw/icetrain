@@ -77,6 +77,8 @@ module.exports.routes = {
 ,  'post /books' : 'BookController.createBook'
 ,  'put /books/:id':'BookController.updateBookById'
 ,  'delete /books/:id':'BookController.deleteBookById'
+,  'get /users/:uid/books':'BookController.getUserBooks'
+
 
 //,"post /upload" : "NgFileUploadController.upload"
 

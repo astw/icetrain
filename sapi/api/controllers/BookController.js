@@ -14,6 +14,18 @@ var getBookSearchCondition = function(key) {
 
 module.exports = {
 
+  getUserBooks:function(req,res){
+    var userId = req.param('uid');
+
+    bookRepository.getBooks({author:userId}).then(
+      function(books){
+        res.status(200).send(books);
+      },
+      function(err){
+        res.status(500).send(err);
+      });
+  },
+
   getBooks:function(req,res) {
     var searchTerm = req.param('searchTerm');
     if (!searchTerm) {
