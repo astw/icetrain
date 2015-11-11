@@ -29,6 +29,8 @@ module.exports = {
       var password = req.body.password;
       var password2 = req.body.password2;
 
+      console.log(req.body);
+
       if (!email || !userName || !password || !password2 || password != password2) {
         return res.status(400).send({
           message: "invalid data"

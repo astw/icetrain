@@ -77,10 +77,15 @@ var updateBookById = function (courseId, dataToUpdate) {
   return defer.promise;
 };
 
-var getBooks = function(condition) {
+var getBooks = function(condition,condition2) {
   var defer = Q.defer();
 
-  Book.find(condition).then(
+  var promise = Book.find(condition);
+  if(condition2){
+    promise = Book.find(condition).where(condition2);
+  }
+
+  promise.then(
     function (books) {
       defer.resolve(books);
     },

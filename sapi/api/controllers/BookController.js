@@ -1,14 +1,13 @@
 var Q = require('q');
-var associateCourseRepository = require("../services/courseRepository/associateCourseRepository.js");
 
 var getBookSearchCondition = function(key) {
   var condition = {};
   condition.or = [];
-  //condition.or.push({title: new RegExp(key)});
-  //condition.or.push({desc: new RegExp(key)});
-  // ;
-  condition.or.push({title:{'like': '%'+ key + '%'}});
-  condition.or.push({desc:{'like': '%'+ key + '%'}});
+
+  condition.or.push({title:{'contains':  key }});
+  //condition.or.push({desc:{'contains':  key }});
+
+  //condition.or.push({desc:{'like': '%'+ key + '%'}});
   return condition;
 };
 
@@ -27,20 +26,22 @@ module.exports = {
   },
 
   getBooks:function(req,res) {
-    var searchTerm = req.param('searchTerm');
-    if (!searchTerm) {
-      searchTerm = req.param('searchterm');
-    }
-    if (!searchTerm) {
-      searchTerm = req.param('search-term');
+
+    var authorid = req.param('authorid')||req.param('author');
+    var title = req.param('title');
+
+    var condition ={};
+    if(authorid) {
+      condition = {author: authorid};
     }
 
-    if(searchTerm == undefined){
-      searchTerm='';
+
+    var condition2 =  {} ;
+    if (title){
+      condition2 = getBookSearchCondition(title);
     }
 
-    var condition = getBookSearchCondition(searchTerm);
-    bookRepository.getBooks(condition).then(
+    bookRepository.getBooks(condition,condition2).then(
       function(books){
         res.status(200).send(books);
       },
@@ -48,6 +49,7 @@ module.exports = {
         res.status(500).send(err);
       });
   },
+
   getBookById : function(req,res){
     var id = req.param('id');
     bookRepository.getBookById(id).then(
