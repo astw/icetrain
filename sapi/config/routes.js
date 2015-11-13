@@ -73,7 +73,7 @@ module.exports.routes = {
 
 , 'get /test/auth':'User.auth'
 
-,  'get /books':'BookController.getsBooks'
+,  'get /books':'BookController.getBooks'
 ,  'get /books/:id':'BookController.getBookById'
 ,  'post /books' : 'BookController.createBook'
 ,  'put /books/:id':'BookController.updateBookById'

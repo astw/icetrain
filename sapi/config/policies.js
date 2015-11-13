@@ -64,6 +64,8 @@ module.exports.policies = {
   "BookController" :{
     //'find':['checkClientKey'],
     //'getBookById':['checkClientKey'],
+    'updateBookById':['checkClientKey','jwtAuth'],
+    'deleteBookById':['checkClientKey','jwtAuth'],
     'createBook':['checkClientKey','jwtAuth','checkWritePermission'],
     'create':['checkClientKey','jwtAuth','checkWritePermission'],
     'update':['checkClientKey','jwtAuth','checkWritePermission'],

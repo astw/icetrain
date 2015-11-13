@@ -35,7 +35,6 @@ module.exports = {
       condition = {author: authorid};
     }
 
-
     var condition2 =  {} ;
     if (title){
       condition2 = getBookSearchCondition(title);
@@ -73,9 +72,12 @@ module.exports = {
   },
   deleteBookById:function(req,res){
     var id = req.param('id');
+
     bookRepository.getBookById(id).then(
       function(book){
-        if(book.author == req.session.userid){
+        console.log('book.auther=',book.author, 'req.session.userid',req.session.userid);
+
+        if(book.author.id == req.session.userid){
           bookRepository.deleteBookById(id).then(
             function(result){
                console.log(result);
