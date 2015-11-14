@@ -49,6 +49,7 @@ var createBook = function(data) {
 
 var updateBookById = function (courseId, dataToUpdate) {
   var defer = Q.defer();
+  console.log(dataToUpdate);
   Book.findOne({id: courseId})
     .then(function (book) {
       book.title = dataToUpdate.title || book.title;
@@ -58,15 +59,20 @@ var updateBookById = function (courseId, dataToUpdate) {
       book.attributionFont = dataToUpdate.attributionFont || book.attributionFont;
       book.attributionColor = dataToUpdate.attributionColor || book.attributionColor;
       book.backgroundColor = dataToUpdate.backgroundColor || book.backgroundColor;
-      book.frontCoverImagIndex = data.frontCoverImagIndex || book.frontCoverImagIndex;
-      book.backColorImageIndex = data.backColorImageIndex || book.backColorImageIndex;
+      book.frontCoverImagIndex = dataToUpdate.frontCoverImagIndex || book.frontCoverImagIndex;
+      book.backColorImageIndex = dataToUpdate.backColorImageIndex || book.backColorImageIndex;
       book.desc = dataToUpdate.desc || book.desc;
       book.rate = dataToUpdate.rate || book.rate;
       book.data = dataToUpdate.data || book.data;
       book.openToAll = dataToUpdate.openToAll || book.openToAll;
-      book.pages = dataToUpdate.pages || book.pages;
-      book.save();
-      defer.resolve(book);
+      book.pages = dataToUpdate.totalPage || book.totalPage;
+      book.save(function(err){
+        if(!err){
+          console.log(err);
+          defer.reject(err);
+        }
+        defer.resolve(book);
+      });
     },
 
     function(err){
