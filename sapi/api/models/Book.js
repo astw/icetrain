@@ -56,6 +56,14 @@ module.exports = {
       type: "string"
     },
 
+    dedicationColor:{
+      type:'string'
+    },
+
+    dedicationFont:{
+      type:'string'
+    },
+
     pages: {
       type: "integer"
     },

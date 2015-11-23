@@ -30,6 +30,8 @@ var createBook = function(data) {
     frontCoverImageIndex:data.frontCoverImageIndex,
     backCoverImageIndex:data.backCoverImageIndex,
     dedication:data.dedication,
+    dedicationFont:data.dedicationFont,
+    dedicationColor:data.dedicationColor,
     desc : data.desc,
     rate : data.rate,
     data : data.data,
@@ -53,13 +55,16 @@ var updateBookById = function (courseId, dataToUpdate) {
     .then(function (book) {
       book.title = dataToUpdate.title || book.title;
       book.titleFont = dataToUpdate.titleFont || book.titleFont;
-      book.titleColor =dataToUpdate.titleColor || book.titleColor;
+      book.titleColor = dataToUpdate.titleColor || book.titleColor;
       book.attribution = dataToUpdate.attribution || book.attribution;
       book.attributionFont = dataToUpdate.attributionFont || book.attributionFont;
       book.attributionColor = dataToUpdate.attributionColor || book.attributionColor;
       book.backgroundColor = dataToUpdate.backgroundColor || book.backgroundColor;
       book.frontCoverImagIndex = data.frontCoverImagIndex || book.frontCoverImagIndex;
       book.backColorImageIndex = data.backColorImageIndex || book.backColorImageIndex;
+      book.dedication = data.dedication || book.dedication,
+      book.dedicationFont = data.dedicationFont || book.dedicationFont,
+      book.dedicationColor = data.dedicationColor || book.dedicationColor,
       book.desc = dataToUpdate.desc || book.desc;
       book.rate = dataToUpdate.rate || book.rate;
       book.data = dataToUpdate.data || book.data;
