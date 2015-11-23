@@ -51,6 +51,7 @@ var createBook = function(data) {
 
 var updateBookById = function (courseId, dataToUpdate) {
   var defer = Q.defer();
+  console.log(dataToUpdate);
   Book.findOne({id: courseId})
     .then(function (book) {
       book.title = dataToUpdate.title || book.title;
@@ -69,9 +70,14 @@ var updateBookById = function (courseId, dataToUpdate) {
       book.rate = dataToUpdate.rate || book.rate;
       book.data = dataToUpdate.data || book.data;
       book.openToAll = dataToUpdate.openToAll || book.openToAll;
-      book.pages = dataToUpdate.pages || book.pages;
-      book.save();
-      defer.resolve(book);
+      book.pages = dataToUpdate.totalPage || book.totalPage;
+      book.save(function(err){
+        if(!err){
+          console.log(err);
+          defer.reject(err);
+        }
+        defer.resolve(book);
+      });
     },
 
     function(err){
