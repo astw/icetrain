@@ -10,15 +10,52 @@ var cache = Object();  // {}
 
 module.exports =  {
 
+     getImages : function(req,res){
+
+       Image.find().then(function(images){
+         var imageLinks = images.map(function(image){
+            return {
+              link:'mediaserver/image/'+ image.enId()
+            }
+         });
+         res.ok(imageLinks);
+       })
+     },
+
+     serveImage:function(req,res) {
+       var imageId = req.params.imageId;
+       var id = mediaTokenHelper.getImageId(imageId)[0];
+       var width = req.param('width');
+       var height = req.param('height');
+       var imageSize = req.param('size');
+       console.log('imageId=', id);
+
+       Image.findOne().where({id: 197})
+         .then(function (image) {
+           var mediaPath = image.path;
+           var mediaPath = path.join(root, mediaPath);
+
+           res.writeHead(206, {
+             "Content-Type": image.format
+           });
+
+           var stream = fs.createReadStream(mediaPath)
+             .on("open", function () {
+               stream.pipe(res);
+             }).on("error", function (err) {
+               res.end(err);
+             });
+         },
+
+         function (err) {
+           res.end(err);
+         })
+     },
+
      playVideo :function(req, res) {
 
        var token = req.params.token;
-       console.log(token);
-       //var mediaInfo = mediaTokenHelper.getVideoInfo(token);
-       //if(!mediaInfo){
-       //  res.end("");
-       // console.log(mediaInfo);
-       //var url = mediaInfo.path;
+       console.log(token); 
 
        var range = req.headers.range;
        var positions = range.replace(/bytes=/,"").split("-");

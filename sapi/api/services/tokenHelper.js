@@ -5,13 +5,16 @@ var videoSecret = config.VIDEO_TOKEN_SECRET;
 var courseSecret = config.COURSE_TOKEN_SECRET;
 var sectionSecret = config.SECTION_TOKEN_SECRETE;
 var userSecret = config.USER_TOKEN_SECRETE;
+var imageSecret = config.IMAGE_TOKEN_SECRETE;
 
 
 var Hashids = require("hashids"),
   videoHasher = new Hashids(videoSecret),
   courseHasher = new Hashids(courseSecret),
   sectionHasher = new Hashids(sectionSecret),
-  userHasher = new Hashids(userSecret);
+  userHasher = new Hashids(userSecret),
+  imageHasher = new Hashids(imageSecret);
+
 
 //var SecObfuscate = require("sec-obfuscate-nodejs"),
 //    secObfuscate = new SecObfuscate('secretPassword');
@@ -39,7 +42,6 @@ module.exports = {
     var shortId = videoHasher.encode(mediaId);
     return shortId;
   },
-
   getVideoInfo: function (mediaToken) {
     var token = jwt.decode(mediaToken, videoSecret);
     return token;
@@ -64,6 +66,10 @@ module.exports = {
     return userHasher.encode(id);
   },
 
+  getImageToken : function(id){
+    return imageHasher.encode(id);
+  },
+
   getVideoId : function(token){
     return videoHasher.decode(token);
   },
@@ -78,5 +84,9 @@ module.exports = {
 
   getUserId: function (token) {
     return userHasher.decode(token);
+  },
+
+  getImageId:function(token){
+    return imageHasher.decode(token);
   }
 };

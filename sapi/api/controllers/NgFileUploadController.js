@@ -106,9 +106,11 @@ var processVideoUploading = function (req, res,mediaFormData, moduleId, courseId
 };
 
 var uploadVideo = function(req,res){
-    var uploadFile = req.file('uploadFile');
+
+    console.log('------ data');
     console.log(req.body.data);
 
+    var uploadFile = req.file('uploadFile');
     var uploadOptions = {
       // dirname: 'D:/Khufu_I/Videos',
       maxBytes:100000000
