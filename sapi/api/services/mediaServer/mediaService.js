@@ -13,8 +13,15 @@ module.exports =  {
      getImages : function(req,res){
 
        var details = req.param('details');
+       var category = req.param('cat');
+       var condition = {};
+       if(category === 'background' || category ==='props' || category ==='text'){
+         condition = {
+           category:category
+         }
+       }
 
-       Image.find().then(function(images){
+       Image.find(condition).then(function(images){
          var imageLinks = images.map(function(image){
            var url = 'mediaServer/image/'+ image.enId();
 
