@@ -19,5 +19,6 @@
     <file url="file://$PROJECT_DIR$/sapi/api/services/mediaServer/mediaService.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/tokenHelper.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/config/routes.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sapi/package.json" charset="UTF-8" />
   </component>
 </project>

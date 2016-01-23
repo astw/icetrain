@@ -6,7 +6,7 @@ var formidable = require('formidable');
 var videoOptions = require("./settings/videoFileSettings.js").options;
 var util = require('util');
 var fs = require('fs');
-var path = require("path")
+var path = require("path");
 var root = require('app-root-path') + "";
 var Ffmpeg = require('fluent-ffmpeg');
 

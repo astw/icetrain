@@ -4,16 +4,15 @@ var formidable = require('formidable');
 var videoOptions = require("./settings/videoFileSettings.js").options;
 var util = require('util');
 var fs = require('fs');
-var path = require("path")
+var path = require("path");
 var root = require('app-root-path') + "";
+var jimp = require('jimp');
+var q = require('q');
 
 var randomstring = require("randomstring");
 var courseidKey = "sec for construct course id";
 var sectionKey = "sec for construct couse section id";
-var Hashids = require("hashids"),
-
-  courseHashids = new Hashids(courseidKey),
-  sectionHashids = new Hashids(sectionKey);
+var Hashids = require("hashids");
 
 var urlQuery = require('url');
 var flash = require('connect-flash');
@@ -22,48 +21,34 @@ var Busboy = require("busboy");
 var inspect = require('util').inspect; ;
 
 var tokenHelper = require("../services/tokenHelper.js");
-
-var createUploader2 = function (req, dir) {
-  dir = dir.replace(/\\/g, "/");
-  options.uploadDir = dir;
-  options.tmpDir = dir;
-  options.public = dir;
-  var uploader = require('blueimp-file-upload-expressjs')(options);
-  return uploader;
-};
-
 var options = require("./settings/jqueryFileSetting.js").options;
 
 var fs = require('fs');
 var path = require("path")
 var root = require('app-root-path') + "";
 
-var createFolder = function (dir) {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-  }
-};
-
-var getImageFolder = function (imageType) {
-    return path.join(root, 'media/images/',imageType);
+var getImageFolder = function (imageType,size) {
+    return path.join(root, 'media','images',size, imageType);
 };
 
 var processImageUploading = function (req, res,mediaFormData,filePath) {
 
-  var filePath = filePath.replace(root, "")
-  console.log('---- form', mediaFormData);
+  var filePath = filePath.replace(root, "");
+
   Image.create(
     {
-      tag: mediaFormData.tag || "  ",
+      tag: mediaFormData.tag,
       size: mediaFormData.filesize,
       format: mediaFormData.filetype,
       category:mediaFormData.category,
       owner:mediaFormData.owner,
+      width:mediaFormData.width,
+      height:mediaFormData.height,
       path: filePath
     },
     function (err, data) {
       if (!!err) {
-        console.log('error in upload video' + err);
+        console.log('error in upload image' + err);
         console.log(JSON.stringify(err));
       }
       // get width and height values
@@ -78,17 +63,59 @@ var processImageUploading = function (req, res,mediaFormData,filePath) {
     });
 };
 
-var uploadImage = function(req,res){
-  console.log('begin upload.....', req.body.data);
+var saveThumb = function(origFilePath,targetThumbFile, imageType) {
+
+  var defer = q.defer();
+
+  // for background,  the width/height=4:3  (68:51)
+  // for props, the width/height=68 :x
+  // for text,  the width/height=150 :x
+
+  var originSize = {};
+
+  jimp.read(origFilePath)
+    .then(function (image) {
+      originSize.width = image.bitmap.width;
+      originSize.height = image.bitmap.height;
+
+      defer.resolve(originSize);
+
+      var targetWidth = 68;
+      var targetHeight = 51;
+
+      var imageBuff;
+      if (imageType === 'background') {
+        imageBuff = image.resize(targetWidth, targetHeight)
+      } else if (imageType === 'props') {
+        imageBuff = image.resize(68, jimp.AUTO)
+      } else {
+        imageBuff = image.resize(150, jimp.AUTO)
+      }
+
+      imageBuff.write(targetThumbFile, function(){
+
+      });
+
+    });
+
+  return defer.promise;
+};
+
+var uploadImage = function(req,res) {
+
   var uploadFile = req.file('uploadFile');
   var uploadOptions = {
-     maxBytes:100000000
+    maxBytes: 100000000
   };
 
   var owner = req.body.data.user;
   owner = 1;
   var imageType = req.param('cat') || 'props';
-  var folder = getImageFolder(imageType);
+  var fullSizeFolder = getImageFolder(imageType, 'fullsize');
+  var thumbFolder = getImageFolder(imageType, 'thumb');
+
+  var data = JSON.parse(req.body.data);
+  var tag = data.tag;
 
   uploadFile.upload(uploadOptions, function onUploadComplete(err, files) {
     var formObj = {};
@@ -97,18 +124,26 @@ var uploadImage = function(req,res){
     formObj.filetype = files[0].type;
     formObj.category = imageType;   // background, props text
     formObj.owner = owner;
+    formObj.tag = tag;
 
     var filepath = formObj.path = files[0].fd;
     var baseFileName = path.basename(filepath);
     var extname = path.extname(filepath);
-    var targetfile = path.join(folder, baseFileName);
-    console.log('===target file', targetfile);
+    var targetfile = path.join(fullSizeFolder, baseFileName);
+    var targetThumbFile = path.join(thumbFolder, baseFileName);
 
     fs.createReadStream(filepath).pipe(fs.createWriteStream(targetfile));
 
-    //if(formObj.filetype == 'video/mp4' || formObj.filetype == 'video/webm'){
-    processImageUploading(req, res, formObj, targetfile);
+    //save thumb file
+    saveThumb(filepath, targetThumbFile, imageType)
+      .then(function (originSize) {
 
+        formObj.width = originSize.width;
+        formObj.height = originSize.height;
+
+        //if(formObj.filetype == 'video/mp4' || formObj.filetype == 'video/webm'){
+        processImageUploading(req, res, formObj, baseFileName);
+      })
   })
 };
 
@@ -127,13 +162,31 @@ var deleteImage = function(req, res) {
     if (err) {
       return res.json({status: 404, Error: 'Not found'});
     }
-    return res.json({status: 200, Video: video});
+    return res.json({status: 200, image: image});
+  });
+};
+
+var deleteAllImage = function(req,res){
+  Image.destroy().exec(function (err, images) {
+    if (err) {
+      return res.json({status: 404, Error: 'Not found one to delete'});
+    }
+    images.forEach(function(image){
+      //delete fullsize image
+      var fullSizeFilePath = path.join(root,'media','images','fullsize',image.category, image.path);
+
+      //delete thumb image
+      var thumbFilePath = path.join(root,'media','images','thumb',image.category, image.path);
+      fs.unlink(thumbFilePath);
+    });
+    return res.json('all deleted');
   });
 };
 
 module.exports = {
   upload: uploadImage,
-  deleteImage : deleteImage
+  deleteImage : deleteImage,
+  deleteAllImage: deleteAllImage
 };
 
 

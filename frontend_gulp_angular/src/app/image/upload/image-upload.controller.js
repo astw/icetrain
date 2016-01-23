@@ -89,6 +89,9 @@ angular.module('iceApp').controller('ImageUploadCtrl',
     var uploadUsingUpload =function (file) {
       var index = $scope.files.indexOf(file);
       var imageName = $("#imageName_" + index).val();
+      var tags = $('#imageTag_' + index).val();
+
+      console.log('imagenmae=',imageName, ' tags=', tags);
 
       console.log(imageName); 　
       console.log($scope.imageType);
@@ -97,9 +100,10 @@ angular.module('iceApp').controller('ImageUploadCtrl',
         url: 'http://localhost:1337/' +　"mediaServer/image/?cat=" + $scope.imageType,
         method: 'POST',
         headers: {
-          'clientkey': 'my-header-value'
+          'clientkey': 'my-header-value',
+          'Content-Type':'application/json'
         },
-        data: {imageName: imageName, user:3},
+        data: {imageName: imageName, user:3, tag:tags},
         file: file,
         fileFormDataName: 'uploadFile'
       });

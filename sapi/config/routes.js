@@ -23,77 +23,78 @@
 module.exports.routes = {
 
   /***************************************************************************
-  *                                                                          *
-  * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-  * etc. depending on your default view engine) your home page.              *
-  *                                                                          *
-  * (Alternatively, remove this and add an `index.html` file in your         *
-  * `assets` directory)                                                      *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+   * etc. depending on your default view engine) your home page.              *
+   *                                                                          *
+   * (Alternatively, remove this and add an `index.html` file in your         *
+   * `assets` directory)                                                      *
+   *                                                                          *
+   ***************************************************************************/
 
   '/': {
     view: 'homepage'
   },
 
- '/upload-file':{
+  '/upload-file': {
     view: 'uploadfile'  // view 'uploadfile' in views directory will loaded automatically
   },
 
   /**********************below is for local login *********************************/
-  "/local-login" : {
+  "/local-login": {
     view: 'login'
   },
 
-  'post /file/upload':"FileController.upload",
-  'get /mediaServer/video/stream/:token'  :"MediaServerController.streamVideo"
+  'post /file/upload': "FileController.upload",
+  'get /mediaServer/video/stream/:token': "MediaServerController.streamVideo"
 
- ,'get /mediaServer/image' : "MediaServerController.getImages"
- ,'get /mediaServer/image/:imageId' : "MediaServerController.serveImage"
- ,'post /mediaServer/image/' : "ImageUploadController.upload"
- ,'delete /mediaServer/image/:imageId' : "ImageUploadController.deleteImage"
+  , 'get /mediaServer/image': "MediaServerController.getImages"
+  , 'get /mediaServer/image/:imageId': "MediaServerController.serveImage"
+  , 'post /mediaServer/image/': "ImageUploadController.upload"
+  , 'delete /mediaServer/image/:imageId': "ImageUploadController.deleteImage"
+  //, 'delete /mediaServer/image-all': "ImageUploadController.deleteAllImage"
 
-, 'post /:tutorId/course/:courseId/:moduleId/videoUpload' :'NgFileUploadController.upload'  //"FancyUploadController.uploadCourseVideo"  //
-, 'get /courses/:id/modules' :'CourseController.getCourseModules'
-, 'get /courses':'CourseController.getCourses'
-, 'get /courses/:id' :'CourseController.getCourseById'
-, 'get /courses/users/:userId':'CourseController.getCoursesByTutor'
-, 'post /courses':'CourseController.postCourse'
-, 'put /courses/:courseId':'CourseController.putCourse'
-, 'delete /courses/:courseId':'CourseController.deleteCourse'
+  , 'post /:tutorId/course/:courseId/:moduleId/videoUpload': 'NgFileUploadController.upload'  //"FancyUploadController.uploadCourseVideo"  //
+  , 'get /courses/:id/modules': 'CourseController.getCourseModules'
+  , 'get /courses': 'CourseController.getCourses'
+  , 'get /courses/:id': 'CourseController.getCourseById'
+  , 'get /courses/users/:userId': 'CourseController.getCoursesByTutor'
+  , 'post /courses': 'CourseController.postCourse'
+  , 'put /courses/:courseId': 'CourseController.putCourse'
+  , 'delete /courses/:courseId': 'CourseController.deleteCourse'
 
-, 'get /modules':'ModuleController.search'
-, 'post /module':'ModuleController.create'
+  , 'get /modules': 'ModuleController.search'
+  , 'post /module': 'ModuleController.create'
 
 
-, "delete /delete-video/:tutorId/:urlToken" :"NgFileUploadController.deleteVideo"
+  , "delete /delete-video/:tutorId/:urlToken": "NgFileUploadController.deleteVideo"
 
-, 'get /users/:uid/watchHistory':'WatchHistoryController.getUserWatchHistory'
-, 'get /users/:uid/watchHistory/:cid':"WatchHistoryController.getUserCourseWatchHistory"
-, 'post /users/:uid/watchHistory':'WatchHistoryController.addUserWatchHistory'
-, 'put /users/:uid/watchHistory':'WatchHistoryController.updateWatchHistory'
+  , 'get /users/:uid/watchHistory': 'WatchHistoryController.getUserWatchHistory'
+  , 'get /users/:uid/watchHistory/:cid': "WatchHistoryController.getUserCourseWatchHistory"
+  , 'post /users/:uid/watchHistory': 'WatchHistoryController.addUserWatchHistory'
+  , 'put /users/:uid/watchHistory': 'WatchHistoryController.updateWatchHistory'
 
-, 'get /auth/checkEmail/:email':'AuthController.checkEmail'
-, 'post /auth/register' :'AuthController.register'
+  , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
+  , 'post /auth/register': 'AuthController.register'
 
-, 'get /test/auth':'User.auth'
+  , 'get /test/auth': 'User.auth'
 
-,  'get /books':'BookController.getBooks'
-,  'get /books/:id':'BookController.getBookById'
-,  'post /books' : 'BookController.createBook'
-,  'put /books/:id':'BookController.updateBookById'
-,  'delete /books/:id':'BookController.deleteBookById'
-,  'get /users/:uid/books':'BookController.getUserBooks'
+  , 'get /books': 'BookController.getBooks'
+  , 'get /books/:id': 'BookController.getBookById'
+  , 'post /books': 'BookController.createBook'
+  , 'put /books/:id': 'BookController.updateBookById'
+  , 'delete /books/:id': 'BookController.deleteBookById'
+  , 'get /users/:uid/books': 'BookController.getUserBooks'
 
 
 //,"post /upload" : "NgFileUploadController.upload"
 
-   /*******************  below is for uploader  *******************************/
-   //
-   //"get /fupload-file" :{view:"fupload"},
+  /*******************  below is for uploader  *******************************/
+  //
+  //"get /fupload-file" :{view:"fupload"},
 //   "post /upload" : "FancyUploadController.upload"
-   //"delete /uploaded/files/*/:name" : "FancyUploadController.delete",
-   //"get /findex" :{view:"fuploadindex"},
+  //"delete /uploaded/files/*/:name" : "FancyUploadController.delete",
+  //"get /findex" :{view:"fuploadindex"},
 
   /**********************below is for course *********************************/
 
@@ -160,14 +161,14 @@ module.exports.routes = {
   //  "delete /delete-video/:videoToken" :"FancyUploadController.deleteCourseVideo"
 
 
-    /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  *  If a request to a URL doesn't match any of the custom routes above, it  *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+  /***************************************************************************
+   *                                                                          *
+   * Custom routes here...                                                    *
+   *                                                                          *
+   *  If a request to a URL doesn't match any of the custom routes above, it  *
+   * is matched against Sails route blueprints. See `config/blueprints.js`    *
+   * for configuration options and examples.                                  *
+   *                                                                          *
+   ***************************************************************************/
 
 };
