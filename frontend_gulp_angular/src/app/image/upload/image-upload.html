@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+<link rel="stylesheet" href="/assets/css/blueimp-gallery.min.css">
+
+<style>
+
+  .drop-box {
+    background: #F8F8F8;
+    border: 3px solid #888;
+
+    height: 100px;
+    text-align: center;
+    padding-top: 25px;
+    margin: 10px;
+  }
+
+  .dragover {
+    border: 5px dashed blue;
+  }
+
+  .progress div {
+    font-size: smaller;
+    background: orange;
+    width: 300px;
+  }
+
+</style>
+
+<script type="javascript">
+  function onloadedmetadata(){
+
+  }
+
+</script>
+
+  <!--<div ng-include="'app/course/uploadVideoDiv.html'"></div>-->
+  <div class="container">
+    <div class="row">
+      <div ng-include="'app/components/navbar/navbar.html'"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="well well-lg">
+          <h1> 上传图片</h1>
+        </div>
+
+        <div class="col-md-9">
+          <button type="button" class="btn btn-primary btn-xs start" ng-click="uploadAll()">
+            <i class="glyphicon glyphicon-upload"/> 上传全部
+          </button>
+        </div>
+
+        <div class="col-md-9">
+          <div ngf-select ngf-drop=""
+               ng-model="files"
+               ng-model-rejected="rejFiles"
+               ngf-multiple="true"
+               ngf-accept="accept"
+               ngf-disabled="disabled"
+               ngf-capture="capture"
+               class="drop-box"
+               ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"
+               ngf-min-size="minSize"
+               ngf-max-size="maxSize"
+               ngf-allow-dir="allowDir"
+               class="drop-box ng-pristine ng-untouched ng-valid"
+               accept="image/*"
+               ngf-drop-available="dropAvailable">
+                 <span class='btn btn-success fileinput=button'>
+                   <i class="glyphicon glyphicon-plus"/> 点击选择图片
+                  </span>
+            <span ng-show="dropAvailable"> 或 拖放图片到此 </span>
+          </div>
+          <div class="col-md-9">
+            <input type="radio" value="background"  ng-model="imageType">背景类别
+            <input type="radio" value="props"  ng-model="imageType"> 故事素材
+            <input type="radio" value="text"  ng-model="imageType">  文字　
+          </div>
+        </div>
+        <br/>
+
+        <div ng-repeat="f in files track by $index" class="col-md-9">
+          <div class="col-md-4">
+            <img id='image_{{$index}}' controls="" width="300" height="200" ngf-src="f" ng-show="f != null"
+                   ng-accept="'image/*'"
+                   ng-multiple="true"
+                   onloadedmetadata ='
+                   var index = this.id.split("_")[1];
+                   console.log(this);
+                   $("#duration_"+index).val(this.duration);
+
+                   '
+                   ></img>
+          </div>
+          <div class="col-md-1"></div>
+
+          <div class="col-md-7">
+            <label>输入tag</label> {{$index}}
+            <input class="form-control" type="text" id="image_{{$index}}"
+                   ng-model="videoNames[$index]" ng-minlength="5" class="ng-pristine ng-valid ng-valid-required"/>
+
+              <span class="progress" ng-show="f.progress >= 0">
+              <div style="width:{{f.progress}}%" ng-bind="f.progress + '%'" class="ng-binding"></div>
+              </span>
+            <span><strong>文件名：</strong>{{f.name}}</di>  {{f.progress }}</span> <span> <strong>大小：</strong> {{f.size}}</span>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>

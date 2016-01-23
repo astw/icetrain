@@ -62,7 +62,7 @@
         <Compile Include="api\controllers\JobController.js" />
         <Compile Include="api\controllers\PermissionController.js" />
         <Compile Include="api\controllers\UserController.js" />
-        <Compile Include="api\controllers\VideoController.js" />
+        <Compile Include="api\controllers\MediaServerController.js" />
         <Compile Include="api\models\Course.js" />
         <Compile Include="api\models\Section.js" />
         <Compile Include="api\models\FancyUpload.js" />

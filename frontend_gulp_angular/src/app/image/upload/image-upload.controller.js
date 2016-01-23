@@ -1,21 +1,21 @@
 'use strict';
 
-angular.module('iceApp').controller('VideoUploadCtrl',
+angular.module('iceApp').controller('ImageUploadCtrl',
   function($scope,$location,$log,$http,$routeParams,$timeout, auth,$window, Upload, relayService)
 {
     var courseId = $routeParams.id;
     $scope.user = auth.currentUser();
-    $scope.showVideoUploadDiv = false;
-    var verb = 'get';
-    var userid =  $scope.user ? $scope.user.id:-1;
 
-    $scope.course = relayService.getKeyValue("course");
+    $scope.imageType = 'background';
+
+    var verb = 'get';
+
     $scope.module = relayService.getKeyValue("_uploadTo_module");
 
     var count =0;
     $scope.videoNames = {};//[];
 
-    $scope.modalMessage = "上传完毕，返回课程"
+    $scope.modalMessage = "上传完毕，返回课程";
     $scope.items = ['itme1', 'item2'];
     $scope.deleteModule = function (module) {
 
@@ -57,11 +57,7 @@ angular.module('iceApp').controller('VideoUploadCtrl',
       });
     };
 
-    $scope.showCourse = function(){
-      var url = "/course/" + $scope.course.id;
-      $location.path(url);
-      $location.url(url);
-    };
+
     $scope.uploadAll = function () {
       $scope.formUpload = false;
 
@@ -74,17 +70,6 @@ angular.module('iceApp').controller('VideoUploadCtrl',
         }
       }
     };
-    //$scope.$watch('files', function (files) {
-    //  $scope.formUpload = false;
-    //  if (files != null) {
-    //    for (var i = 0; i < files.length; i++) {
-    //      $scope.errorMsg = null;
-    //      (function (file) {
-    //        upload(file);
-    //      })(files[i]);
-    //    }
-    //  }
-    //});
 
     $scope.upload = function (file) {
       upload(file);
@@ -103,23 +88,18 @@ angular.module('iceApp').controller('VideoUploadCtrl',
 
     var uploadUsingUpload =function (file) {
       var index = $scope.files.indexOf(file);
-      var videoName = $("#videoName_" + index).val();
-      var duration =$("#duration_"+index).val();
+      var imageName = $("#imageName_" + index).val();
 
-      console.log(videoName);
-      console.log(duration);
-
-      var tutorId = $scope.module.tutor;
-      var courseId = $scope.course.id;
-      var moduleId = $scope.module.id;
+      console.log(imageName); 　
+      console.log($scope.imageType);
 
       file.upload = Upload.upload({
-        url: 'http://localhost:1337/' + tutorId + '/course/' + courseId + '/' + moduleId + "/videoUpload",
+        url: 'http://localhost:1337/' +　"mediaServer/image/?cat=" + $scope.imageType,
         method: 'POST',
         headers: {
           'clientkey': 'my-header-value'
         },
-        data: {videoname: videoName,duration:duration},
+        data: {imageName: imageName, user:3},
         file: file,
         fileFormDataName: 'uploadFile'
       });
@@ -136,16 +116,6 @@ angular.module('iceApp').controller('VideoUploadCtrl',
 
       file.upload.success(function(data){
         $log.info('file upload finished ' + data);
-        $scope.course.complexModules.forEach(function(m){
-          if(m.id === data.module){
-            if(!m.videoCollection) {
-              m.videoCollection =[];
-            }
-
-            m.videoCollection.push(data);
-          }
-        });
-        relayService.putKeyValue('course', $scope.course);
         count++;
         if(count === $scope.files.length){
           alert("all finished");

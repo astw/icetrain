@@ -57,6 +57,10 @@ angular.module('iceApp',
         templateUrl:"app/course/upload/video-upload.html",
         controller:"VideoUploadCtrl"
       })
+      .when('/image/upload',{
+        templateUrl:"app/image/upload/image-upload.html",
+        controller:"ImageUploadCtrl"
+      })
       .when('/search/:searchTerm',{
         templateUrl:"app/search/search-result.html",
         controller:"SearchCtrl"

@@ -31,16 +31,16 @@ exports.encode = function(payload, secrete){
 };
 
 exports.decode = function(token, secret){
-	var segments = token.split("."); 
-	if(segments.length !=3 ){
+	var segments = token.split(".");
+	if(segments.length !=3 ){reutrn
 		throw new Error("Token structure incorrect");
 	}
 
-	var header = JSON.parse(base64Decode(segments[0])); 
-	var payload = JSON.parse(base64Decode(segments[1]));  
+	var header = JSON.parse(base64Decode(segments[0]));
+	var payload = JSON.parse(base64Decode(segments[1]));
 
     var rawSignature = segments[0] +"." + segments[1];
-    
+
     if(!verify(rawSignature, secret, segments[2]))
        throw new Error("Verification failed.") ;
 
@@ -64,7 +64,7 @@ function base64Decode(str) {
 	return new Buffer(str, 'base64').toString();
 }
 
-exports.login = function login(req,res, next){  
+exports.login = function login(req,res, next){
 
     var req_user = req.body;
     var searchUser = {email:req_user.email};
@@ -84,5 +84,5 @@ exports.login = function login(req,res, next){
             createSendToken(user,res);
         });
     })
-     
+
 }
