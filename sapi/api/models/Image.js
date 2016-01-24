@@ -51,7 +51,7 @@ module.exports = {
    enId :function(){
      var obj = this.toObject();
      return tokenHelper.getImageToken(obj.id);
-   },
+   }
   }
 };
 
