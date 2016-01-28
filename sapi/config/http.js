@@ -70,9 +70,20 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
   //
-  //   bodyParser:require('skipper'),//body-parser require('body-parser'),//
-  //   flash:require("connect-flash"),
-  //   multiparty : require('connect-multiparty')
+    // bodyParser:require('skipper'),//body-parser require('body-parser'),//
+    // flash:require("connect-flash"),
+    // multiparty : require('connect-multiparty') 
+
+  bodyParser: (function () {
+    var opts = {limit:'50mb'};
+    var fn;
+
+    // Default to built-in bodyParser:
+    fn = require('skipper');
+    return fn(opts);
+
+  })
+
   //
   //}
 
