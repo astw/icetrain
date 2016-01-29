@@ -70,6 +70,18 @@ module.exports = {
         return res.status(404);
       })
   },
+
+  deleteUserBooks: function(req, res){
+    var userId = req.param('userId');
+    bookRepository.deleteUserBooks(userId)
+      .then(function(){
+        return res.ok('deleted');
+      })
+      .catch(function(err){
+        return res.badRequest(err);
+      }).done()
+  },
+
   deleteBookById:function(req,res){
     var id = req.param('id');
 

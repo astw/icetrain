@@ -49,11 +49,14 @@ var createBook = function(data) {
   return defer.promise;
 };
 
-var updateBookById = function (courseId, dataToUpdate) {
+var updateBookById = function (bookId, dataToUpdate) {
   var defer = Q.defer();
-  console.log(dataToUpdate);
-  Book.findOne({id: courseId})
+  console.log(dataToUpdate.title);
+  Book.findOne({id: bookId})
     .then(function (book) {
+      console.log(dataToUpdate.title);
+      console.log(book.title);
+
       book.title = dataToUpdate.title || book.title;
       book.titleFont = dataToUpdate.titleFont || book.titleFont;
       book.titleColor = dataToUpdate.titleColor || book.titleColor;
@@ -108,22 +111,31 @@ var getBooks = function(condition,condition2) {
 };
 
 var deleteBookById = function(bookId) {
+  return Book.delete({id:bookId})
+};
+
+var deleteUserBooks = function(userId) {
+  return deleteBook({author:userId});
+};
+
+function deleteBook(condition){
   var defer = Q.defer();
-  Book.destroy({id: bookId}).exec(function (err, book) {
-    if (err) {
+  Book.destroy( condition ).exec(function(err){
+    if(err){
       return defer.reject(500);
     }
 
-    return defer.resolve(200);
+    return defer.resolve();
   });
 
   return defer.promise;
-};
+}
 
 module.exports = {
   getBooks: getBooks,
   createBook: createBook,
   updateBookById: updateBookById,
   getBookById: getBookById,
-  deleteBookById: deleteBookById
+  deleteBookById: deleteBookById,
+  deleteUserBooks:deleteUserBooks
 }

@@ -84,6 +84,7 @@ module.exports.routes = {
   , 'post /books': 'BookController.createBook'
   , 'put /books/:id': 'BookController.updateBookById'
   , 'delete /books/:id': 'BookController.deleteBookById'
+  , 'delete /users/:userId/books' : 'BookController.deleteUserBooks'
   , 'get /users/:uid/books': 'BookController.getUserBooks'
 
 
