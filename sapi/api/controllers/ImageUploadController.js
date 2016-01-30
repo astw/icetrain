@@ -107,7 +107,7 @@ var uploadImage = function(req,res) {
   var uploadOptions = {
     maxBytes: 100000000
   };
-
+console.log(req.body.data);
   var owner = req.body.data.user;
   owner = 1;
   var imageType = req.param('cat') || 'props';
