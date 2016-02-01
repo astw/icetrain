@@ -53,7 +53,8 @@ var processImageUploading = function (req, res,mediaFormData,filePath) {
       }
       // get width and height values
       //
-      data.save(function (err) {
+      data.save(function (err){
+
         if (err) {
           return res.serverError(err);
         }
@@ -95,11 +96,68 @@ var saveThumb = function(origFilePath,targetThumbFile, imageType) {
       imageBuff.write(targetThumbFile, function(){
 
       });
-
     });
 
   return defer.promise;
 };
+
+
+var saveToDB = function(origFilePath, filename, imageType) {
+
+  var defer = q.defer();
+  var originSize = {};
+
+  jimp.read(origFilePath)
+    .then(function (image) {
+      console.log('---------- begin to save ');
+      originSize.width = image.bitmap.width;
+      originSize.height = image.bitmap.height;
+
+      defer.resolve(originSize);
+      /// save into db
+      File.create({
+        fileName: filename,
+        cat: 'fullsize',
+        fileType: imageType,
+        size: image.bitmap.data.length,
+        width: originSize.width,
+        height: originSize.height,
+        imageData: image.bitmap.data
+      })
+        .then(function (data) {
+          console.log('save to db good,', data);
+
+          console.log('save to thumb');
+
+          var targetWidth = 68;
+          var targetHeight = 51;
+
+          var resizedImage;
+          if (imageType === 'background') {
+            resizedImage = image.resize(targetWidth, targetHeight)
+          } else if (imageType === 'props') {
+            resizedImage = image.resize(68, jimp.AUTO)
+          } else {
+            resizedImage = image.resize(150, jimp.AUTO)
+          }
+
+          return File.create({
+            fileName: filename,
+            cat: 'thumb',
+            fileType: imageType,
+            size: resizedImage.bitmap.data.length,
+            width: resizedImage.bitmap.width,
+            height: resizedImage.bitmap.heigh,
+            imageData: resizedImage.bitmap.data
+          })
+        },
+        function (err) {
+          console.log('save to db fails', err);
+        });
+
+      return defer.promise;
+    })
+}
 
 var uploadImage = function(req,res) {
 
@@ -107,7 +165,7 @@ var uploadImage = function(req,res) {
   var uploadOptions = {
     maxBytes: 100000000
   };
-console.log(req.body.data);
+
   var owner = req.body.data.user;
   owner = 1;
   var imageType = req.param('cat') || 'props';
@@ -116,6 +174,21 @@ console.log(req.body.data);
 
   var data = JSON.parse(req.body.data);
   var tag = data.tag;
+
+  //File.create({
+  //  fileName: 'filename',
+  //  cat: 'fullsize',
+  //  size: 100
+  //})
+  //  .then(function (data) {
+  //    console.log('save to db good,', data);
+  //  },
+  //
+  //  function (err) {
+  //    console.log('save to db fails', err);
+  //  }
+  //);
+
 
   uploadFile.upload(uploadOptions, function onUploadComplete(err, files) {
     var formObj = {};
@@ -134,16 +207,24 @@ console.log(req.body.data);
 
     fs.createReadStream(filepath).pipe(fs.createWriteStream(targetfile));
 
-    //save thumb file
-    saveThumb(filepath, targetThumbFile, imageType)
-      .then(function (originSize) {
+    saveToDB(filepath,baseFileName,extname);
 
-        formObj.width = originSize.width;
-        formObj.height = originSize.height;
+    // remove the temporary file
+    //fs.unlink(filepath);
 
-        //if(formObj.filetype == 'video/mp4' || formObj.filetype == 'video/webm'){
-        processImageUploading(req, res, formObj, baseFileName);
-      })
+    ////save thumb file
+    //saveThumb(filepath, targetThumbFile, imageType)
+    //  .then(function (originSize) {
+    //
+    //    formObj.width = originSize.width;
+    //    formObj.height = originSize.height;
+    //
+    //    // delete the origin file in temporary folder
+    //    fs.unlink(filepath);
+    //
+    //    //if(formObj.filetype == 'video/mp4' || formObj.filetype == 'video/webm'){
+    //    processImageUploading(req, res, formObj, baseFileName);
+    //  })
   })
 };
 

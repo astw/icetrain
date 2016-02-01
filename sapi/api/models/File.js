@@ -8,7 +8,25 @@
 module.exports = {
 
   attributes: {
+    fileName: {
+      type: "string"
+    },
 
+    fileType: {
+      type: "string"
+    },
+
+    cat:{
+      type:"string"
+    },
+
+    size:{
+      type:'integer'
+    },
+
+    imageData :{
+      type:"binary"
+    }
   }
 };
 

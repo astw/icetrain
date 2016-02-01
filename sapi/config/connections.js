@@ -60,13 +60,13 @@ module.exports.connections = {
     adapter: 'sails-mongo',
     host: 'localhost',
     port: 27017,
-   // username:'icetrain',
-   // password:'icetrain',
+    username:'icetrain',
+    password:'icetrain',
 
    // username: 'appuser',
    // password: '123'
    // database:'icetrain'
-    database: 'psjwt'
+    database: 'storyToaster'
   },
 
   /***************************************************************************

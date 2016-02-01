@@ -40,8 +40,8 @@ module.exports = function (req, res) {
                 if (founderUser) return createSendToken(founderUser, res);
 
                 User.create({
-                    email:profile.email,
-                    googleId:profile.sub,
+                    fileType:profile.email,
+                    fileSize:profile.sub,
                     displayName:profile.name
                 }).exec(function(err, user){
                     if(err){

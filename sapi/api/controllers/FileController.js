@@ -6,6 +6,20 @@
  */
 
 module.exports = {
+  getfiles: function(req,res){
+
+    File.findOne({fileName:'dff798cb-1632-430c-9976-ad6c42ebdd03.PNG'})
+      .then(function(file){
+        res.setHeader("Content-Type", 'image/png');
+        console.log(file.imageData);
+        return res.ok(file.imageData);
+        //return res.ok("dd");
+      },
+    function(err){
+      res.serverError(err);
+    })
+  },
+
   upload: function  (req, res) {
     if(req.method === 'GET')
       return res.json({'status':'GET not allowed'});
