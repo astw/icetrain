@@ -6,18 +6,32 @@
  */
 
 module.exports = {
-  getfiles: function(req,res){
 
-    File.findOne({fileName:'dff798cb-1632-430c-9976-ad6c42ebdd03.PNG'})
-      .then(function(file){
-        res.setHeader("Content-Type", 'image/png');
-        console.log(file.imageData);
-        return res.ok(file.imageData);
-        //return res.ok("dd");
+  getfiles: function(req,res) {
+
+    var id = req.param('fileId');
+
+    Image.findOne({id: id})
+      .then(function (file) {
+        console.log(file);
+        if(!file){
+          return res.notFound();
+        }
+        console.log(file);
+        var base64Image = file.imageData;
+        var img = new Buffer(base64Image, 'base64');
+
+        console.log(img.length / 1024);
+        res.writeHead({
+          "Content-Type": 'image/png',
+          "Content-Length": img.length
+        });
+
+        res.end(img);
       },
-    function(err){
-      res.serverError(err);
-    })
+      function (err) {
+        res.serverError(err);
+      })
   },
 
   upload: function  (req, res) {

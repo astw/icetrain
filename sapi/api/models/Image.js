@@ -6,13 +6,21 @@ module.exports = {
 
   attributes: {
 
+    fileName:{
+      type:"string"
+    },
+
+    fileSize:{
+      type:"integer"
+    },
+
     category: {
       type: "string",      // {'background','props','text'}
-      enum: ["background", "props", "text", "personal"],
+      enum: ["background", "props", "text", "font", "personal"],
       defaultsTo: "background"
     },
 
-    format: {
+    contentType: {
       type: "string"
     },
 
@@ -22,11 +30,6 @@ module.exports = {
 
     height:{
       type:"integer"
-    },
-
-    path: {
-      type: "string",
-      required: true
     },
 
     tag:{
@@ -39,19 +42,16 @@ module.exports = {
     },
 
     owner:{
-       type: 'integer'
+       type: "integer"
     },
 
-    toJSON: function () {
-      var obj = this.toObject();
-      obj.id = tokenHelper.getImageToken(obj.id);
-      return obj;
+    thumbData:{
+      type:"string"
     },
 
-   enId :function(){
-     var obj = this.toObject();
-     return tokenHelper.getImageToken(obj.id);
-   }
+    originFile:{
+      model:"File"
+    }
   }
 };
 

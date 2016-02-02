@@ -25,7 +25,11 @@ module.exports = {
     },
 
     imageData :{
-      type:"binary"
+      type:"string"
+    },
+
+    fileMetaData:{
+      model: 'Image'
     }
   }
 };
