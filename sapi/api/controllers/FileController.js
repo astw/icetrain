@@ -17,8 +17,8 @@ module.exports = {
         if(!file){
           return res.notFound();
         }
-        console.log(file);
-        var base64Image = file.imageData;
+
+        var base64Image = file.data;
         var img = new Buffer(base64Image, 'base64');
 
         console.log(img.length / 1024);

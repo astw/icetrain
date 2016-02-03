@@ -19,8 +19,7 @@ var Hashids = require("hashids");
 var urlQuery = require('url');
 var flash = require('connect-flash');
 
-var Busboy = require("busboy");
-var inspect = require('util').inspect; ;
+var inspect = require('util').inspect;
 
 var tokenHelper = require("../services/tokenHelper.js");
 var options = require("./settings/jqueryFileSetting.js").options;
@@ -28,7 +27,6 @@ var options = require("./settings/jqueryFileSetting.js").options;
 var fs = require('fs');
 var path = require("path")
 var root = require('app-root-path') + "";
-
 
 var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
   var defer = q.defer();
@@ -41,6 +39,19 @@ var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
 
   jimp.read(origFilePath)
     .then(function (image) {
+
+      // if the image is a font image,  or the image is from a design page,  do not create thumb image
+      if(imageType === 'font' || imageType ==='page' ) {
+        var mediaFileInfo= {
+          originWidth: image.bitmap.width,
+          originHeight:image.bitmap.height,
+          originFileSize:image.bitmap.length
+        };
+
+        defer.resolve(mediaFileInfo);
+        return defer.promise;
+      }
+
       originSize.width = image.bitmap.width;
       originSize.height = image.bitmap.height;
 
@@ -63,8 +74,7 @@ var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
            originFileSize:image.bitmap.length,
            thumbWidth:imageBuff.bitmap.width,
            thumbHeight:imageBuff.bitmap.height,
-           thumbFileSize:imageBuff.bitmap.length,
-           data:data
+           thumbFileSize:imageBuff.bitmap.length
          };
 
          return defer.resolve(mediaFileInfo);   // always return succeed
@@ -74,21 +84,22 @@ var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
   return defer.promise;
 };
 
-
 var uploadImage = function(req,res) {
-  console.log('receiving data');
 
   var uploadFile = req.file('uploadFile');
   var uploadOptions = {
     maxBytes: 100000000
   };
 
-  var owner = req.body.data.user;
-  owner = 1;
+  //var owner = req.body.data.user || 1;
   var imageType = req.param('cat') || 'props';
 
-  var data = JSON.parse(req.body.data);
-  var tag = data.tag;
+  //var data = JSON.parse(req.body.data);
+  //var tag = data.tag
+  //console.log(tag)
+
+  var owner = 1;
+  var tag ='this is the tag';
 
   uploadFile.upload(uploadOptions, function onUploadComplete(err, files) {
 
@@ -97,32 +108,27 @@ var uploadImage = function(req,res) {
     var originFilePath = files[0].fd;
     var filePath = path.parse(originFilePath);
     var targetThumbFile = path.join(filePath.dir, filePath.name + "_thumb" + filePath.ext);
+    var fileSize = files[0].size;
 
     saveThumbFile(originFilePath, targetThumbFile, imageType)
       .then(function (thumbMediaInfo) {
-        // saveThumb file finished then save Image
-        var fileSize = thumbMediaInfo.originFileSize;
+        // saveThumb file finished then save to mediaFile table
+
         var originWidth = thumbMediaInfo.originWidth;
         var originHeight = thumbMediaInfo.originHeight;
-        var thumbWidth = thumbMediaInfo.thumbWidth;
-        var thumbHeight = thumbMediaInfo.thumbHeight;
-        var mediaFileId = thumbMediaInfo.id;
-        var thumbMediaData = thumbMediaInfo.data;
-
-        console.log('---- saveThumb return=', thumbMediaInfo);
 
         mediaFileRepository.saveToMediaFileCollection(originFilePath, fileSize, originWidth, originHeight, category, contentType)
           .then(function (mediaFileOjbect) {
-
-            console.log('---- saveThumb return=', thumbMediaInfo);
-
-            console.log(mediaFileOjbect);
-
-            // mediaFile save finished
-            // save Image meta data;
              return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
-              fileSize, originWidth, originHeight, category, contentType, mediaFileId);
-          });
+              fileSize, originWidth, originHeight, category, contentType, mediaFileOjbect.id);
+          })
+          .then(function(mediaCreated){
+            return res.status(201).send(mediaCreated);
+          })
+          .catch(function(err){
+            return res.serverError(err);
+          })
+
       });
     // save originFile
   });

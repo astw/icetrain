@@ -9,12 +9,14 @@
     <file url="file://$PROJECT_DIR$/sapi/api/controllers/ImageUploadToDBController.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/controllers/MediaServerController.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/models/Book.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sapi/api/models/BookPage.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/models/Media.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/models/MediaFile.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/models/User.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/bookRepository.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/config.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/googleAuth.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sapi/api/services/mediaFileRepository.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/mediaRepository.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/mediaServer/mediaService.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/sapi/api/services/tokenHelper.js" charset="UTF-8" />

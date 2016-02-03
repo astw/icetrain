@@ -24,7 +24,7 @@ module.exports = {
       type:'integer'
     },
 
-    imageData :{
+    data :{
       type:"string"
     },
 

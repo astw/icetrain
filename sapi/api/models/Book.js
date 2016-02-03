@@ -64,7 +64,7 @@ module.exports = {
       type:'string'
     },
 
-    pages: {
+    pageCount: {
       type: "integer"
     },
 
@@ -89,6 +89,11 @@ module.exports = {
     comments:{
       collection: "BookComment",
       via: "book"
+    },
+
+    pages:{
+      collection:"BookPage",
+      via:"book"
     }
   }
 };

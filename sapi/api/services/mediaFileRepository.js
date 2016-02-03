@@ -5,11 +5,11 @@ var q = require('q');
 
 module.exports = {
 
-  saveToMediaFileCollection : saveToMediaFileCollection
-
+  saveToMediaFileCollection: saveToMediaFileCollection
 };
 
-function saveToMediaFileCollection(filePath,fileSize,width, height, category, contentType) {
+// save to mediaFile
+function saveToMediaFileCollection(filePath, fileSize, width, height, category, contentType) {
   var deferred = q.defer();
 
   fs.readFile(filePath, 'binary', function (err, data) {
@@ -23,10 +23,10 @@ function saveToMediaFileCollection(filePath,fileSize,width, height, category, co
     fileParam.fileSize = fileSize;
     fileParam.category = category;
     fileParam.contentType = contentType;
-    fileParam.imageData = base64Image;
+    fileParam.data = base64Image;
 
     MediaFile.create(fileParam, function (err, data) {
-      return deferred.resolve(data);  // always return true no matter the saving is successfull or not
+      return deferred.resolve(data);  // always return true no matter the saving is successful or not
     });
   });
 

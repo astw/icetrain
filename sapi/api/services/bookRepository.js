@@ -73,7 +73,7 @@ var updateBookById = function (bookId, dataToUpdate) {
       book.rate = dataToUpdate.rate || book.rate;
       book.data = dataToUpdate.data || book.data;
       book.openToAll = dataToUpdate.openToAll || book.openToAll;
-      book.pages = dataToUpdate.totalPage || book.totalPage;
+      book.pageCount = dataToUpdate.totalPage || book.totalPage;
       book.save(function(err){
         if(!err){
           console.log(err);

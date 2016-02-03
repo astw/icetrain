@@ -1,4 +1,5 @@
 var fs = require('fs');
+var q = require('q');
 
 module.exports = {
   saveToMediaCollection : saveToMediaCollection
@@ -7,28 +8,46 @@ module.exports = {
 function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, category, contentType, mediaFileId) {
   var deferred = q.defer();
 
-  fs.readFile(filePath, 'binary', function (err, data) {
-    if (err) throw err;
+  var fileParam = {};
 
-    var base64Image = new Buffer(data, 'binary').toString('base64');
-    var fileParam = {};
+  fileParam.tag = tag;
+  fileParam.owner = owner;
+  fileParam.width = width;
+  fileParam.height = height;
+  fileParam.fileSize = fileSize;
+  fileParam.category = category;
+  fileParam.contentType = contentType;
+  fileParam.mediaFileId = mediaFileId;
 
-    fileParam.tag =tag;
-    fileParam.owner = owner;
-
-    fileParam.width = width;
-    fileParam.height = height;
-    fileParam.fileSize = fileSize;
-    fileParam.category = category;
-    fileParam.contentType = contentType;
-
-    fileParam.mediaFileId = mediaFileId;
-    fileParam.data = base64Image;
-
-    Media.create(fileParam, function (err, data) {
-      return deferred.resolve(data);  // always return true no matter the saving is successfull or not
+  /// get the thumb media data
+  getMediaFileData(filePath, mediaFileId)
+    .then(function (data) {
+      fileParam.data = data;
+      Media.create(fileParam, function (err, mediaCreated) {
+        if (!err) {
+          return deferred.reject(mediaCreated);
+        }
+        return deferred.resolve(mediaCreated);
+      });
     });
-  });
 
   return deferred.promise;
 }
+
+ function  getMediaFileData(filePath, mediaFileId){
+   var defer = q.defer();
+   if(!mediaFileId){
+     defer.resolve(null);
+   }
+
+   fs.readFile(filePath, 'binary', function (err, data) {
+     if (err) {
+       return defer.resolve(null);
+     }
+
+     var base64Image = new Buffer(data, 'binary').toString('base64');
+     return defer.resolve(base64Image);
+   });
+
+   return defer.promise;
+ }

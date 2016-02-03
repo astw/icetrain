@@ -21,7 +21,7 @@ module.exports =  {
          }
        }
 
-       Image.find(condition).then(function(images){
+       Media.find(condition).then(function(images){
          var imageLinks = images.map(function(image){
            var url = 'mediaServer/image/'+ image.enId();
 
