@@ -50,7 +50,7 @@ module.exports = {
     },
 
     originFile:{
-      model:"File"
+      model:"MediaFile"
     }
   }
 };

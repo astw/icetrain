@@ -29,45 +29,8 @@ var fs = require('fs');
 var path = require("path")
 var root = require('app-root-path') + "";
 
-var getImageFolder = function (imageType,size) {
-  return path.join(root, 'media','images',size, imageType);
-};
 
-var processImageUploading = function (req, res,mediaFormData,filePath) {
-
-  var filePath = filePath.replace(root, "");
-
-  Image.create(
-    {
-      tag: mediaFormData.tag,
-      size: mediaFormData.filesize,
-      format: mediaFormData.filetype,
-      category:mediaFormData.category,
-      owner:mediaFormData.owner,
-      width:mediaFormData.width,
-      height:mediaFormData.height,
-      path: filePath
-    },
-    function (err, data) {
-      if (!!err) {
-        console.log('error in upload image' + err);
-        console.log(JSON.stringify(err));
-      }
-      // get width and height values
-      //
-      data.save(function (err){
-
-        if (err) {
-          return res.serverError(err);
-        }
-        else
-          return res.ok(data);
-      });
-    });
-};
-
-var saveThumb = function(origFilePath,targetThumbFile, imageType) {
-
+var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
   var defer = q.defer();
 
   // for background,  the width/height=4:3  (68:51)
@@ -81,11 +44,8 @@ var saveThumb = function(origFilePath,targetThumbFile, imageType) {
       originSize.width = image.bitmap.width;
       originSize.height = image.bitmap.height;
 
-      defer.resolve(originSize);
-
       var targetWidth = 68;
       var targetHeight = 51;
-
 
       var imageBuff;
       if (imageType === 'background') {
@@ -96,136 +56,24 @@ var saveThumb = function(origFilePath,targetThumbFile, imageType) {
         imageBuff = image.resize(150, jimp.AUTO)
       }
 
-      imageBuff.write(targetThumbFile, function(){
+      imageBuff.write(targetThumbFile, function(err, data){
+         var mediaFileInfo= {
+           originWidth:originSize.width,
+           originHeight:originSize.height,
+           originFileSize:image.bitmap.length,
+           thumbWidth:imageBuff.bitmap.width,
+           thumbHeight:imageBuff.bitmap.height,
+           thumbFileSize:imageBuff.bitmap.length,
+           data:data
+         };
 
+         return defer.resolve(mediaFileInfo);   // always return succeed
       });
     });
 
   return defer.promise;
 };
 
-function saveThumb(category){
-  if(category ==='background' ||
-    category ==='props' ||
-    category ==='text'
-  )
-    return true;
-
-  return false;
-}
-
-function saveToImage(image){
-  var deferred = q.defer();
-
-  console.log('image=', image);
-
-  Image.create(image, function (err, data) {
-    if (err) {
-      console.log('save to image fails',err);
-      return deferred.reject(err);
-    }
-    console.log('save to image finished');
-    return deferred.resolve(data);
-  });
-
-  return deferred.promise;
-}
-
-function saveToFile(fileData){
-  var deferred = q.defer();
-
-  File.create(fileData, function (err, data) {
-    if (!!err) {
-      return deferred.reject(err);
-    }
-
-    return deferred.resolve(data);
-  });
-
-  return deferred.promise;
-}
-
-var saveToDB = function(formObj) {
-
-  //origFilePath, filename, imageType
-  var defer = q.defer();
-  var originSize = {};
-  var originFilePath = formObj.originPath;
-
-  jimp.read(originFilePath)
-    .then(function (image) {
-
-      /// prepare image data, and thumb image data
-      originSize.width = image.bitmap.width;
-      originSize.height = image.bitmap.height;
-
-      // resize to thumb data first
-      var targetWidth = 68;
-      var targetHeight = 51;
-      var resizedImage;
-      if (formObj.category === 'background') {
-        resizedImage = image.resize(targetWidth, targetHeight)
-      } else if (formObj.category === 'props') {
-        resizedImage = image.resize(68, jimp.AUTO)
-      } else {
-        resizedImage = image.resize(150, jimp.AUTO)
-      }
-      console.log('read from file ...');
-
-      fs.readFile(formObj.originPath, 'binary', function (err, data) {
-        if (err) throw err;
-
-
-        var base64Image = new Buffer(data, 'binary').toString('base64');
-        //var fileParam = extend(originSize, formObj, {imageData: base64Image});
-        formObj.width = originSize.width;
-        formObj.height = originSize.height;
-        formObj.imageData = base64Image;
-
-        delete formObj.originPath;
-
-        // step 1,  save all information to File to save original information
-        saveToFile(formObj)
-          .then(function (originFileObject) {
-            //step 2, save image meta data, and save thumb image data into the image collection.
-            console.log('save to file good');
-
-            formObj.fileSize = resizedImage.bitmap.data.length;
-            formObj.width = resizedImage.bitmap.width;
-            formObj.height = resizedImage.bitmap.height;
-
-            /// save to thumb file;
-
-            var filePath = path.parse(originFilePath);
-            var targetThumbFile = path.join(filePath.dir, filePath.name + "_thumb" + filePath.ext);
-
-            resizedImage.write(targetThumbFile, function () {
-
-              /// read from the resized file
-              fs.readFile(targetThumbFile, 'binary', function (err, data) {
-                if (err) throw err;
-
-                var base64Image = new Buffer(data, 'binary').toString('base64');
-                //var fileParam = extend(originSize, formObj, {imageData: base64Image});
-                formObj.imageData = base64Image;
-
-                delete formObj.originPath;
-                return saveToImage(formObj)
-              })
-            })
-              .then(function (imageObject) {
-                console.log('save to image good');
-                return defer.resolve(imageObject);
-              })
-              .catch(function (err) {
-                return defer.reject(err);
-              });
-          });
-      })
-    });
-
-  return defer.promise;
-}
 
 var uploadImage = function(req,res) {
   console.log('receiving data');
@@ -238,34 +86,51 @@ var uploadImage = function(req,res) {
   var owner = req.body.data.user;
   owner = 1;
   var imageType = req.param('cat') || 'props';
-  var fullSizeFolder = getImageFolder(imageType, 'fullsize');
-  var thumbFolder = getImageFolder(imageType, 'thumb');
 
   var data = JSON.parse(req.body.data);
   var tag = data.tag;
 
   uploadFile.upload(uploadOptions, function onUploadComplete(err, files) {
-    var formObj = {};
-    formObj.fileSize = files[0].size;
-    formObj.fileName = files[0].filename;
-    formObj.category = imageType;   // background, props text
-    formObj.owner = owner;
-    formObj.tag = tag;
-    formObj.contentType = files[0].type;
-    formObj.fileSize = files[0].size/1024;
-    formObj.baseFileName = path.basename(files[0].fd) ;
-    formObj.originPath = files[0].fd;
 
-console.log(files[0]);
-    console.log('upload finished');
-    console.log(formObj);
-    saveToDB(formObj);
+    var category = imageType;
+    var contentType = files[0].type;
+    var originFilePath = files[0].fd;
+    var filePath = path.parse(originFilePath);
+    var targetThumbFile = path.join(filePath.dir, filePath.name + "_thumb" + filePath.ext);
 
-    // remove the temporary file
-    //fs.unlink(filepath);
+    saveThumbFile(originFilePath, targetThumbFile, imageType)
+      .then(function (thumbMediaInfo) {
+        // saveThumb file finished then save Image
+        var fileSize = thumbMediaInfo.originFileSize;
+        var originWidth = thumbMediaInfo.originWidth;
+        var originHeight = thumbMediaInfo.originHeight;
+        var thumbWidth = thumbMediaInfo.thumbWidth;
+        var thumbHeight = thumbMediaInfo.thumbHeight;
+        var mediaFileId = thumbMediaInfo.id;
+        var thumbMediaData = thumbMediaInfo.data;
 
-  })
-};
+        console.log('---- saveThumb return=', thumbMediaInfo);
+
+        mediaFileRepository.saveToMediaFileCollection(originFilePath, fileSize, originWidth, originHeight, category, contentType)
+          .then(function (mediaFileOjbect) {
+
+            console.log('---- saveThumb return=', thumbMediaInfo);
+
+            console.log(mediaFileOjbect);
+
+            // mediaFile save finished
+            // save Image meta data;
+             return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
+              fileSize, originWidth, originHeight, category, contentType, mediaFileId);
+          });
+      });
+    // save originFile
+  });
+
+  // remove the temporary file
+  //fs.unlink(filepath);
+  //;
+}
 
 var deleteImage = function(req, res) {
   if (req.method != 'DELETE')

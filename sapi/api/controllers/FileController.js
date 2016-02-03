@@ -11,7 +11,7 @@ module.exports = {
 
     var id = req.param('fileId');
 
-    Image.findOne({id: id})
+    MediaFile.findOne({id: id})
       .then(function (file) {
         console.log(file);
         if(!file){
