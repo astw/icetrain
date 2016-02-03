@@ -15,15 +15,16 @@ module.exports =  {
        var details = req.param('details');
        var category = req.param('cat');
        var condition = {};
-       if(category === 'background' || category ==='props' || category ==='text'){
+       if(category === 'background' || category ==='props'
+         || category ==='text' ||category==='personal' || category ==='page'){
          condition = {
            category:category
          }
        }
 
-       Media.find(condition).then(function(images){
+       Media.find(condition, {select:['id','tag','category','width','height','contentType','fileSize']}).then(function(images){
          var imageLinks = images.map(function(image){
-           var url = 'mediaServer/image/'+ image.enId();
+           var url = 'mediaServer/image/'+ image.id;
 
            if(details) {
              return {
@@ -33,7 +34,8 @@ module.exports =  {
                category: image.category,
                width: image.width,
                height: image.height,
-               format: image.format
+               format: image.contentType,
+               size:image.fileSize
              }
            }
            else {
@@ -50,36 +52,70 @@ module.exports =  {
      serveImage:function(req,res) {
 
        // by default, serve thumb images
-       var imageId = req.params.imageId;
-       var id = mediaTokenHelper.getImageId(imageId)[0];
+       var imageId = req.param('imageId');
        var width = req.param('width');
        var height = req.param('height');
        var imageSize = req.param('size');
 
-       Image.findOne().where({id: id})
-         .then(function (image) {
-           var mediaPath = image.path;
-           if(imageSize && (imageSize =='origin')){
-             mediaPath = path.join(root,'media', 'images','fullsize', image.category, mediaPath);
-           } else {
-             mediaPath = path.join(root,'media', 'images','thumb', image.category, mediaPath);
+       Media.findOne({id: imageId}).populateAll()
+         .then(function (file) {
+
+           if(!file){
+            console.log('not found ');
+             return res.notFound();
            }
 
-           res.writeHead(206, {
-             "Content-Type": image.format
+           var base64Image = file.data;
+
+           if(imageSize && imageSize ==='origin'){
+             console.log('to get origin size');
+             console.log(file.originFile);
+
+              var originFile = file.mediaFile;
+              if(originFile)
+              base64Image = originFile.data;
+           }
+
+           var img = new Buffer(base64Image, 'base64');
+
+           res.writeHead({
+             "Content-Type": file.contentType,
+             "Content-Length": img.length
            });
 
-           var stream = fs.createReadStream(mediaPath)
-             .on("open", function () {
-               stream.pipe(res);
-             }).on("error", function (err) {
-               res.end(err);
-             });
+           res.end(img);
          },
-
          function (err) {
-           res.end(err);
+           res.serverError(err);
          })
+
+       //
+       //
+       //
+       //Media.findOne().where({id: id})
+       //  .then(function (image) {
+       //    var mediaPath = image.path;
+       //    if(imageSize && (imageSize =='origin')){
+       //      mediaPath = path.join(root,'media', 'images','fullsize', image.category, mediaPath);
+       //    } else {
+       //      mediaPath = path.join(root,'media', 'images','thumb', image.category, mediaPath);
+       //    }
+       //
+       //    res.writeHead(206, {
+       //      "Content-Type": image.format
+       //    });
+       //
+       //    var stream = fs.createReadStream(mediaPath)
+       //      .on("open", function () {
+       //        stream.pipe(res);
+       //      }).on("error", function (err) {
+       //        res.end(err);
+       //      });
+       //  },
+       //
+       //  function (err) {
+       //    res.end(err);
+       //  })
      },
 
      playVideo :function(req, res) {

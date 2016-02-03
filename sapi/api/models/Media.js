@@ -45,11 +45,11 @@ module.exports = {
        type: "integer"
     },
 
-    thumbData:{
+    data:{
       type:"string"
     },
 
-    originFile:{
+    mediaFile:{
       model:"MediaFile"
     }
   }

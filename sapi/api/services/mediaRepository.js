@@ -17,15 +17,15 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
   fileParam.fileSize = fileSize;
   fileParam.category = category;
   fileParam.contentType = contentType;
-  fileParam.mediaFileId = mediaFileId;
+  fileParam.mediaFile = mediaFileId;
 
   /// get the thumb media data
   getMediaFileData(filePath, mediaFileId)
     .then(function (data) {
       fileParam.data = data;
       Media.create(fileParam, function (err, mediaCreated) {
-        if (!err) {
-          return deferred.reject(mediaCreated);
+        if (err) {
+           return deferred.reject(err);
         }
         return deferred.resolve(mediaCreated);
       });

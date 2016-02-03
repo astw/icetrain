@@ -91,15 +91,11 @@ var uploadImage = function(req,res) {
     maxBytes: 100000000
   };
 
-  //var owner = req.body.data.user || 1;
+  var owner = req.body.data.user || 1;
   var imageType = req.param('cat') || 'props';
 
-  //var data = JSON.parse(req.body.data);
-  //var tag = data.tag
-  //console.log(tag)
-
-  var owner = 1;
-  var tag ='this is the tag';
+  var data = JSON.parse(req.body.data);
+  var tag = data.tag;
 
   uploadFile.upload(uploadOptions, function onUploadComplete(err, files) {
 
@@ -119,23 +115,24 @@ var uploadImage = function(req,res) {
 
         mediaFileRepository.saveToMediaFileCollection(originFilePath, fileSize, originWidth, originHeight, category, contentType)
           .then(function (mediaFileOjbect) {
-             return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
+            return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
               fileSize, originWidth, originHeight, category, contentType, mediaFileOjbect.id);
           })
-          .then(function(mediaCreated){
-            return res.status(201).send(mediaCreated);
-          })
-          .catch(function(err){
+          .then(
+          function (mediaCreated) {
+            res.status(201).send(mediaCreated);
+          },
+
+          function (err) {
             return res.serverError(err);
           })
-
+          .done(function () {
+            fs.unlink(originFilePath);
+            fs.unlink(targetThumbFile);
+          })
       });
     // save originFile
-  });
-
-  // remove the temporary file
-  //fs.unlink(filepath);
-  //;
+  })
 }
 
 var deleteImage = function(req, res) {

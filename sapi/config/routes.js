@@ -45,7 +45,8 @@ module.exports.routes = {
     view: 'login'
   },
 
-  'get /files/:fileId' : 'FileController.getfiles',
+  'get /files' : 'FileController.getfiles',
+  'get /files/:fileId' : 'FileController.getFileById',
   'post /file/upload': "FileController.upload",
   'get /mediaServer/video/stream/:token': "MediaServerController.streamVideo"
 

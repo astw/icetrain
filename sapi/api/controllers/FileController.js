@@ -7,13 +7,29 @@
 
 module.exports = {
 
-  getfiles: function(req,res) {
+  getFiles:function(req,res){
 
+    var cat = req.param('cat');
+
+     MediaFile.find({category:cat},{select:['category','id', 'size']}).limit(100)
+      .then(function (files) {
+         if(!files){
+          return res.notFound();
+        }
+
+        return res.ok(files);
+      },
+      function (err) {
+        res.serverError(err);
+      })
+
+  },
+
+  getFileById: function(req,res) {
     var id = req.param('fileId');
-
     MediaFile.findOne({id: id})
       .then(function (file) {
-        console.log(file);
+
         if(!file){
           return res.notFound();
         }
