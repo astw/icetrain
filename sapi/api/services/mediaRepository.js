@@ -2,7 +2,8 @@ var fs = require('fs');
 var q = require('q');
 
 module.exports = {
-  saveToMediaCollection : saveToMediaCollection
+  saveToMediaCollection : saveToMediaCollection,
+  deleteMedia : deleteImage
 };
 
 function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, category, contentType, mediaFileId) {
@@ -51,3 +52,26 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
 
    return defer.promise;
  }
+
+function deleteImage(id) {
+  var defer = q.defer();
+
+  Media.destroy({id: id}).exec(function (err, media) {
+
+    if (err) {
+      return defer.reject(err);
+    }
+
+    if(!media || media.length < 1 ){
+       return defer.resolve(null);
+    }
+
+    MediaFile.destroy({id: media[0].id}).exec(function (err, mediaFile) {
+       // do care mediaFile deletion fails or not
+    });
+
+    return defer.resolve(media.length);
+  });
+
+  return defer.promise;
+}

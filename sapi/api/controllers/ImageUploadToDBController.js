@@ -10,17 +10,11 @@ var jimp = require('jimp');
 var q = require('q');
 
 var extend = require('util')._extend;
-
 var randomstring = require("randomstring");
-var courseidKey = "sec for construct course id";
-var sectionKey = "sec for construct couse section id";
 var Hashids = require("hashids");
 
-var urlQuery = require('url');
 var flash = require('connect-flash');
-
 var inspect = require('util').inspect;
-
 var tokenHelper = require("../services/tokenHelper.js");
 var options = require("./settings/jqueryFileSetting.js").options;
 
@@ -139,19 +133,22 @@ var deleteImage = function(req, res) {
   if (req.method != 'DELETE')
     return res.json({'status': 'GET not allowed'});
 
-  var imageId = req.params('imageId');
-  var id = tokenHelper.getImageId(imageId);
+  var imageId = req.param('imageId');
 
-  if (!id) {
-    return res.json({status: 401, Error: 'Unauthorized operation'});
-  }
-
-  Image.destroy({id: id}).exec(function (err, image) {
-    if (err) {
-      return res.json({status: 404, Error: 'Not found'});
-    }
-    return res.json({status: 200, image: image});
-  });
+  mediaRepository.deleteMedia(imageId)
+    .then(
+    function (media) {
+      if(!media){
+        return res.notFound();
+      }
+      return res.ok(media.length);
+    },
+   function(){
+     res.notFound();
+   })
+    .catch(function (err) {
+      return res.serverError(err);
+    })
 };
 
 var deleteAllImage = function(req,res){
@@ -176,7 +173,3 @@ module.exports = {
   deleteImage : deleteImage,
   deleteAllImage: deleteAllImage
 };
-
-
-
-

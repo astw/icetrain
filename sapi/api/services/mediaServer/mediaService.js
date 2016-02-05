@@ -10,7 +10,7 @@ var cache = Object();  // {}
 
 module.exports =  {
 
-     getImages : function(req,res){
+      getImages : function(req,res){
 
        var details = req.param('details');
        var category = req.param('cat');
@@ -88,46 +88,15 @@ module.exports =  {
          function (err) {
            res.serverError(err);
          })
-
-       //
-       //
-       //
-       //Media.findOne().where({id: id})
-       //  .then(function (image) {
-       //    var mediaPath = image.path;
-       //    if(imageSize && (imageSize =='origin')){
-       //      mediaPath = path.join(root,'media', 'images','fullsize', image.category, mediaPath);
-       //    } else {
-       //      mediaPath = path.join(root,'media', 'images','thumb', image.category, mediaPath);
-       //    }
-       //
-       //    res.writeHead(206, {
-       //      "Content-Type": image.format
-       //    });
-       //
-       //    var stream = fs.createReadStream(mediaPath)
-       //      .on("open", function () {
-       //        stream.pipe(res);
-       //      }).on("error", function (err) {
-       //        res.end(err);
-       //      });
-       //  },
-       //
-       //  function (err) {
-       //    res.end(err);
-       //  })
      },
 
      playVideo :function(req, res) {
 
        var token = req.params.token;
-       console.log(token);
-
        var range = req.headers.range;
        var positions = range.replace(/bytes=/,"").split("-");
        var start =parseInt(positions[0],10);
 
-       console.log(range);
        var data = cache[token];
        data = null;
        if (data == null) {
