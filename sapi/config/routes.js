@@ -68,7 +68,6 @@ module.exports.routes = {
   , 'get /modules': 'ModuleController.search'
   , 'post /module': 'ModuleController.create'
 
-
   , "delete /delete-video/:tutorId/:urlToken": "NgFileUploadController.deleteVideo"
 
   , 'get /users/:uid/watchHistory': 'WatchHistoryController.getUserWatchHistory'
@@ -81,6 +80,8 @@ module.exports.routes = {
 
   , 'get /test/auth': 'User.auth'
 
+ ///************************************* book resource
+
   , 'get /books': 'BookController.getBooks'
   , 'get /books/:id': 'BookController.getBookById'
   , 'post /books': 'BookController.createBook'
@@ -88,6 +89,13 @@ module.exports.routes = {
   , 'delete /books/:id': 'BookController.deleteBookById'
   , 'delete /users/:userId/books' : 'BookController.deleteUserBooks'
   , 'get /users/:uid/books': 'BookController.getUserBooks'
+
+ ///************************************* book pages resource
+
+  , 'get /books/:id/pages': 'BookPageController.getBookPages'
+  , 'get /books/:id/pages/:id':'BookPageController.getOneBookPage'
+  , 'put /books/:id/pages/:id':'BookPageController.updateOneBookPage'
+  , 'delete /books/:id/pages/:id':'BookPageController.deleteOneBookPage'
 
 
 //,"post /upload" : "NgFileUploadController.upload"
