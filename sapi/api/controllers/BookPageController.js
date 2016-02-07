@@ -1,27 +1,72 @@
 
 
-module.exports =  new Page();
-
-function Page() {
+module.exports = {
+  getBookPages:getBookPages,
+  getOneBookPage:getOneBookPage,
+  updateOneBookPage:updateOneBookPage,
+  deleteOneBookPage:deleteOneBookPage
 }
 
-Page.prototype.getBookPages = getBookPages,
-Page.prototype.getOneBookPage = getOneBookPage,
-Page.prototype.updateOneBookPage = updateOneBookPage,
-Page.prototype.deleteOneBookPage = deleteOneBookPage
+function getBookPages(req, res) {
+  var bookId = req.param('bookId');
+  bookRepository.getBookPages(bookId)
+    .then(function (pages) {
+      if (pages && pages.length > 0) {
+        return res.ok(pages);
+      }
+      return res.notFound();
+    },
+    function (err) {
+      console.log('rejected info in controller', err);
+    })
+    .catch(function(err){
+      return res.serverErrror(err);
+    })
+    .done();
+}
 
-function getBookPages(req,res){
+function getOneBookPage(req, res) {
+
+  var bookId = req.param('bookId');
+  var pageId = req.param('pageId');
+
+  bookRepository.getBookPages(bookId, pageId)
+    .then(function (page) {
+      if (page)
+        return res.ok(page);
+      else
+        return res.notFound();
+    },
+
+    function (err) {
+      console.log('get one page page....');
+      return res.serverError(err);
+    }
+  )
+}
+
+function updateOneBookPage(req, res) {
+
+  var pageInfo = req.body;
+
+  bookRepository.updateBookPage(pageInfo)
+    .then(function(updated){
+      console.log('updated page info', pageInfo);
+      return res.ok(pageInfo);
+    },
+    function(err){
+      console.log('update fails....', err);
+      return res.serverEror(err);
+    }
+  ).catch(function(err){
+
+      console.log('update error in catch....');
+      return res.serverEror(err);
+    })
 
 }
-function getOneBookPage(req, res){
-
-}
-
-function updateOneBookPage(req, res){
-
-}
 
 
-function deleteOneBookPage(req, res){
+function deleteOneBookPage(req, res) {
 
 }

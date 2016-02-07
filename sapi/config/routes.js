@@ -77,7 +77,7 @@ module.exports.routes = {
 
   , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
   , 'post /auth/register': 'AuthController.register'
-
+  , 'post/auth/login':'AuthController.login'
   , 'get /test/auth': 'User.auth'
 
  ///************************************* book resource
@@ -92,11 +92,11 @@ module.exports.routes = {
 
  ///************************************* book pages resource
 
-  , 'get /books/:id/pages': 'BookPageController.getBookPages'
-  , 'get /books/:id/pages/:id':'BookPageController.getOneBookPage'
-  , 'put /books/:id/pages/:id':'BookPageController.updateOneBookPage'
-  , 'delete /books/:id/pages/:id':'BookPageController.deleteOneBookPage'
-
+  , 'get /books/:bookId/pages': 'BookPageController.getBookPages'
+  ,'post /books/:bookId/pages': 'BookPageController.createBookPage'
+  , 'get /books/:bookId/pages/:pageId':'BookPageController.getOneBookPage'
+  , 'put /books/:bookId/pages/:pageId':'BookPageController.updateOneBookPage'
+  , 'delete /books/:bookId/pages/:pageId':'BookPageController.deleteOneBookPage'
 
 //,"post /upload" : "NgFileUploadController.upload"
 

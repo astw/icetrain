@@ -8,6 +8,10 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
   attributes: {
+    id:{
+      type:'string',
+      primaryKey:true
+    },
     email: {
       type: "string",
       required: true,
@@ -58,6 +62,7 @@ module.exports = {
 
   seedData: [
     {
+      "id":"1",
       "email": "aa@aa.com",
       "password": "123",
       "displayName": "wang shu hao",
@@ -65,6 +70,7 @@ module.exports = {
       "updatedAt": "2014-12-06T21:22:53.245Z"
     },
     {
+      "id":"2",
       "email": "bb@aa.com",
       "password": "456",
       "displayName": "sun wen yan",
@@ -72,6 +78,7 @@ module.exports = {
       "updatedAt": "2014-12-06T21:22:53.245Z"
     },
     {
+      "id":"3",
       "email": "cc@aa.com",
       "password": "456",
       "displayName": "Kelvin Wang",

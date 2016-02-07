@@ -10,6 +10,7 @@ module.exports = {
   attributes: {
     userid: {
       type: "string",
+      primaryKey:true,
       required: true,
       unique: true
     },

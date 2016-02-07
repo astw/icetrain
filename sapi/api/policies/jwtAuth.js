@@ -33,13 +33,14 @@ module.exports = function(req, res, next) {
   }
   else {
     var payload = sessionTokenHelper.getPayloadFromSessionToken(token);     //jwt.decode(token, secret);
-    if (!payload.userid) {
+    if (!payload ||  !payload.userid) {
       return res.status(401).send({
         message: "Authentication failed - jwtAuth"
       });
     }
     else {
       req.session.userid = payload.userid;
+      req.headers.uid = payload.userid;
       next();
     }
   }

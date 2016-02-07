@@ -17,6 +17,7 @@ module.exports = {
     },
 
     getPayloadFromSessionToken: function(sessionToken){
+        if(!sessionToken) return null;
         var payload = jwt.decode(sessionToken, secret);
         return payload;
     }
