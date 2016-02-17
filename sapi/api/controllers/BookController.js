@@ -89,17 +89,21 @@ module.exports = {
       function(book){
         console.log('book.auther=',book.author, 'req.session.userid',req.session.userid);
 
+        console.log(book.author.id, req.session.userid);
         if(book.author.id == req.session.userid){
           bookRepository.deleteBookById(id).then(
             function(result){
-               console.log(result);
+               console.log(result)
+               console.log('deleted', '--------------');
               return res.status(200).send({"status":"200","message":"deleted"})
-          },
+           },
             function(err){
+              console.log('delete fails', err);
               return res.status(500).send(err);
             }
           )
             .fail(function(err){
+              console.log('fails',err);
                return res.status(500).send({"status":"500","message":err})
             });
         }

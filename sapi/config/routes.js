@@ -93,7 +93,7 @@ module.exports.routes = {
  ///************************************* book pages resource
 
   , 'get /books/:bookId/pages': 'BookPageController.getBookPages'
-  ,'post /books/:bookId/pages': 'BookPageController.createBookPage'
+  , 'post /books/:bookId/pages': 'BookPageController.createBookPage'
   , 'get /books/:bookId/pages/:pageId':'BookPageController.getOneBookPage'
   , 'put /books/:bookId/pages/:pageId':'BookPageController.updateOneBookPage'
   , 'delete /books/:bookId/pages/:pageId':'BookPageController.deleteOneBookPage'

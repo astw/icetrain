@@ -3,8 +3,33 @@
 module.exports = {
   getBookPages:getBookPages,
   getOneBookPage:getOneBookPage,
+  createBookPage:createBookPage,
   updateOneBookPage:updateOneBookPage,
   deleteOneBookPage:deleteOneBookPage
+}
+
+function createBookPage(req,res) {
+  var pageData = req.body;
+
+  var pageInfo = {
+    size: pageData.size,
+    width: pageData.width,
+    height: pageData.height,
+    data: pageData.data,
+    book: pageData.book
+  }
+
+  bookPageRepository.createOneBookPage(pageInfo)
+    .then(
+    function(page){
+       return res.ok(page);
+    },
+
+    function(err){
+      console.log('create page error=',err);
+      res.badRequest(err);
+    }
+  )
 }
 
 function getBookPages(req, res) {
@@ -65,7 +90,6 @@ function updateOneBookPage(req, res) {
     })
 
 }
-
 
 function deleteOneBookPage(req, res) {
 

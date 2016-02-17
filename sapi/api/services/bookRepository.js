@@ -18,7 +18,6 @@ var getBookById = function (bookId) {
 var createBook = function(data) {
   var defer = Q.defer();
   console.log(data);
-  console.log(JSON.stringify(data));
   Book.create({
     title : data.title,
     titleFont:data.titleFont,
@@ -42,6 +41,14 @@ var createBook = function(data) {
     if (err) {
       return  defer.reject(err);
     };
+
+    // for each page, create a page record in database, and return the page id back
+    var defers = [];
+    data.pages.forEach(function(page){
+      console.log(page);
+      var canvas = fabric.canvas;
+      var fabric = require('fabric').fabric;
+    });
 
     return defer.resolve(data);
   });
@@ -111,7 +118,7 @@ var getBooks = function(condition,condition2) {
 };
 
 var deleteBookById = function(bookId) {
-  return Book.delete({id:bookId})
+  return Book.destroy({id:bookId})
 };
 
 var deleteUserBooks = function(userId) {
