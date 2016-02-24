@@ -37,7 +37,7 @@ var createBook = function(data) {
     openToAll : data.openToAll,
     pages :data.totalPage,
     author:data.author
-  }, function (err, data) {
+  }, function (err, book) {
     if (err) {
       return  defer.reject(err);
     };
@@ -46,11 +46,11 @@ var createBook = function(data) {
     var defers = [];
     data.pages.forEach(function(page){
       console.log(page);
-      var canvas = fabric.canvas;
-      var fabric = require('fabric').fabric;
+      //var canvas = fabric.canvas;
+      //var fabric = require('fabric').fabric;
     });
 
-    return defer.resolve(data);
+    return defer.resolve(book);
   });
 
   return defer.promise;
@@ -82,7 +82,7 @@ var updateBookById = function (bookId, dataToUpdate) {
       book.openToAll = dataToUpdate.openToAll || book.openToAll;
       book.pageCount = dataToUpdate.totalPage || book.totalPage;
       book.save(function(err){
-        if(!err){
+        if(err){
           console.log(err);
           defer.reject(err);
         }
