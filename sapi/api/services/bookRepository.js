@@ -61,8 +61,9 @@ var updateBookById = function (bookId, dataToUpdate) {
   console.log(dataToUpdate.title);
   Book.findOne({id: bookId})
     .then(function (book) {
-      console.log(dataToUpdate.title);
-      console.log(book.title);
+      console.log('-------------- new book.frontCoverImageIndex-----------');
+      console.log(dataToUpdate.frontCoverImageIndex);
+      console.log('data length=',dataToUpdate.data.length);
 
       book.title = dataToUpdate.title || book.title;
       book.titleFont = dataToUpdate.titleFont || book.titleFont;
@@ -71,7 +72,7 @@ var updateBookById = function (bookId, dataToUpdate) {
       book.attributionFont = dataToUpdate.attributionFont || book.attributionFont;
       book.attributionColor = dataToUpdate.attributionColor || book.attributionColor;
       book.backgroundColor = dataToUpdate.backgroundColor || book.backgroundColor;
-      book.frontCoverImagIndex = dataToUpdate.frontCoverImagIndex || book.frontCoverImagIndex;
+      book.frontCoverImageIndex = dataToUpdate.frontCoverImageIndex || book.frontCoverImageIndex;
       book.backColorImageIndex = dataToUpdate.backColorImageIndex || book.backColorImageIndex;
       book.dedication = dataToUpdate.dedication || book.dedication,
       book.dedicationFont = dataToUpdate.dedicationFont || book.dedicationFont,
