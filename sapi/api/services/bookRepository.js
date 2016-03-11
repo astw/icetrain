@@ -15,28 +15,31 @@ var getBookById = function (bookId) {
   return defer.promise;
 };
 
-var createBook = function(data) {
+var createBook = function(bookData) {
   var defer = Q.defer();
-  console.log(data);
+  console.log(bookData);
   Book.create({
-    title : data.title,
-    titleFont:data.titleFont,
-    titleColor:data.titleColor,
-    attribution:data.attribution,
-    attributionFont:data.attributionFont,
-    attributionColor:data.attributionColor,
-    backgroundColor:data.backgroundColor,
-    frontCoverImageIndex:data.frontCoverImageIndex,
-    backCoverImageIndex:data.backCoverImageIndex,
-    dedication:data.dedication,
-    dedicationFont:data.dedicationFont,
-    dedicationColor:data.dedicationColor,
-    desc : data.desc,
-    rate : data.rate,
-    data : data.data,
-    openToAll : data.openToAll,
-    pages :data.totalPage,
-    author:data.author
+    title : bookData.title,
+    titleFont:bookData.titleFont,
+    titleColor:bookData.titleColor,
+    attribution:bookData.attribution,
+    attributionFont:bookData.attributionFont,
+    attributionColor:bookData.attributionColor,
+    backgroundColor:bookData.backgroundColor,
+    frontCover:bookData.frontCover,
+    frontCoverWidth:bookData.frontCoverWidth,
+    frontCoverHeigth:bookData.frontCoverHeight,
+    frontCoverImageIndex:bookData.frontCoverImageIndex,
+    backCoverImageIndex:bookData.backCoverImageIndex,
+    dedication:bookData.dedication,
+    dedicationFont:bookData.dedicationFont,
+    dedicationColor:bookData.dedicationColor,
+    desc : bookData.desc,
+    rate : bookData.rate,
+    data : bookData.data,
+    openToAll : bookData.openToAll,
+    pages :bookData.totalPage,
+    author:bookData.author
   }, function (err, book) {
     if (err) {
       return  defer.reject(err);
@@ -44,7 +47,7 @@ var createBook = function(data) {
 
     // for each page, create a page record in database, and return the page id back
     var defers = [];
-    data.pages.forEach(function(page){
+    bookData.pages.forEach(function(page){
       console.log(page);
       //var canvas = fabric.canvas;
       //var fabric = require('fabric').fabric;
@@ -72,6 +75,9 @@ var updateBookById = function (bookId, dataToUpdate) {
       book.attributionFont = dataToUpdate.attributionFont || book.attributionFont;
       book.attributionColor = dataToUpdate.attributionColor || book.attributionColor;
       book.backgroundColor = dataToUpdate.backgroundColor || book.backgroundColor;
+      book.frontCoverWidth = dataToUpdate.frontCoverWidth || book.frontCoverWidth;
+      book.frontCover = dataToUpdate.frontCover;
+      book.frontCoverHeight = dataToUpdate.frontCoverHeight || book.frontCoverHeight;
       book.frontCoverImageIndex = dataToUpdate.frontCoverImageIndex || book.frontCoverImageIndex;
       book.backColorImageIndex = dataToUpdate.backColorImageIndex || book.backColorImageIndex;
       book.dedication = dataToUpdate.dedication || book.dedication,
