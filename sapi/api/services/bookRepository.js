@@ -27,8 +27,8 @@ var createBook = function(bookData) {
     attributionColor:bookData.attributionColor,
     backgroundColor:bookData.backgroundColor,
     frontCover:bookData.frontCover,
-    frontCoverWidth:bookData.frontCoverWidth,
-    frontCoverHeigth:bookData.frontCoverHeight,
+    backCover :bookData.backCover,
+    dedicatedPage :bookData.dedicatedPage,
     frontCoverImageIndex:bookData.frontCoverImageIndex,
     backCoverImageIndex:bookData.backCoverImageIndex,
     dedication:bookData.dedication,
@@ -76,8 +76,11 @@ var updateBookById = function (bookId, dataToUpdate) {
       book.attributionColor = dataToUpdate.attributionColor || book.attributionColor;
       book.backgroundColor = dataToUpdate.backgroundColor || book.backgroundColor;
       book.frontCoverWidth = dataToUpdate.frontCoverWidth || book.frontCoverWidth;
-      book.frontCover = dataToUpdate.frontCover;
       book.frontCoverHeight = dataToUpdate.frontCoverHeight || book.frontCoverHeight;
+      book.frontCover = dataToUpdate.frontCover;
+      book.backCover = dataToUpdate.backCover;
+      book.dedicatedPage = dataToUpdate.dedicatedPage;
+
       book.frontCoverImageIndex = dataToUpdate.frontCoverImageIndex || book.frontCoverImageIndex;
       book.backColorImageIndex = dataToUpdate.backColorImageIndex || book.backColorImageIndex;
       book.dedication = dataToUpdate.dedication || book.dedication,
