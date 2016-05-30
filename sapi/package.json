@@ -6,7 +6,7 @@
   "keywords": [],
   "dependencies": {
     "app-root-path": "^1.0.0",
-    "bcrypt": "^0.8.0",
+    "bcrypt": "^0.8.6",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.4.2",
     "blueimp-file-upload-expressjs": "^0.3.2",
