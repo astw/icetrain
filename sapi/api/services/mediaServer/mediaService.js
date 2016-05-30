@@ -78,7 +78,7 @@ module.exports =  {
 
            var img = new Buffer(base64Image, 'base64');
 
-           res.writeHead({
+           res.writeHead(200,{
              "Content-Type": file.contentType,
              "Content-Length": img.length
            });
