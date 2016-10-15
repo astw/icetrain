@@ -3,7 +3,7 @@ var mediaTokenHelper = require("../tokenHelper.js");
 var fs = require('fs'),
     util = require('util');
 
-var path = require("path")
+var path = require("path");
 var root = require('app-root-path')+"";
 
 var cache = Object();  // {}
@@ -15,7 +15,7 @@ module.exports =  {
        var details = req.param('details');
        var category = req.param('cat');
        var condition = {};
-       if(category === 'background' || category ==='props'
+       if(category === 'background' || category ==='props' || category ==='bigText'
          || category ==='text' ||category==='personal' || category ==='page'){
          condition = {
            category:category
@@ -78,7 +78,7 @@ module.exports =  {
 
            var img = new Buffer(base64Image, 'base64');
 
-           res.writeHead({
+           res.writeHead(200,{
              "Content-Type": file.contentType,
              "Content-Length": img.length
            });

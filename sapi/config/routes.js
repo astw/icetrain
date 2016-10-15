@@ -84,6 +84,9 @@ module.exports.routes = {
 
   , 'get /books': 'BookController.getBooks'
   , 'get /books/:id': 'BookController.getBookById'
+
+  //, 'get /books/:id/pages/:pageId': 'BookController.getBookPage'
+
   , 'post /books': 'BookController.createBook'
   , 'put /books/:id': 'BookController.updateBookById'
   , 'delete /books/:id': 'BookController.deleteBookById'
@@ -111,7 +114,7 @@ module.exports.routes = {
 
 
   // "post /user":"UserController.postUser"
-  //  "get /courses" : "CourseController.getAllCourses",
+  //  ,"get /courses" : "CourseController.getAllCourses"
   //  // get user's course
   //  "get /:userId/courses" : "CourseController.getUserCourses",
   //  "post /:userId/courses":"CourseController.postUserCourse",
@@ -142,7 +145,7 @@ module.exports.routes = {
   //
   ///////////////////////////////////////////////////////////////////////////////////
   //
-  //"get /courses/byuser/:userId" : "CourseController.getUserCourses",
+ , "get /courses/byuser/:userId" : "CourseController.getUserCourses"
   //,"get /courses/byid/:enId": "CourseController.getCourseById"
   //
   //"get /courses/edit/:enId" : "CourseController.updateCourseById",

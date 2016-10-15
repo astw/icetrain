@@ -16,7 +16,7 @@ module.exports = {
 
     category: {
       type: "string",      // {'background','props','text'}
-      enum: ["background", "props", "text", "font", "personal","page"],
+      enum: ["background", "props", "text", "font", "personal","page", "bigText"],
       defaultsTo: "background"
     },
 

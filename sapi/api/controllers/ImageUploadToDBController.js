@@ -53,7 +53,7 @@ var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
       var targetHeight = 51;
 
       var imageBuff;
-      if (imageType === 'background') {
+      if (imageType === 'background' || imageType === 'bigText') {
         imageBuff = image.resize(targetWidth, targetHeight)
       } else if (imageType === 'props') {
         imageBuff = image.resize(68, jimp.AUTO)
