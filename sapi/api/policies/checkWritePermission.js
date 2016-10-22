@@ -3,7 +3,7 @@ var sessionTokenHelper = require("../services/sessionTokenHelper.js");
 
 module.exports = function(req, res, next){
 
-    var token = req.headers.authorization.split(" ")[1];
+    var token = req.headers.authorization.split(" ")[1]; 
     var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
     console.log(payload);
     var headerUserId = req.headers.uid;
@@ -15,9 +15,7 @@ module.exports = function(req, res, next){
     }
     else {
       Permission.findOneByUserid(userid).
-        exec(function (err, permission) {
-          console.log(err);
-          console.log(permission);
+        exec(function (err, permission) { 
 
           if (err || !permission || permission.type !== 'write') {
             return res.status(401).send({
@@ -35,8 +33,7 @@ module.exports = function(req, res, next){
              
              next(); 
             }
-            else{
-              console.log('check permision finished ')  ;
+            else{ 
               next();
             }
           };

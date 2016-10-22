@@ -60,13 +60,9 @@ var createBook = function(bookData) {
 };
 
 var updateBookById = function (bookId, dataToUpdate) {
-  var defer = Q.defer();
-  console.log(dataToUpdate.title);
+  var defer = Q.defer(); 
   Book.findOne({id: bookId})
-    .then(function (book) {
-      console.log('-------------- new book.frontCoverImageIndex-----------');
-      console.log(dataToUpdate.frontCoverImageIndex);
-      console.log('data length=',dataToUpdate.data.length);
+    .then(function (book) { 
 
       book.title = dataToUpdate.title || book.title;
       book.titleFont = dataToUpdate.titleFont || book.titleFont;
