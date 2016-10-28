@@ -15,17 +15,37 @@ module.exports = {
     comment: {
       type: "string",
       required: true,
-      minLength: 5,
-      maxLength: 200
+      minLength: 2,
+      maxLength: 500
     },
 
-    book:{
-      model:"Book"
+    bookId:{
+      type : 'string'
     },
 
     author: {
       model:"User"
-    }
+    }, 
+
+    ip:{
+      type : 'string'
+    },
+
+    host:{
+      type:'string'
+    },
+
+    origin:{
+      type:'string'
+    },
+
+    createdAt:{
+      type:"datetime",
+      required:true,
+      defaultsTo: function () {
+        return new Date();
+      }
+    } 
   }
 };
 

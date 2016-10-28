@@ -16,8 +16,7 @@ var getBookById = function (bookId) {
 };
 
 var createBook = function(bookData) {
-  var defer = Q.defer();
-  console.log(bookData);
+  var defer = Q.defer(); 
   Book.create({
     title : bookData.title,
     titleFont:bookData.titleFont,
@@ -46,12 +45,11 @@ var createBook = function(bookData) {
     };
 
     // for each page, create a page record in database, and return the page id back
-    var defers = [];
-    bookData.pages.forEach(function(page){
-      console.log(page);
+    //var defers = [];
+    //bookData.pages.forEach(function(page){ 
       //var canvas = fabric.canvas;
       //var fabric = require('fabric').fabric;
-    });
+    //});
 
     return defer.resolve(book);
   });
@@ -64,29 +62,29 @@ var updateBookById = function (bookId, dataToUpdate) {
   Book.findOne({id: bookId})
     .then(function (book) { 
 
-      book.title = dataToUpdate.title || book.title;
-      book.titleFont = dataToUpdate.titleFont || book.titleFont;
-      book.titleColor = dataToUpdate.titleColor || book.titleColor;
-      book.attribution = dataToUpdate.attribution || book.attribution;
-      book.attributionFont = dataToUpdate.attributionFont || book.attributionFont;
-      book.attributionColor = dataToUpdate.attributionColor || book.attributionColor;
-      book.backgroundColor = dataToUpdate.backgroundColor || book.backgroundColor;
-      book.frontCoverWidth = dataToUpdate.frontCoverWidth || book.frontCoverWidth;
-      book.frontCoverHeight = dataToUpdate.frontCoverHeight || book.frontCoverHeight;
+      book.title = dataToUpdate.title ;
+      book.titleFont = dataToUpdate.titleFont ;
+      book.titleColor = dataToUpdate.titleColor;
+      book.attribution = dataToUpdate.attribution ;
+      book.attributionFont = dataToUpdate.attributionFont;
+      book.attributionColor = dataToUpdate.attributionColor;
+      book.backgroundColor = dataToUpdate.backgroundColor;
+      book.frontCoverWidth = dataToUpdate.frontCoverWidth;
+      book.frontCoverHeight = dataToUpdate.frontCoverHeight;
       book.frontCover = dataToUpdate.frontCover;
       book.backCover = dataToUpdate.backCover;
       book.dedicatedPage = dataToUpdate.dedicatedPage;
 
-      book.frontCoverImageIndex = dataToUpdate.frontCoverImageIndex || book.frontCoverImageIndex;
-      book.backColorImageIndex = dataToUpdate.backColorImageIndex || book.backColorImageIndex;
-      book.dedication = dataToUpdate.dedication || book.dedication,
-      book.dedicationFont = dataToUpdate.dedicationFont || book.dedicationFont,
-      book.dedicationColor = dataToUpdate.dedicationColor || book.dedicationColor,
-      book.desc = dataToUpdate.desc || book.desc;
-      book.rate = dataToUpdate.rate || book.rate;
-      book.data = dataToUpdate.data || book.data;
-      book.openToAll = dataToUpdate.openToAll || book.openToAll;
-      book.pageCount = dataToUpdate.totalPage || book.totalPage;
+      book.frontCoverImageIndex = dataToUpdate.frontCoverImageIndex;
+      book.backColorImageIndex = dataToUpdate.backColorImageIndex;
+      book.dedication = dataToUpdate.dedication;
+      book.dedicationFont = dataToUpdate.dedicationFont;
+      book.dedicationColor = dataToUpdate.dedicationColor;
+      book.desc = dataToUpdate.desc;
+      book.rate = dataToUpdate.rate;
+      book.data = dataToUpdate.data;
+      book.openToAll = dataToUpdate.openToAll;
+      book.pageCount = dataToUpdate.totalPage;
       book.save(function(err){
         if(err){
           console.log(err);

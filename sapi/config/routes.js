@@ -92,6 +92,10 @@ module.exports.routes = {
   , 'delete /books/:id': 'BookController.deleteBookById'
   , 'delete /users/:userId/books' : 'BookController.deleteUserBooks'
   , 'get /users/:uid/books': 'BookController.getUserBooks'
+ 
+ ///************************************* book comments resource
+  , 'get /books/:id/comments' : 'BookCommentController.getBookComments'
+  , 'post /books/:id/comments' :'BookCommentController.createComment'
 
  ///************************************* book pages resource
 

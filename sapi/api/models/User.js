@@ -35,6 +35,11 @@ module.exports = {
       via: "tutor"
     },
 
+    comments:{
+      collection:"BookComment",
+      viar:"User"
+    },
+
     googleId: {type: "string"},
     facebookId: {type: "string"},
     displayName: {type: "string"},

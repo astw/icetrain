@@ -107,15 +107,10 @@ module.exports = {
     var id = req.param('id');
 
     bookRepository.getBookById(id).then(
-      function(book){
-        console.log('book.auther=',book.author, 'req.session.userid',req.session.userid);
-
-        console.log(book.author.id, req.session.userid);
+      function(book){ 
         if(book.author.id == req.session.userid){
           bookRepository.deleteBookById(id).then(
-            function(result){
-               console.log(result)
-               console.log('deleted', '--------------');
+            function(result){ 
               return res.status(200).send({"status":"200","message":"deleted"})
            },
             function(err){

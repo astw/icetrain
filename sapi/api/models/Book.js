@@ -85,12 +85,7 @@ module.exports = {
     data: {
       type: "string"
     },
-
-    comments:{
-      collection: "BookComment",
-      via: "book"
-    },
-
+  
     pages:{
       collection:"BookPage",
       via:"book"
