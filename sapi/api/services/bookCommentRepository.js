@@ -12,7 +12,7 @@ module.exports = {
 function deleteComment(currentUserId, commentId){
 	console.log('currentUserId=', currentUserId);
 	console.log("id to delete:", commentId); 
-	
+
 	return BookComment.destroy({author:currentUserId, id:commentId});
 }
 
@@ -20,17 +20,17 @@ function getBookComments(bookId){
     var condition = {
     	bookId:bookId
     } 
-    return BookComment.find(condition).populate("author");
+    return BookComment.find(condition).limit(50).sort({updatedAt:'desc'}).populate("author");
  }
 
 function createComment(bookId, commentData){   
    var  data = {
    	    bookId:bookId,
-   	    ip:ip,
-   	    comment:comment,
-   	    author:author,
-   	    host:host,
-   	    origin:origin
+   	    ip:commentData.ip,
+   	    comment:commentData.comment,
+   	    author:commentData.author,
+   	    host:commentData.host,
+   	    origin:commentData.origin
 
    }
    return BookComment.create(data) 
