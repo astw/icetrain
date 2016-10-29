@@ -3,10 +3,11 @@ var sessionTokenHelper = require("../services/sessionTokenHelper.js");
 
 module.exports = function(req, res, next){
 
-    var token = req.headers.authorization.split(" ")[1]; 
-    var payload = sessionTokenHelper.getPayloadFromSessionToken(token); 
+    var token = req.headers.authorization;
+    var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
     var headerUserId = req.headers.uid;
     var userid = payload.userid;
+    req.session.userid = userid;
     if (!userid ) {
         return res.status(401).send({
             message: "Authentication failed,no userId - checkWritePermission"
@@ -14,7 +15,7 @@ module.exports = function(req, res, next){
     }
     else {
       Permission.findOneByUserid(userid).
-        exec(function (err, permission) { 
+        exec(function (err, permission) {
 
           if (err || !permission || permission.type !== 'write') {
             return res.status(401).send({
@@ -29,10 +30,10 @@ module.exports = function(req, res, next){
                   message: "You don't have write permission(Not your course). - checkWritePermission"
                 });
              }
-             
-             next(); 
+
+             next();
             }
-            else{ 
+            else{
               next();
             }
           };
