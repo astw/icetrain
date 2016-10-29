@@ -4,7 +4,16 @@ var Q = require("q");
 
 module.exports = {
   getBookComments: getBookComments,
-  createComment: createComment 
+  createComment: createComment,
+  updateComment: updateComment,
+  deleteComment: deleteComment
+}
+
+function deleteComment(currentUserId, commentId){
+	console.log('currentUserId=', currentUserId);
+	console.log("id to delete:", commentId); 
+	
+	return BookComment.destroy({author:currentUserId, id:commentId});
 }
 
 function getBookComments(bookId){   
@@ -15,7 +24,41 @@ function getBookComments(bookId){
  }
 
 function createComment(bookId, commentData){   
-  commentData.bookId = bookId;
-   return BookComment.create(commentData) 
+   var  data = {
+   	    bookId:bookId,
+   	    ip:ip,
+   	    comment:comment,
+   	    author:author,
+   	    host:host,
+   	    origin:origin
+
+   }
+   return BookComment.create(data) 
 };
  
+function updateComment(commentData){ 
+
+  var defer = Q.defer();
+  
+  //return BookComment.update({id:commentData.commentId}, {complainedTimes: this.complainedTimes + 1 })
+  
+   BookComment.findOne({id:commentData.commentId}).
+    then(function(comment){
+      if(!comment){
+      	comment.complainedTimes =0;
+      }
+      var commentToUpdate = {  
+		 complainedTimes:comment.complainedTimes += 1
+       }
+
+      comment.save(commentToUpdate, function(err, updatedComment){
+        if(err){ 
+          return defer.reject(err);
+        }
+
+        defer.resolve(commentToUpdate)
+      })
+    }); 
+
+    return defer.promise;  
+}

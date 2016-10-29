@@ -39,6 +39,11 @@ module.exports = {
       type:'string'
     },
 
+    complainedTimes:{
+     type: "integer",
+      defaultsTo: 0
+    },
+
     createdAt:{
       type:"datetime",
       required:true,

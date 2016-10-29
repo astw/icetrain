@@ -72,9 +72,13 @@ module.exports.policies = {
     'destroy':['checkClientKey','jwtAuth','checkWritePermission']
   },
 
-  //"BookCommentController" :{
-  //  'createComment':['checkClientKey','jwtAuth'] 
-  //}
+  "BookCommentController" :{
+    'createComment':['checkClientKey','jwtAuth'],  
+    'deleteComment':['checkClientKey','jwtAuth'],  
+    'create':['checkClientKey','jwtAuth','checkWritePermission'],
+    'update':['checkClientKey','jwtAuth','checkWritePermission'],
+    'destroy':['checkClientKey','jwtAuth','checkWritePermission']
+  }
 
   /***************************************************************************
   *                                                                          *

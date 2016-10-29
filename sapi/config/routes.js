@@ -96,6 +96,8 @@ module.exports.routes = {
  ///************************************* book comments resource
   , 'get /books/:id/comments' : 'BookCommentController.getBookComments'
   , 'post /books/:id/comments' :'BookCommentController.createComment'
+  , 'put /books/:bookId/comments/:commentId' : 'BookCommentController.updateComment'
+  , 'delete /books/:bookId/comments/:commentId' : 'BookCommentController.deleteComment'
 
  ///************************************* book pages resource
 

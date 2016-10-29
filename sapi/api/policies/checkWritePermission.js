@@ -4,8 +4,7 @@ var sessionTokenHelper = require("../services/sessionTokenHelper.js");
 module.exports = function(req, res, next){
 
     var token = req.headers.authorization.split(" ")[1]; 
-    var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
-    console.log(payload);
+    var payload = sessionTokenHelper.getPayloadFromSessionToken(token); 
     var headerUserId = req.headers.uid;
     var userid = payload.userid;
     if (!userid ) {
@@ -23,7 +22,7 @@ module.exports = function(req, res, next){
             });
           }
           else {
-            if(req.method === 'PUT') {
+            if(req.method === 'PUT' || req.method === 'DELETE') {
               // use can only write to his/her own course/module/videos
               if(headerUserId != userid){
                 return res.status(401).send({
