@@ -51,8 +51,6 @@ module.exports = {
   },
 
   login: function (req, res) {
-    console.log("inside manuAuth_Login.js");
-
     var email = req.body.email;
     var password = req.body.password;
 
@@ -63,9 +61,6 @@ module.exports = {
     }
 
     User.findOneByEmail(email, function (err, foundUser) {
-      console.log(err);
-      console.log('------ foundUser',foundUser);
-
       if (!foundUser) {
         return res.status(401).send({
           message: "username or password invalid."

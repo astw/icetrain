@@ -70,9 +70,6 @@ function updateUserAccountUserNameAndPassword(req, res) {
   var username = req.body.userName;
   var password = req.body.password;
 
-  console.log(req.body);
-  console.log(userid);
-
   if (!username || !password) {
     return res.status(200).send('false');
   };
@@ -84,7 +81,6 @@ function updateUserAccountUserNameAndPassword(req, res) {
     }
     else {
       if (req.session.userid !== userid) {
-        console.log('req.session.userid', req.session.userid,  userid);
         return res.status(301).send("You cannot change other person's account");
       }
 
@@ -148,8 +144,6 @@ function  register(req, res) {
   var userName = req.body.userName;
   var password = req.body.password;
   var password2 = req.body.password2;
-
-  console.log(req.body);
 
   if (!email || !userName || !password || !password2 || password != password2) {
     return res.status(400).send({

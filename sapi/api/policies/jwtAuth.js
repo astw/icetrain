@@ -4,18 +4,13 @@ var urlQuery = require('url');
 
 getSessionToken = function(req){
   var sessionToken ='';
-  console.log('req.headers.authorization=',req.headers.authorization);
-
   if (!req.headers || !req.headers.authorization) {
     // check query string
     var query = urlQuery.parse(req.url,true).query;
     sessionToken = query.sessionToken;
-    console.log('trying to get token from query string');
   }
   else{
-
     var token = req.headers.authorization;
-    console.log('token=',token);
     sessionToken = token;
   }
 
@@ -28,7 +23,6 @@ getSessionToken = function(req){
 
 module.exports = function(req, res, next) {
   var token = getSessionToken(req);
-  console.log("token=", token);
   if (token) {
 
     var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
