@@ -2,8 +2,10 @@ var jwt = require("jwt-simple");
 var sessionTokenHelper = require("../services/sessionTokenHelper.js");
 var urlQuery = require('url');
 
-getSessionToken = function(req){ 
+getSessionToken = function(req){
   var sessionToken ='';
+  console.log('req.headers.authorization=',req.headers.authorization);
+
   if (!req.headers || !req.headers.authorization) {
     // check query string
     var query = urlQuery.parse(req.url,true).query;
@@ -11,8 +13,10 @@ getSessionToken = function(req){
     console.log('trying to get token from query string');
   }
   else{
-    console.log('req.headers.authorization=',req.headers.authorization);
-    sessionToken = req.headers.authorization.split(" ")[1];
+
+    var token = req.headers.authorization;
+    console.log('token=',token);
+    sessionToken = token;
   }
 
   if(!sessionToken){
@@ -22,12 +26,13 @@ getSessionToken = function(req){
   return sessionToken ;
 };
 
-
 module.exports = function(req, res, next) {
-  var token = getSessionToken(req); 
+  var token = getSessionToken(req);
+  console.log("token=", token);
   if (token) {
-    
-    var payload = sessionTokenHelper.getPayloadFromSessionToken(token);     //jwt.decode(token, secret);
+
+    var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
+
     if (!payload ||  !payload.userid) {
       return res.status(401).send({
         message: "Authentication failed - jwtAuth"
@@ -37,8 +42,8 @@ module.exports = function(req, res, next) {
       req.session.userid = payload.userid;
       req.headers.uid = payload.userid;
       next();
-    } 
-  } else { 
+    }
+  } else {
     return res.status(401).send({
       message: "Authentication failed - jwtAuth"
     });
