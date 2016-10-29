@@ -11,7 +11,7 @@ function getBookComments(bookId){
     var condition = {
     	bookId:bookId
     } 
-    return BookComment.find(condition) 
+    return BookComment.find(condition).populate("author");
  }
 
 function createComment(bookId, commentData){   
