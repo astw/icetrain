@@ -19,6 +19,12 @@ module.exports = {
       unique: true
     },
 
+    userName:{
+      type:"string",
+      required:true,
+      unique:true
+    },
+
     password: {
       type: "string",
       required: true
@@ -30,15 +36,15 @@ module.exports = {
       defaultsTo: "regular"
     },
 
-    courses: {
-      collection: "Course",
-      via: "tutor"
-    },
+    //courses: {
+    //  collection: "Course",
+    //  via: "tutor"
+    //},
 
-    comments:{
-      collection:"BookComment",
-      viar:"User"
-    },
+    //comments:{
+    //  collection:"BookComment",
+    //  via:"author"
+    //},
 
     googleId: {type: "string"},
     facebookId: {type: "string"},
@@ -50,6 +56,19 @@ module.exports = {
       delete obj.password;
       return obj;
     }
+  },
+
+  beforeUpdate:function(attributes, next){
+    bcrypt.genSalt(10, function (err, salt) {
+      if (err) return next(err);
+
+      bcrypt.hash(attributes.password, salt, null, function (err, hash) {
+        if (err) return next(err);
+
+        attributes.password = hash;
+        next();
+      })
+    })
   },
 
   beforeCreate: function (attributes, next) {
@@ -69,6 +88,7 @@ module.exports = {
     {
       "id":"1",
       "email": "aa@aa.com",
+      "userName":"wangshuhao",
       "password": "123",
       "displayName": "wang shu hao",
       "createdAt": "2014-12-06T21:22:53.245Z",
@@ -77,6 +97,7 @@ module.exports = {
     {
       "id":"2",
       "email": "bb@aa.com",
+      "userName":"sunwenyan",
       "password": "456",
       "displayName": "sun wen yan",
       "createdAt": "2014-12-06T21:22:53.245Z",
@@ -85,6 +106,7 @@ module.exports = {
     {
       "id":"3",
       "email": "cc@aa.com",
+      "userName":"kelvinwang",
       "password": "456",
       "displayName": "Kelvin Wang",
       "createdAt": "2014-12-06T21:22:53.245Z",
