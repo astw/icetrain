@@ -28,6 +28,13 @@ module.exports.policies = {
      //   "findOne" :['checkWritePermission']
     },
 
+   "AuthController" :{
+     "updateUserNameAndPassword":['checkClientKey','jwtAuth','checkWritePermission'],
+     "create":['checkClientKey','jwtAuth','checkWritePermission'],
+     "update":['checkClientKey','jwtAuth','checkWritePermission'],
+     "destroy":['checkClientKey','jwtAuth','checkWritePermission']
+   },
+
     "VideoController" :{
         "streamVideo" :['jwtAuth'],
         "find" :['checkClientKey','jwtAuth'],
@@ -73,8 +80,8 @@ module.exports.policies = {
   },
 
   "BookCommentController" :{
-    'createComment':['checkClientKey','jwtAuth'],  
-    'deleteComment':['checkClientKey','jwtAuth'],  
+    'createComment':['checkClientKey','jwtAuth'],
+    'deleteComment':['checkClientKey','jwtAuth'],
     'create':['checkClientKey','jwtAuth','checkWritePermission'],
     'update':['checkClientKey','jwtAuth','checkWritePermission'],
     'destroy':['checkClientKey','jwtAuth','checkWritePermission']

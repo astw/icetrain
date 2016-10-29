@@ -4,21 +4,68 @@ var createSendToken = require("./createSendToken.js");
 
 module.exports = {
 
-  login: function (req, res) {
-    console.log("inside manuAuth_Login.js");
-    console.log(req.body);
-    
-    console.log(req.body.email);
-    console.log(req.body.passowrd);
+  loginByUserNameOrEmail:function(req, res){
+
+    console.log("inside manuAuth_Login.js loginByUserNameOrEmail");
+
     var email = req.body.email;
     var password = req.body.password;
+    var usernName = req.body.usernName;
+
+    if (!email && !usernName || !password) {
+      return res.status(401).send({
+        message: "username (or email) and password required."
+      });
+    }
+
+    if(!email)
+     {
+       var promise = User.findOneByEmail(email);
+     }
+     else {
+       var promise = User.findOneByUsername(username);
+     }
+
+     promise.then(function(foundUser){
+     //compare password hash
+      bcrypt.compare(password, foundUser.password, function (err, valid) {
+        if (err) return res.status(403);
+
+        if (!valid) {
+          return res.status(401).send({
+            message: "username or password invalid."
+          });
+        }
+        var oldDateObj = new Date();
+        var newDateObj = new Date(oldDateObj.getTime() + 60000);
+        req.session.cookie.expires = newDateObj;
+        req.session.user = foundUser;
+        createSendToken(foundUser, res,200);
+      });
+     })
+     .catch(function(err){
+       return res.status(401).send({
+          message: "username or password invalid."
+        });
+     })
+  },
+
+  login: function (req, res) {
+    console.log("inside manuAuth_Login.js");
+
+    var email = req.body.email;
+    var password = req.body.password;
+
     if (!email || !password) {
       return res.status(401).send({
-        message: "username and password required."
+        message: "email and password required."
       });
     }
 
     User.findOneByEmail(email, function (err, foundUser) {
+      console.log(err);
+      console.log('------ foundUser',foundUser);
+
       if (!foundUser) {
         return res.status(401).send({
           message: "username or password invalid."

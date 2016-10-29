@@ -77,7 +77,8 @@ module.exports.routes = {
 
   , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
   , 'post /auth/register': 'AuthController.register'
-  , 'post/auth/login':'AuthController.login'
+  , 'post /auth/login':'AuthController.login'
+  , 'post /auth/:uid/updateUserNameAndPassword':'AuthController.updateUserNameAndPassword'
   , 'get /test/auth': 'User.auth'
 
  ///************************************* book resource
@@ -92,7 +93,7 @@ module.exports.routes = {
   , 'delete /books/:id': 'BookController.deleteBookById'
   , 'delete /users/:userId/books' : 'BookController.deleteUserBooks'
   , 'get /users/:uid/books': 'BookController.getUserBooks'
- 
+
  ///************************************* book comments resource
   , 'get /books/:id/comments' : 'BookCommentController.getBookComments'
   , 'post /books/:id/comments' :'BookCommentController.createComment'
