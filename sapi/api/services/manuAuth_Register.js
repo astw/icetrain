@@ -143,25 +143,44 @@ function  register(req, res) {
   var email = req.body.email;
   var userName = req.body.userName;
   var password = req.body.password;
-  var password2 = req.body.password2;
-
-  if (!email || !userName || !password || !password2 || password != password2) {
+  var confirmPassword = req.body.confirmPassword;
+console.log('post-body',req.body);
+  if (!email || !userName || !password || !confirmPassword || password != confirmPassword) {
     return res.status(400).send({
       message: "invalid data"
     });
   }
+ 
+ User.findOne({
+  or:[
+    {email:email},
+    {userName:userName}
+  ]
+ }).exec(function(err, user){
+     console.log('err=', err); 
+     console.log(user); 
 
-  User.create({
-    email: email,
-    displayName: userName,
-    password: password
-  }).exec(function (err, user) {
-    if (err) return res.status(403).send(err);
+      if (err || user) return res.status(400).send(err); 
+      if(!user){
+          // No user found   
 
-    var token = sessionTokenHelper.createSessionToken(user, res);
-    res.status(200).send({
-      user: user.toJSON(),
-      token: token
-    });
-  });
+          User.create({
+            email: email,
+            userName:userName,
+            displayName: userName,
+            password: password
+          }).exec(function (err, user) { 
+            console.log("inside user creat");
+            console.log(err)
+            console.log(user);
+            if (err) return res.status(400).send(err);
+
+            var token = sessionTokenHelper.createSessionToken(user, res);
+            res.status(201).send({
+              user: user.toJSON(),
+              token: token
+            });
+          }); 
+      }
+ }) 
 }
