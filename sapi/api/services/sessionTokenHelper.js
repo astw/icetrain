@@ -5,6 +5,7 @@ var config = require("./config");
 var secret = config.SESSION_TOKEN_SECRET;
 
 module.exports = {
+ 
     createSessionToken: function (user, res) {
         var payload = {
             //iss: req.hostname,
@@ -19,6 +20,11 @@ module.exports = {
     getPayloadFromSessionToken: function(sessionToken){
         if(!sessionToken) return null;  
         var payload = jwt.decode(sessionToken, secret);
+        if(!payload){
+            if(payload.exp <= moment().unix()){
+                return null;
+            }
+        }
         return payload;
     }
 };

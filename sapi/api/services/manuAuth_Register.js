@@ -2,13 +2,48 @@
 var bcrypt = require("bcrypt-nodejs");
 var createSendToken = require("./createSendToken.js");
 var sessionTokenHelper = require("../services/sessionTokenHelper.js");
+var emailTokenManager = require("../services/emailTokenManager.js");
 var secret = "this is my secret";
+var eamilSender = require("../services/emailSender/emailService.js");
+var moment = require("moment");
+
 
 module.exports = {
   register: register,
+  registerConfirm:registerConfirm,
   checkUsername: checkUsername,
   checkEmail: checkEmail,
   updateUserAccountUserNameAndPassword: updateUserAccountUserNameAndPassword
+}
+
+function registerConfirm(req,res){ 
+   var token = req.param("token");  
+   var payload = emailTokenManager.getPayloadFromRegistrationWelcomeToken(token); 
+
+   if(payload && payload.exp <= moment().unix()){  
+     return res.status(400).send("token expired"); 
+   } else {  
+   // update user emailConfirmed 
+
+   User.findOne({email:payload.email})
+   .then(function(userFound){ 
+         var signInTimes = userFound.signInTimes ?  userFound.signInTimes + 1: 1; 
+
+         User.update({email:payload.email}, {emailConfirmed:true, signInTimes:signInTimes})
+           .exec(function(err, userUpdated){
+              if(err){  
+                    res.status(500).send(err);
+              } else {
+              // Generate token and return   
+               var token = sessionTokenHelper.createSessionToken(userUpdated, res);
+               res.status(200).send({
+               user: userUpdated,
+               token: token
+               });
+            };
+          })  
+      }) 
+   }
 }
 
 function updateUserEmail(req,res) {
@@ -139,12 +174,12 @@ function  checkEmail(req,res) {
   })
 };
 
-function  register(req, res) {
+function  register(req, res) { 
+
   var email = req.body.email;
   var userName = req.body.userName;
   var password = req.body.password;
-  var confirmPassword = req.body.confirmPassword;
-console.log('post-body',req.body);
+  var confirmPassword = req.body.confirmPassword; 
   if (!email || !userName || !password || !confirmPassword || password != confirmPassword) {
     return res.status(400).send({
       message: "invalid data"
@@ -175,11 +210,19 @@ console.log('post-body',req.body);
             console.log(user);
             if (err) return res.status(400).send(err);
 
-            var token = sessionTokenHelper.createSessionToken(user, res);
-            res.status(200).send({
-              user: user.toJSON(),
-              token: token
-            });
+            // Send welcome email
+            eamilSender.sendRegisterWelcomeEmail(user)
+            .then(function(sendInfo){
+              return res.status(200).send(sendInfo);
+            })
+            .catch(function(err){
+              return res.status(400).send(err);
+            });  
+            //var token = sessionTokenHelper.createSessionToken(user, res);
+            //res.status(200).send({
+            //  user: user,
+            //  token: token
+            //});
           }); 
       }
  }) 

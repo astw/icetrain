@@ -76,6 +76,7 @@ module.exports.routes = {
   , 'put /users/:uid/watchHistory': 'WatchHistoryController.updateWatchHistory'
 
   , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
+  , 'get /registration/confirm': 'AuthController.registerConfirm'
   , 'post /auth/register': 'AuthController.register'
   , 'post /auth/login':'AuthController.login'
   , 'post /auth/:uid/updateUserNameAndPassword':'AuthController.updateUserNameAndPassword'
