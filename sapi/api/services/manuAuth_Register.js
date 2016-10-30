@@ -176,7 +176,7 @@ console.log('post-body',req.body);
             if (err) return res.status(400).send(err);
 
             var token = sessionTokenHelper.createSessionToken(user, res);
-            res.status(201).send({
+            res.status(200).send({
               user: user.toJSON(),
               token: token
             });
