@@ -12,11 +12,17 @@ module.exports = {
       type:'string',
       primaryKey:true
     },
+
     email: {
       type: "string",
       required: true,
       email: true,
       unique: true
+    },
+
+    emailConfirmed:{
+      type:"boolean",
+       defaultsTo: false
     },
 
     userName:{
@@ -35,6 +41,20 @@ module.exports = {
       enum: ["regular", "teacher", "enterpriseAdmin", "test"],
       defaultsTo: "regular"
     },
+ 
+    signInTimes:{
+       type:"integer",
+       defaultsTo:0
+    },
+
+    lastSiginAt :{
+      type:"datetime",
+      required:true,
+      defaultsTo: function () {
+        return new Date();
+      }
+    },
+
 
     //courses: {
     //  collection: "Course",
