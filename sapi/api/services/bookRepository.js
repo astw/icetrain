@@ -105,9 +105,9 @@ var updateBookById = function (bookId, dataToUpdate) {
 var getBooks = function(condition,condition2) {
   var defer = Q.defer();
 
-  var promise = Book.find(condition);
+  var promise = Book.find(condition).populate("author");
   if(condition2){
-    promise = Book.find(condition).where(condition2);
+    promise = Book.find(condition).where(condition2).populate("author");
   }
 
   promise.then(

@@ -73,14 +73,14 @@ module.exports.policies = {
     //'getBookById':['checkClientKey'],
     'updateBookById':['checkClientKey','jwtAuth'],
     'deleteBookById':['checkClientKey','jwtAuth'],
-    'createBook':['checkClientKey','jwtAuth','checkWritePermission'],
+    'createBook':['checkClientKey','jwtAuth'],
     'create':['checkClientKey','jwtAuth','checkWritePermission'],
     'update':['checkClientKey','jwtAuth','checkWritePermission'],
     'destroy':['checkClientKey','jwtAuth','checkWritePermission']
   },
 
   "BookCommentController" :{
-    'createComment':['checkClientKey','jwtAuth'],
+    'createComment':['checkClientKey'],
     'deleteComment':['checkClientKey','jwtAuth'],
     'create':['checkClientKey','jwtAuth','checkWritePermission'],
     'update':['checkClientKey','jwtAuth','checkWritePermission'],
