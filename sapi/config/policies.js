@@ -29,7 +29,7 @@ module.exports.policies = {
     },
 
    "AuthController" :{
-     "updateUserNameAndPassword":['checkClientKey','jwtAuth','checkWritePermission'],
+     "updateUserNameAndPassword":['checkClientKey','jwtAuth'],
      "create":['checkClientKey','jwtAuth','checkWritePermission'],
      "update":['checkClientKey','jwtAuth','checkWritePermission'],
      "destroy":['checkClientKey','jwtAuth','checkWritePermission']

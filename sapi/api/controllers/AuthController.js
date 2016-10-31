@@ -11,6 +11,7 @@ var googleAuth = require("../services/googleAuth.js");
 
 module.exports = {
   login: loginSerice.login,
+  loginByUserNameOrEmail:loginSerice.loginByUserNameOrEmail,
   register: register.register,
   registerConfirm:register.registerConfirm,
   
