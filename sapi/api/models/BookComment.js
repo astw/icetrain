@@ -15,7 +15,7 @@ module.exports = {
     comment: {
       type: "string",
       required: true,
-      minLength: 2,
+      minLength: 1,
       maxLength: 500
     },
 

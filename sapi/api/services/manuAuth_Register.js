@@ -109,9 +109,10 @@ function updateUserAccountUserNameAndPassword(req, res) {
     return res.status(200).send('false');
   };
 
-  User.findOne({id: userid}, function (err, userFound) {
+  User.findOneById(userid, function (err, userFound) {
 
     if (!userFound) {
+      console.log("user with id="+ userid + " cannot be found");
       return res.status(200).send('false');
     }
     else {
@@ -146,7 +147,7 @@ function checkUsername(req,res){
     return res.status(200).send('false');
   };
 
-  User.findOneByUsername(username, function (err, user) {
+  User.findOne({userName:username}, function (err, user) {
     if (!user) {
       return res.status(200).send('false');
     }
