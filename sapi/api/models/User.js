@@ -9,7 +9,7 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = {
   attributes: {
     id:{
-      type:'string',
+      type:'objectid',
       primaryKey:true
     },
 
