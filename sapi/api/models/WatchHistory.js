@@ -7,22 +7,25 @@
 
 module.exports = {
   attributes: {
-    userid:{
-      type:"integer",
-      required:true
+
+    user: {
+      model: "User",
+      required:"true"
+    }, 
+
+    course:{
+      model:"course",
+      required:"true"
     },
-     courseid: {
-      type: "integer",
-       required:true
+
+    module:{
+      model:"Module"
     },
-    moduleid:{
-      type:"integer",
-      required:true
+  
+    video:{
+      model:"video"
     },
-    videoid:{
-      type:"string",
-      required:true
-    },
+ 
     status:{
       type:'string',
       enum: ["watching", "watched"],

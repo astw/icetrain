@@ -5,13 +5,19 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var bcrypt = require('bcrypt-nodejs');
+var ObjectID = require('mongodb').ObjectID; 
 
 module.exports = {
+   
   attributes: {
-    id:{
-      type:'objectid',
-      primaryKey:true
-    },
+
+    // id:{ 
+    //   //type:'integer', 
+    //   type:'objectid',
+    //   primaryKey:true,
+    //   autoIncrement:true,
+    //   // columnName:'userId'
+    //   },
 
     email: {
       type: "string",
@@ -41,7 +47,7 @@ module.exports = {
       enum: ["regular", "teacher", "enterpriseAdmin", "test"],
       defaultsTo: "regular"
     },
- 
+
     signInTimes:{
        type:"integer",
        defaultsTo:0
@@ -83,9 +89,9 @@ module.exports = {
       if (err) return next(err);
 
       bcrypt.hash(attributes.password, salt, null, function (err, hash) {
-        if (err) return next(err);
-
+        if (err) return next(err); 
         attributes.password = hash;
+      //  attributes.id = new ObjectID(attributes.id);
         next();
       })
     })
@@ -106,31 +112,23 @@ module.exports = {
 
   seedData: [
     {
-      "id":"1",
       "email": "aa@aa.com",
       "userName":"wangshuhao",
-      "password": "123",
-      "displayName": "wang shu hao",
-      "createdAt": "2014-12-06T21:22:53.245Z",
-      "updatedAt": "2014-12-06T21:22:53.245Z"
+      "password": "123456",
+      "displayName": "wang shu hao" 
     },
     {
-      "id":"2",
       "email": "bb@aa.com",
       "userName":"sunwenyan",
-      "password": "456",
-      "displayName": "sun wen yan",
-      "createdAt": "2014-12-06T21:22:53.245Z",
-      "updatedAt": "2014-12-06T21:22:53.245Z"
+      "password": "123456",
+      "displayName": "sun wen yan" 
     },
+
     {
-      "id":"3",
       "email": "cc@aa.com",
       "userName":"kelvinwang",
-      "password": "456",
-      "displayName": "Kelvin Wang",
-      "createdAt": "2014-12-06T21:22:53.245Z",
-      "updatedAt": "2014-12-06T21:22:53.245Z"
+      "password": "123456",
+      "displayName": "Kelvin Wang" 
     }
   ]
 };

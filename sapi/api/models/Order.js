@@ -7,12 +7,7 @@
 
 module.exports = {
 
-  attributes: {
-
-    id: {
-      type: 'integer',
-      primaryKey: 'true'
-    },
+  attributes: { 
 
     orderId:{
       type:'string',

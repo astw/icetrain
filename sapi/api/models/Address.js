@@ -9,11 +9,6 @@ module.exports = {
 
   attributes: {
 
-    id: {
-      type: 'integer',
-      primaryKey: 'true'
-    },
-
     user: {
       model: "User"
     },

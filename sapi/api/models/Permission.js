@@ -8,12 +8,11 @@
 module.exports = {
 
   attributes: {
-    userid: {
-      type: "string",
-      primaryKey:true,
-      required: true,
-      unique: true
-    },
+
+    user: {
+      model:"User"
+    }, 
+ 
     type: {
       type: "string",
       required: true
@@ -23,24 +22,15 @@ module.exports = {
   seedData: [
     {
       "userid": "1",
-      "type": "write",
-      "id": 1,
-      "createdAt": "2014-12-06T21:22:53.245Z",
-      "updatedAt": "2014-12-06T21:22:53.245Z"
+      "type": "write"
     },
     {
       "userid": "2",
-      "type": "read",
-      "id": 2,
-      "createdAt": "2014-12-06T21:23:04.494Z",
-      "updatedAt": "2014-12-06T21:23:04.494Z"
+      "type": "read" 
     },
     {
       "userid": "3",
-      "type": "write",
-      "id": 3,
-      "createdAt": "2014-12-06T21:23:04.494Z",
-      "updatedAt": "2014-12-06T21:23:04.494Z"
+      "type": "write" 
     }
   ]
 };

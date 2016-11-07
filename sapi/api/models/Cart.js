@@ -7,12 +7,14 @@
 
 module.exports = {
 
+  autoPK:false,
   attributes: {
-
-    id: {
-      type: 'integer',
-      primaryKey: 'true'
-    },
+    id:{
+      type:'integer',
+      primaryKey:true,
+      autoIncrement:true,
+      columnName:'cartId'
+      },
 
     user: {
       model: "User",

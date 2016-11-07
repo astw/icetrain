@@ -19,8 +19,8 @@ module.exports = {
       maxLength: 500
     },
 
-    bookId:{
-      type : 'string'
+    book:{
+      model : 'book'
     },
 
     author: {
