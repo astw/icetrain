@@ -79,6 +79,7 @@ module.exports.routes = {
   , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
   , 'get /registration/confirm': 'AuthController.registerConfirm'
 
+  , 'post /auth/:uid/changePassword':'AuthController.changePassword'
   , 'post /auth/register': 'AuthController.register'
   , 'post /auth/login':'AuthController.login'
   , 'post /auth/loginByUserNameOrEmail':'AuthController.loginByUserNameOrEmail'

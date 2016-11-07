@@ -23,6 +23,7 @@ module.exports = function(req, res, next){
             });
           }
           else {
+            req.session.role = 'admin';
             if(req.method === 'PUT' || req.method === 'DELETE') {
               // use can only write to his/her own course/module/videos
               if(headerUserId != userid){
