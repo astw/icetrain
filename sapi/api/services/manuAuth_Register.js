@@ -46,12 +46,28 @@ function changePassword(req, res) {
           return res.status(401).send({
             message: "Wrong current password"
           });
-        }  
-        console.username = "test username";
-        userFound.password = newPassword; 
-        // userFound.id = new ObjectID(userFound.id);
-        console.log(userFound);
-        userFound.save(userFound, function (err, userUpdated) {
+        }   
+
+        // set new password
+        bcrypt.genSalt(10, function (err, salt) {
+          if (err){
+              sails.log.error("reset password woring(1), error:", err);
+             return res.status(500).send({
+               message: "reset password wrong"
+              });
+           }
+
+           bcrypt.hash(newPassword, salt, null, function (err, hash) {
+            if (err){
+               sails.log.error("reset password woring(2), error:", err);
+               return res.status(500).send({
+                  message: "reset password wrong"
+                });
+              }
+
+            userFound.password = hash;  
+            userFound.save(userFound, function (err, userUpdated) {
+
               if (err) {
                  console.log(err, userUpdated);
                 return res.status(500).send(err);
@@ -59,7 +75,13 @@ function changePassword(req, res) {
                 console.log("password is changed to be:", newPassword);
                 return res.status(200).send(userUpdated);
               }
-        })
+
+            })  
+         })
+       })
+ 
+ 
+        
       })
     }
   }) 
@@ -178,16 +200,35 @@ function updateUserAccountUserNameAndPassword(req, res) {
           // The user name is not used, or the same person 
 
           userFound.userName = username;
-          userFound.password = password;
 
-          userFound.save(userFound, function (err, userUpdated) {
+          bcrypt.genSalt(10, function (err, salt) {
+          if (err){
+              sails.log.error("reset password woring(1), error:", err);
+             return res.status(500).send({
+               message: "reset password wrong"
+              });
+           }
+
+           bcrypt.hash(newPassword, salt, null, function (err, hash) {
+            if (err){
+               sails.log.error("reset password woring(2), error:", err);
+               return res.status(500).send({
+                  message: "reset password wrong"
+                });
+              }
+
+            userFound.password = hash; 
+
+            userFound.save(userFound, function (err, userUpdated) {
             if (err) {
               console.log(err);
               return res.status(500).send(err);
             } else{
               console.log('update good');
               return res.status(200).send(userUpdated);
-            }})
+            }}) 
+          }) // end of bcrypt.hash 
+         })   // end of bcrypt.genSault 
         }
         else {
           console.log(userByName); 

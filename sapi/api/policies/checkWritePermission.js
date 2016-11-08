@@ -7,7 +7,8 @@ module.exports = function(req, res, next){
     var payload = sessionTokenHelper.getPayloadFromSessionToken(token);
     var headerUserId = req.headers.uid;
     var userid = payload.userid; 
-
+console.log('token=',token);
+console.log("payload=",payload);
     req.session.userid = userid;
     if (!userid ) {
         return res.status(401).send({

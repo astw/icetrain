@@ -30,6 +30,7 @@ angular.module('iceApp')
       $scope.user = "";
       $scope.password = "";
       $scope.isAuthenticated = auth.isAuthenticated();
+      
       $location.path('/');
     }
 

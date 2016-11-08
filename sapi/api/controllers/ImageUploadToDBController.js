@@ -26,7 +26,7 @@ var saveThumbFile = function(origFilePath,targetThumbFile, imageType) {
   var defer = q.defer();
 
   // for background,  the width/height=4:3  (68:51)
-  // for props, the width/height=68 :x
+  // for props and profileIcon, the width/height=68 :x
   // for text,  the width/height=150 :x
 
   var originSize = {};
@@ -85,13 +85,20 @@ var uploadImage = function(req,res) {
     maxBytes: 100000000
   };
 
-  var owner = req.body.data.user || 1;
+  if(req.session.userid == null){
+    return res.status(301).send("Not logged");
+  } 
+console.log('session id=', req.session.userid);
+  var owner = req.session.userid ; 
   var imageType = req.param('cat') || 'props';
-
-  var data = JSON.parse(req.body.data);
-  var tag = data.tag;
+  
 
   uploadFile.upload(uploadOptions, function onUploadComplete(err, files) {
+    var tag = "";
+    var data = req.body.data;
+    if(data){
+      tag = data.tag;  
+    } 
 
     var category = imageType;
     var contentType = files[0].type;
@@ -111,14 +118,13 @@ var uploadImage = function(req,res) {
           .then(function (mediaFileOjbect) {
             return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
               fileSize, originWidth, originHeight, category, contentType, mediaFileOjbect.id);
-          })
-          .then(
-          function (mediaCreated) {
-            res.status(201).send(mediaCreated);
-          },
+          }) 
+          .then(function (mediaCreated) {
+               res.status(201).send(mediaCreated);
+             },
 
-          function (err) {
-            return res.serverError(err);
+             function (err) {
+             return res.serverError(err);
           })
           .done(function () {
             fs.unlink(originFilePath);

@@ -24,10 +24,11 @@ module.exports = {
       ]
     }
 
-     var promise = User.findOne(condition);
+     var promise = User.findOne(condition).populate("profile");// .populate('profile');
       
-     promise.then(function(foundUser){
-     //compare password hash
+     promise.then(function(foundUser){ 
+     //compare password hash  
+
       bcrypt.compare(password, foundUser.password, function (err, valid) {
         if (err) return res.status(403);
 
@@ -39,11 +40,13 @@ module.exports = {
         var oldDateObj = new Date();
         var newDateObj = new Date(oldDateObj.getTime() + 60000);
         req.session.cookie.expires = newDateObj;
-        req.session.user = foundUser;
-        createSendToken(foundUser, res,200);
+        req.session.user = foundUser; 
+        createSendToken(foundUser, res,200);  
       });
      })
+
      .catch(function(err){
+        console.log(err);
        return res.status(401).send({
           message: "username or password invalid."
         });
@@ -61,6 +64,7 @@ module.exports = {
     }
 
     User.findOneByEmail(email, function (err, foundUser) {
+
       if (!foundUser) {
         return res.status(401).send({
           message: "username or password invalid."
@@ -96,7 +100,8 @@ module.exports = {
   },
   local_logout : function(req, res){
     req.session.user = null;
+    req.session.userid = null;
     res.status(200);
-    res.redirect('/');
+    // res.redirect('/');
   }
 }

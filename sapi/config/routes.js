@@ -82,9 +82,11 @@ module.exports.routes = {
   , 'post /auth/:uid/changePassword':'AuthController.changePassword'
   , 'post /auth/register': 'AuthController.register'
   , 'post /auth/login':'AuthController.login'
+  , 'get  /auth/logout':"AuthController.local_logout" 
   , 'post /auth/loginByUserNameOrEmail':'AuthController.loginByUserNameOrEmail'
   , 'post /auth/:uid/updateUserNameAndPassword':'AuthController.updateUserNameAndPassword'
   , 'get /test/auth': 'User.auth'
+
 
  ///************************************* book resource
 

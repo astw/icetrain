@@ -20,18 +20,7 @@ module.exports = {
   },
 
   seedData: [
-    {
-      "userid": "1",
-      "type": "write"
-    },
-    {
-      "userid": "2",
-      "type": "read" 
-    },
-    {
-      "userid": "3",
-      "type": "write" 
-    }
+     
   ]
 };
 

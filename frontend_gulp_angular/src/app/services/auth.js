@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('iceApp')
-.service('auth',function($http,$window,$q, $location,authToken, $cookieStore,relayService) {
+.service('auth',function($http,$window,$q, $location,authToken, config, $cookieStore,relayService) {
 
     var API_URL = 'http://localhost:1337/auth/';
     var clientkey = "this is the client key";
@@ -10,6 +10,9 @@ angular.module('iceApp')
     function authSuccessful(data) {
       authToken.setToken(data.token);
       $cookieStore.put(cookieKey,data.user);
+
+       $http.defaults.headers.common[config.apiKeyName] = config.apiKeyValue;
+       $http.defaults.headers.common[config.authTokenName] =  authToken.getToken();
     }
 
     var headers =
@@ -55,6 +58,9 @@ angular.module('iceApp')
     this.login = function (email, password) {
       var dfd = $q.defer();
 
+      $http.defaults.headers.common[config.apiKeyName] = config.apiKeyValue;
+      $http.defaults.headers.common[config.authTokenName] =  null; 
+
       var url = API_URL + "login";
       var message = {email: email, password: password};
       $http.post(url,
@@ -72,9 +78,14 @@ angular.module('iceApp')
     };
 
     this.logout = function () {
+      var url = API_URL + "logout";
+      $http.get(url);
       authToken.removeToken();
       $cookieStore.remove(cookieKey);
       relayService.clear();
+
+      $http.defaults.headers.common[config.apiKeyName] = config.apiKeyValue;
+      $http.defaults.headers.common[config.authTokenName] =  authToken.getToken(); 
     };
 
     this.currentUser = function () {

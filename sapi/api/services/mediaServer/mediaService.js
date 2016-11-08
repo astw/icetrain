@@ -16,7 +16,7 @@ module.exports =  {
        var category = req.param('cat');
        var condition = {};
        if(category === 'background' || category ==='props' || category ==='bigText'
-         || category ==='text' ||category==='personal' || category ==='page'){
+         || category ==='text' ||category==='personal' || category ==='page' || category ==='profileIcon') {
          condition = {
            category:category
          }
@@ -67,9 +67,7 @@ module.exports =  {
 
            var base64Image = file.data;
 
-           if(imageSize && imageSize ==='origin'){
-             console.log('to get origin size');
-             console.log(file.originFile);
+           if(imageSize && imageSize ==='origin'){ 
 
               var originFile = file.mediaFile;
               if(originFile)

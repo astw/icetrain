@@ -16,7 +16,7 @@ module.exports = {
 
     category: {
       type: "string",      // {'background','props','text'}
-      enum: ["background", "props", "text", "font", "personal","page", "bigText"],
+      enum: ["background", "props", "text", "font", "profileIcon", "personal","page", "bigText"],
       defaultsTo: "background"
     },
 
@@ -40,9 +40,10 @@ module.exports = {
     size: {
       type: "integer"
     },
-
-    owner:{
-       type: "integer"
+ 
+    owner: {
+      model: "User",
+      required:"true"
     },
 
     data:{
