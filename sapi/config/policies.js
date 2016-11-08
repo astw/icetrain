@@ -53,6 +53,16 @@ module.exports.policies = {
      "destroy":['checkClientKey','jwtAuth','checkWritePermission']
    },
 
+   "ImageUploadToDBController" :{
+    "find" :['checkClientKey'], 
+    "upload":['checkClientKey','jwtAuth','checkWritePermission'],
+     "deleteImage" :['checkClientKey','jwtAuth','checkWritePermission'],
+     "create":['checkClientKey','jwtAuth','checkWritePermission'],
+     'deleteVideo':['checkClientKey','jwtAuth','checkWritePermission'],
+     "update":['checkClientKey','jwtAuth','checkWritePermission'],
+     "destroy":['checkClientKey','jwtAuth','checkWritePermission'] 
+   },
+
    "CourseController" :{
      'find':['checkClientKey'],
      'postCourse' :['checkClientKey','jwtAuth','checkWritePermission'],
