@@ -119,8 +119,9 @@ console.log('session id=', req.session.userid);
             return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
               fileSize, originWidth, originHeight, category, contentType, mediaFileOjbect.id);
           }) 
-          .then(function (mediaCreated) {
-               res.status(201).send(mediaCreated);
+          .then(function (mediaId) {
+               sails.log.info("created=", mediaId);
+               res.status(201).send(mediaId);
              },
 
              function (err) {

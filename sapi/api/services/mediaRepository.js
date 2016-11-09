@@ -8,7 +8,7 @@ module.exports = {
 };
 
 function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, category, contentType, mediaFileId) {
-   
+  var defer = q.defer();
   var fileParam = {};
 
   fileParam.tag = tag;
@@ -21,12 +21,12 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
   fileParam.mediaFile = mediaFileId;
 
   /// get the thumb media data
-  return getMediaFileData(filePath, mediaFileId)
+  getMediaFileData(filePath, mediaFileId)
     .then(function (data) {
       fileParam.data = data;
-      return Media.create(fileParam, function (err, mediaCreated) {
+      Media.create(fileParam, function (err, mediaCreated) {
         if (err) {
-           return q.reject(err);
+           return defer.reject(err);
         }
              
         // save to UserPrifle  
@@ -35,15 +35,15 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
         userProfile.icon = mediaCreated.id;
         UserProfile.updateOrCreate({user:owner}, userProfile, function(err, profileIconCreated){
             if(err){
-                 console.log("saving profileIcon failed. Error=", err); 
-                 return q.reject(err);
+                 sails.log.error("saving profileIcon failed. Error=", err); 
+                 return defer.reject(err);
             } 
 
           profileIconCreated = [].concat(profileIconCreated);
           var id = profileIconCreated[0].id;  
   
           // update User.profile field 
-           User.update({id:owner}, {profile:id}, function(err, updatedUser){
+          User.update({id:owner}, {profile:id}, function(err, updatedUser){
               
               if(err){
                 sails.log.error("error to find user id:",id); 
@@ -52,12 +52,13 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
               sails.log.info("update user.profile finished "); 
 
             }); 
- 
-          return  profileIconCreated;
+           sails.log.info("mediaCreated,", mediaCreated);
         }) 
+        return defer.resolve(mediaCreated.mediaFile); 
       }) 
     })
    
+   return defer.promise;
 }
 
  function  getMediaFileData(filePath, mediaFileId){
