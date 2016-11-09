@@ -52,9 +52,9 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
               sails.log.info("update user.profile finished "); 
 
             }); 
-           sails.log.info("mediaCreated,", mediaCreated);
+           sails.log.info("mediaCreated,", mediaCreated.id);
         }) 
-        return defer.resolve(mediaCreated.mediaFile); 
+        return defer.resolve(mediaCreated.id); 
       }) 
     })
    
