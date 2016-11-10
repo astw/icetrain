@@ -5,12 +5,12 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var bcrypt = require('bcrypt-nodejs');
-var ObjectID = require('mongodb').ObjectID; 
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
-   
+
   attributes: {
- 
+
     user: {
       model: "User",
       required:"true"
@@ -21,23 +21,23 @@ module.exports = {
     },
 
     location:{
-      type:"string" 
+      type:"string"
     },
 
     interests: {
-      type: "string" 
+      type: "string"
     },
 
     icon:{
-      model:'Media' 
+      model:'Media'
     }
-  }, 
+  },
 
   updateOrCreate: function(criteria, values, cb){
       var self = this; // reference for use by callbacks
       // If no values were specified, use criteria
       if (!values) values = criteria.where ? criteria.where : criteria;
-
+console.log('criteria=' , criteria);
       this.findOne(criteria, function (err, result){
         if(err) return cb(err, false);
 
@@ -48,8 +48,8 @@ module.exports = {
         }
       });
     },
-    
+
   seedData: [
-    
+
   ]
 };

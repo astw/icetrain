@@ -26,6 +26,9 @@ module.exports.policies = {
     "UserController":{
      //   "find" :['checkWritePermission'],
      //   "findOne" :['checkWritePermission']
+     "updateUserProfile" : ['checkClientKey','jwtAuth','checkWritePermission'],
+     "update":['checkClientKey','jwtAuth','checkWritePermission'],
+     "destroy":['checkClientKey','jwtAuth','checkWritePermission']
     },
 
    "AuthController" :{

@@ -116,7 +116,7 @@ console.log('session id=', req.session.userid);
 
         mediaFileRepository.saveToMediaFileCollection(originFilePath, fileSize, originWidth, originHeight, category, contentType)
           .then(function (mediaFileOjbect) {
-            return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
+             return mediaRepository.saveToMediaCollection(targetThumbFile, tag, owner,
               fileSize, originWidth, originHeight, category, contentType, mediaFileOjbect.id);
           }) 
           .then(function (mediaId) {

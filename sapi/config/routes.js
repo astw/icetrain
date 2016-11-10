@@ -74,6 +74,8 @@ module.exports.routes = {
   , 'get /users/:uid/watchHistory/:cid': "WatchHistoryController.getUserCourseWatchHistory"
   , 'post /users/:uid/watchHistory': 'WatchHistoryController.addUserWatchHistory'
   , 'put /users/:uid/watchHistory': 'WatchHistoryController.updateWatchHistory'
+  
+  , 'post /users/:uid/profile' :'UserController.updateUserProfile'
 
   , 'get /auth/checkUserName/:username': 'AuthController.checkUsername'
   , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
@@ -85,6 +87,7 @@ module.exports.routes = {
   , 'get  /auth/logout':"AuthController.local_logout" 
   , 'post /auth/loginByUserNameOrEmail':'AuthController.loginByUserNameOrEmail'
   , 'post /auth/:uid/updateUserNameAndPassword':'AuthController.updateUserNameAndPassword'
+  
   , 'get /test/auth': 'User.auth'
 
 
