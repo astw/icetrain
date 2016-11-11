@@ -5,19 +5,24 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 var bcrypt = require('bcrypt-nodejs');
-var ObjectID = require('mongodb').ObjectID; 
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
-   
+
   attributes: {
- 
-    // id:{ 
-    //   //type:'integer', 
+
+    // id:{
+    //   //type:'integer',
     //   type:'objectid',
     //   primaryKey:true,
     //   autoIncrement:true,
     //   // columnName:'userId'
     //   },
+
+    userId:{
+      type:'integer',
+      autoIncrement:'true'
+    },
 
     email: {
       type: "string",
@@ -61,24 +66,34 @@ module.exports = {
       }
     },
 
-    profile:{
-      model:"UserProfile"
+    occupation:{
+      type:"string"
     },
 
+    location:{
+      type:"string"
+    },
 
-    //courses: {
-    //  collection: "Course",
-    //  via: "tutor"
-    //},
+    interests: {
+      type: "string"
+    },
 
-    //comments:{
-    //  collection:"BookComment",
-    //  via:"author"
-    //},
+    icon:{
+      model:'Media'
+    },
+
+    thirdPartyId :{
+      type:"string"
+    },
+
+    thirdPartyType:{
+      enum: ["google", "facebook", "wechat", "test"]
+    },
 
     googleId: {type: "string"},
     facebookId: {type: "string"},
     displayName: {type: "string"},
+
     active: {type: "boolean"},
 
     toJSON: function () {
@@ -87,7 +102,7 @@ module.exports = {
       return obj;
     }
   },
-  
+
   beforeCreate: function (attributes, next) {
     bcrypt.genSalt(10, function (err, salt) {
       if (err) return next(err);
@@ -106,20 +121,20 @@ module.exports = {
       "email": "aa@aa.com",
       "userName":"wangshuhao",
       "password": "123456",
-      "displayName": "wang shu hao" 
+      "displayName": "wang shu hao"
     },
     {
       "email": "bb@aa.com",
       "userName":"sunwenyan",
       "password": "123456",
-      "displayName": "sun wen yan" 
+      "displayName": "sun wen yan"
     },
 
     {
       "email": "cc@aa.com",
       "userName":"kelvinwang",
       "password": "123456",
-      "displayName": "Kelvin Wang" 
+      "displayName": "Kelvin Wang"
     }
   ]
 };

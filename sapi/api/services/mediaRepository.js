@@ -1,6 +1,6 @@
 var fs = require('fs');
 var q = require('q');
-var ObjectID = require('mongodb').ObjectID; 
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
   saveToMediaCollection : saveToMediaCollection,
@@ -26,39 +26,22 @@ function saveToMediaCollection(filePath,tag,owner, fileSize,width, height, categ
       fileParam.data = data;
       Media.create(fileParam, function (err, mediaCreated) {
         if (err) {
-           return defer.reject(err);
+          sails.log.error("Media.create failed. Error=", err);
+          return defer.reject(err);
         }
-             
-        // save to UserPrifle  
-        var userProfile ={}; 
-        userProfile.user = owner; 
-        userProfile.icon = mediaCreated.id;
-        UserProfile.updateOrCreate({user:owner}, userProfile, function(err, profileIconCreated){
-            if(err){
-                 sails.log.error("saving profileIcon failed. Error=", err); 
-                 return defer.reject(err);
-            } 
-
-          profileIconCreated = [].concat(profileIconCreated);
-          var id = profileIconCreated[0].id;  
-  
-          // update User.profile field 
-          User.update({id:owner}, {profile:id}, function(err, updatedUser){
-              
-              if(err){
-                sails.log.error("error to find user id:",id); 
-                return err; 
-              }
-              sails.log.info("update user.profile finished "); 
-
-            }); 
-           sails.log.info("mediaCreated,", mediaCreated.id);
-        }) 
-        return defer.resolve(mediaCreated.id); 
-      }) 
-    })
-   
-   return defer.promise;
+        var id = mediaCreated.id;
+        // update User.profile field
+        User.update({id: owner}, {icon: id}, function (err, updatedUser) {
+          if (err) {
+            sails.log.error("error to find user id:", id);
+            return err;
+          }
+          sails.log.info("update user.profile finished ");
+          return defer.resolve(id);
+        });
+      });
+    });
+  return defer.promise;
 }
 
  function  getMediaFileData(filePath, mediaFileId){
