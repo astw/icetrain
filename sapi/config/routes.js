@@ -73,10 +73,12 @@ module.exports.routes = {
   , 'get /users/:uid/watchHistory': 'WatchHistoryController.getUserWatchHistory'
   , 'get /users/:uid/watchHistory/:cid': "WatchHistoryController.getUserCourseWatchHistory"
   , 'post /users/:uid/watchHistory': 'WatchHistoryController.addUserWatchHistory'
-  , 'put /users/:uid/watchHistory': 'WatchHistoryController.updateWatchHistory'
-  
-  , 'post /users/:uid/profile' :'UserController.updateUserProfile'
+  , 'put /users/:uid/watchHistory': 'WatchHistoryController.updateWatchHistory' 
 
+  , 'post /users/:uid/profile' :'UserController.updateUserProfile' 
+  , 'get /users/:uid/profile': 'UserController.getUserProfile'
+  
+  , 'get /auth/profile/:id': 'AuthController.getUserProfile'
   , 'get /auth/checkUserName/:username': 'AuthController.checkUsername'
   , 'get /auth/checkEmail/:email': 'AuthController.checkEmail'
   , 'get /registration/confirm': 'AuthController.registerConfirm'

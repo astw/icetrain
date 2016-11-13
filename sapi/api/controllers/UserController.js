@@ -6,20 +6,42 @@
  */
 
 
-function UserController(){}
+// function UserController(){};
 
-UserController.prototype.updateUserProfile = updateUserProfile;
-UserController.prototype.getUserProfile = getUserProfile;
+// UserController.prototype.updateUserProfile = updateUserProfile;
+// UserController.prototype.getUserProfile = getUserProfile;
+// UserController.prototype.auth = auth;
 
-UserController.prototype.auth = auth;
+// module.exports = new UserController();
 
 module.exports = {
   auth:auth,
-  updateUserProfile:updateUserProfile
+  updateUserProfile:updateUserProfile,
+  getUserProfile:  getUserProfile
+};
 
-}
+//---------------------------------------------------------------------- 
 
-//----------------------------------------------------------------------
+function getUserProfile(req, res){
+ 
+   var userid = req.param('uid'); 
+   User.findOne({id:userid}).exec(function(err, userFound) {
+
+    	if(err){
+    		sails.log.erro("UserProfileService.getUserProfile failed, error:", error);
+    		return res.status(500).send(err);
+    	}
+
+    	if(!userFound){
+    	   sails.log.error("User with id="+ userid + " cannot be found");
+    	   return res.status(400).send('false');
+    	}
+ 
+  	   sails.log.info("update user finished ");
+       return res.status(200).send(userFound); 
+    })
+};
+
 function updateUserProfile(req,res){
 
 	  var userid = req.param('uid');
@@ -63,11 +85,8 @@ function updateUserProfile(req,res){
   	   sails.log.info("update user finished ");
        return res.status(200).send(userUpdated[0]); 
     })
-}
-
-function getUserProfile(req, res){
-
-}
+};
+ 
 
 function auth(req,res){
 	 console.log(req.query.username);

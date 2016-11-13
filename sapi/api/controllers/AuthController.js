@@ -25,5 +25,26 @@ module.exports = {
   local_logout: loginSerice.local_logout,
 
   google: googleAuth,
-  facebook: facebookAuth
+  facebook: facebookAuth,
+  getUserProfile:getUserProfile
 };
+
+
+function getUserProfile(req, res){
+   var userid = req.param('uid');
+   User.findOne({id:userid}).exec(function(err, userFound) {
+
+      if(err){
+        sails.log.erro("UserProfileService.getUserProfile failed, error:", error);
+        return res.status(500).send(err);
+      }
+
+      if(!userFound){
+         sails.log.error("User with id="+ userid + " cannot be found");
+         return res.status(400).send('false');
+      }
+ 
+       sails.log.info("update user finished ");
+       return res.status(200).send(userFound); 
+    })
+}
